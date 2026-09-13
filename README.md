@@ -41,7 +41,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 <a id="curricular-progression-map"></a>
 ## Visual Learning Path & Progression Map
 
-![alt text](<assets/Visual Learning Path.svg>)
+![Visual Learning Path](<assets/Visual Learning Path.png>)
 
 ---
 

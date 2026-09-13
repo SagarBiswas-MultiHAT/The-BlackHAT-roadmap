@@ -315,6 +315,52 @@ proxychains4 nmap -sT -Pn target
 # - Tor is not sufficient alone for high-risk ops: chain with VPN
 ```
 
+**The Tor + proxychains concept**
+
+> Install Tor (Kali/Ubuntu[VPS])
+
+```
+sudo apt update
+sudo apt install tor proxychains4 -y
+sudo systemctl start tor
+sudo systemctl enable tor
+```
+
+> By default, Tor runs a SOCKS5 proxy on `127.0.0.1:9050`. Check it:
+
+```
+ss -tlnp | grep 9050
+```
+
+> proxychains config
+
+File: `/etc/proxychains4.conf`
+
+Make sure the last line contains:
+
+```
+socks5  127.0.0.1  9050
+```
+
+And keep `strict_chain` (default) at the top.
+
+> Test
+
+```
+proxychains4 curl https://check.torproject.org
+```
+
+If it says "Congratulations, you are using Tor", it's working.
+
+> Check traffic
+
+```
+proxychains4 curl ifconfig.me
+```
+
+It will show a Tor exit node IP, not your real IP.
+
+
 **Chain Architecture:**
 ```
 For research: VPN → Tor → target
