@@ -1,0 +1,43 @@
+name: Technical Resource / Module Proposal
+description: Propose an advanced research paper, book, lab architecture, or new module
+labels: [enhancement, tradecraft]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We prioritize high-depth resources that focus on internal mechanics rather than surface-level tools.
+  - type: input
+    id: title
+    attributes:
+      label: Resource Title & Author
+      placeholder: "e.g., Evading EDR via Indirect Syscalls - John Doe"
+    validations:
+      required: true
+  - type: dropdown
+    id: target_phase
+    attributes:
+      label: Target Curriculum Phase
+      options:
+        - "Phase -1: OPSEC & Infrastructure"
+        - "Phase 0: Low-Level Foundations"
+        - "Phase 1: Web Application Security"
+        - "Phase 2: Network & Infrastructure"
+        - "Phase 3: System & Kernel Exploitation"
+        - "Phase 4: Advanced Tradecraft"
+        - "Phase 5: GREATEST Research"
+        - "Labs / Code Scaffolding"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Technical Justification
+      description: Explain why this resource raises the technical bar of the curriculum.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Direct Link / Paper DOI
+    validations:
+      required: true

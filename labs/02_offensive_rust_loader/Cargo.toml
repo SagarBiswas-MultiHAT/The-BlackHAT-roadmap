@@ -1,0 +1,20 @@
+[package]
+name = "offensive-rust-loader"
+version = "0.1.0"
+edition = "2021"
+authors = ["Sagar Biswas"]
+description = "Offensive Rust in-memory payload execution prototype"
+
+[dependencies]
+windows-sys = { version = "0.52", features = [
+    "Win32_Foundation",
+    "Win32_System_Memory",
+    "Win32_System_Threading",
+] }
+
+[profile.release]
+opt-level = "z"     # Optimize for size
+lto = true          # Enable link-time optimization
+codegen-units = 1   # Maximize size reduction optimizations
+panic = "abort"     # Remove unwind tables
+strip = true        # Automatically strip debug symbols

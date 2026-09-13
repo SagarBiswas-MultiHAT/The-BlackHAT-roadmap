@@ -1,0 +1,29 @@
+name: Curriculum Correction / Fix
+description: Report a technical discrepancy, dead reference, or broken link
+labels: [fix, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping keep The BlackHAT Roadmap technically precise and current.
+  - type: input
+    id: location
+    attributes:
+      label: File & Line Location
+      description: Specify the document and section/line number where the issue occurs.
+      placeholder: "e.g., The BlackHAT Roadmap v4 (0 to GREATEST).md - Phase 4C"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Technical Issue Details
+      description: Describe the incorrect concept, outdated API, broken command, or dead URL.
+      placeholder: "Detailed explanation of what needs fixing..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_fix
+    attributes:
+      label: Proposed Fix / Updated Reference
+      description: Provide the accurate command, code adjustment, or updated URL if known.
