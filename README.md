@@ -13,7 +13,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href="#"><img src="https://img.shields.io/badge/Version-v4.0%20GREATEST-00ff66.svg?style=for-the-badge&logo=target" alt="Version" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Curriculum-9%2C300%2B%20Lines-blue.svg?style=for-the-badge&logo=gitbook" alt="Curriculum Volume" /></a>
   <a href="#"><img src="https://img.shields.io/badge/MITRE%20ATT%26CK-v14.1%20Mapped-yellow.svg?style=for-the-badge&logo=matrix" alt="MITRE ATT&CK" /></a>
-  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=for-the-badge&logo=git" alt="PRs Welcome" /></a>
+  <a href=".github/CONTRIBUTING.md"><img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=for-the-badge&logo=git" alt="PRs Welcome" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-purple.svg?style=for-the-badge" alt="License" /></a>
 </p>
 
@@ -28,7 +28,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href="#why-this-repository-exists">The Philosophy</a> •
   <a href="#master-volumes">Master Volumes</a> •
   <a href="#visual-learning-path--progression-map">Learning Path</a> •
-  <a href="TRACKER.md">Journey Tracker</a> •
+  <a href=".github/TRACKER.md">Journey Tracker</a> •
   <a href="labs/">Hands-on Labs</a> •
   <a href="#legal-disclaimer">Legal Notice</a>
 </p>
@@ -38,12 +38,6 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 </div>
 
 
-<a id="curricular-progression-map"></a>
-## Visual Learning Path & Progression Map
-
-![Visual Learning Path](<assets/Visual Learning Path.png>)
-
----
 
 ## Executive Summary
 
@@ -95,7 +89,7 @@ This repository is organized into distinct operational modules and practical eng
 the-blackhat-roadmap/
 |-- The BlackHAT Roadmap v4 (0 to GREATEST).md   # [Volume I] Complete 8,500+ line curriculum
 |-- BlackHat Long-Term Survival Tactics.md       # [Volume II] 760+ line OPSEC & survival guide
-|-- TRACKER.md                                   # Interactive milestone progress tracker
+|-- .github/TRACKER.md                           # Interactive milestone progress tracker
 |-- labs/                                        # Compilable C & Rust offensive engineering labs
 |   |-- 01_dynamic_api_resolver/                 # Windows PEB traversal & export hashing in C
 |   `-- 02_offensive_rust_loader/                # Memory state transition & loader in Rust
@@ -108,7 +102,7 @@ An end-to-end technical syllabus guiding engineers from fundamental systems arch
 ### Volume II: [BlackHat Long-Term Survival Tactics](BlackHat%20Long-Term%20Survival%20Tactics.md)
 The operational security doctrine. Covers persona isolation, hardware sterilization (BIOS, MAC, serial cleaning), network layering (multi-hop Tor/VPN/proxy chains), non-KYC financial anonymity, encrypted counter-surveillance, and anti-forensics.
 
-### Progress Tracking: [Interactive Journey Tracker](TRACKER.md)
+### Progress Tracking: [Interactive Journey Tracker](.github/TRACKER.md)
 Fork the repository and track your personal progress through Phase -1 to Phase 5, logging lab milestones and capstone projects directly on GitHub.
 
 ---
@@ -234,7 +228,7 @@ If this curriculum provides value to your research or career, consider starring 
 
 Contributions that raise the technical bar are welcome:
 
-- **Quality Threshold:** PRs adding generic tool lists or introductory material will not be merged. Read our [Contributing Guidelines](CONTRIBUTING.md).
+- **Quality Threshold:** PRs adding generic tool lists or introductory material will not be merged. Read our [Contributing Guidelines](.github/CONTRIBUTING.md).
 - **Code Standards:** Code samples must be functional, accompanied by technical rationale, and compiled against modern toolchains. Check out the [Hands-on Labs](labs/) directory.
 - **Formatting Rule:** Adhere strictly to clean markdown standards. Do not include em-dashes anywhere in text or documentation.
 
@@ -249,7 +243,7 @@ Contributions that raise the technical bar are welcome:
 > 
 > Unauthorized testing, access, or exploitation against networks, servers, or endpoints without explicit permission is illegal under local, national, and international laws (including the US Computer Fraud and Abuse Act, UK Computer Misuse Act, and equivalent statutes).
 > 
-> The author assumes no liability and is not responsible for any misuse, damage, or legal consequences resulting from the application of the information contained herein. Learn responsibly. Refer to [SECURITY.md](SECURITY.md) for scope and reporting.
+> The author assumes no liability and is not responsible for any misuse, damage, or legal consequences resulting from the application of the information contained herein. Learn responsibly. Refer to [SECURITY.md](.github/SECURITY.md) for scope and reporting.
 
 ---
 

@@ -7,7 +7,7 @@ Thank you for your interest in contributing to The BlackHAT Roadmap. This reposi
 ## What We Welcome
 
 - **In-Depth Technical Modules**: Comprehensive breakdowns of emerging tradecraft (e.g., hypervisor evasion, advanced ADCS coercion, eBPF rootkit mechanics, hardware bus exploitation).
-- **Practical Code Samples**: Clean, compilable, well-documented C, Rust, Assembly, or Python proof-of-concepts targeting the `labs/` directory.
+- **Practical Code Samples**: Clean, compilable, well-documented C, Rust, Assembly, or Python proof-of-concepts targeting the [labs/](../labs/) directory.
 - **Curriculum Corrections**: Fixes for dead external links, outdated API signatures, or factual technical discrepancies.
 - **Lab Architectures**: Automated deployment scripts (Terraform, Docker Compose, Vagrant) for reproducible research environments.
 
