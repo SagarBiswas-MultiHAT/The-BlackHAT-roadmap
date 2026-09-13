@@ -18,9 +18,9 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/SagarBiswas-MultiHAT/the-blackhat-roadmap?style=flat-square&logo=github&color=ffcc00" alt="Stars" />
-  <img src="https://img.shields.io/github/forks/SagarBiswas-MultiHAT/the-blackhat-roadmap?style=flat-square&logo=git-fork&color=orange" alt="Forks" />
-  <img src="https://img.shields.io/github/last-commit/SagarBiswas-MultiHAT/the-blackhat-roadmap?style=flat-square&logo=clock" alt="Last Commit" />
+  <img src="https://img.shields.io/github/stars/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=github&color=ffcc00" alt="Stars" />
+  <img src="https://img.shields.io/github/forks/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=git-fork&color=orange" alt="Forks" />
+  <img src="https://img.shields.io/github/last-commit/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=clock" alt="Last Commit" />
 </p>
 
 <p align="center">
@@ -37,7 +37,10 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 
 </div>
 
+<a id="curricular-progression-map"></a>
+## Visual Learning Path & Progression Map
 
+![Visual Learning Path](<assets/Visual Learning Path.png>)
 
 ## Executive Summary
 
@@ -54,10 +57,10 @@ This repository contains over 9,300 lines of battle-tested technical documentati
 | Total Content Volume : 9,300+ lines of raw technical tradecraft             |
 | Progression Depth    : 6 Core Phases (Phase -1 through Phase 5)             |
 | Specialized Modules  : 35+ In-Depth Modules and Modern 2026 Tracks          |
-| Practical Languages  : C, C++, Rust, x86/x64 Assembly, eBPF, Python, PS    |
+| Practical Languages  : C, C++, Rust, x86/x64 Assembly, eBPF, Python, PS     |
 | Defense Evasion      : Sleep Obfuscation, Indirect Syscalls, Stack Spoof    |
-| Identity Tradecraft  : ADCS ESC1-8, Coercion, Kerberos, Entra ID PRT       |
-| Modern Attack Vector : Offensive AI, Cloud Pivoting, Hypervisors, eBPF     |
+| Identity Tradecraft  : ADCS ESC1-8, Coercion, Kerberos, Entra ID PRT        |
+| Modern Attack Vector : Offensive AI, Cloud Pivoting, Hypervisors, eBPF      |
 +-----------------------------------------------------------------------------+
 ```
 
@@ -86,7 +89,7 @@ Most resources teach how software is *supposed* to work. Real offensive security
 This repository is organized into distinct operational modules and practical engineering labs:
 
 ```
-the-blackhat-roadmap/
+The-BlackHAT-roadmap/
 |-- The BlackHAT Roadmap v4 (0 to GREATEST).md   # [Volume I] Complete 8,500+ line curriculum
 |-- BlackHat Long-Term Survival Tactics.md       # [Volume II] 760+ line OPSEC & survival guide
 |-- .github/TRACKER.md                           # Interactive milestone progress tracker
@@ -104,13 +107,6 @@ The operational security doctrine. Covers persona isolation, hardware sterilizat
 
 ### Progress Tracking: [Interactive Journey Tracker](.github/TRACKER.md)
 Fork the repository and track your personal progress through Phase -1 to Phase 5, logging lab milestones and capstone projects directly on GitHub.
-
----
-
-<a id="curricular-progression-map"></a>
-## Visual Learning Path & Progression Map
-
-![Visual Learning Path](<assets/Visual Learning Path.svg>)
 
 ---
 
@@ -218,7 +214,7 @@ If this curriculum provides value to your research or career, consider starring 
 
 <div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=SagarBiswas-MultiHAT/the-blackhat-roadmap&type=Date)](https://star-history.com/#SagarBiswas-MultiHAT/the-blackhat-roadmap&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=SagarBiswas-MultiHAT/The-BlackHAT-roadmap&type=Date)](https://star-history.com/#SagarBiswas-MultiHAT/The-BlackHAT-roadmap&Date)
 
 </div>
 
