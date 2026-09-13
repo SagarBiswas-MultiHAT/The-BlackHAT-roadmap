@@ -1,35 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 210" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 235" width="100%" height="100%">
   <defs>
-    <linearGradient id="cyber-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <!-- Laser Sheen Shimmer across BLACKHAT -->
+    <linearGradient id="shimmer" gradientUnits="userSpaceOnUse" x1="-350" y1="0" x2="0" y2="0">
       <stop offset="0%" stop-color="#00ff66" />
-      <stop offset="50%" stop-color="#00e5ff" />
+      <stop offset="35%" stop-color="#00ff66" />
+      <stop offset="48%" stop-color="#ffffff" />
+      <stop offset="52%" stop-color="#00f0ff" />
+      <stop offset="65%" stop-color="#00ff66" />
       <stop offset="100%" stop-color="#00ff66" />
+      <animate attributeName="x1" values="-350; 850; 850" keyTimes="0; 0.65; 1" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="x2" values="0; 1200; 1200" keyTimes="0; 0.65; 1" dur="4s" repeatCount="indefinite" />
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="1.5" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
+
+    <style>
+      @keyframes cursor-blink {
+        0%, 45% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+      @keyframes status-pulse {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 1; }
+      }
+      .ascii-art {
+        font-family: 'Courier New', Consolas, Monaco, monospace;
+        font-size: 13.5px;
+        font-weight: 700;
+        fill: url(#shimmer);
+      }
+      .cursor {
+        animation: cursor-blink 0.9s steps(1) infinite;
+      }
+      .hud-text {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        fill: #3fb950;
+      }
+      .hud-bracket {
+        stroke: #30363d;
+        stroke-width: 1.5;
+        fill: none;
+      }
+      .hud-dot {
+        animation: status-pulse 2s ease-in-out infinite;
+      }
+    </style>
   </defs>
-  
+
   <!-- Background Card -->
-  <rect width="850" height="210" fill="#0d1117" rx="10" stroke="#30363d" stroke-width="1.5" />
-  
-  <!-- Subtle Grid Accent -->
-  <line x1="20" y1="165" x2="830" y2="165" stroke="#21262d" stroke-width="1" />
-  
-  <!-- Centered ASCII Art -->
-  <g filter="url(#glow)">
-    <text x="50%" y="42" text-anchor="middle" font-family="Courier New, Consolas, monospace" font-size="13.5" font-weight="700" fill="url(#cyber-gradient)" xml:space="preserve">██████╗ ██╗      █████╗  ██████╗██╗  ██╗██╗  ██╗ █████╗ ████████╗</text>
-    <text x="50%" y="60" text-anchor="middle" font-family="Courier New, Consolas, monospace" font-size="13.5" font-weight="700" fill="url(#cyber-gradient)" xml:space="preserve">██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝██║  ██║██╔══██╗╚══██╔══╝</text>
-    <text x="50%" y="78" text-anchor="middle" font-family="Courier New, Consolas, monospace" font-size="13.5" font-weight="700" fill="url(#cyber-gradient)" xml:space="preserve">██████╔╝██║     ███████║██║     █████═╝ ███████║███████║   ██║   </text>
-    <text x="50%" y="96" text-anchor="middle" font-family="Courier New, Consolas, monospace" font-size="13.5" font-weight="700" fill="url(#cyber-gradient)" xml:space="preserve">██╔══██╗██║     ██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██║   ██║   </text>
-    <text x="50%" y="114" text-anchor="middle" font-family="Courier New, Consolas, monospace" font-size="13.5" font-weight="700" fill="url(#cyber-gradient)" xml:space="preserve">██████╔╝███████╗██║  ██║╚██████╗██║ ╚██╗██║  ██║██║  ██║   ██║   </text>
-    <text x="50%" y="132" text-anchor="middle" font-family="Courier New, Consolas, monospace" font-size="13.5" font-weight="700" fill="url(#cyber-gradient)" xml:space="preserve">╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   </text>
+  <rect width="850" height="235" fill="#0d1117" rx="10" stroke="#30363d" stroke-width="1.5" />
+
+  <!-- Cybernetic HUD Corner Accents -->
+  <path class="hud-bracket" d="M 18 28 L 18 18 L 28 18" />
+  <path class="hud-bracket" d="M 832 28 L 832 18 L 822 18" />
+  <path class="hud-bracket" d="M 18 207 L 18 217 L 28 217" />
+  <path class="hud-bracket" d="M 832 207 L 832 217 L 822 217" />
+
+  <!-- Top Status Bar -->
+  <circle cx="32" cy="30" r="3.5" fill="#00ff66" class="hud-dot" />
+  <text x="44" y="33" class="hud-text">STATUS: ACTIVE // OPERATOR TRADECRAFT</text>
+  <text x="818" y="33" class="hud-text" text-anchor="end">TIER: 0.001%</text>
+
+  <!-- Centered Razor-Sharp ASCII Art with Laser Sheen Shimmer (Spaced with newline gap) -->
+  <g class="ascii-art">
+    <text x="50%" y="76" text-anchor="middle" xml:space="preserve">██████╗ ██╗      █████╗  ██████╗██╗  ██╗██╗  ██╗ █████╗ ████████╗</text>
+    <text x="50%" y="94" text-anchor="middle" xml:space="preserve">██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝██║  ██║██╔══██╗╚══██╔══╝</text>
+    <text x="50%" y="112" text-anchor="middle" xml:space="preserve">██████╔╝██║     ███████║██║     █████═╝ ███████║███████║   ██║   </text>
+    <text x="50%" y="130" text-anchor="middle" xml:space="preserve">██╔══██╗██║     ██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██║   ██║   </text>
+    <text x="50%" y="148" text-anchor="middle" xml:space="preserve">██████╔╝███████╗██║  ██║╚██████╗██║ ╚██╗██║  ██║██║  ██║   ██║   </text>
+    <text x="50%" y="166" text-anchor="middle" xml:space="preserve">╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   </text>
   </g>
-  
-  <!-- Centered Subtitle Tagline -->
-  <text x="50%" y="188" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#8b949e" letter-spacing="4px">R O A D M A P   v 4   :   ( 0   T O   G R E A T E S T )</text>
+
+  <!-- Subtle Divider Line -->
+  <line x1="30" y1="186" x2="820" y2="186" stroke="#21262d" stroke-width="1.2" />
+
+  <!-- Subtitle with Blinking Terminal Cursor -->
+  <g>
+    <text x="50%" y="210" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#8b949e" letter-spacing="4px">
+      R O A D M A P   v 4   :   ( 0   T O   G R E A T E S T )<tspan fill="#00ff66" font-weight="700" class="cursor"> _</tspan>
+    </text>
+  </g>
 </svg>

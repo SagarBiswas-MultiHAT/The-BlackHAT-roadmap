@@ -113,6 +113,13 @@ Fork the repository and track your personal progress through Phase -1 to Phase 5
 
 ---
 
+<a id="curricular-progression-map"></a>
+## Visual Learning Path & Progression Map
+
+![Visual Learning Path](<assets/Visual Learning Path.svg>)
+
+---
+
 ## Quick Navigation
 
 Click any section below to navigate directly into the roadmap documentation:
