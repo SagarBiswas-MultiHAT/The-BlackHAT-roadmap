@@ -150,12 +150,15 @@ Phase 2   →  Network & Infrastructure
 Phase 3   →  System & Kernel Exploitation
               Binary exploitation, shellcode, ROP, kernel.
 
-Phase 4   →  Advanced Tradecraft (8 specializations)
+Phase 4   →  Advanced Tradecraft (9 specializations)
               Implants. C2. EDR evasion. Rootkits. 0-day. Hardware.
-              Supply chain. APT persistence.
+              Supply chain. APT persistence. Active Directory & Identity.
 
 Phase 5   →  GREATEST
               Original research. Novel techniques. Shaping the field.
+
+Phase 6   →  Special Operations (Parallel Track)
+              Physical red team, hardware drops, quantum horizon, formal ROE.
 ```
 
 Every phase is a prerequisite for the next. Skipping builds rotten foundations. Rotten foundations collapse under real-world pressure.
@@ -173,6 +176,7 @@ Every phase is a prerequisite for the next. Skipping builds rotten foundations. 
 | Phase 3 | 6–12 months | 35–40 | 20% of remaining |
 | Phase 4 | 12–24 months | 40+ | 5% reach depth |
 | Phase 5 | Ongoing | Unlimited | 0.001% |
+| Phase 6 | Parallel track | Mission-driven | Top 0.0001% operational breadth |
 
 
 **Accelerated path (CS/sysdev background):** Cut each phase by 30–40%. Still non-negotiable to do the work.
