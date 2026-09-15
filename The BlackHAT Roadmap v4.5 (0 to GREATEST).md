@@ -197,7 +197,7 @@ Every phase is a prerequisite for the next. Skipping builds rotten foundations. 
 
 </div>
 
-**Start here. Before Linux. Before Python. Before everything.**
+**Duration:** 3–5 weeks | **Difficulty:** Beginner | **Hours/Week:** 10–20 | **Prerequisites:** None | **Completion Rate:** 90%
 
 ---
 
@@ -2465,150 +2465,2264 @@ Everything below must be complete before Phase 0. These are not suggestions. The
 
 ---
 
-## PHASE 0: FOUNDATION (3–6 Months)
+# PHASE 0: FOUNDATION
 
-### Goal
-Build unshakeable fundamentals in operating systems, networking, and programming. You cannot exploit systems you don't understand. Shortcuts here compound into catastrophic gaps later.
+<div align="right">
 
-### Checkpoint: What You Must Know
-By end of Phase 0:
-- ✓ Explain OS process management, memory allocation, interrupt handling, virtual memory
-- ✓ Write C programs interacting with system calls
-- ✓ Read x86-64 assembly and trace control flow
-- ✓ Trace a network packet from application layer to physical
-- ✓ Understand TCP/IP handshake, DNS, HTTP fully
-- ✓ Comfortable in Linux terminal: navigate, script, permissions, processes
+**You cannot exploit systems you do not understand.**
 
-### Milestone Projects
+</div>
 
-1. **C Memory Allocator** (Week 6–8)
-   - Implement malloc/free from scratch to understand heap management
-   - Deliverable: 200–300 lines, passes allocation/deallocation tests
-
-2. **Linux System Monitor** (Week 10–12)
-   - Read `/proc`, extract process info, use `fork()`/`exec()`
-   - Deliverable: CLI tool showing processes, memory usage, open files
-
-3. **Network Packet Analyzer** (Week 16–18)
-   - Raw socket capture, parse Ethernet/IP/TCP headers manually
-   - Deliverable: Tool displaying source/dest, ports, payload preview
+**Duration:** 5–8 Months | **Difficulty:** Beginner to Intermediate | **Hours/Week:** 20–25 | **Prerequisites:** Phase -1 | **Completion Rate:** 70%
 
 ---
 
-### Curriculum
-
-#### **1. Operating Systems Fundamentals**
-
-**Time:** 6–8 weeks | **Difficulty:** Medium
-
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [Operating Systems: Three Easy Pieces](http://pages.cs.wisc.edu/~remzi/OSTEP/) | Book (Free) | 25 hours | FREE | The best OS textbook. Readable. Covers processes, memory, concurrency. |
-| [The Linux Programming Interface](https://man7.org/tlpi/) | Book | 20 hours | $50–80 | Dense, comprehensive. System calls, IPC, signals. Reference for life. |
-| [Linux Kernel Development (Robert Love)](https://www.amazon.com/Linux-Kernel-Development-Robert-Love/dp/0672329468) | Book | 15 hours | $35 | Kernel internals. Required before Phase 4E. |
-| [Linux System Programming - Udemy](https://www.udemy.com/course/linux-system-programming-masterclass/) | Course | 12 hours | $15 | Hands-on system calls. |
-| [Linux Foundation YouTube](https://www.youtube.com/c/LinuxFoundation) | YouTube | 6 hours | FREE | Kernel architecture, official source. |
-
-**What to Build:**
-- Simple shell: `cd`, `ls`, `echo` via fork/exec
-- Process monitor: list processes, show memory, open FDs
-- File permission explorer: rwx bits, chown, chmod, ACLs
+> **This is the most important phase in the entire roadmap.**
+> Everything from Phase 1 onward assumes you own this material completely.
+> Not "understand it." Own it. Build with it. Debug it from memory.
+> Rushing this phase is how operators collapse under real-world pressure.
+> Do the work. All of it.
 
 ---
 
-#### **2. Networking Fundamentals**
+## TABLE OF CONTENTS
 
-**Time:** 4–6 weeks | **Difficulty:** Medium-Hard
-
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [Beej's Guide to Network Programming](https://beej.us/guide/bgnet/) | Book (Free) | 8 hours | FREE | Readable, practical sockets. Read this. |
-| [Computer Networks: Top-Down Approach](https://gaia.cs.umass.edu/kurose_ross/) | Book | 15 hours | $100–150 | Standard academic reference. Thorough. |
-| [Professor Messer Networking](https://www.youtube.com/watch?v=XzQ3u_DZrHE) | YouTube | 6 hours | FREE | OSI model through TCP/IP, clear. |
-| [Wireshark Tutorial](https://www.youtube.com/watch?v=TkCSr30UojM) | YouTube | 2 hours | FREE | Packets in real time. Essential. |
-
-**What to Build:**
-- Raw socket TCP packet sender
-- DNS resolver (query servers, parse responses)
-- HTTP client (raw socket, parse response)
-- Packet sniffer with filtering
-
----
-
-#### **3. C Programming (Non-Negotiable)**
-
-**Time:** 8–12 weeks | **Difficulty:** Hard
-
-Every exploit, driver, implant, and kernel module is C. No shortcuts.
-
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [The C Programming Language (K&R)](https://en.wikipedia.org/wiki/The_C_Programming_Language) | Book | 15 hours | $30–50 | The original. Dense. Essential. |
-| [C Programming by Bro Code](https://www.youtube.com/playlist?list=PLZPZq0r_RZeMsD06sQRYTH0qsrq_MIldre) | YouTube | 20 hours | FREE | Fast-paced fundamentals to advanced. |
-| [C Primer Plus](https://www.informit.com/store/c-primer-plus-9780134677644) | Book | 20 hours | $40 | Clearer than K&R. Good companion. |
-| [Codewars C Challenges](https://www.codewars.com/?language=c) | Practice | 10 hours | FREE | Problem-based, ranked difficulty. |
-
-**Critical C Concepts:**
-- Pointers: address-of, dereference, pointer arithmetic, void pointers
-- Memory: stack vs heap, malloc/free/realloc, memory leaks, dangling pointers
-- Strings: char arrays, null termination - this is where buffer overflows live
-- Function pointers: callbacks, jump tables, vtable simulation
-- Structs: packing, alignment, bit fields, sizeof()
-- Preprocessor: macros, conditional compilation, include guards
+1. [Goal & Philosophy](#goal--philosophy)
+2. [Prerequisites](#prerequisites)
+3. [Checkpoint: What You Must Know by the End](#checkpoint-what-you-must-know-by-the-end)
+4. [Timeline & Parallel Track Architecture](#timeline--parallel-track-architecture)
+5. [Section 1 - Operating Systems Fundamentals](#section-1---operating-systems-fundamentals)
+6. [Section 2 - C Programming (Non-Negotiable)](#section-2---c-programming-non-negotiable)
+7. [Section 3 - Python Scripting](#section-3---python-scripting)
+8. [Section 4 - Networking Fundamentals](#section-4---networking-fundamentals)
+9. [Section 5 - x86-64 Assembly](#section-5---x86-64-assembly)
+10. [Section 6 - Reverse Engineering Basics](#section-6---reverse-engineering-basics)
+11. [Milestone Projects](#milestone-projects)
+12. [Lab Setup (Complete)](#lab-setup-complete)
+13. [GDB Command Reference](#gdb-command-reference)
+14. [CTF Platform Guide](#ctf-platform-guide)
+15. [Common Failure Points & Fixes](#common-failure-points--fixes)
+16. [Phase 0 Master Checklist](#phase-0-master-checklist)
+17. [What Comes Next](#what-comes-next)
+18. [Resources Aggregated](#resources-aggregated)
 
 ---
 
-#### **4. x86-64 Assembly**
+## GOAL & PHILOSOPHY
 
-**Time:** 4–6 weeks | **Difficulty:** Hard
+**Goal:** Build unshakeable fundamentals in operating systems, programming, networking, assembly, and binary analysis. You cannot exploit systems you do not understand. Shortcuts here compound into catastrophic gaps later, gaps that show up when an exploit behaves unexpectedly in memory, when a binary does not match your mental model, when a network trace does not make sense.
 
-| Resource | Type | Duration | Cost | Notes |
-|----------|------|----------|------|-------|
-| [x86-64 Assembly Crash Course - Creel](https://www.youtube.com/watch?v=xv_vgqg_c_I) | YouTube | 2 hours | FREE | Quick practical intro. Start here. |
-| [Low-Level Programming - Igor Zhirkov](https://www.elsevier.com/books/low-level-programming/zhirkov) | Book | 25 hours | $50 | Assembly, C, Linux internals combined. |
-| [GDB Debugger Tutorial](https://www.youtube.com/watch?v=l_u6Wn4f7cU) | YouTube | 3 hours | FREE | Step through code, examine registers. |
-| [Radare2 Tutorial](https://www.radare.org/r/tutorials.html) | Text/Video | 4 hours | FREE | Modern RE framework. |
+**What this phase actually builds:**
 
-**Critical Assembly Concepts:**
-- Registers: rax/rbx/rcx/rdx (general), rsi/rdi (args), rsp/rbp (stack), r8–r15
-- Instructions: mov, add, sub, imul, jmp, je/jne/jl/jg, call, ret, push, pop, lea
-- Stack: frame setup (`push rbp; mov rbp, rsp`), alignment (16-byte at call), ret address location
-- System calls: syscall instruction, rax=number, args in rdi/rsi/rdx/r10/r8/r9
-- Calling conventions: System V AMD64 ABI (Linux), Microsoft x64 (Windows) (know both)
-- NASM vs AT&T syntax: know both, don't confuse them
+You are not learning to use tools. You are building the mental model that makes every tool make sense. After Phase 0, when you open a debugger, you already know what the registers mean. When you look at a network capture, you already know what the bytes represent. When you read shellcode, you can trace it mentally. The tool is just a window into something you already understand.
+
+**What separates operators who make it through Phase 0 from those who do not:**
+
+Not intelligence. Not speed. Not prior experience. **Willingness to sit with confusion long enough for it to resolve.** Every concept in this phase will feel impossible before it feels obvious. The window between impossible and obvious is usually 72 hours of sustained exposure. Most people quit in that window. Do not quit in that window.
 
 ---
 
-### Phase 0: Lab Setup
+## PREREQUISITES
+
+Before starting Phase 0, you should have completed Phase -1 (OPSEC & Infrastructure). You need:
+
+- A working Linux installation (Ubuntu 22.04 LTS recommended): real install or VM
+- Anonymous research environment set up per Phase -1
+- Basic terminal comfort: you can navigate directories, create files, run commands
+- A text editor (vim, nano, or VSCode; learn vim basics, you will use it everywhere)
+
+**Zero prior programming experience?** This phase handles it. The C section starts from scratch. Do not let "I have never coded" be a reason to hesitate.
+
+**CS/developer background?** Cut OS and Python sections by 50%. Do not skip assembly or RE: almost no academic programs teach them at the depth you need here.
+
+---
+
+## CHECKPOINT: WHAT YOU MUST KNOW BY THE END
+
+By the end of Phase 0, you must be able to do every one of these without looking anything up:
+
+**Operating Systems**
+- [ ] Explain what happens from `execve()` to a running process: fork, exec, address space layout
+- [ ] Explain virtual memory: pages, page tables, TLB, physical vs virtual addresses
+- [ ] Explain interrupt handling: hardware interrupt → kernel entry → handler → return to userspace
+- [ ] Explain process scheduling: context switch, scheduler, process states
+- [ ] Navigate `/proc/[pid]/` and extract: maps, fd, status, cmdline, mem
+
+**C Programming**
+- [ ] Write a program using pointers, pointer arithmetic, and void pointers correctly
+- [ ] Explain the difference between stack and heap allocation; implement both
+- [ ] Write a working linked list in C with insert, delete, traverse
+- [ ] Write a program that makes direct system calls (open, read, write, close) without libc wrappers
+- [ ] Produce a memory leak intentionally, then detect it with Valgrind
+
+**Python Scripting**
+- [ ] Write a TCP client and server in raw Python sockets
+- [ ] Parse a binary file format using the `struct` module
+- [ ] Write a script that runs a subprocess, captures stdout, and processes the output
+
+**Networking**
+- [ ] Trace a packet from application layer to physical layer and back: every layer, every header field
+- [ ] Explain the TCP three-way handshake byte by byte
+- [ ] Explain DNS resolution from query to answer: every step
+- [ ] Read a Wireshark capture and identify a TCP connection, a DNS query, and an HTTP request
+
+**Assembly & Debugging**
+- [ ] Read x86-64 assembly output of a C function and trace its control flow
+- [ ] Explain the calling convention: which registers carry arguments, what the stack looks like on entry
+- [ ] Write a function in NASM assembly that takes two arguments and returns a value
+- [ ] Use GDB: set a breakpoint, step through instructions, examine registers and memory
+
+**Reverse Engineering**
+- [ ] Identify an ELF binary's architecture, entry point, and sections using `readelf`
+- [ ] Extract printable strings from a binary and identify interesting ones
+- [ ] Open a binary in Ghidra, navigate to `main()`, and read the decompiled output
+- [ ] Trace a library call with `ltrace` and a syscall with `strace`
+
+---
+
+## TIMELINE & PARALLEL TRACK ARCHITECTURE
+
+The previous version listed 22–32 weeks of content inside a "3–6 month" phase header. That arithmetic does not work for a beginner. The honest timeline is **5–8 months at 20–25 hours/week.** If you have prior development experience, 3–5 months is realistic.
+
+**The critical insight about parallelism:** You do not finish one section then start the next. Several tracks run simultaneously because they reinforce each other. Reading about OS memory management while writing C programs that allocate memory makes both click faster.
+
+### Parallel Track Map
+
+```
+Month 1  ┌─────────────────────────────────────────────────────────┐
+         │ OS Fundamentals (Weeks 1–8)                             │
+         │  Start: processes, memory model, virtual memory         │
+         ├─────────────────────────────────────────────────────────┤
+         │ C Programming (Weeks 1–12) ← starts Week 1              │
+         │  Start: variables, control flow, functions, pointers    │
+         └─────────────────────────────────────────────────────────┘
+Month 2  ┌─────────────────────────────────────────────────────────┐
+         │ OS cont'd: syscalls, scheduling, filesystems            │
+         ├─────────────────────────────────────────────────────────┤
+         │ C cont'd: memory management, structs, file I/O, syscalls│
+         ├─────────────────────────────────────────────────────────┤
+         │ Networking (Weeks 5–10) ← starts Week 5                 │
+         │  Start: OSI model, Ethernet, IP, TCP/UDP                │
+         └─────────────────────────────────────────────────────────┘
+Month 3  ┌─────────────────────────────────────────────────────────┐
+         │ C cont'd: function pointers, advanced pointers, sockets │
+         ├─────────────────────────────────────────────────────────┤
+         │ Networking cont'd: DNS, HTTP, packet capture, Wireshark │
+         ├─────────────────────────────────────────────────────────┤
+         │ Python (Weeks 10–13) ← starts after C basics solid      │
+         │  Start: syntax, types, functions, file I/O              │
+         └─────────────────────────────────────────────────────────┘
+Month 4  ┌──────────────────────────────────────────────────────────┐
+         │ Python cont'd: sockets, struct, subprocess, scripting    │
+         ├──────────────────────────────────────────────────────────┤
+         │ Assembly (Weeks 13–18) ← starts after C solidifies       │
+         │  Start: registers, MOV, arithmetic, control flow         │
+         └──────────────────────────────────────────────────────────┘
+Month 5  ┌──────────────────────────────────────────────────────────┐
+         │ Assembly cont'd: functions, calling convention, syscalls │
+         ├──────────────────────────────────────────────────────────┤
+         │ GDB deep practice (parallel with Assembly)               │
+         └──────────────────────────────────────────────────────────┘
+Month 6  ┌──────────────────────────────────────────────────────────┐
+         │ Reverse Engineering Basics (Weeks 18–24)                 │
+         │  Start: ELF format, static analysis, Ghidra workflow     │
+         └──────────────────────────────────────────────────────────┘
+Months 7–8 (if needed, no prior background): Complete RE + all milestone projects
+```
+
+**Milestone Projects run throughout:**
+
+| Project | Primary Section | Target Week |
+|---------|----------------|-------------|
+| Simple Shell in C | C + OS | 6–8 |
+| Memory Allocator | C + OS | 10–12 |
+| Network Packet Analyzer | Networking + C | 14–16 |
+| Assembly Function Library | Assembly | 17–19 |
+| First Binary Reverse | RE Basics | 22–24 |
+
+**CTF (picoCTF):** Start Week 4. Run concurrently forever. Details in [CTF Platform Guide](#ctf-platform-guide).
+
+---
+
+## SECTION 1 - OPERATING SYSTEMS FUNDAMENTALS
+
+**Time:** 6–8 weeks (Weeks 1–8) | **Difficulty:** Medium | **Parallel with:** C Programming
+
+### Why This Comes First
+
+Every exploit targets the operating system's abstractions. Buffer overflows corrupt the stack, a construct the OS and calling convention define. Process injection writes into another process's address space, which only exists because the OS created it. Privilege escalation abuses the OS's permission model. Understanding what you are breaking is not optional background: it is the foundation every technique builds on.
+
+### Core Concepts (Study in This Order)
+
+#### 1.1 Processes & Threads
+
+A **process** is a running program. It is not the program itself: the program is just bytes on disk. When the OS executes a program, it creates a process: a distinct execution context with its own address space, file descriptor table, and state.
+
+What a process consists of:
+- **Address space:** the virtual memory the process sees (code, data, stack, heap, mapped files)
+- **Thread(s):** actual execution streams: a process has at least one
+- **File descriptor table:** open files, sockets, pipes indexed by integer
+- **Process state:** running, sleeping, waiting, zombie, stopped
+- **PID:** process identifier, assigned by the OS on creation
+
+A **thread** is an execution context within a process. Threads share the process's address space but each has its own stack and registers. This is why threads are cheaper to create than processes (no new address space) and why they introduce race conditions (shared memory + concurrent access = undefined behavior).
+
+**How a process is created:**
+
+```c
+// On Linux, new processes come from fork() + exec()
+
+pid_t pid = fork();    // Creates an exact copy of the current process
+                       // Returns 0 in child, child's PID in parent
+
+if (pid == 0) {
+    // We are in the child process
+    execve("/bin/ls", argv, envp);  // Replace child's memory image with ls
+    // If execve returns, it failed
+    perror("execve");
+    exit(1);
+} else {
+    // We are in the parent
+    int status;
+    waitpid(pid, &status, 0);  // Wait for child to finish
+}
+```
+
+**Key system calls for processes:**
+
+| Syscall | Number (x86-64) | What it does |
+|---------|-----------------|--------------|
+| `fork()` | 57 | Create child process (copy of parent) |
+| `execve()` | 59 | Replace process image with new program |
+| `exit()` | 60 | Terminate process |
+| `wait4()` / `waitpid()` | 61 / 247 | Wait for child to change state |
+| `getpid()` | 39 | Get current process ID |
+| `getppid()` | 110 | Get parent process ID |
+| `clone()` | 56 | Create thread (fork with more control) |
+
+---
+
+#### 1.2 Memory Model & Virtual Memory
+
+This is the most important concept in Phase 0 for offensive security. Nearly every memory corruption exploit depends on understanding this model precisely.
+
+**Virtual memory** gives every process the illusion that it owns the entire address space. On 64-bit Linux, the theoretical address space is 2⁶⁴ bytes. In practice, Linux uses 48-bit virtual addresses (128 TB user space, 128 TB kernel space).
+
+**Why virtual memory exists:**
+1. **Isolation:** Process A cannot read Process B's memory (by default; this is exactly what process injection exploits break)
+2. **Larger than physical:** processes can use more memory than physically exists (paging to disk)
+3. **Shared libraries:** `libc.so` is mapped into every process but only exists once in physical RAM
+
+**Address Space Layout of a Process:**
+
+```
+High address  ┌──────────────────────────────────┐
+0x7fffffffffff│          KERNEL SPACE            │ ← not accessible from userspace
+              │          (mapped but guarded)    │
+              ├──────────────────────────────────┤
+              │          STACK                   │ ← grows downward ↓
+              │          (local vars, ret addrs) │
+              │          ...                     │
+              │          (MMAP / shared libs)    │ ← libc, ld-linux, etc
+              │          ...                     │
+              │          HEAP                    │ ← grows upward ↑
+              │          (malloc/free)           │
+              │          BSS                     │ ← uninitialized globals
+              │          DATA                    │ ← initialized globals
+              │          TEXT                    │ ← code (read + exec, not write)
+Low address   └──────────────────────────────────┘
+0x400000       (typical text start on non-PIE)
+```
+
+**Pages and Page Tables:**
+
+Memory is divided into **pages** (4096 bytes = 4KB by default). The CPU's Memory Management Unit (MMU) translates virtual addresses to physical addresses using page tables.
+
+```
+Virtual Address:  [Page Number (VPN)] [Page Offset (12 bits)]
+                         ↓
+                    Page Table Lookup
+                         ↓
+Physical Address: [Frame Number (PFN)] [Page Offset (12 bits)]
+```
+
+Each page has permission bits: **R** (readable), **W** (writable), **X** (executable). These are enforced by hardware. The `.text` section of a binary is R+X but not W. The stack is R+W but not X (when NX/DEP is enabled). Trying to write to a read-only page causes a segmentation fault: the hardware raises a page fault, the kernel catches it, sends SIGSEGV.
+
+**Translation Lookaside Buffer (TLB):** Page table lookups are expensive. The TLB caches recent virtual→physical translations. Cache flushes (context switches, `mmap`) are expensive because they invalidate TLB entries.
+
+**Inspect a live process's memory map:**
 
 ```bash
-# Ubuntu 22.04 LTS base
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y build-essential gcc gdb nasm binutils \
-  radare2 git python3 python3-pip curl wget netcat-openbsd \
-  libpcap-dev strace ltrace valgrind tmux vim
+# Map of /proc/self/maps (your current process)
+cat /proc/self/maps
 
-# GDB plugins (install GEF: best for exploit dev)
-bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+# Example output:
+# 55a2b4000000-55a2b4001000 r--p 00000000 08:01 123456  /bin/cat
+# 55a2b4001000-55a2b4002000 r-xp 00001000 08:01 123456  /bin/cat (code)
+# 55a2b4002000-55a2b4003000 r--p 00002000 08:01 123456  /bin/cat (rodata)
+# 7f8a12000000-7f8a12200000 r--p 00000000 08:01 789012  /lib/x86_64-linux-gnu/libc.so.6
+# 7fff80000000-7fff80021000 rw-p 00000000 00:00 0       [stack]
+# [vsyscall], [vvar], [vdso] entries
 
-# Python tools
-pip3 install pwntools capstone keystone-engine ropper
+# Map of another process by PID
+cat /proc/[pid]/maps
 
-# Verify
-gcc --version && gdb --version && nasm --version
+# Actual memory contents (requires same UID or root)
+# Read 256 bytes at 0x55a2b4001000 from /proc/[pid]/mem
+# using lseek + read on the file descriptor
 ```
 
 ---
 
-### Phase 0: Milestones Checklist
+#### 1.3 System Calls
 
-- [ ] Built: Memory allocator in C
-- [ ] Built: Linux process monitor using /proc and system calls
-- [ ] Built: Raw packet sniffer (libpcap or raw sockets)
-- [ ] Debugged C programs with GDB: breakpoints, memory inspection, register view
-- [ ] Read assembly output from compiled C (`gcc -S`)
-- [ ] Written: 5+ functions in pure x86-64 NASM assembly
-- [ ] Understand full TCP/IP stack end-to-end
+A system call is the controlled mechanism by which userspace code asks the kernel to do something privileged (open a file, allocate memory, create a process). The CPU runs in two modes: **user mode** (ring 3) and **kernel mode** (ring 0). Userspace code cannot directly touch hardware. It uses system calls to cross the boundary.
+
+**The syscall mechanism on x86-64 Linux:**
+
+```nasm
+; Step 1: Load syscall number into rax
+; Step 2: Load arguments into rdi, rsi, rdx, r10, r8, r9 (in order)
+; Step 3: Execute `syscall` instruction
+; Step 4: Return value is in rax (negative = error, |value| = errno)
+
+; Example: write(1, "hello\n", 6): write to stdout
+mov rax, 1          ; syscall number for write
+mov rdi, 1          ; fd = 1 (stdout)
+mov rsi, msg        ; pointer to "hello\n"
+mov rdx, 6          ; length = 6
+syscall
+; rax now contains number of bytes written, or negative errno
+```
+
+The `syscall` instruction saves rip/rflags, switches to kernel stack, jumps to the kernel's syscall entry point. The kernel validates arguments (can the process write to that fd? does that memory address belong to the process?), performs the operation, and returns.
+
+**Key syscalls every operator must know:**
+
+```
+Read/Write:    read(0), write(1), open(2), close(3)
+Process:       fork(57), execve(59), exit(60), wait4(61)
+Memory:        mmap(9), mprotect(10), munmap(11), brk(12)
+Network:       socket(41), connect(42), bind(49), listen(50), accept(43)
+Directory:     stat(4), getdents64(217), mkdir(83), unlink(87)
+Info:          getpid(39), getuid(102), getcwd(79), uname(63)
+```
+
+Full table: https://filippo.io/linux-syscall-table/
+
+---
+
+#### 1.4 Interrupt Handling
+
+When hardware needs the CPU (keyboard press, network packet arrival, timer tick), it sends an **interrupt**, an electrical signal on the interrupt line. The CPU finishes its current instruction, then:
+
+1. Saves current state (rip, rsp, rflags) onto the **kernel stack**
+2. Looks up the **Interrupt Descriptor Table (IDT)** for the handler address
+3. Jumps to the interrupt handler in kernel mode
+4. Handler processes the event (reads the key, processes the packet)
+5. Restores saved state, returns to userspace via `iret`
+
+**Software interrupts (traps):** The `syscall` instruction is a controlled software trap. Page faults are a hardware-detected trap (`int 14`). Division by zero is a trap (`int 0`). Breakpoints in GDB use `int 3` (0xCC byte): the debugger inserts a single byte `0xCC` at a location, which causes a breakpoint trap interrupt when the CPU reaches it, which is why GDB can pause execution on a specific instruction.
+
+---
+
+#### 1.5 Filesystems & /proc
+
+Linux treats almost everything as a file. Sockets are files. Devices are files. The `/proc` virtual filesystem exposes kernel data structures as files: you can read process state, kernel configuration, hardware information by reading files.
+
+**Critical /proc entries:**
+
+```bash
+/proc/[pid]/maps        # Virtual memory map of process
+/proc/[pid]/mem         # Raw memory (readable with proper seeks)
+/proc/[pid]/fd/         # Open file descriptors
+/proc/[pid]/status      # Human-readable process status
+/proc/[pid]/cmdline     # Command line (null-separated args)
+/proc/[pid]/environ     # Environment variables
+/proc/[pid]/exe         # Symlink to executable
+/proc/[pid]/net/tcp     # TCP connections
+/proc/self/             # Refers to the current process
+
+/proc/cpuinfo           # CPU details
+/proc/meminfo           # Memory details
+/proc/sys/kernel/       # Kernel parameters (readable/writable)
+/proc/sys/kernel/randomize_va_space  # ASLR setting (0=off, 1=partial, 2=full)
+/proc/sys/kernel/kptr_restrict       # Kernel pointer leaks (0=visible to root)
+```
+
+**Practice exercise: read any process's memory map:**
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <pid>\n", argv[0]);
+        return 1;
+    }
+
+    char path[64];
+    snprintf(path, sizeof(path), "/proc/%s/maps", argv[1]);
+
+    FILE *f = fopen(path, "r");
+    if (!f) { perror("fopen"); return 1; }
+
+    char line[256];
+    while (fgets(line, sizeof(line), f)) {
+        printf("%s", line);
+    }
+    fclose(f);
+    return 0;
+}
+```
+
+---
+
+### Section 1 Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|----------|------|----------|------|-------|
+| [Operating Systems: Three Easy Pieces](http://pages.cs.wisc.edu/~remzi/OSTEP/) | Book (Free) | 25 hours | FREE | The best OS textbook. Readable prose. Covers processes, memory, concurrency. Read chapters 1–25 now; rest in Phase 3. |
+| [The Linux Programming Interface - Michael Kerrisk](https://man7.org/tlpi/) | Book | 20 hours | $50–80 | Dense and comprehensive. Use as reference: syscalls, IPC, signals. You will return to this throughout the roadmap. |
+| [Linux System Programming - Udemy](https://www.udemy.com/course/linux-system-programming-masterclass/) | Course | 12 hours | $15 | Hands-on syscalls. Watch alongside OSTEP reading. |
+| [/proc filesystem documentation](https://www.kernel.org/doc/html/latest/filesystems/proc.html) | Docs | 3 hours | FREE | Official. Read once. Bookmark. |
+| man pages | Reference | ongoing | FREE | `man 2 fork`, `man 2 mmap`, `man 2 execve`. Read every syscall you use. |
+
+> **Note:** "Linux Kernel Development" by Robert Love is excellent but belongs in Phase 4E prerequisites, not here. Do not attempt it in Phase 0.
+
+### What to Build (Section 1)
+
+1. **Process tree walker**: Read `/proc`, enumerate all running processes, print PID, parent PID, name, state in a tree format. No external tools, just file reads.
+2. **Memory map printer**: Given a PID, print each memory region with address range, permissions, and mapped file.
+3. **Simple shell**: Implement `cd`, basic command execution via `fork()`+`execve()`, handle `exit`. No pipes yet.
+
+---
+
+## SECTION 2 - C PROGRAMMING (NON-NEGOTIABLE)
+
+**Time:** 8–12 weeks (Weeks 1–12) | **Difficulty:** Hard | **Parallel with:** OS Fundamentals, then Networking
+
+### Why C
+
+Every exploit, kernel module, driver, implant, and shellcode is C or interacts with C at the ABI level. Windows internals are C structs. Linux is written in C. Buffer overflows target C's memory model. Heap exploitation targets the C allocator. Format string vulnerabilities exist because of C's `printf`. You cannot exploit something you cannot read. You cannot write shellcode if you do not understand what C compiles to. There is no substitute.
+
+### Core Concepts (Study in This Order)
+
+#### 2.1 Pointers - The Foundation of Everything
+
+A pointer is a variable that stores a memory address. The syntax is the hardest part. The concept is not.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 42;         // x lives on the stack, holds the value 42
+    int *p = &x;        // p holds the ADDRESS of x (e.g., 0x7ffd1234abcd)
+                        // &x means "the address of x"
+                        // *p means "the value at the address in p"
+
+    printf("x = %d\n", x);          // 42
+    printf("address of x = %p\n", &x);  // 0x7ffd1234abcd (something like this)
+printf("p = %p\n", p);          // 0x7ffd1234abcd (same; p holds that address)
+printf("*p = %d\n", *p);        // 42 (dereference p: go to that address, get value)
+
+    *p = 100;           // Go to the address in p, put 100 there
+printf("x = %d\n", x);  // 100: we changed x through p
+
+    // Pointer arithmetic
+    int arr[5] = {10, 20, 30, 40, 50};
+    int *q = arr;           // q points to arr[0]
+
+    printf("%d\n", *q);     // 10
+printf("%d\n", *(q+1)); // 20: q+1 advances by sizeof(int) = 4 bytes
+    printf("%d\n", *(q+2)); // 30
+
+    // q+1 does NOT add 1 to the address. It adds sizeof(*q) = 4.
+    // This is pointer arithmetic. The type determines the stride.
+
+    return 0;
+}
+```
+
+**Void pointers: the type-erased pointer:**
+
+```c
+void *p = malloc(100);  // void* = pointer to anything, no type assumed
+                        // cast to use:
+int *ip = (int *)p;
+char *cp = (char *)p;   // same address, different stride in arithmetic
+```
+
+**Double pointers: pointer to pointer:**
+
+```c
+char *s = "hello";      // s is a char pointer (points to 'h')
+char **pp = &s;         // pp is a pointer to s (pointer to a pointer to char)
+                        // used for: out-parameters, argv, modifying pointer in function
+
+// argv is char** (an array of char*, each one a command-line argument string)
+```
+
+**Function pointers: calling code by address:**
+
+```c
+// Normal function
+int add(int a, int b) { return a + b; }
+
+// Function pointer
+int (*fp)(int, int);    // fp is a pointer to a function taking two ints, returning int
+fp = add;               // point it at add
+int result = fp(3, 4);  // calls add(3, 4) through the pointer: result = 7
+
+// Jump tables (dispatch tables): array of function pointers
+int (*ops[4])(int, int) = {add, sub, mul, div_func};
+ops[0](3, 4);  // calls add(3, 4)
+
+// Why this matters offensively: vtables in C++ are arrays of function pointers.
+// Overwriting a vtable entry redirects execution to attacker-controlled code.
+// This is the foundation of vtable hijacking exploits.
+```
+
+---
+
+#### 2.2 Stack vs Heap - Where Memory Lives
+
+**The Stack:**
+- Automatic (managed by compiler and calling convention)
+- Fixed-size per thread (default 8MB on Linux)
+- Fast: just decrement `rsp`
+- Freed automatically when function returns
+- Local variables, function arguments, return addresses, saved registers
+
+**The Heap:**
+- Manual (you call malloc, you call free)
+- Grows upward from a base address
+- Slower: allocator has bookkeeping overhead
+- Lives until you `free()` it (or the process dies)
+- Dynamic data: things whose size you don't know at compile time
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    // STACK allocation
+    char local_buf[64];     // 64 bytes on the stack
+    int local_int = 42;     // 4 bytes on the stack
+    // Both go away when main() returns (or when the stack frame is popped)
+
+    // HEAP allocation
+    char *heap_buf = malloc(64);  // 64 bytes on the heap
+    if (!heap_buf) {
+        perror("malloc");
+        return 1;
+    }
+
+    // Use it
+    strncpy(heap_buf, "hello from heap", 64);
+    printf("%s\n", heap_buf);
+
+// MUST free it when done: failure to do so = memory leak
+    free(heap_buf);
+    heap_buf = NULL;  // Best practice: null the pointer after free
+                      // Accessing heap_buf after free = use-after-free vulnerability
+
+    return 0;
+}
+```
+
+**Common memory errors (these become exploits in Phase 3):**
+
+```c
+// 1. Buffer overflow: writing past the end of a buffer
+char buf[8];
+strcpy(buf, "this string is longer than 8 bytes");  // smashes adjacent memory
+                                                      // on stack: overwrites return address
+
+// 2. Use-after-free: using memory after freeing it
+char *p = malloc(32);
+free(p);
+printf("%s\n", p);  // undefined behavior: heap allocator may have reused p
+                    // in a real exploit: allocate a controlled object at p's old address
+
+// 3. Heap overflow: like buffer overflow but on heap
+char *dst = malloc(8);
+char *src = "this is more than 8 bytes";
+memcpy(dst, src, strlen(src));  // writes past dst's 8 bytes into adjacent heap chunks
+
+// 4. Double free: freeing the same pointer twice
+char *q = malloc(16);
+free(q);
+free(q);  // corrupts the allocator's free list: exploitable in Phase 3
+
+// 5. Dangling pointer: pointer to freed or out-of-scope memory
+char *bad;
+{
+    char temp[32] = "hello";
+    bad = temp;  // bad points to stack memory
+}
+// temp's stack frame is gone. bad points to garbage.
+printf("%s\n", bad);  // undefined behavior
+```
+
+---
+
+#### 2.3 Strings in C - Where Buffer Overflows Are Born
+
+C has no string type. A "string" is a null-terminated array of chars (`char*`). The null terminator (`\0`) marks the end. Functions that process strings scan until they find `\0`. If `\0` is missing, they scan past the buffer, reading or writing arbitrary memory.
+
+```c
+char s[] = "hello";
+// Memory: ['h', 'e', 'l', 'l', 'o', '\0']
+// strlen(s) = 5 (does not count the '\0')
+// sizeof(s) = 6 (includes the '\0')
+
+// THE DANGEROUS FUNCTIONS (use with extreme care or avoid):
+strcpy(dst, src);         // no length check: classic buffer overflow source
+strcat(dst, src);         // no length check
+sprintf(buf, fmt, ...);   // no length check: also format string vulnerability if fmt is user input
+gets(buf);                // so dangerous it was removed from C11. never use.
+
+// THE SAFER ALTERNATIVES:
+strncpy(dst, src, n);     // copies at most n bytes, but may not null-terminate
+strncat(dst, src, n);     // appends at most n bytes
+snprintf(buf, n, fmt, ...); // writes at most n bytes including null terminator
+```
+
+---
+
+#### 2.4 Structs - How Data is Organized in Memory
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+
+// A struct is a collection of fields at contiguous memory locations
+struct Point {
+    int x;      // offset 0, 4 bytes
+    int y;      // offset 4, 4 bytes
+};              // sizeof(struct Point) = 8
+
+// Padding: the compiler aligns fields to their natural alignment
+struct Padded {
+    char  a;    // offset 0,  1 byte
+                // 3 bytes padding here (compiler-inserted for alignment)
+    int   b;    // offset 4,  4 bytes  (int wants 4-byte alignment)
+    char  c;    // offset 8,  1 byte
+                // 7 bytes padding here (struct wants 8-byte alignment at end)
+};              // sizeof(struct Padded) = 16 (not 6!)
+
+// Packed struct (no padding): used in protocol headers
+struct __attribute__((packed)) EtherHeader {
+    uint8_t  dst_mac[6];    // 6 bytes
+    uint8_t  src_mac[6];    // 6 bytes
+    uint16_t ethertype;     // 2 bytes
+};                          // sizeof = 14, exactly
+
+// Accessing struct fields
+struct Point p = {.x = 3, .y = 7};
+printf("x=%d y=%d\n", p.x, p.y);
+
+struct Point *pp = &p;
+printf("x=%d y=%d\n", pp->x, pp->y);  // -> for pointer access, . for value access
+
+// Why this matters offensively:
+// Kernel structs, Windows EPROCESS, heap chunk headers, PE structures
+// are all structs. Reading exploits means reading struct layouts.
+```
+
+---
+
+#### 2.5 System Calls From C - Without libc
+
+```c
+// You can call syscalls directly from C using assembly or Linux-specific headers.
+// This is the foundation of shellcode.
+
+#include <sys/syscall.h>
+#include <unistd.h>
+
+// Using the syscall() wrapper (still libc, but takes syscall number)
+ssize_t ret = syscall(SYS_write, 1, "hello\n", 6);
+
+// Or using __asm__ for direct syscall (no libc at all):
+static inline long my_write(int fd, const void *buf, size_t count) {
+    long ret;
+    __asm__ volatile (
+        "syscall"
+        : "=a" (ret)
+        : "0" (SYS_write), "D" (fd), "S" (buf), "d" (count)
+        : "rcx", "r11", "memory"
+    );
+    return ret;
+}
+
+// This is exactly how shellcode works: direct syscalls, no library dependencies.
+```
+
+---
+
+### Section 2 Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|----------|------|----------|------|-------|
+| [The C Programming Language - Kernighan & Ritchie (K&R)](https://en.wikipedia.org/wiki/The_C_Programming_Language) | Book | 15 hours | $30–50 | Dense. Do every exercise. Chapter 5 (pointers) is the most important in the book. |
+| [C Primer Plus - Stephen Prata](https://www.informit.com/store/c-primer-plus-9780134677644) | Book | 20 hours | $40 | More accessible than K&R. Good first read if K&R is too terse. |
+| [C Programming - Bro Code (YouTube)](https://www.youtube.com/playlist?list=PLZPZq0r_RZeMsD06sQRYYH0qsrq_MIldre) | Video | 10 hours | FREE | Fast-paced, practical. Good alongside the books. |
+| [Codewars - C track](https://www.codewars.com/?language=c) | Practice | 15 hours | FREE | Ranked difficulty. Start at 8kyu. Solve 50+ challenges. |
+| [CS:APP (Computer Systems: A Programmer's Perspective)](http://csapp.cs.cmu.edu/) | Book | 30 hours | $80–100 | Covers C, assembly, memory, linking, unified. Optional but elite. |
+| `man 3 malloc`, `man 3 strcpy`, etc | Reference | ongoing | FREE | Read the man page of every libc function you use. |
+
+### Common Beginner Traps
+
+```c
+// TRAP 1: Comparing strings with ==
+char *a = "hello";
+char *b = "hello";
+if (a == b) { ... }       // WRONG: compares addresses, not content
+if (strcmp(a, b) == 0) { ... }  // CORRECT: strcmp returns 0 if equal
+
+// TRAP 2: Off-by-one in buffer sizing
+char buf[8];
+strncpy(buf, "12345678", 8);  // BUG: no null terminator: strncpy pads to n or stops at n, does NOT guarantee null
+strncpy(buf, "12345678", 7);  // Better: leaves room for null
+buf[7] = '\0';               // Or explicitly terminate
+
+// TRAP 3: Returning a pointer to a local variable
+char *get_buffer() {
+    char buf[32];            // lives on the stack
+    return buf;              // buf's stack frame disappears after return
+// the pointer is now dangling: undefined behavior
+}
+// FIX: either pass a buffer in, or malloc inside and document that caller must free
+
+// TRAP 4: Signed vs unsigned integer comparison
+size_t len = some_function();  // size_t is unsigned
+if (len < 0) { ... }          // NEVER true: unsigned is never negative
+                               // if some_function() returns (size_t)-1 = a huge positive number
+
+// TRAP 5: Pointer decay
+void func(int arr[]) {     // arr is NOT an array here: it's a pointer
+    sizeof(arr);           // returns sizeof(int*) = 8, NOT array size
+}
+// Always pass size explicitly: func(int *arr, size_t n)
+```
+
+### What to Build (Section 2)
+
+1. **Linked list:** insert, delete, traverse, search, using `malloc`/`free`, struct, function pointers for comparison
+2. **String library:** implement `my_strlen`, `my_strcpy`, `my_strcat`, `my_strtok`, without using libc string functions
+3. **Simple shell** (see OS section Milestone 3: this is that project)
+
+---
+
+## SECTION 3 - PYTHON SCRIPTING
+
+**Time:** 2–3 weeks (Weeks 10–13) | **Difficulty:** Low-Medium | **Parallel with:** end of Networking
+
+### Why Python (And Why It Comes After C)
+
+Python is the tooling language of offensive security. Exploit scripts are Python. Automation is Python. Parsing binary formats is Python. Network tools are Python. But you learn C first because:
+
+1. Python abstracts away everything. You need to understand what it hides before you use it.
+2. If you learn Python first, you will never develop an accurate mental model of memory. You will write exploits you do not understand.
+3. C knowledge makes Python more powerful because you understand what is happening underneath.
+
+After 10 weeks of C, Python will feel like cheating. That is the correct feeling.
+
+### Core Concepts
+
+#### 3.1 Python Basics (Rapid: You Already Know Programming)
+
+```python
+# Variables and types
+x = 42              # int
+s = "hello"         # str
+b = b"hello"        # bytes (raw bytes; this is what you parse binaries with)
+f = 3.14            # float
+lst = [1, 2, 3]     # list (mutable)
+tup = (1, 2, 3)     # tuple (immutable)
+dct = {"key": "val"} # dict
+
+# Control flow
+for i in range(10):
+    print(i)
+
+for item in lst:
+    print(item)
+
+while condition:
+    do_something()
+
+# Functions
+def add(a, b):
+    return a + b
+
+# f-strings (use these, not % or .format)
+name = "crow"
+print(f"the {name} delivers")
+
+# List comprehensions
+squares = [x**2 for x in range(10)]
+even = [x for x in range(20) if x % 2 == 0]
+```
+
+#### 3.2 File I/O and Bytes
+
+```python
+# Text file
+with open("file.txt", "r") as f:
+    contents = f.read()       # entire file as string
+    lines = f.readlines()     # list of strings, one per line
+
+with open("out.txt", "w") as f:
+    f.write("output data\n")
+
+# Binary file: what you use for binary analysis
+with open("binary_file", "rb") as f:
+    data = f.read()           # bytes object
+
+# Bytes operations
+data = b"\x7fELF\x02\x01\x01\x00"  # first 8 bytes of an ELF file
+print(data[0])      # 127 (integer; indexing bytes gives int)
+print(data[0:4])    # b'\x7fELF' (slicing bytes gives bytes)
+print(hex(data[0])) # '0x7f'
+
+# Hex dump (useful for binary analysis)
+def hexdump(data, offset=0, width=16):
+    for i in range(0, len(data), width):
+        chunk = data[i:i+width]
+        hex_part = " ".join(f"{b:02x}" for b in chunk)
+        ascii_part = "".join(chr(b) if 32 <= b < 127 else "." for b in chunk)
+        print(f"{offset+i:08x}  {hex_part:<{width*3}}  {ascii_part}")
+```
+
+#### 3.3 Struct Module - Parse Binary Formats
+
+```python
+import struct
+
+# struct.pack / struct.unpack: convert between Python values and raw bytes
+# Format characters:
+#   B = unsigned char (1 byte)
+#   H = unsigned short (2 bytes)
+#   I = unsigned int (4 bytes)
+#   Q = unsigned long long (8 bytes)
+#   s = char[] (bytes)
+#   < = little-endian, > = big-endian, = = native
+
+# Parse an ELF header (simplified)
+with open("/bin/ls", "rb") as f:
+    raw = f.read(64)  # ELF header is 64 bytes
+
+magic   = raw[0:4]                           # b'\x7fELF'
+ei_class = struct.unpack("B", raw[4:5])[0]  # 1=32-bit, 2=64-bit
+ei_data  = struct.unpack("B", raw[5:6])[0]  # 1=little-endian, 2=big-endian
+e_entry  = struct.unpack("<Q", raw[24:32])[0]  # entry point (8 bytes, little-endian)
+e_phoff  = struct.unpack("<Q", raw[32:40])[0]  # program header offset
+
+print(f"Magic:      {magic}")
+print(f"Class:      {'64-bit' if ei_class == 2 else '32-bit'}")
+print(f"Endian:     {'LE' if ei_data == 1 else 'BE'}")
+print(f"Entry:      0x{e_entry:016x}")
+
+# Build binary data (use in network protocols, exploits, file format fuzzing)
+packet = struct.pack("<BBHH",
+    0x45,   # IP version + IHL
+    0x00,   # DSCP + ECN
+    40,     # total length
+    0x1234  # identification
+)
+```
+
+#### 3.4 Sockets - Network Programming in Python
+
+```python
+import socket
+
+# TCP CLIENT
+def tcp_client(host, port, data):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((host, port))
+        s.sendall(data.encode())
+        response = s.recv(4096)
+    return response
+
+# TCP SERVER
+def tcp_server(port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        s.bind(("0.0.0.0", port))
+        s.listen(5)
+        print(f"[*] Listening on port {port}")
+        while True:
+            conn, addr = s.accept()
+            print(f"[+] Connection from {addr}")
+            with conn:
+                data = conn.recv(1024)
+                print(f"[*] Received: {data}")
+                conn.sendall(b"ACK\n")
+
+# RAW SOCKET (requires root)
+def raw_socket():
+    # Receive all packets on an interface
+    with socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(0x0800)) as s:
+        while True:
+            packet, addr = s.recvfrom(65535)
+# packet is raw Ethernet frame bytes: parse with struct
+            print(f"Received {len(packet)} bytes from {addr[0]}")
+```
+
+#### 3.5 Subprocess - Running Tools and Capturing Output
+
+```python
+import subprocess
+import shlex
+
+# Run a command and get output
+result = subprocess.run(
+    ["nmap", "-sV", "-p", "22,80,443", "target.host"],
+    capture_output=True,
+    text=True,
+    timeout=60
+)
+
+print(result.stdout)
+print(result.stderr)
+print(f"Return code: {result.returncode}")
+
+# Run a shell command (use carefully; shell=True is injection risk with user input)
+output = subprocess.check_output("cat /etc/passwd | grep root", shell=True, text=True)
+
+# Interactive subprocess (pipe stdin/stdout)
+proc = subprocess.Popen(
+    ["gdb", "./target"],
+    stdin=subprocess.PIPE,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE
+)
+stdout, stderr = proc.communicate(input=b"run\nbt\nquit\n")
+```
+
+#### 3.6 argparse - Build Real CLI Tools
+
+```python
+import argparse
+
+def main():
+    parser = argparse.ArgumentParser(description="Port scanner")
+    parser.add_argument("host", help="Target host")
+    parser.add_argument("-p", "--ports", default="1-1024",
+                        help="Port range (default: 1-1024)")
+    parser.add_argument("-t", "--timeout", type=float, default=1.0,
+                        help="Connection timeout in seconds")
+    parser.add_argument("-v", "--verbose", action="store_true",
+                        help="Verbose output")
+    args = parser.parse_args()
+
+    # args.host, args.ports, args.timeout, args.verbose are now populated
+    scan(args.host, args.ports, args.timeout, args.verbose)
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
+### Section 3 Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|----------|------|----------|------|-------|
+| [Python Docs - Official Tutorial](https://docs.python.org/3/tutorial/) | Docs | 5 hours | FREE | Fast. You already know programming. Read Ch. 1–10. |
+| [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/) | Book (Free) | 8 hours | FREE | Practical scripting. Skip first 3 chapters if you know basics. |
+| [Black Hat Python - Justin Seitz](https://nostarch.com/black-hat-python2E) | Book | 15 hours | $30 | Network tools, sniffers, web recon, forensics in Python. Read it in Phase 0 as preview; implement in Phase 1–2. |
+| [Python socket documentation](https://docs.python.org/3/library/socket.html) | Docs | 2 hours | FREE | Read it fully. Every socket option explained. |
+| [Python struct documentation](https://docs.python.org/3/library/struct.html) | Docs | 1 hour | FREE | Essential for binary parsing. Read it fully. |
+
+### What to Build (Section 3)
+
+1. **TCP port scanner**: connect to ports 1–1024, report open ports, measure timing
+2. **Binary file parser**: open `/bin/ls`, parse and print the ELF header fields
+3. **Simple HTTP client**: connect raw socket to port 80, send `GET / HTTP/1.0\r\n\r\n`, print response
+4. **Log parser**: read a large log file, extract IPs, count unique IPs, sort by frequency
+
+---
+
+## SECTION 4 - NETWORKING FUNDAMENTALS
+
+**Time:** 4–6 weeks (Weeks 5–10) | **Difficulty:** Medium-Hard | **Parallel with:** C Programming
+
+### Why Networking
+
+Networks are the attack surface. Almost every attack involves a network: the initial access vector, lateral movement, C2 communications, data exfiltration. You cannot write a network-based exploit without knowing what the packets look like. You cannot build a C2 without knowing how protocols work. You cannot evade network defenses without understanding what they detect.
+
+### Core Concepts (Study in This Order)
+
+#### 4.1 The OSI Model - A Mental Map, Not a Religion
+
+The OSI model is a 7-layer abstraction. You need it as a mental map because security people and tools reference layers constantly. But remember: real protocols (TCP/IP) do not follow OSI cleanly.
+
+```
+Layer 7 - Application:  HTTP, DNS, SSH, TLS (data the application sees)
+Layer 6 - Presentation: Encoding, encryption, compression (often merged with App)
+Layer 5 - Session:      Session management (rarely used in modern TCP/IP analysis)
+Layer 4 - Transport:    TCP, UDP (ports, reliability, flow control)
+Layer 3 - Network:      IP (routing, addressing, fragmentation)
+Layer 2 - Data Link:    Ethernet, WiFi (MAC addresses, frames, local delivery)
+Layer 1 - Physical:     Cables, radio, voltage (actual bits on wire)
+```
+
+When you say "Layer 3 attack," you mean IP-level. "Layer 7 attack" means application protocol. "Layer 2" means local network (ARP spoofing, VLAN attacks). You will use these terms constantly.
+
+#### 4.2 Ethernet & the Data Link Layer
+
+Ethernet frames are the unit of transmission on a local network.
+
+```
+Ethernet II Frame:
+┌────────────────┬────────────────┬───────────┬─────────────┬──────────┐
+│ Dst MAC (6B)   │ Src MAC (6B)   │ EtherType │ Payload     │ FCS (4B) │
+│ ff:ff:ff:ff:ff │ aa:bb:cc:dd:ee │ 0x0800=IP │ (46-1500B)  │ CRC32    │
+│                │ :ff            │ 0x0806=ARP│             │          │
+└────────────────┴────────────────┴───────────┴─────────────┴──────────┘
+```
+
+**MAC addresses:** 6 bytes, assigned to NICs. Used for local delivery only. Routers strip the Ethernet header and build a new one for the next hop. ARP (Address Resolution Protocol) maps IP addresses to MAC addresses on the local network: `arp -n` shows your ARP table.
+
+**ARP poisoning** (Phase 2 preview): Sending fake ARP replies to associate your MAC with someone else's IP causes their traffic to be sent to you instead. This is why ARP is mentioned here: understanding it now makes the attack in Phase 2 obvious.
+
+#### 4.3 IP - The Network Layer
+
+IPv4 header (20 bytes minimum):
+
+```
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+├───────────────┬───────────────┬───────────────────────────────────┤
+│ Ver (4) │ IHL │ DSCP + ECN    │ Total Length (2B)                 │
+├───────────────┴───────────────┼───────────────────────────────────┤
+│ Identification (2B)           │ Flags(3b) │ Fragment Offset (13b) │
+├───────────────────────────────┼───────────────────────────────────┤
+│ TTL (1B)      │ Protocol (1B) │ Header Checksum (2B)              │
+│               │ 6=TCP,17=UDP  │                                   │
+├───────────────┴───────────────┴───────────────────────────────────┤
+│ Source IP Address (4B)                                            │
+├───────────────────────────────────────────────────────────────────┤
+│ Destination IP Address (4B)                                       │
+├───────────────────────────────────────────────────────────────────┤
+│ Options (0–40B, rarely used)                                      │
+└───────────────────────────────────────────────────────────────────┘
+```
+
+**Key IP concepts:**
+- **TTL (Time to Live):** decremented by each router. Packet dropped when TTL hits 0. `traceroute` exploits this to map hops.
+- **Protocol field:** tells the receiving host what is inside the payload. 6=TCP, 17=UDP, 1=ICMP.
+- **Fragmentation:** IP can split large packets into fragments. The receiving host reassembles. Fragmentation attacks exploit the reassembly logic.
+- **Private ranges:** 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16: non-routable, used in LANs. Most internal networks use these.
+
+#### 4.4 TCP - The Transport Layer in Detail
+
+TCP provides reliable, ordered, connection-oriented delivery. Understanding TCP deeply matters because most attack traffic rides on TCP.
+
+**Three-Way Handshake:**
+
+```
+Client                          Server
+  │                               │
+  │──── SYN (seq=x) ────────────►│   Client wants to connect. Picks random seq number x.
+  │                               │   Server receives, allocates resources.
+  │◄─── SYN-ACK (seq=y, ack=x+1)─│   Server picks its own seq number y. Acks client's seq.
+  │                               │
+  │──── ACK (seq=x+1, ack=y+1) ──►│   Client acks server's seq. Connection established.
+  │                               │
+  │◄══════ DATA ════════════════►│   Bidirectional data transfer
+  │                               │
+  │──── FIN ────────────────────►│   Client wants to close
+  │◄─── FIN-ACK ─────────────────│
+  │──── ACK ────────────────────►│   Connection closed (both directions close independently)
+```
+
+**TCP Flags (know these):**
+
+| Flag | Bit | Meaning |
+|------|-----|---------|
+| SYN | 0x02 | Synchronize: initiate connection |
+| ACK | 0x10 | Acknowledge: ack field is valid |
+| FIN | 0x01 | Finish: sender wants to close |
+| RST | 0x04 | Reset: abort connection immediately |
+| PSH | 0x08 | Push: flush data to application now |
+| URG | 0x20 | Urgent: urgent pointer is valid |
+
+**Port numbers:** 0–1023 are "well-known" (require root to bind). 1024–49151 are "registered." 49152–65535 are ephemeral (assigned by OS for outbound connections). Know the common ones: 22=SSH, 23=Telnet, 25=SMTP, 53=DNS, 80=HTTP, 443=HTTPS, 3389=RDP, 445=SMB.
+
+**TCP State Machine (the states you will see in netstat/ss):**
+
+```
+CLOSED → LISTEN → SYN_RCVD → ESTABLISHED → CLOSE_WAIT → LAST_ACK → CLOSED
+                              ↓
+              SYN_SENT → ESTABLISHED → FIN_WAIT_1 → FIN_WAIT_2 → TIME_WAIT → CLOSED
+```
+
+**Inspect live connections:**
+```bash
+ss -tnp          # TCP connections with PIDs
+ss -tlnp         # Listening TCP services
+netstat -tnp     # Alternative (older tool, same info)
+```
+
+#### 4.5 DNS - How Names Become Addresses
+
+DNS is the phone book of the internet. Every attack that uses a domain name goes through DNS. DNS is also a C2 channel (DNS tunneling, Phase 4). DNS is a persistence mechanism. Understanding it from the query packet up is essential.
+
+**DNS Resolution Flow:**
+
+```
+Your App asks: "What is the IP of www.example.com?"
+       ↓
+1. Check /etc/hosts: is there a local entry?
+       ↓ (no)
+2. Check local DNS cache: did we look this up recently?
+       ↓ (no)
+3. Ask the Recursive Resolver (your ISP's DNS or 8.8.8.8)
+   → Resolver checks its cache
+   → If not cached:
+     → Ask Root Nameserver: "Who handles .com?"
+     → Root says: "Ask the .com TLD nameserver at 192.5.6.30"
+     → Ask TLD nameserver: "Who handles example.com?"
+     → TLD says: "Ask ns1.example.com at 205.251.196.1"
+     → Ask ns1.example.com: "What is www.example.com?"
+     → Authoritative answer: "93.184.216.34"
+4. Cache the result (TTL seconds)
+5. Return 93.184.216.34 to your app
+```
+
+**DNS Record Types:**
+
+| Type | Meaning | Example |
+|------|---------|---------|
+| A | IPv4 address | www.example.com → 93.184.216.34 |
+| AAAA | IPv6 address | www.example.com → 2606:2800:220:1:248... |
+| MX | Mail server | example.com MX → mail.example.com |
+| NS | Nameserver | example.com NS → ns1.example.com |
+| CNAME | Alias | www → example.com |
+| TXT | Arbitrary text | SPF records, domain verification |
+| PTR | Reverse lookup | 34.216.184.93.in-addr.arpa → www.example.com |
+
+**Query DNS manually:**
+
+```bash
+dig www.example.com A                # A record query
+dig example.com MX                  # MX records
+dig @8.8.8.8 example.com A          # Query Google's DNS directly
+dig +short example.com A            # Just the answer
+dig -x 93.184.216.34                # Reverse lookup (PTR)
+dig example.com ANY                 # All records (often blocked)
+```
+
+#### 4.6 HTTP - The Application Layer
+
+HTTP is stateless, text-based (until HTTP/2). Every web application attack operates at this layer.
+
+```
+HTTP/1.1 Request:
+GET /path?param=value HTTP/1.1\r\n
+Host: www.example.com\r\n
+User-Agent: Mozilla/5.0 ...\r\n
+Cookie: session=abc123\r\n
+\r\n                              ← blank line ends headers
+
+HTTP/1.1 Response:
+HTTP/1.1 200 OK\r\n
+Content-Type: text/html\r\n
+Content-Length: 1234\r\n
+Set-Cookie: session=newval\r\n
+\r\n
+<html>...</html>
+```
+
+**Status codes that matter offensively:**
+
+| Code | Meaning |
+|------|---------|
+| 200 | OK: request succeeded |
+| 301/302 | Redirect |
+| 400 | Bad Request: malformed |
+| 401 | Unauthorized: needs auth |
+| 403 | Forbidden: auth exists but not authorized |
+| 404 | Not Found |
+| 500 | Internal Server Error: often leaks info |
+| 502/503 | Gateway errors: infrastructure info |
+
+---
+
+### Section 4 Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|----------|------|----------|------|-------|
+| [Beej's Guide to Network Programming](https://beej.us/guide/bgnet/) | Book (Free) | 8 hours | FREE | Hands-on sockets in C. Read this before building network tools. |
+| [Computer Networks: A Top-Down Approach - Kurose & Ross](https://gaia.cs.umass.edu/kurose_ross/) | Book | 15 hours | $80–120 | Standard academic reference. Chapters 1–4 are essential. |
+| [Professor Messer - Network+](https://www.youtube.com/watch?v=XzQ3u_DZrHE) | YouTube | 6 hours | FREE | OSI through TCP/IP. Clear and well-paced. |
+| [Wireshark Tutorial - David Bombal](https://www.youtube.com/watch?v=TkCSr30UojM) | YouTube | 2 hours | FREE | Packets in real time. Follow along with captures. |
+| Wireshark (software) | Tool | ongoing | FREE | Install it. Capture everything. Read every packet. |
+
+### What to Build (Section 4)
+
+1. **TCP port scanner in C**: raw sockets, connect() to each port, classify open/closed/filtered by response
+2. **DNS resolver in C**: raw UDP socket, build a DNS query packet manually using `struct`, parse the response
+3. **HTTP client in C**: raw TCP socket, send a proper HTTP/1.0 GET request, parse and print the response
+4. **Packet sniffer in C**: raw socket or libpcap, print source/dest IP, protocol, ports, first 32 bytes of payload
+
+---
+
+## SECTION 5 - x86-64 ASSEMBLY
+
+**Time:** 4–6 weeks (Weeks 13–18) | **Difficulty:** Hard | **Parallel with:** end of Python
+
+### Why Assembly
+
+Shellcode is written in assembly. ROP gadgets are assembly sequences. Disassembly output is assembly. Understanding a crash means reading assembly. Writing a kernel module means understanding assembly. Every Phase 3 and Phase 4 technique requires reading and often writing assembly. There is no option to skip this.
+
+### Core Concepts
+
+#### 5.1 Registers
+
+x86-64 has 16 general-purpose registers. Every register is 64 bits. Sub-registers give you 32, 16, and 8-bit access to the same underlying register.
+
+```
+64-bit  32-bit  16-bit  8-bit (high) 8-bit (low)
+rax     eax     ax      ah            al          ← accumulator, return value, syscall number
+rbx     ebx     bx      bh            bl          ← callee-saved (preserved across calls)
+rcx     ecx     cx      ch            cl          ← 4th argument (Linux), counter
+rdx     edx     dx      dh            dl          ← 3rd argument, I/O operations
+rsi     esi     si      -             sil         ← 2nd argument, source index
+rdi     edi     di      -             dil         ← 1st argument, destination index
+rsp     esp     sp      -             spl         ← stack pointer (top of stack)
+rbp     ebp     bp      -             bpl         ← base pointer (frame pointer)
+r8      r8d     r8w     -             r8b         ← 5th argument
+r9      r9d     r9w     -             r9b         ← 6th argument
+r10     r10d    r10w    -             r10b        ← caller-saved
+r11     r11d    r11w    -             r11b        ← caller-saved
+r12–r15 ...     ...     -             ...         ← callee-saved
+
+rip     -       -       -             -           ← instruction pointer (not directly writable)
+rflags  -       -       -             -           ← condition flags (CF, ZF, SF, OF, PF)
+```
+
+**Operating on sub-registers:**
+```nasm
+mov rax, 0xDEADBEEFCAFEBABE   ; rax = 0xDEADBEEFCAFEBABE
+mov eax, 0x12345678            ; eax = 0x12345678 (ZERO-EXTENDS: rax = 0x0000000012345678)
+                               ; Writing to 32-bit reg zeros upper 32 bits of 64-bit reg
+mov ax, 0xABCD                 ; ax = 0xABCD (does NOT zero-extend: rax = 0x000000001234ABCD)
+mov al, 0xFF                   ; al = 0xFF (rax = 0x0000000012345CFF)
+                               ; 8 and 16-bit writes do NOT zero-extend upper bits
+```
+
+**Flags register (rflags): set by arithmetic, tested by conditional jumps:**
+
+| Flag | Bit | Set when |
+|------|-----|----------|
+| ZF (Zero) | 6 | Result was zero |
+| SF (Sign) | 7 | Result's MSB was 1 (negative in signed) |
+| CF (Carry) | 0 | Unsigned overflow/borrow |
+| OF (Overflow) | 11 | Signed overflow |
+| PF (Parity) | 2 | Low byte of result has even number of set bits |
+
+#### 5.2 Core Instructions
+
+```nasm
+; DATA MOVEMENT
+mov rax, rbx          ; rax = rbx (copy register to register)
+mov rax, [rbx]        ; rax = memory at address in rbx (load)
+mov [rax], rbx        ; memory at address in rax = rbx (store)
+mov rax, 42           ; rax = 42 (immediate)
+movzx rax, byte [rbx] ; zero-extend byte from memory into rax
+movsx rax, dword [rbx]; sign-extend 32-bit from memory into rax
+lea rax, [rbx + rcx*8]; rax = rbx + rcx*8 (Load Effective Address: computes address, does NOT dereference)
+; lea is arithmetic that looks like a memory access: critical to understand
+
+; ARITHMETIC
+add rax, rbx          ; rax = rax + rbx; sets ZF, SF, CF, OF
+sub rax, rbx          ; rax = rax - rbx
+imul rax, rbx         ; rax = rax * rbx (signed multiply)
+idiv rcx              ; rdx:rax ÷ rcx → quotient in rax, remainder in rdx
+                       ; (rdx must be zero/sign-extended before idiv)
+inc rax               ; rax++ (does NOT set CF)
+dec rax               ; rax--
+neg rax               ; rax = -rax (two's complement)
+
+; BITWISE
+and rax, rbx          ; rax = rax & rbx
+or  rax, rbx          ; rax = rax | rbx
+xor rax, rax          ; rax = 0 (fastest way to zero a register: xor reg,reg)
+not rax               ; rax = ~rax
+shl rax, 3            ; rax <<= 3 (logical shift left, multiply by 8)
+shr rax, 3            ; rax >>= 3 (logical shift right, unsigned divide by 8)
+sar rax, 3            ; rax >>= 3 (arithmetic shift right, sign-extending)
+ror rax, 1            ; rotate right 1 bit (useful in shellcode encoding)
+rol rax, 1            ; rotate left 1 bit
+
+; COMPARISON & BRANCHING
+cmp rax, rbx          ; sets flags as if computing rax - rbx, discards result
+test rax, rax         ; sets flags as if computing rax & rax: common idiom to test if rax is zero
+                       ; (test rax, rax → ZF=1 if rax=0)
+
+jmp label             ; unconditional jump
+je  label             ; jump if equal (ZF=1)
+jne label             ; jump if not equal (ZF=0)
+jl  label             ; jump if less (SF≠OF, signed)
+jle label             ; jump if less or equal
+jg  label             ; jump if greater
+jge label             ; jump if greater or equal
+jb  label             ; jump if below (CF=1, unsigned)
+ja  label             ; jump if above (CF=0 and ZF=0, unsigned)
+
+; STACK
+push rax              ; rsp -= 8; [rsp] = rax
+pop  rax              ; rax = [rsp]; rsp += 8
+                       ; The stack grows DOWNWARD. Push decrements rsp.
+
+; FUNCTION CALLS
+call func             ; push rip+size_of_call_instr; jmp func
+                       ; (saves return address on stack, jumps to func)
+ret                   ; pop rip (returns to caller)
+```
+
+#### 5.3 The Calling Convention - System V AMD64 ABI (Linux)
+
+The calling convention is the contract between a caller and a callee about how to pass arguments and preserve state. Both the compiler and you (when writing assembly) must follow it exactly.
+
+```
+ARGUMENT PASSING (first 6 integer/pointer arguments):
+  1st argument → rdi
+  2nd argument → rsi
+  3rd argument → rdx
+  4th argument → rcx
+  5th argument → r8
+  6th argument → r9
+  7th+ → pushed on stack in reverse order
+
+RETURN VALUE:
+  Integer/pointer → rax (and rdx for second 64-bit word if returning 128-bit value)
+  Float/double → xmm0
+
+CALLEE-SAVED (callee must preserve these across a call):
+  rbx, rbp, r12, r13, r14, r15
+
+CALLER-SAVED (caller must assume these are trashed after a call):
+  rax, rcx, rdx, rsi, rdi, r8, r9, r10, r11
+  (and the float registers xmm0–xmm7)
+
+STACK ALIGNMENT:
+  rsp must be 16-byte aligned BEFORE the call instruction
+  call pushes 8 bytes (return address), so on entry to function rsp is 16n-8
+  Standard function prologue aligns it:
+    push rbp        ; now rsp = 16n-16 (aligned again)
+    mov rbp, rsp
+```
+
+**What the stack looks like on function entry:**
+
+```
+Higher address:
+  ...
+  [arg 7 (if any)]          ← pushed by caller before call
+  [return address]           ← pushed by call instruction
+  [saved rbp]                ← pushed by callee in prologue (push rbp)
+  rsp → [local variables]   ← callee subtracts from rsp (sub rsp, N)
+  ...
+Lower address
+```
+
+**Complete function example: implementing `strlen` in assembly:**
+
+```nasm
+; strlen: count bytes until null terminator
+; Input:  rdi = pointer to null-terminated string
+; Output: rax = number of bytes (not including null)
+; Preserves: rbx, rbp, r12-r15 (but we use none here)
+
+section .text
+global my_strlen
+
+my_strlen:
+    xor     rax, rax        ; rax = 0 (character count)
+.loop:
+    cmp     byte [rdi], 0   ; is the current byte null?
+    je      .done           ; if yes, we're done
+    inc     rdi             ; advance pointer to next char
+    inc     rax             ; increment count
+    jmp     .loop
+.done:
+ret                     ; rax holds the count: that's the return value
+```
+
+**A more complex example: sum of array:**
+
+```nasm
+; int64_t sum_array(int64_t *arr, size_t n)
+; rdi = arr, rsi = n
+; returns sum in rax
+
+section .text
+global sum_array
+
+sum_array:
+    xor     rax, rax        ; sum = 0
+    test    rsi, rsi        ; if n == 0:
+    jz      .done           ;   return 0
+.loop:
+    add     rax, [rdi]      ; sum += *arr
+    add     rdi, 8          ; arr++ (each int64_t is 8 bytes)
+    dec     rsi             ; n--
+    jnz     .loop           ; if n != 0, loop
+.done:
+    ret
+```
+
+#### 5.4 Syscall Convention in Assembly
+
+```nasm
+; syscall arguments: rax=number, rdi, rsi, rdx, r10, r8, r9
+; Return value in rax (negative = error)
+; rcx and r11 are CLOBBERED by syscall instruction
+
+; write(1, msg, len): Linux syscall
+section .data
+msg:    db "delivered.", 10   ; "delivered.\n"
+msglen: equ $ - msg
+
+section .text
+global _start
+
+_start:
+    ; write syscall
+    mov     rax, 1          ; SYS_write = 1
+    mov     rdi, 1          ; fd = 1 (stdout)
+    lea     rsi, [rel msg]  ; pointer to message
+    mov     rdx, msglen     ; length
+    syscall
+
+    ; exit syscall
+    mov     rax, 60         ; SYS_exit = 60
+    xor     rdi, rdi        ; exit code = 0
+    syscall
+```
+
+```bash
+# Compile and run
+nasm -f elf64 program.asm -o program.o
+ld program.o -o program
+./program
+```
+
+---
+
+### Section 5 Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|----------|------|----------|------|-------|
+| [x86-64 Assembly Language Programming - Ray Seyfarth](https://highered.mheducation.com/sites/0072478837/) | Book | 25 hours | $50 | Best beginner-to-intermediate assembly book. Examples compile and run. |
+| [x86-64 Assembly Crash Course - Creel (YouTube)](https://www.youtube.com/watch?v=xv_vgqg_c_I) | YouTube | 2 hours | FREE | Best quick introduction. Watch first. |
+| [Low-Level Programming - Igor Zhirkov](https://link.springer.com/book/10.1007/978-1-4842-2403-8) | Book | 25 hours | $50 | Assembly + C + Linux internals combined. Dense but excellent. |
+| [GDB Tutorial - YouTube](https://www.youtube.com/watch?v=l_u6Wn4f7cU) | YouTube | 3 hours | FREE | Step through assembly code with GDB. Essential. |
+| [Intel x86-64 Software Developer's Manual](https://software.intel.com/en-us/articles/intel-sdm) | Reference | ongoing | FREE | Vol 1 and 2A: the definitive instruction reference. Bookmark it. |
+| [Linux syscall table (x86-64)](https://filippo.io/linux-syscall-table/) | Reference | 30 min | FREE | Every syscall number. Bookmark this. |
+| [Compiler Explorer (godbolt.org)](https://godbolt.org) | Online Tool | ongoing | FREE | Type C code, see the assembly output. Essential for understanding how C compiles. |
+
+### What to Build (Section 5)
+
+1. Five standalone assembly functions: `strlen`, `strcmp`, `memcpy`, `atoi`, `itoa`, no C stdlib
+2. A syscall wrapper library: `my_write`, `my_read`, `my_open`, `my_exit`, pure assembly, no libc
+3. A "Hello World" program using only assembly and direct syscalls, statically linked
+
+---
+
+## SECTION 6 - REVERSE ENGINEERING BASICS
+
+**Time:** 2–4 weeks (Weeks 18–24) | **Difficulty:** Medium-Hard | **Prerequisite:** Assembly (Section 5)
+
+### Why This Is in Phase 0
+
+The v4.5 Table of Contents promised "reverse engineering basics" under Phase 0 but did not deliver the content. This is the gap that closes here.
+
+RE is needed earlier than most roadmaps suggest because:
+1. Phase 1 requires understanding what server-side code does (without source)
+2. Phase 3 exploitation requires reading and understanding binary code
+3. CTF challenges (which you start in Week 4) constantly require RE
+4. Building the mental model of binary → assembly → C now makes Phase 3 dramatically easier
+
+The goal here is **basic competency**: you can open a binary, navigate it, identify interesting functions, and read what they do. Advanced RE (packed binaries, anti-debugging, obfuscation) is Phase 3+.
+
+### The ELF Binary Format
+
+Every compiled Linux program is an ELF (Executable and Linkable Format) file. Understanding the format means you understand what you are reversing.
+
+```
+ELF File Structure:
+┌───────────────────────────────────────────┐
+│ ELF Header (64 bytes)                     │
+│   - Magic: \x7fELF (4 bytes)             │
+│   - Architecture: 64-bit/32-bit          │
+│   - Endianness: LE/BE                    │
+│   - Entry point: address of _start       │
+│   - Program header offset                │
+│   - Section header offset                │
+├───────────────────────────────────────────┤
+│ Program Headers (for loader)             │
+│   - LOAD: segments to map into memory    │
+│   - DYNAMIC: dynamic linking info        │
+│   - INTERP: path to dynamic linker       │
+├───────────────────────────────────────────┤
+│ Sections (for linker and debugger)       │
+│   .text:   executable code               │
+│   .data:   initialized global variables  │
+│   .bss:    uninitialized globals (no data│
+│            in file, just a size)         │
+│   .rodata: read-only data (string literals│
+│   .plt:    Procedure Linkage Table       │
+│   .got:    Global Offset Table           │
+│   .symtab: symbol table (stripped from  │
+│            release builds)              │
+│   .strtab: string table (symbol names)  │
+│   .debug_*:DWARF debug info (if present) │
+└───────────────────────────────────────────┘
+```
+
+**PLT and GOT: how shared library calls work:**
+
+When your program calls `printf`, the compiler does not know `printf`'s address at compile time. The dynamic linker fills it in at runtime. The mechanism:
+
+1. Your code calls `printf@plt` (Procedure Linkage Table stub)
+2. PLT jumps to the address stored in the GOT (Global Offset Table) for `printf`
+3. First call: GOT contains a resolver stub that calls the dynamic linker
+4. Dynamic linker finds `printf` in `libc.so`, writes its address into GOT
+5. Subsequent calls: PLT jumps to GOT, which now has the real address directly
+
+Why this matters: **GOT overwrites** are a classic exploitation technique. If you can write to GOT, you redirect library calls to your shellcode. Phase 3 teaches this in depth.
+
+### Static Analysis Workflow
+
+Static analysis = examining the binary without running it.
+
+#### Step 1: Reconnaissance
+
+```bash
+# What kind of file is this?
+file target_binary
+# Output example:
+# target_binary: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV),
+# dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, not stripped
+
+# What does "not stripped" mean? Symbol table is present → function names are visible.
+# "stripped" means no symbols → functions are named sub_XXXXXXXX in disassemblers.
+
+# What strings are in this binary? (find passwords, URLs, error messages, keys)
+strings target_binary
+strings -a -n 8 target_binary | head -100  # strings of 8+ chars
+
+# What security protections are enabled?
+checksec --file=target_binary
+# Output:
+#   RELRO:    Full RELRO    ← GOT is read-only after init (harder to overwrite)
+#   STACK CANARY: Canary found  ← stack overflow protection (must bypass in Phase 3)
+#   NX:       NX enabled    ← stack/heap not executable
+#   PIE:      PIE enabled   ← code is position-independent (ASLR applies to text)
+#   RPATH:    No RPATH
+```
+
+#### Step 2: Headers and Sections
+
+```bash
+# Full ELF header
+readelf -h target_binary
+
+# All sections and their sizes/permissions
+readelf -S target_binary
+
+# All segments (what gets loaded into memory)
+readelf -l target_binary
+
+# Symbol table (shows function names if not stripped)
+readelf -s target_binary | grep FUNC
+
+# Dynamic dependencies (what libraries it needs)
+ldd target_binary
+# or
+readelf -d target_binary | grep NEEDED
+
+# Disassemble a specific section
+objdump -d target_binary                   # disassemble .text (all functions)
+objdump -d -M intel target_binary          # Intel syntax (easier to read)
+objdump -d -j .text target_binary          # just the .text section
+objdump -d target_binary | grep -A 20 "<main>"  # find and show main()
+```
+
+#### Step 3: Ghidra - Your Decompiler
+
+Ghidra is a free, NSA-developed reverse engineering suite with a decompiler. It turns assembly back into readable C-like pseudocode.
+
+**Install:**
+```bash
+# Download from https://ghidra-sre.org
+# Requires Java 17+
+sudo apt install -y openjdk-17-jdk
+# Extract and run
+./ghidraRun
+```
+
+**Basic Ghidra workflow:**
+
+```
+1. File → New Project → Non-Shared Project → name it
+2. File → Import File → select binary
+3. Accept defaults → click OK
+4. Double-click the imported file to open CodeBrowser
+5. When asked to analyze: YES → use defaults → click Analyze
+(wait for analysis to complete: 30 seconds to a few minutes)
+
+6. Navigation:
+   Symbol Tree (left panel) → Functions → double-click any function → 
+   opens in Disassembly (center) and Decompiler (right)
+
+7. Find main():
+   Symbol Tree → Functions → look for "main" or "entry"
+   OR: Search → For Strings → search for error messages you saw with `strings`
+       right-click the string → References → Show References to
+       jump to the code that uses that string
+
+8. Reading decompiler output:
+   The right panel shows C-like pseudocode Ghidra generated.
+It is not perfect, but it is usually correct enough to understand logic.
+   Cross-reference with the disassembly when something looks wrong.
+
+9. Rename variables and functions:
+   Right-click a variable/function name → Rename
+Build a readable model as you go: this is the core RE skill
+```
+
+#### Step 4: Dynamic Analysis - Watch It Run
+
+Dynamic analysis = run the binary and observe behavior.
+
+```bash
+# ltrace: intercept library calls
+ltrace ./target_binary
+# Output shows every call to libc: printf("hello %s\n", ...), malloc(256), strcmp("input","secret")...
+# Extremely useful: you can see what the binary compares your input to
+
+# strace: intercept system calls
+strace ./target_binary
+# Output shows every syscall: open("/etc/passwd", O_RDONLY), read(3, ..., 4096), write(1, ...)...
+# Shows file access, network connections, process creation
+
+# strace following forks (for programs that fork children)
+strace -f ./target_binary
+
+# Run with GDB (full control; see GDB section)
+gdb ./target_binary
+
+# Run with specific input
+echo "my_input" | ./target_binary
+printf "AAAA\x00\x00\x00\x01" | ./target_binary  # binary input with null bytes
+```
+
+#### Step 5: First Reversing Challenge
+
+Find a CTF challenge tagged `[rev]` or `[crackme]` on picoCTF or crackmes.one. Your goal:
+
+1. Run `file` to understand the binary
+2. Run `strings` to look for interesting data
+3. Run `checksec` to understand protections
+4. Open in Ghidra, find `main()`, read the decompiler output
+5. Understand what the binary is checking
+6. Produce the correct input that passes the check
+
+Do this until it feels mechanical. The mechanics are the foundation of every Phase 3 exploit.
+
+---
+
+### Section 6 Resources
+
+| Resource | Type | Duration | Cost | Notes |
+|----------|------|----------|------|-------|
+| [Ghidra - Official](https://ghidra-sre.org) | Tool | ongoing | FREE | Your primary decompiler. Learn it deeply. |
+| [Practical Malware Analysis - Sikorski & Honig](https://nostarch.com/malware) | Book | 20 hours | $50 | Chapters 1–5 cover RE basics with excellent detail. Malware focus but applicable everywhere. |
+| [Reverse Engineering for Beginners - Dennis Yurichev](https://beginners.re/) | Book (Free) | 20 hours | FREE | 1000-page RE bible. Free PDF. Use as reference: read chapter per concept. |
+| [crackmes.one](https://crackmes.one) | Practice | ongoing | FREE | Reversing challenges. Start at difficulty 1. Do 10 before moving on. |
+| [Ghidra Book - No Starch Press](https://nostarch.com/GhidraBook) | Book | 15 hours | $35 | Official guide from NSA authors. Best Ghidra reference. |
+| [r2 / Radare2 docs](https://book.rada.re/) | Docs | 5 hours | FREE | Alternative to Ghidra. Command-line focused. Good to know. |
+| [Binary Exploitation - pwn.college](https://pwn.college/) | Course | ongoing | FREE | ASU-hosted. Excellent structured RE and exploitation curriculum. Start in Phase 0, live in it through Phase 3. |
+
+### What to Build (Section 6)
+
+1. Python ELF parser: read a binary, print every section name, offset, size, and permissions
+2. Complete 5 crackmes from crackmes.one (difficulty 1–2): document your methodology for each
+3. RE a CTF binary from picoCTF (reverse engineering category): write a one-page walkthrough
+
+---
+
+## MILESTONE PROJECTS
+
+Five projects that synthesize everything. Each one has a specific deliverable. Either it works or it does not. "I think it works" is not a deliverable.
+
+---
+
+### Milestone 1 - Simple Shell in C
+**Target:** Week 6–8 | **Sections:** OS + C
+
+**What it does:** A command-line shell that:
+- Displays a prompt: `crow$ `
+- Reads a line of input
+- Tokenizes it into command + arguments
+- Executes the command using `fork()` + `execvp()`
+- Handles `cd` as a built-in (cannot be a child process; why?)
+- Handles `exit` as a built-in
+- Reports execution errors properly
+
+**Deliverable:** Compiles with `gcc -Wall`. `ls -la /tmp`, `pwd`, `cd /var`, `echo hello world` all work correctly. `exit 0` terminates.
+
+```c
+// Skeleton structure: implement each function:
+char *read_line(void);                          // read a line from stdin
+char **split_line(char *line);                  // tokenize into argv array
+int execute(char **args);                       // fork + execvp
+int builtin_cd(char **args);                    // chdir()
+int builtin_exit(char **args);                  // exit()
+int is_builtin(char *cmd);                      // check if command is built-in
+
+int main(void) {
+    char *line;
+    char **args;
+
+    while (1) {
+        printf("crow$ ");
+        fflush(stdout);
+        line = read_line();
+        if (!line) break;
+        args = split_line(line);
+        if (args[0]) execute(args);
+        free(line);
+        free(args);
+    }
+    return 0;
+}
+```
+
+---
+
+### Milestone 2 - Memory Allocator in C
+**Target:** Week 10–12 | **Sections:** C + OS
+
+**What it does:** Implement `my_malloc`, `my_free`, `my_realloc` from scratch.
+- Use `sbrk()` or `mmap()` for actual memory from the OS
+- Maintain a free list of available blocks
+- Implement first-fit allocation
+- Handle coalescing of adjacent free blocks
+- Handle edge cases: NULL argument, zero size, too-large allocation
+
+**Why this matters:** Heap exploits (Phase 3) corrupt exactly these structures: chunk headers, free lists, bin pointers. You will understand them intuitively because you built them.
+
+**Deliverable:** 200–300 lines. Passes: allocate 1000 blocks of random sizes, free them in random order, verify no memory leak with Valgrind, verify correct data preservation with realloc.
+
+```bash
+# Test it:
+valgrind --leak-check=full --track-origins=yes ./your_allocator_test
+# Target: 0 bytes lost, 0 errors
+```
+
+---
+
+### Milestone 3 - Network Packet Analyzer
+**Target:** Week 14–16 | **Sections:** Networking + C
+
+**What it does:** Capture packets from a network interface and print:
+- Source and destination MAC addresses (Ethernet layer)
+- Source and destination IP addresses (IP layer)
+- Protocol (TCP/UDP/ICMP)
+- Source and destination ports (TCP/UDP only)
+- First 32 bytes of payload in hex + ASCII
+
+**Deliverable:** Works with libpcap or raw sockets. Correctly identifies a DNS query (UDP, port 53), an HTTP request (TCP, port 80), and a ping (ICMP).
+
+```bash
+# Run it:
+sudo ./packet_analyzer eth0
+# Expected output format:
+# [ETH] AA:BB:CC:DD:EE:FF → 11:22:33:44:55:66
+# [IP]  192.168.1.5 → 8.8.8.8  proto=UDP
+# [UDP] src=54321  dst=53
+# [PAYLOAD] 00 01 85 00 00 01 00 00 ...   .........
+```
+
+---
+
+### Milestone 4 - Assembly Function Library
+**Target:** Week 17–19 | **Sections:** Assembly
+
+**What it does:** A `.asm` library implementing 8 functions in pure x86-64 NASM assembly. No C standard library anywhere.
+
+Required functions:
+
+| Function | Signature | Notes |
+|----------|-----------|-------|
+| `asm_strlen` | `size_t (const char*)` | Count bytes to null |
+| `asm_strcmp` | `int (const char*, const char*)` | Lexicographic compare |
+| `asm_memcpy` | `void* (void*, const void*, size_t)` | Copy n bytes |
+| `asm_memset` | `void* (void*, int, size_t)` | Fill n bytes with value |
+| `asm_atoi` | `long (const char*)` | ASCII decimal string to integer |
+| `asm_abs` | `long (long)` | Absolute value |
+| `asm_max` | `long (long, long)` | Return larger of two values |
+| `asm_write_str` | `void (const char*)` | Write string to stdout via syscall |
+
+**Deliverable:** A C test harness that calls each function and validates output. All 8 pass. Compiled with `nasm -f elf64` + `gcc` linking. Valgrind reports no errors.
+
+---
+
+### Milestone 5 - First Binary Reversing
+**Target:** Week 22–24 | **Sections:** RE Basics + Assembly
+
+**What it does:** Reverse engineer three binaries and produce:
+
+1. A crackme from crackmes.one (difficulty 2): find the password. Document: initial recon, Ghidra navigation, how you identified the check, what the check does, the password.
+
+2. A stripped binary challenge from picoCTF (reverse engineering category): fully walkthrough the analysis process from `file` to flag.
+
+3. Write a Python script that automatically finds the "correct" input for a simple strcmp-based crackme by hooking `strcmp` with `ltrace` output or by reading the binary's `.rodata` section.
+
+**Deliverable:** Three write-ups (one per binary), each containing: tools used, steps taken, decompiler screenshots (or objdump output), and the solution/flag. The Python script runs and produces the answer without you typing it.
+
+---
+
+## LAB SETUP (COMPLETE)
+
+Everything you need, installed cleanly. Run these in order.
+
+```bash
+#!/bin/bash
+# Phase 0 Lab Setup - Ubuntu 22.04 LTS
+# Run as your regular user (not root). sudo where needed.
+
+# 1. System update
+sudo apt update && sudo apt upgrade -y
+
+# 2. Build essentials + core tools
+sudo apt install -y \
+    build-essential gcc gcc-multilib g++ gdb \
+    nasm binutils binutils-dev \
+    git curl wget vim tmux tree htop \
+    strace ltrace valgrind \
+    libpcap-dev libssl-dev \
+    python3 python3-pip python3-venv \
+    wireshark tshark tcpdump \
+    netcat-openbsd socat \
+    net-tools iproute2 dnsutils \
+    xxd hexdump file binwalk \
+    elfutils
+
+# 3. GDB plugins: install GEF (best for exploit development)
+bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+
+# Alternative: install Pwndbg (also excellent)
+# git clone https://github.com/pwndbg/pwndbg && cd pwndbg && ./setup.sh
+# Note: GEF and Pwndbg conflict: pick one. GEF recommended for Phase 0-2.
+
+# 4. Python tools (in a virtual environment; keeps your system Python clean)
+python3 -m venv ~/security-env
+source ~/security-env/bin/activate
+pip install \
+    pwntools \
+    capstone \
+    keystone-engine \
+    ropper \
+    angr \
+    pyelftools
+
+# Add to ~/.bashrc so venv activates automatically:
+echo 'source ~/security-env/bin/activate' >> ~/.bashrc
+
+# 5. Checksec
+pip install checksec.py
+# or
+sudo apt install checksec
+
+# 6. Ghidra (requires Java 17+)
+sudo apt install -y openjdk-17-jdk
+GHIDRA_VER="11.1.2"
+GHIDRA_DATE="20240709"
+wget "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_${GHIDRA_DATE}.zip"
+unzip ghidra_${GHIDRA_VER}_PUBLIC_${GHIDRA_DATE}.zip -d ~/tools/
+rm ghidra_${GHIDRA_VER}_PUBLIC_${GHIDRA_DATE}.zip
+# Create a launcher:
+echo '#!/bin/bash
+~/tools/ghidra_'"${GHIDRA_VER}"'_PUBLIC/ghidraRun "$@"' > ~/bin/ghidra
+chmod +x ~/bin/ghidra
+# Add ~/bin to PATH if not already there:
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+
+# 7. Radare2 (alternative RE tool; good to know)
+git clone https://github.com/radareorg/radare2
+cd radare2 && sys/install.sh && cd ..
+
+# 8. Cutter (GUI for Radare2)
+# Download AppImage from https://cutter.re: run without install
+
+# 9. Create your lab directory structure
+mkdir -p ~/lab/{phase0,binaries,ctf,tools,notes}
+mkdir -p ~/lab/phase0/{asm,c,python,networking,re}
+
+# 10. Verify everything
+echo "[+] Verification:"
+gcc --version | head -1
+gdb --version | head -1
+nasm --version
+python3 --version
+python3 -c "import pwn; print('[+] pwntools OK')"
+wireshark --version | head -1
+echo "[+] Lab setup complete."
+```
+
+---
+
+## GDB COMMAND REFERENCE
+
+GDB is your primary debugging tool through Phases 0–3. Every operator must be fluent in it. These are the commands you will use constantly.
+
+### Starting GDB
+
+```bash
+gdb ./binary                    # Load binary
+gdb ./binary -q                 # Quiet mode (no banner): add -q to ~/.gdbinit
+gdb --args ./binary arg1 arg2   # Pass arguments
+gdb -p 12345                    # Attach to running process PID
+gdb --batch -ex "run" -ex "bt" ./binary  # Non-interactive: run command and quit
+```
+
+### Running the Program
+
+```gdb
+run                             # Start execution (from beginning)
+run arg1 arg2                   # Run with arguments
+run < input.txt                 # Run with redirected stdin
+run <<< "input string"          # Run with heredoc input
+continue   (or c)               # Continue after a breakpoint
+kill                            # Kill the running program
+quit   (or q)                   # Exit GDB
+```
+
+### Breakpoints
+
+```gdb
+break main             (b main) # Break at function main
+break *0x401234                 # Break at exact address
+break file.c:42                 # Break at line 42 in file.c
+break *main+20                  # Break at main + 20 bytes
+info breakpoints       (i b)    # List all breakpoints
+delete 1                        # Delete breakpoint #1
+delete                          # Delete all breakpoints
+disable 1                       # Disable breakpoint #1 (keep it defined)
+enable 1                        # Re-enable breakpoint #1
+condition 1 rax==0              # Break at bp#1 only when rax==0
+```
+
+### Stepping Through Code
+
+```gdb
+next       (n)   # Execute next SOURCE LINE (step over function calls)
+step       (s)   # Execute next source line (step INTO function calls)
+nexti      (ni)  # Execute next INSTRUCTION (step over calls; assembly level)
+stepi      (si)  # Execute next instruction (step into calls; assembly level)
+finish           # Run until current function returns
+until 0x401234   # Run until address 0x401234
+```
+
+### Inspecting Registers
+
+```gdb
+info registers          (i r)       # All registers
+info registers rax rbx rsp         # Specific registers
+p $rax                              # Print rax value (as decimal)
+p/x $rax                            # Print rax value in hex
+p/d $rax                            # Print rax as signed decimal
+set $rax = 0x41414141               # Modify register value
+
+# With GEF installed: just type 'context' or it shows automatically on each break
+context                             # Print registers + stack + disassembly at once
+```
+
+### Examining Memory
+
+```gdb
+# x/[COUNT][FORMAT][SIZE] ADDRESS
+# FORMAT: x=hex, d=decimal, s=string, i=instruction, c=char, b=binary
+# SIZE:   b=byte(1), h=halfword(2), w=word(4), g=giant(8)
+
+x/20xb $rsp             # 20 bytes in hex starting at rsp (stack inspection)
+x/4xg $rsp              # 4 8-byte values at rsp (common for stack frame inspection)
+x/s 0x401234            # Print as null-terminated string at address
+x/i $rip                # Disassemble instruction at current instruction pointer
+x/20i $rip              # Disassemble next 20 instructions
+x/40xb 0x401000         # 40 bytes in hex at 0x401000
+
+# Shorthand: print command
+p (char*) 0x401234      # Treat address as char*, print the string
+p *(int*)  0x601000     # Dereference as int, print value
+```
+
+### Stack and Backtrace
+
+```gdb
+backtrace      (bt)     # Show call stack (most recent call first)
+frame 0                 # Switch to frame 0 (current)
+frame 2                 # Switch to frame 2 (2 calls up)
+info frame              # Details of current frame: rip, rsp, rbp, args
+info locals             # Local variables in current frame (if debug info present)
+info args               # Function arguments in current frame
+```
+
+### Disassembly
+
+```gdb
+disassemble main                    # Disassemble function named main
+disassemble 0x401234, 0x401280      # Disassemble a range
+disassemble /r main                 # With raw bytes
+set disassembly-flavor intel        # Intel syntax (add to ~/.gdbinit)
+layout asm                          # Split window: source + assembly
+layout regs                         # Split window: registers + assembly
+```
+
+### Searching Memory
+
+```gdb
+# With GEF: grep
+grep -a "password" 0x400000 0x410000          # Search for ASCII string in range
+
+# Without GEF, use find:
+find /b 0x400000, 0x410000, 0x41, 0x41, 0x41  # Find bytes 0x41 0x41 0x41 in range
+find /b &main, +0x1000, "password"             # Find string near main
+```
+
+### Useful .gdbinit Configuration
+
+```bash
+# Create ~/.gdbinit with these settings:
+cat > ~/.gdbinit << 'EOF'
+set disassembly-flavor intel
+set pagination off
+set print pretty on
+set print array on
+set confirm off
+
+# GEF: auto-loaded from its install
+# If using Pwndbg instead, comment out the GEF source line during install
+
+# Convenient aliases
+define hook-stop
+  echo \n
+end
+EOF
+```
+
+---
+
+## CTF PLATFORM GUIDE
+
+CTFs (Capture The Flag competitions) are the practice gym. You learn techniques in the curriculum sections. You develop actual skill by applying them under pressure on CTF challenges. **Start Week 4. Never stop.**
+
+### Where to Practice (Phase 0 Level)
+
+| Platform | URL | Best For | Cost |
+|----------|-----|----------|------|
+| picoCTF | [picoctf.org](https://picoctf.org) | Complete beginners. Carnegie Mellon. Guided problems with hints. **Start here.** | FREE |
+| pwn.college | [pwn.college](https://pwn.college) | Structured dojo-style. RE, binary exploitation, web. ASU-backed. Excellent. | FREE |
+| Hack The Box | [hackthebox.com](https://hackthebox.com) | Machines + challenges. Huge library. Community writeups available. | Free tier + Pro ($14/mo) |
+| TryHackMe | [tryhackme.com](https://tryhackme.com) | Guided rooms. Very beginner-friendly. Good for networking + Linux basics. | Free tier + Pro ($14/mo) |
+| CryptoHack | [cryptohack.org](https://cryptohack.org) | Cryptography challenges. Python-focused. Good supplement. | FREE |
+| crackmes.one | [crackmes.one](https://crackmes.one) | Reverse engineering only. Graduated difficulty. Perfect for Section 6. | FREE |
+
+### Phase 0 CTF Schedule
+
+```
+Week 4  → picoCTF: Linux basics category (5 challenges)
+Week 6  → picoCTF: General skills (5 challenges)
+Week 8  → picoCTF: Binary exploitation beginner (3 challenges)
+Week 10 → picoCTF: Forensics / RE beginner (3 challenges)
+Week 12 → pwn.college: Assembly module (start)
+Week 14 → picoCTF: Cryptography beginner (3 challenges)
+Week 16 → pwn.college: RE module (start)
+Week 18 → crackmes.one: Difficulty 1 (5 challenges)
+Week 20 → crackmes.one: Difficulty 2 (5 challenges)
+Ongoing → Mix picoCTF + pwn.college + HTB Free Tier
+```
+
+**CTF Rule:** Never look at a writeup until you have spent at least 2 hours on a challenge. The 2 hours of confusion is the training. The writeup is just confirmation. If you look immediately, you learn nothing.
+
+---
+
+## COMMON FAILURE POINTS & FIXES
+
+These are the exact places most people quit Phase 0, and what to do instead.
+
+| Failure Point | Why it happens | Fix |
+|---------------|---------------|-----|
+| "I don't understand pointers" | Pointers are abstract. Books explain them abstractly. | Draw them. Physical pen and paper. Draw the boxes (variables) and arrows (pointers). Then code. Never proceed from theory alone. |
+| "C is too hard, I'll just use Python" | It is hard. Correctly so. | Python uses C under the hood. Not knowing C means not understanding Python. Stay with C. Slow is correct at this stage. |
+| "Assembly makes no sense" | Starting with assembly before C creates no context. | If you hit this, go back to Section 2 and write more C. Compile it with `gcc -S` and read the output. The compiler bridges C and assembly. |
+| "I finished reading but can't build anything" | Passive reading doesn't build skill. | Close the book. Open a terminal. Build the project. Reading without building is tourism. |
+| "The timeline is impossible at my pace" | Comparing yourself to an imaginary fast learner. | There is no correct pace. There is only: are you moving forward? Move forward. 1 hour per day beats 0 hours. |
+| "The CTF challenges are too hard" | Starting at wrong difficulty. | Start at the absolute easiest (picoCTF General Skills). It should feel easy. Easy builds momentum. |
+| "I understand it, but GDB confuses me" | GDB has a steep UI curve. | Install GEF. Run the GDB Tutorial video alongside your debugging. Sit in GDB for 30 minutes per day until it feels normal. |
+| "I need to understand EVERYTHING before moving on" | Perfectionism. It stops progress. | You do not need to understand 100% to move forward. 70% understanding + forward momentum = Phase 1 ready. The gaps fill in during Phase 1. |
+
+---
+
+## PHASE 0 MASTER CHECKLIST
+
+Every box must be checked before moving to Phase 1. Not "mostly done." Done.
+
+### Operating Systems
+
+- [ ] Read OSTEP chapters 1–25
+- [ ] Explain: processes, threads, virtual memory, page tables, TLB, system calls, interrupt handling
+- [ ] Navigated `/proc/self/` and understood all fields in `/proc/[pid]/maps`
+- [ ] Built: process tree walker using `/proc`
+- [ ] Built: memory map printer for any given PID
+- [ ] Built: simple shell with `cd`, `exit`, and command execution via `fork()`+`execvp()`
+
+### C Programming
+
+- [ ] Completed: K&R book (or C Primer Plus) - all relevant chapters
+- [ ] Solved: 30+ Codewars challenges in C
+- [ ] Written: programs using pointers, double pointers, function pointers correctly
+- [ ] Written: malloc/free programs; detected memory leaks with Valgrind
+- [ ] Built: linked list with insert, delete, traverse, search
+- [ ] Built: custom string library (`my_strlen`, `my_strcpy`, `my_strcat`)
+- [ ] Built: Milestone 2 - memory allocator (malloc/free) in C
+
+### Python
+
+- [ ] TCP client and server working correctly
+- [ ] Binary file parser using `struct` module working correctly
+- [ ] Port scanner working correctly
+- [ ] HTTP client (raw socket) working correctly
+- [ ] Log parser working correctly
+
+### Networking
+
+- [ ] Explain: OSI layers, Ethernet frame format, IP header, TCP header, DNS resolution flow
+- [ ] Captured and analyzed a DNS query in Wireshark
+- [ ] Captured and analyzed a TCP handshake in Wireshark
+- [ ] Built: TCP port scanner in C
+- [ ] Built: DNS resolver in C (raw UDP, manual packet construction)
+- [ ] Built: HTTP client in C (raw TCP)
+- [ ] Built: Milestone 3 - packet sniffer in C
+
+### Assembly
+
+- [ ] Know all 16 registers, their sub-registers, calling convention roles
+- [ ] Know all instructions listed in Section 5.2: can write them without reference
+- [ ] Know System V AMD64 ABI calling convention by memory
+- [ ] Know syscall register convention by memory
+- [ ] Read assembly output of your own C code using `gcc -S` and `godbolt.org`
+- [ ] Written: Milestone 4 - 8 pure assembly functions, all tests passing
+
+### Reverse Engineering
+
+- [ ] Explain: ELF format, sections, segments, PLT/GOT mechanism
+- [ ] Used `file`, `strings`, `checksec`, `readelf`, `objdump` on 5+ binaries
+- [ ] Used `ltrace` and `strace` on 5+ programs and understood the output
+- [ ] Opened and navigated Ghidra on 5+ binaries: found main(), renamed variables
+- [ ] Built: Python ELF parser
+- [ ] Completed: 5 crackmes.one challenges (difficulty 1–2)
+- [ ] Completed: Milestone 5 - 3 binary write-ups
+
+### CTF
+
+- [ ] Completed: 10+ picoCTF challenges (mixed categories)
+- [ ] Completed: started pwn.college (at least 5 challenges)
+- [ ] Completed: 5 crackmes from crackmes.one
+
+### GDB
+
+- [ ] Set breakpoints at function name, address, and offset
+- [ ] Stepped through code with `ni`, `si`, `n`, `s`
+- [ ] Examined registers with `i r` and memory with `x/`
+- [ ] Read a stack frame using `x/20xg $rsp` and identified return address
+- [ ] Used backtrace to see a call stack
+- [ ] Modified a register value and observed the effect
+
+---
+
+## WHAT COMES NEXT
+
+Phase 1 is web application security. It starts immediately after this checklist is complete.
+
+**What Phase 0 built for Phase 1:**
+- Networking fundamentals → you understand what HTTP actually looks like on the wire
+- Python scripting → you can write your own tooling around Burp Suite
+- C knowledge → server-side code (PHP, C CGI, compiled web backends) makes sense
+- RE basics → you can look inside closed-source web applications when needed
+
+**What to expect in Phase 1:**
+- OWASP Top 10 (SQLi, XSS, SSRF, IDOR, file upload, etc.)
+- Burp Suite as your primary tool
+- Building exploits against real-world vulnerability classes
+- Bug bounty fundamentals
+
+**One thing to carry forward:** The habit of reading source code and binary output before relying on tools. Tools fail. The underlying understanding does not.
+
+---
+
+## RESOURCES AGGREGATED
+
+### Books (Priority Order)
+
+| Title | Author | Section | Cost | Why |
+|-------|--------|---------|------|-----|
+| Operating Systems: Three Easy Pieces | Remzi Arpaci-Dusseau | OS | FREE | Best OS book. Read it. |
+| The C Programming Language | Kernighan & Ritchie | C | $30 | The definitive C text. Dense. Every exercise matters. |
+| C Primer Plus | Stephen Prata | C | $40 | More accessible than K&R. Good first read. |
+| Beej's Guide to Network Programming | Brian Hall | Networking | FREE | Best practical networking in C. |
+| x86-64 Assembly Language Programming | Ray Seyfarth | Assembly | $50 | Best beginner assembly with working examples. |
+| Low-Level Programming | Igor Zhirkov | Asm + C | $50 | Unified. OS + C + Assembly together. |
+| Reverse Engineering for Beginners | Dennis Yurichev | RE | FREE | 1000-page RE reference. Free PDF. Use as needed. |
+| Practical Malware Analysis | Sikorski & Honig | RE | $50 | Chapters 1–5 for Phase 0. Rest for Phase 4. |
+| Black Hat Python | Justin Seitz | Python | $30 | Preview read in Phase 0. Full implementation in Phase 1–2. |
+| The Linux Programming Interface | Michael Kerrisk | OS | $70 | Dense reference. Syscalls, IPC, signals. For life. |
+| CS:APP | Bryant & O'Hallaron | C + Asm | $90 | Optional. Elite. C + assembly + linking unified. |
+
+### Online Tools & References
+
+| Resource | URL | Use |
+|----------|-----|-----|
+| Compiler Explorer | godbolt.org | C → Assembly live |
+| Linux Syscall Table | filippo.io/linux-syscall-table | Syscall numbers |
+| x86 Instruction Reference | www.felixcloutier.com/x86/ | Every instruction defined |
+| GDB Documentation | sourceware.org/gdb/documentation/ | Full GDB reference |
+| OSDev Wiki | wiki.osdev.org | OS internals deep dives |
+| picoCTF | picoctf.org | Beginner CTF |
+| pwn.college | pwn.college | Structured RE + pwn curriculum |
+| crackmes.one | crackmes.one | RE practice binaries |
+| Ghidra | ghidra-sre.org | Primary decompiler |
+| Ghidra Cheat Sheet | github.com/NationalSecurityAgency/ghidra/tree/master/GhidraDocs | Official docs |
+
+### YouTube Channels
+
+| Channel | Focus |
+|---------|-------|
+| LiveOverflow | Binary exploitation, RE, web: excellent beginner content |
+| John Hammond | CTF walkthroughs: methodical and educational |
+| Computerphile | CS fundamentals: memory, networking, cryptography explained |
+| Low Level | Systems programming, C, assembly: underrated and excellent |
+| davy_wybiral | Low-level programming: practical, no padding |
+
+---
+
+*Phase 0 complete. Phase 1 is on the other side of this checklist.*
+*Build every project. Debug every crash. Read every man page.*
+*The talons stay sharp by striking. Start striking.*
 
 ---
 
@@ -13571,7 +15685,7 @@ Conferences (attend/watch):
 
 </div>
 
-**Duration:** Ongoing (6–18+ Months) | **Difficulty:** Extreme | **Hours/Week:** 40+ (Unlimited) | **Prerequisites:** Phase 4 competency in at least two tracks (4A + one of 4B–4I)
+**Duration:** Ongoing (6–18+ Months) | **Difficulty:** Extreme | **Hours/Week:** 40+ (Unlimited) | **Prerequisites:** Phase 4 competency in at least two tracks (4A + one of 4B–4I) | **Completion Rate:** 0.001%
 
 ---
 
