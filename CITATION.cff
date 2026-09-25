@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this curriculum, research methodology, or lab implementations in your academic or professional research, please cite it as below."
+title: "The BlackHAT Roadmap: From 0 to GREATEST"
+abstract: "A comprehensive, zero-to-elite offensive security engineering curriculum, systems internals syllabus, and operational security compendium."
+version: 0.2.0
+date-released: 2026-09-25
+authors:
+  - family-names: "Biswas"
+    given-names: "Sagar"
+license: "MIT"
+repository-code: "https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap"
+url: "https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap"
+keywords:
+  - "offensive-security"
+  - "red-team"
+  - "exploit-development"
+  - "malware-development"
+  - "edr-evasion"
+  - "active-directory"
+  - "kernel-exploitation"
+  - "systems-programming"
+  - "reverse-engineering"
+  - "post-quantum-cryptography"

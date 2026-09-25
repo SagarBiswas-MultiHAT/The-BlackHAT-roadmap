@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Discussions & Study Groups
+    url: https://github.com/SagarBiswas-MultiHAT/the-blackhat-roadmap/discussions
+    about: Ask questions, share lab configurations, and connect with peer researchers.
