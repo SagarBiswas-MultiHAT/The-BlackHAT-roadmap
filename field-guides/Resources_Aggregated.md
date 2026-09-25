@@ -1,7 +1,7 @@
 # Resources Aggregated
 
 **Author:** Sagar Biswas<br/>
-**Version:** 0.0.0 · 2027 Edition<br/>
+**Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
 
@@ -888,7 +888,7 @@ Quick reference showing which resource categories are most important at each pha
 
 <div align="right">
 
-*Resources Aggregated -- The BlackHAT Roadmap v0.2.0* <br/>
+*Resources Aggregated -- The BlackHAT Roadmap v1.2.0* <br/>
 *2027 Edition -- All entries verified. All deprecated tools removed. All gaps filled.*
 
 </div>

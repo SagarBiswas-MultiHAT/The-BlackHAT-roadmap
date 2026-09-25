@@ -1,7 +1,7 @@
 # Philosophy: The BlackHat Mindset
 
 **Author:** Sagar Biswas<br/>
-**Version:** 0.0.0 · 2027 Edition<br/>
+**Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
 
@@ -575,7 +575,7 @@ What you build with it is yours.
 
 <div align="right">
 
-*Philosophy: The BlackHat Mindset | The BlackHAT Roadmap v0.2.0 -- 2027 Edition*<br/>
+*Philosophy: The BlackHat Mindset | The BlackHAT Roadmap v1.2.0 -- 2027 Edition*<br/>
 *Author: Sagar Biswas*
 
 </div>

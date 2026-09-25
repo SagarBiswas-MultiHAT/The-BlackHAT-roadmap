@@ -1,7 +1,7 @@
 # FINAL WORD
 
 **Author:** Sagar Biswas<br/>
-**Version:** 0.0.0 · 2027 Edition<br/>
+**Version:** v1.0.0 · 2027 Edition<br/>
 **Status:** The GREATEST. No ceiling. No apology. No inaccurate statistics.<br/>
 
 <div align="right">
@@ -222,15 +222,7 @@ These are not speculative futures. They are active research areas in 2026-2027 w
 
 ---
 
-## AUTHOR AND VERSION
-
-**Author:** Sagar Biswas<br/>
-**Version:** 0.2.0 · 2027 Edition<br/>
-**Status:** The GREATEST. No ceiling. No apology. No inaccurate statistics.<br/>
-
----
-
-*The BlackHAT Roadmap v0.2.0 · Final Word*<br/>
+*The BlackHAT Roadmap v1.2.0 · Final Word*<br/>
 *43,500+ lines. 150+ diagrams. 1,080+ code blocks. 440+ sections. 1,120+ subsections. 300+ tools. 200+ MITRE techniques.*<br/>
 *Every number verified. Every technique sourced. Every researcher named.*<br/>
 

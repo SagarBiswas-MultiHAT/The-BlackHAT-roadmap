@@ -1,7 +1,7 @@
 # MITRE ATT&CK Quick Reference
 
 **Author:** Sagar Biswas<br/>
-**Version:** 0.0.0 · 2027 Edition<br/>
+**Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
 
@@ -823,7 +823,7 @@ A fast-reference guide to the specific log sources, event IDs, and telemetry sig
 
 <div align="right">
 
-*MITRE ATT&CK Quick Reference -- Part of The BlackHAT Roadmap v0.2.0 (0 to GREATEST)*<br/>
+*MITRE ATT&CK Quick Reference -- Part of The BlackHAT Roadmap v1.2.0 (0 to GREATEST)*<br/>
 *Enterprise ATT&CK: https://attack.mitre.org | ICS ATT&CK: https://attack.mitre.org/matrices/ics/ &nbsp;| ATLAS: https://atlas.mitre.org*<br/>
 *Always verify technique IDs at attack.mitre.org before operational use: the framework updates quarterly.*
 

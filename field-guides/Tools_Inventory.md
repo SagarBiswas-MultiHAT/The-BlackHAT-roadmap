@@ -1,7 +1,7 @@
-# Tools Inventory - The BlackHAT Roadmap v0.0.0
+# Tools Inventory
 
 **Author:** Sagar Biswas<br/>
-**Version:** 0.0.0 · 2027 Edition<br/>
+**Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
 
@@ -1409,7 +1409,7 @@ You do not need to install everything at once. Install tools when you reach thei
 
 <div align="right">
 
-*Tools Inventory - The BlackHAT Roadmap v0.2.0 · Authoritative 2027 Edition*<br/>
+*Tools Inventory - The BlackHAT Roadmap v1.2.0 · Authoritative 2027 Edition*<br/>
 *Covers: Phase -1 through Phase 6 · ~270 tools · All URLs verified · No deprecated tools*
 
 </div>

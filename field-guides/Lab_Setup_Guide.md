@@ -1,7 +1,7 @@
 # BlackHAT Lab Setup Guide
 
 **Author:** Sagar Biswas<br/>
-**Version:** 0.0.0 · 2027 Edition<br/>
+**Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
 
@@ -2289,7 +2289,7 @@ Response:
 
 <div align="right">
 
-*BlackHAT Lab Setup Guide - Part of The BlackHAT Roadmap v0.2.0 (0 to GREATEST)*
+*BlackHAT Lab Setup Guide - Part of The BlackHAT Roadmap v1.2.0 (0 to GREATEST)*
 *Status: Living document. The lab grows as you grow.*
 
 </div>

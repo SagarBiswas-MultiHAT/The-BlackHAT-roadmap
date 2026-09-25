@@ -1,7 +1,7 @@
 # PHASE -1: OPSEC and Infrastructure
 
 **Author:** Sagar Biswas <br/> 
-**Version:** v1.0.0 · 2027 Edition<br/>
+**Version:** v1.2.0 · 2027 Edition<br/>
 **Status:** Start here. Before Linux. Before Python. Before everything.
 
 <div align="right">

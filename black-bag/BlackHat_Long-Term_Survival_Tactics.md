@@ -3,7 +3,7 @@
 **The Complete Operational Security Manual - 2027 Edition**
 
 **Author:** Sagar Biswas  
-**Version:** v1.0.0 · 2027 Edition<br/> 
+**Version:** v1.1.0 · 2027 Edition<br/> 
 **Companion to:** The BlackHAT Roadmap (0 to GREATEST)
 
 > 📚 **Companion Roadmap Documents:**
@@ -2999,9 +2999,9 @@ Because it does.
 
 ---
 
-### What v1.0.0 Fixed Over v0.0.0
+### What v1.1.0 Fixed Over v1.0.0
 
-| Was (v0.0.0) | Now (v1.0.0) |
+| Was (v1.0.0) | Now (v1.1.0) |
 |------------|------------|
 | "shred -vfz /dev/sdX" for SSD wipe (WRONG) | Full Section 2.6 on correct SSD erasure: cryptographic erase, ATA SE, physical destruction |
 | "DoD 7-pass wipe" presented as best practice | NIST SP 800-88 single-pass standard; DoD 7-pass correctly labeled obsolete |

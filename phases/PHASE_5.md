@@ -1,7 +1,7 @@
 # PHASE 5: GREATEST -- The 0.0001%
 
 **Author:** Sagar Biswas<br/>
-**Version:** v0.0.0 · 2027 Edition<br/>
+**Version:** v1.0.0 · 2027 Edition<br/>
 
 <div align="right">
 

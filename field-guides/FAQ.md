@@ -1,5 +1,8 @@
 # FAQ
 
+**Author:** Sagar Biswas<br/>
+**Version:** v1.0.0 · 2027 Edition<br/>
+
 <div align="right">
 
 **Every question a beginner asks, and every question they should have asked but didn't.**
@@ -779,7 +782,7 @@ Every public offensive tool (mimikatz, BloodHound, PetitPotam, SilentMoonwalk) w
 
 <div align="right">
 
-*FAQ -- The BlackHAT Roadmap v0.2.0*<br/>
+*FAQ -- The BlackHAT Roadmap v1.2.0*<br/>
 *2027 Edition -- Comprehensive. No gaps. No outdated answers. No hedging.*<br/>
 *Author: Sagar Biswas*
 

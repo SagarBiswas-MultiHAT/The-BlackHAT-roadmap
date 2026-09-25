@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <img src="assets/banner.svg" alt="The BlackHAT Roadmap v0.0.0" width="850" />
+  <img src="assets/banner.svg" alt="The BlackHAT Roadmap v1.2.0" width="850" />
 </p>
 
 ### From Nothing to Operator. No Ceilings, No Apologies.
@@ -10,7 +10,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 
 <p align="center">
   <a href="https://github.com/SagarBiswas-MultiHAT"><img src="https://img.shields.io/badge/Author-Sagar%20Biswas-red.svg?style=for-the-badge&logo=github" alt="Author" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Version-v0.0.0-00ff66.svg?style=for-the-badge&logo=target" alt="Version" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Version-v1.2.0-00ff66.svg?style=for-the-badge&logo=target" alt="Version" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Curriculum-43%2C500%2B%20Lines-blue.svg?style=for-the-badge&logo=gitbook" alt="Curriculum Volume" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Phases-8%20Phases%20(-1%20to%206)-orange.svg?style=for-the-badge&logo=target" alt="Phases" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Offensive%20Tools-300%2B%20Cataloged-red.svg?style=for-the-badge&logo=gnubash" alt="Tools" /></a>
@@ -23,6 +23,8 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 <p align="center">
   <img src="https://img.shields.io/github/stars/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=github&color=ffcc00" alt="Stars" />
   <img src="https://img.shields.io/github/forks/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=git-fork&color=orange" alt="Forks" />
+  <img src="https://img.shields.io/github/watchers/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=eye&color=blue" alt="Watchers" />
+  <img src="https://img.shields.io/github/repo-size/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=database&color=green" alt="Repo Size" />
   <img src="https://img.shields.io/github/last-commit/SagarBiswas-MultiHAT/The-BlackHAT-roadmap?style=flat-square&logo=clock" alt="Last Commit" />
 </p>
 
@@ -31,22 +33,63 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href="#visual-learning-path--progression-map">Visual Learning Path</a> •
   <a href="#compilable-offensive-engineering-payloads">Weaponized Payloads</a> •
   <a href="#2025-2027-operator-modules">Bleeding-Edge Modules</a> •
-  <a href="#recommended-learning-tracks">Learning Pathways</a> •
   <a href=".github/TRACKER.md">Journey Tracker</a> •
   <a href="#citation--academic-attribution">Citation</a> •
   <a href="#legal-disclaimer">Legal Notice</a>
 </p>
 
----
+</div>
 
-**READING GUIDE**
+<div align="center">
+
+```
+43,500+ Lines  ·  8 Phases  ·  300+ Tools  ·  200+ ATT&CK Techniques  ·  1,080+ Code Blocks  ·  150+ Diagrams
+```
 
 </div>
 
-- It is recommended to use a mobile device because there are over 150 high-quality diagrams, which you can easily zoom in and out of on mobile.
+> If this curriculum has value for your offensive security journey, consider **[starring](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/stargazers)** the repository to help other researchers and operators discover it.
+
+---
+
+### What Makes This Different
+
+- **Built from the metal up.** Every phase teaches the underlying system internals before attack techniques. No "just run this tool" shortcuts.
+- **Compilable offensive code.** Not just theory. Includes working C and Rust payloads with PEB traversal, DJB2 hashing, and in-memory loaders.
+- **OPSEC before hacking.** Phase -1 comes before Phase 0. Operational security, threat modeling, and anonymous infrastructure are prerequisites.
+- **Full MITRE ATT&CK alignment.** 200+ techniques mapped across Enterprise v15, ICS, and ATLAS. Every section ties back to the framework.
+- **Covers what others skip.** Physical red teaming, drone reconnaissance, social engineering pretexts, quantum SNDL, and post-quantum cryptography.
+
+---
+
+<a id="table-of-contents"></a>
+<a id="master-curriculum--navigation-hub"></a>
+
+### Where to Start
+
+| Your Background | Recommended Entry Point | Modules | Estimated Time | Parallel Learning |
+| :--- | :--- | :---: | :---: | :--- |
+| Everyone starts here | [Phase -1: OPSEC & Infrastructure](phases/PHASE_-1.md) | 24 | 4-6 weeks | [Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md) · [Mindset](field-guides/Philosophy_The_BlackHat_Mindset.md) · [FAQ](field-guides/FAQ.md) |
+| Complete beginner | [Phase 0: Foundation](phases/PHASE_0.md) | 23 | 12-16 weeks | [Lab Setup Guide](field-guides/Lab_Setup_Guide.md) |
+| Web developer / bug bounty | [Phase 1: Web Security](phases/PHASE_1.md) | 39 | 8-12 weeks | - |
+| Sysadmin / network engineer | [Phase 2: Network & Infrastructure](phases/PHASE_2.md) | 23 | 10-14 weeks | - |
+| Reverse engineer / CTF player | [Phase 3: Binary Exploitation & RE](phases/PHASE_3.md) | 21 | 12-16 weeks | [MITRE Reference](field-guides/MITRE_ATT%26CK_Quick_Reference.md) · [Tools (300+)](field-guides/Tools_Inventory.md) · [Resources](field-guides/Resources_Aggregated.md) |
+| Experienced pentester | [Phase 4: Specialized Tracks (4A-4I)](phases/PHASE_4.md) | 16 | Choose your track | Pick 1 primary + 1 secondary |
+| Researcher / exploit dev | [Phase 5: GREATEST](phases/PHASE_5.md) | 22 | Ongoing | [Final Word](field-guides/Final_Word.md) |
+| Special operator | [Phase 6: Special Operations](phases/PHASE_6.md) | 39 | Ongoing | Parallel with Phase 5 · [Final Word](field-guides/Final_Word.md) |
+
+Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across phases.
+
+<details>
+<summary><strong>Reading Guide</strong></summary>
+
+- It is recommended to use a mobile device because there are over 150 high-quality diagrams, which you can easily zoom in and out on mobile.
 - Avoid using the GitHub app on mobile; instead, access GitHub through your browser in desktop view.
 - All diagrams have been tested in light mode, so using dark mode is not advised.
-- Are you facing any problems? Is there anything difficult to understand? Do you have any suggestions? Please direct message me in the discussion section of this GitHub repository. Contributions are always welcome.
+- Are you facing any problems? Is there anything difficult to understand? Do you have any suggestions? Join the conversation and drop a comment in [GitHub Discussions](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/discussions/1). Community feedback and contributions are always welcome.
+- For broken links, typos, payload errors, or bug reports, please [open an issue](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/issues).
+
+</details>
 
 ---
 
@@ -63,26 +106,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 
 ---
 
----
-
-<a id="table-of-contents"></a>
 ## Table of Contents
-
-<div align="center">
-
-| Core Progression Phases | Specialized Tracks & Capstone | Master Field Guides |
-| :--- | :--- | :--- |
-| • [Phase -1: OPSEC & Infra](#phase--1) | • [Phase 4: Specialized Tracks](#phase-4) | • [Survival Tactics](#blackhat-long-term-survival-tactics) |
-| • [Phase 0: Foundations](#phase-0) | • [Phase 5: GREATEST](#phase-5) | • [The BlackHat Mindset](#philosophy-the-blackhat-mindset) |
-| • [Phase 1: Web & API](#phase-1) | • [Phase 6: Special Operations](#phase-6-parallel-learning-alongside-phase-5) | • [Comprehensive FAQ](#faq) |
-| • [Phase 2: Network & AD](#phase-2) | • [Final Word (Capstone)](#final-word) | • [Lab Setup Guide](#lab-setup-guide) |
-| • [Phase 3: System & Kernel](#phase-3) | | • [MITRE ATT&CK Matrix](#mitre-attck-quick-reference) |
-| | | • [Tools Inventory (300+)](#tools-inventory) |
-| | | • [Resources Aggregated](#resources_aggregated) |
-
-</div>
-
----
 
 <a id="phase--1"></a>
 #### [Phase -1: Hardened OPSEC & Anonymous Infrastructure](phases/PHASE_-1.md)
@@ -646,13 +670,13 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 
 The cybersecurity industry is saturated with surface-level certification guides, multiple-choice cheat sheets, and automated tool tutorials that fail the moment modern defensive telemetry is encountered.
 
-**The BlackHAT Roadmap v0.0.0 · GREATEST Edition** is engineered on a fundamentally different principle: **understanding systems completely from the metal up.**
+**The BlackHAT Roadmap v1.2.0 · GREATEST Edition** is engineered on a fundamentally different principle: **understanding systems completely from the metal up.**
 
 This repository contains over **43,500 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 15 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
 
 ```
 +-----------------------------------------------------------------------------+
-| REPOSITORY AT A GLANCE (v0.0.0 · 2027 EDITION)                               |
+| REPOSITORY AT A GLANCE (v1.2.0 · 2027 EDITION)                              |
 +-----------------------------------------------------------------------------+
 | Total Content Volume : 43,500+ lines of dense offensive engineering         |
 | Total Documentation  : ~1.80 MB source markdown across 15 master modules    |
@@ -674,7 +698,7 @@ Most educational resources teach how software is *supposed* to work. Real offens
 
 ### The Contrast
 
-| Category | Standard InfoSec Curriculums | The BlackHAT Roadmap v0.0.0 |
+| Category | Standard InfoSec Curriculums | The BlackHAT Roadmap v1.2.0 |
 | :--- | :--- | :--- |
 | **Core Objective** | Passing multiple-choice exams (CEH, PenTest+) | Engineering original capabilities from scratch |
 | **Tooling Approach** | Running public scanners (Nmap, Metasploit, Nikto) | Writing custom implants, loaders, and C2 agents |
@@ -693,7 +717,7 @@ Most educational resources teach how software is *supposed* to work. Real offens
 The-BlackHAT-roadmap/
 ├── .github/                      <- Project metadata, issue templates, PR template & tracker
 ├── assets/
-│   ├── banner.svg                <- Cybernetic HUD SVG banner (v0.0.0)
+│   ├── banner.svg                <- Cybernetic HUD SVG banner (v1.2.0)
 │   └── diagrams/                 <- Modularized Mermaid diagrams & high-res renders
 ├── black-bag/                    <- Covert operational tradecraft & survival payload
 │   └── BlackHat_Long-Term_Survival_Tactics.md <- 3,000+ line master OPSEC & counter-surveillance manual
@@ -718,38 +742,11 @@ The-BlackHAT-roadmap/
 │   ├── PHASE_4.md                <- Specialized Operator Tracks (4A-4I)
 │   ├── PHASE_5.md                <- GREATEST (Apex Vulnerability Research & 0-Day)
 │   └── PHASE_6.md                <- Special Operations & Adversary Simulation
+├── CHANGELOG.md                  <- Version history and public release notes
 ├── CITATION.cff                  <- Native GitHub Citation metadata
 ├── LICENSE                       <- MIT License
 └── README.md                     <- Master curriculum hub & navigation launchpad
 ```
-
-The curriculum is structured across 8 core operational phases, 1 classified black-bag tradecraft volume, and 7 specialized field guides:
-
-### Core Progression Phases
-
-| Phase | Volume | Focus & Operational Scope | Status |
-| :---: | :--- | :--- | :---: |
-| **[-1](phases/PHASE_-1.md)** | [Phase -1: Hardened OPSEC & Anonymous Infrastructure](phases/PHASE_-1.md) | Persona isolation, non-persistent OS, multi-hop proxy chains, non-KYC crypto | `VERIFIED` |
-| **[0](phases/PHASE_0.md)** | [Phase 0: Low-Level Foundations & Systems Internals](phases/PHASE_0.md) | x86-64 assembly, C memory internals, PE/ELF formats, Windows Native API | `VERIFIED` |
-| **[1](phases/PHASE_1.md)** | [Phase 1: Modern Web & API Attack Surface](phases/PHASE_1.md) | Cloud SSRF, OAuth/JWT tampering, race conditions, deserialization, GraphQL | `VERIFIED` |
-| **[2](phases/PHASE_2.md)** | [Phase 2: Network Pivoting & Active Directory Mastery](phases/PHASE_2.md) | Kerberos, NTLM relaying, ADCS ESC1-15, auth coercion, multi-hop pivoting | `VERIFIED` |
-| **[3](phases/PHASE_3.md)** | [Phase 3: System & Kernel Exploitation](phases/PHASE_3.md) | Position-independent shellcode, ROP chains, Windows heap exploitation, BYOVD | `VERIFIED` |
-| **[4](phases/PHASE_4.md)** | [Phase 4: Specialized Operator Tracks (4A-4I)](phases/PHASE_4.md) | EDR evasion, C2 protocol design, kernel rootkits, cloud/AI, hardware, supply chain | `VERIFIED` |
-| **[5](phases/PHASE_5.md)** | [Phase 5: GREATEST (Apex Research & 0-Day)](phases/PHASE_5.md) | Autonomous vuln research lab, novel hypervisor/silicon bypasses, original 0-days | `VERIFIED` |
-| **[6](phases/PHASE_6.md)** | [Phase 6: Special Operations & Adversary Simulation](phases/PHASE_6.md) | Covert physical entry, drone recon, SE pretexts, quantum SNDL, forensic cleanup | `VERIFIED` |
-
-### Black-Bag Tradecraft Volume & Master Field Guides
-
-| Module | Document | Scope & Utility |
-| :---: | :--- | :--- |
-| **Black-Bag** | [BlackHat Long-Term Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md) | 3,000+ line master manual on counter-surveillance, digital persona architecture, and lifecycle OPSEC |
-| **Doctrine** | [Philosophy: The BlackHat Mindset](field-guides/Philosophy_The_BlackHat_Mindset.md) | Cognitive models, adversarial assumption hunting, primitive thinking over tool thinking |
-| **Matrix** | [MITRE ATT&CK Quick Reference](field-guides/MITRE_ATT&CK_Quick_Reference.md) | Enterprise v15, ICS, and ATLAS technique mapping, detection signals, and 7 attack chain diagrams |
-| **Directory** | [Tools Inventory](field-guides/Tools_Inventory.md) | Canonical index of 300+ offensive tools cataloged across 18 specialized operational categories |
-| **Archives** | [Resources Aggregated](field-guides/Resources_Aggregated.md) | Canonical offensive literature, academic research proceedings, conference talk archives, and labs |
-| **Lab Guide** | [Lab Setup Guide](field-guides/Lab_Setup_Guide.md) | Hypervisor configurations, multi-tier enterprise AD (GOAD), malware detonation sandbox topology |
-| **FAQ** | [Comprehensive FAQ](field-guides/FAQ.md) | Pacing, career realities, specialized hardware kits, 2027 quantum transition, and mindset calibration |
-| **Capstone** | [Final Word](field-guides/Final_Word.md) | Document verification statistics, researcher attributions, and horizon research roadmap (2027-2028) |
 
 ---
 
@@ -805,29 +802,6 @@ Replacing legacy C/C++ loaders with high-performance, statically compiled Rust:
 
 ---
 
-## Recommended Learning Tracks
-
-Depending on your professional background and operational goals, select an optimized pathway through the curriculum:
-
-```
-[ Track A: Low-Level Exploit Researcher ]
-Phase 0 (Assembly & C) ---> Phase 3 (Binary & Kernel) ---> Phase 4D (0-Day / Fuzzing / Browser) ---> Phase 5 (GREATEST)
-
-[ Track B: Enterprise Red Team Operator ]
-Phase 1 (Web / API) ---> Phase 2 (Active Directory) ---> Phase 4I (ADCS ESC1-15 & Entra ID) ---> Red Team Ops
-
-[ Track C: Stealth Implant & Malware Developer ]
-Phase 0 (OS Internals) ---> Phase 4A (Implant Dev) ---> Phase 4C (EDR Evasion) ---> Offensive Rust Labs
-
-[ Track D: Hardware & Infrastructure Infiltrator ]
-Phase 0 (Architecture) ---> Phase 2 (Pivoting) ---> Phase 4G (Hardware/CAN/SDR) ---> Survival OPSEC
-
-[ Track E: Special Operations & Full-Scope Adversary Emulator ]
-Phase -1 (OPSEC) ---> Phase 2 (AD) ---> Phase 4B/4G (C2 & Hardware) ---> Phase 6 (Special Operations)
-```
-
----
-
 ## Lab Architecture & Prerequisites
 
 To execute the practical exercises in this curriculum, the recommended self-hosted lab setup includes:
@@ -840,11 +814,9 @@ To execute the practical exercises in this curriculum, the recommended self-host
 
 ---
 
-## Discoverability & GitHub Topics
+## Topics
 
-This repository is optimized for researchers and practitioners across offensive security, red teaming, and exploit engineering:
-
-`red-team` · `offensive-security` · `exploit-development` · `malware-development` · `edr-evasion` · `active-directory` · `kernel-exploitation` · `reverse-engineering` · `c2-framework` · `cybersecurity-roadmap` · `zero-day` · `post-quantum-cryptography` · `hardware-hacking` · `physical-security` · `ebpf-rootkit` · `social-engineering` · `rust-offensive`
+`security` · `cybersecurity` · `reverse-engineering` · `security-tools` · `hacking` · `pentesting` · `osint` · `penetration-testing` · `network-security` · `ctf` · `infosec` · `malware` · `ethical-hacking` · `red-team` · `kali-linux` · `malware-analysis` · `active-directory` · `web-security` · `mitre-attack` · `bug-bounty`
 
 ---
 
@@ -862,9 +834,10 @@ If this curriculum provides value to your research or career, consider starring 
 
 ## Contributing
 
-Contributions that raise the technical bar are welcome:
+Contributions that raise the technical bar are welcome. Whether it is a new payload, a deeper module, or a dead link fix, real contributions from the community make this curriculum stronger.
 
-- **Quality Threshold:** PRs adding generic tool lists or introductory material will not be merged. Read our [Contributing Guidelines](.github/CONTRIBUTING.md).
+- **Getting Started:** Check out the [Contributing Guidelines](.github/CONTRIBUTING.md) and look for issues tagged [`good first issue`](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/labels/good%20first%20issue) for approachable entry points.
+- **Quality Threshold:** PRs adding generic tool lists or introductory material will not be merged. We prioritize depth over breadth.
 - **Code Standards:** Code samples must be functional, accompanied by technical rationale, and compiled against modern toolchains. Check out the [Weaponized Payloads](payloads/) directory.
 - **Formatting Rule:** Adhere strictly to clean markdown standards. Do not include em-dashes anywhere in text or documentation.
 
@@ -877,7 +850,7 @@ If you utilize this curriculum, offensive engineering architectures, or lab impl
 ```bibtex
 @misc{biswas2026blackhat,
   author       = {Sagar Biswas},
-  title        = {The BlackHAT Roadmap: From 0 to GREATEST (v0.0.0)},
+  title        = {The BlackHAT Roadmap: From 0 to GREATEST (v1.2.0)},
   year         = {2026},
   publisher    = {GitHub},
   journal      = {GitHub repository},
@@ -907,4 +880,11 @@ Or reference the native [CITATION.cff](CITATION.cff) file via GitHub's "Cite thi
 **Sagar Biswas**  
 GitHub: [@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)  
 
-*Built for those who demand mastery from the silicon up.*
+<div align="right">
+
+*Built for those who demand mastery from the silicon up.*  
+*Maintained with discipline. No filler. No shortcuts. No apologies.*
+
+</div>
+
+---
