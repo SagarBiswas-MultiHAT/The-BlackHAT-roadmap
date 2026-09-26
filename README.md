@@ -12,7 +12,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href="https://github.com/SagarBiswas-MultiHAT"><img src="https://img.shields.io/badge/Author-Sagar%20Biswas-red.svg?style=for-the-badge&logo=github" alt="Author" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Version-v1.2.0-00ff66.svg?style=for-the-badge&logo=target" alt="Version" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Curriculum-44%2C900%2B%20Lines-blue.svg?style=for-the-badge&logo=gitbook" alt="Curriculum Volume" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Phases-8%20Phases%20(-1%20to%206)-orange.svg?style=for-the-badge&logo=target" alt="Phases" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Phases-8%20Phases%20(--1%20to%206)-orange.svg?style=for-the-badge&logo=target" alt="Phases" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Offensive%20Tools-300%2B%20Cataloged-red.svg?style=for-the-badge&logo=gnubash" alt="Tools" /></a>
   <a href="#"><img src="https://img.shields.io/badge/MITRE%20ATT%26CK-Enterprise%20v15%20%7C%20ICS%20%7C%20ATLAS-yellow.svg?style=for-the-badge&logo=matrix" alt="MITRE ATT&CK" /></a>
   <a href="payloads/"><img src="https://img.shields.io/badge/Payloads-C%20%7C%20Rust-purple.svg?style=for-the-badge&logo=rust" alt="Offensive Payloads" /></a>
@@ -116,6 +116,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Explore Phase -1 Syllabus (24 Modules)</strong></summary>
 
+<br/>
+
 1. [Why This Comes Before Everything Else](phases/PHASE_-1.md#1-why-this-comes-before-everything-else)
 2. [Real Operators. Real Failures. Real Lessons.](phases/PHASE_-1.md#2-real-operators-real-failures-real-lessons)
 3. [The Legal Framework: Read This First](phases/PHASE_-1.md#3-the-legal-framework-read-this-first)
@@ -153,6 +155,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Explore Phase 0 Syllabus (23 Modules)</strong></summary>
 
+<br/>
+
 1. [Goal and Philosophy](phases/PHASE_0.md#1-goal-and-philosophy)
 2. [How to Use This Phase](phases/PHASE_0.md#2-how-to-use-this-phase)
 3. [Prerequisites](phases/PHASE_0.md#3-prerequisites)
@@ -185,6 +189,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 
 <details>
 <summary><strong>Parallel Learning Alongside Phase 0: Operational OPSEC, Mindset & FAQ (3 Master Guides)</strong></summary>
+
+<br/>
 
 <a id="blackhat-long-term-survival-tactics"></a>
 #### [BlackHat Long-Term Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md)
@@ -270,6 +276,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Explore Phase 1 Syllabus (39 Modules)</strong></summary>
 
+<br/>
+
 1. [How To Use This Phase](phases/PHASE_1.md#how-to-use-this-phase)
 2. [Difficulty Map](phases/PHASE_1.md#difficulty-map)
 3. [The Developer Mindset](phases/PHASE_1.md#the-developer-mindset)
@@ -319,6 +327,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Parallel Learning Alongside Phase 1: Enterprise Attack Labs (1 Master Guide)</strong></summary>
 
+<br/>
+
 <a id="lab-setup-guide"></a>
 #### [Lab Setup Guide](field-guides/Lab_Setup_Guide.md)
 
@@ -358,6 +368,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Explore Phase 2 Syllabus (23 Modules)</strong></summary>
 
+<br/>
+
 1. [What This Phase Builds](phases/PHASE_2.md#1-what-this-phase-builds)
 2. [Prerequisites Check](phases/PHASE_2.md#2-prerequisites-check)
 3. [Phase 2 Kill Chain](phases/PHASE_2.md#3-phase-2-kill-chain)
@@ -394,6 +406,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Explore Phase 3 Syllabus (21 Modules)</strong></summary>
 
+<br/>
+
 1. [Who This Phase Is For](phases/PHASE_3.md#who-this-phase-is-for)
 2. [Phase 3 Architecture Map](phases/PHASE_3.md#phase-3-architecture-map)
 3. [Timeline](phases/PHASE_3.md#timeline)
@@ -428,6 +442,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Explore Phase 4 Operator Tracks & Curriculums (16 Sections)</strong></summary>
 
+<br/>
+
 | Section | Topic | Difficulty | Time Estimate |
 |---------|-------|------------|---------------|
 | [Phase 4 Intro](phases/PHASE_4.md#phase-4-advanced-tradecraft) | How to read, pairings, bridge checklist, architecture map | - | 2 hrs |
@@ -455,6 +471,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 
 <details>
 <summary><strong>Parallel Learning Alongside Phase 4: Tactical Matrices, Tooling & Literature (3 Master Guides)</strong></summary>
+
+<br/>
 
 <a id="mitre-attck-quick-reference"></a>
 #### [MITRE ATT&CK Quick Reference](field-guides/MITRE_ATT&CK_Quick_Reference.md)
@@ -548,6 +566,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <details>
 <summary><strong>Explore Phase 5 Syllabus (22 Modules)</strong></summary>
 
+<br/>
+
 1. [What GREATEST Actually Is](phases/PHASE_5.md#1-what-greatest-actually-is)
 2. [The Decision to Go Further](phases/PHASE_5.md#2-the-decision-to-go-further)
 3. [What GREATEST Is NOT](phases/PHASE_5.md#3-what-greatest-is-not)
@@ -582,6 +602,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 
 <details>
 <summary><strong>Explore Phase 6 Syllabus (39 Modules & Sub-disciplines)</strong></summary>
+
+<br/>
 
 1. [Why Phase 6 Exists](phases/PHASE_6.md#why-phase-6-exists)
 2. [Section 1: Physical Red Team](phases/PHASE_6.md#section-1-physical-red-team)
@@ -652,6 +674,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 
 <details>
 <summary><strong>Explore Final Word Sections (Capstone & Verification)</strong></summary>
+
+<br/>
 
 1. [Document Statistics - Verified 2027](field-guides/Final_Word.md#document-statistics----verified-2027)
 2. [Master Curriculum and Companion Directory](field-guides/Final_Word.md#master-curriculum-and-companion-directory)
