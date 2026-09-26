@@ -18,7 +18,7 @@ All figures measured across the modular curriculum structure and master volumes.
 
 | Category | Count | How Measured |
 |----------|-------|-------------|
-| Total lines | 43,500+ | Line count across all 15 phase documents and survival guides |
+| Total lines | 44,900+ | Line count across all 15 phase documents and survival guides |
 | Major sections (H2) | 440+ | Header count (`^## `) across all curriculum volumes |
 | Subsections (H3) | 1,120+ | Header count (`^### `) across all curriculum volumes |
 | Code blocks | 1,080+ | Triple-backtick code block pairs |
@@ -223,7 +223,7 @@ These are not speculative futures. They are active research areas in 2026-2027 w
 ---
 
 *The BlackHAT Roadmap v1.2.0 · Final Word*<br/>
-*43,500+ lines. 150+ diagrams. 1,080+ code blocks. 440+ sections. 1,120+ subsections. 300+ tools. 200+ MITRE techniques.*<br/>
+*44,900+ lines. 150+ diagrams. 1,080+ code blocks. 440+ sections. 1,120+ subsections. 300+ tools. 200+ MITRE techniques.*<br/>
 *Every number verified. Every technique sourced. Every researcher named.*<br/>
 
 <div align="right">

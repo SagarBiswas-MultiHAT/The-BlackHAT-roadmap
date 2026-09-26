@@ -11,7 +11,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 <p align="center">
   <a href="https://github.com/SagarBiswas-MultiHAT"><img src="https://img.shields.io/badge/Author-Sagar%20Biswas-red.svg?style=for-the-badge&logo=github" alt="Author" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Version-v1.2.0-00ff66.svg?style=for-the-badge&logo=target" alt="Version" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Curriculum-43%2C500%2B%20Lines-blue.svg?style=for-the-badge&logo=gitbook" alt="Curriculum Volume" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Curriculum-44%2C900%2B%20Lines-blue.svg?style=for-the-badge&logo=gitbook" alt="Curriculum Volume" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Phases-8%20Phases%20(-1%20to%206)-orange.svg?style=for-the-badge&logo=target" alt="Phases" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Offensive%20Tools-300%2B%20Cataloged-red.svg?style=for-the-badge&logo=gnubash" alt="Tools" /></a>
   <a href="#"><img src="https://img.shields.io/badge/MITRE%20ATT%26CK-Enterprise%20v15%20%7C%20ICS%20%7C%20ATLAS-yellow.svg?style=for-the-badge&logo=matrix" alt="MITRE ATT&CK" /></a>
@@ -43,7 +43,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 <div align="center">
 
 ```
-43,500+ Lines  ·  8 Phases  ·  300+ Tools  ·  200+ ATT&CK Techniques  ·  1,080+ Code Blocks  ·  150+ Diagrams
+44,900+ Lines  ·  8 Phases  ·  300+ Tools  ·  200+ ATT&CK Techniques  ·  1,080+ Code Blocks  ·  150+ Diagrams  ·  325+ Lines (Payloads)
 ```
 
 </div>
@@ -82,6 +82,8 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 
 <details>
 <summary><strong>Reading Guide</strong></summary>
+
+<br/>
 
 - It is recommended to use a mobile device because there are over 150 high-quality diagrams, which you can easily zoom in and out on mobile.
 - Avoid using the GitHub app on mobile; instead, access GitHub through your browser in desktop view.
@@ -672,13 +674,13 @@ The cybersecurity industry is saturated with surface-level certification guides,
 
 **The BlackHAT Roadmap v1.2.0 · GREATEST Edition** is engineered on a fundamentally different principle: **understanding systems completely from the metal up.**
 
-This repository contains over **43,500 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 15 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
+This repository contains over **44,900 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 15 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
 
 ```
 +-----------------------------------------------------------------------------+
 | REPOSITORY AT A GLANCE (v1.2.0 · 2027 EDITION)                              |
 +-----------------------------------------------------------------------------+
-| Total Content Volume : 43,500+ lines of dense offensive engineering         |
+| Total Content Volume : 44,900+ lines of dense offensive engineering         |
 | Total Documentation  : ~1.80 MB source markdown across 15 master modules    |
 | Progression Depth    : 8 Core Phases (Phase -1 through Phase 6)             |
 | Section Count        : 440+ Major Sections (H2), 1,120+ Subsections (H3)    |
@@ -816,7 +818,7 @@ To execute the practical exercises in this curriculum, the recommended self-host
 
 ## Topics
 
-`security` · `cybersecurity` · `reverse-engineering` · `security-tools` · `hacking` · `pentesting` · `osint` · `penetration-testing` · `network-security` · `ctf` · `infosec` · `malware` · `ethical-hacking` · `red-team` · `kali-linux` · `malware-analysis` · `active-directory` · `web-security` · `mitre-attack` · `bug-bounty`
+`roadmap` · `blackhat-roadmap` · `greatest-roadmap` · `penetration-testing-roadmap` · `cybersecurity-roadmap` · `AI-ML-Jailbreak` · `security` · `cybersecurity` · `reverse-engineering` · `security-tools` · `hacking` · `pentesting` · `osint` · `penetration-testing` · `network-security` · `ctf` · `infosec` · `malware` · `ethical-hacking` · `red-team` · `kali-linux` · `malware-analysis` · `active-directory` · `web-security` · `mitre-attack` · `bug-bounty`
 
 ---
 
@@ -826,7 +828,13 @@ If this curriculum provides value to your research or career, consider starring 
 
 <div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=SagarBiswas-MultiHAT/The-BlackHAT-roadmap&type=Date)](https://star-history.com/#SagarBiswas-MultiHAT/The-BlackHAT-roadmap&Date)
+<a href="https://www.star-history.com/?type=date&repos=SagarBiswas-MultiHAT%2FThe-BlackHAT-roadmap">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=SagarBiswas-MultiHAT/The-BlackHAT-roadmap&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=SagarBiswas-MultiHAT/The-BlackHAT-roadmap&type=date&legend=top-left" />
+    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=SagarBiswas-MultiHAT/The-BlackHAT-roadmap&type=date&legend=top-left" />
+  </picture>
+</a>
 
 </div>
 
@@ -877,8 +885,20 @@ Or reference the native [CITATION.cff](CITATION.cff) file via GitHub's "Cite thi
 
 ## Author & Contact
 
-**Sagar Biswas**  
-GitHub: [@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)  
+**Sagar Biswas**
+- **GitHub:** [@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)
+- **Agency:** [MultiHAT Dev](https://multihat.dev/)
+- **Projects:** [Portfolio & Engineering Projects](https://sagarbiswas-multihat.github.io/projects/)
+- **Notebooks:** [Technical Research Notebooks](https://sagarbiswas-multihat.github.io/notebooks/)
+- **Articles & Blog:** [Security Analysis & Writeups](https://sagarbiswas-multihat.github.io/blogs/)
+
+### Related Roadmaps & Curated Ecosystem
+
+- [**Penetration Testing Roadmap**](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap): Practical workflows, methodologies, and toolchains for real-world offensive assessments.
+- [**Awesome Cybersecurity Paths**](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths): Structured learning paths across defensive, offensive, and research specializations.
+- [**Awesome Cybersecurity Books**](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books): Essential foundational and advanced literature for security researchers and practitioners.
+
+---
 
 <div align="right">
 

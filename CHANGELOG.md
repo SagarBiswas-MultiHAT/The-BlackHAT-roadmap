@@ -14,7 +14,7 @@ The complete zero-to-elite offensive security engineering curriculum.
 
 **Core Curriculum**
 - 8 progression phases (Phase -1: OPSEC through Phase 6: Special Operations)
-- 43,500+ lines of dense offensive engineering documentation
+- 44,900+ lines of dense offensive engineering documentation
 - 440+ major sections, 1,120+ subsections across 15 master modules
 - 1,080+ verified code blocks across 13+ languages
 
@@ -44,6 +44,6 @@ The complete zero-to-elite offensive security engineering curriculum.
 - Contributing guidelines with quality thresholds
 - Issue templates (curriculum fix, resource suggestion)
 - Pull request template with technical validation checklist
-- Operator journey tracker with phase-by-phase milestones
+- Operator Journey Tracker (`.github/TRACKER.md`): comprehensive progress dashboard with date tracking, parallel learning companions, 9 specialized Phase 4 tracks, and mastery gate checkpoints
 - Security policy and responsible disclosure process
 - CITATION.cff for academic attribution

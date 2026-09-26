@@ -7,9 +7,27 @@ Fork this repository to track your progress through the curriculum. Check off mi
 ## Profile & Target Operator Track
 
 - **Operator Handle**: 
-- **Target Track**: [ ] Track A: Exploit Researcher | [ ] Track B: Enterprise Red Team | [ ] Track C: Stealth Implant Dev | [ ] Track D: Hardware/Infra | [ ] Track E: Special Operations
+- **Primary Track**: [ ] Track A: Exploit Researcher | [ ] Track B: Enterprise Red Team | [ ] Track C: Stealth Implant Dev | [ ] Track D: Hardware/Infra | [ ] Track E: Special Operations
+- **Secondary Track**: 
 - **Start Date**: 
 - **Estimated Completion**: 
+
+---
+
+## Progress Overview
+
+| Phase | Status | Started [date] | Completed [date] |
+|:------|:------:|:-------:|:---------:|
+| Phase -1: OPSEC & Infrastructure | [ ] | | |
+| Phase 0: Low-Level Foundations | [ ] | | |
+| Phase 1: Web Application Security | [ ] | | |
+| Phase 2: Network & Infrastructure | [ ] | | |
+| Phase 3: System & Kernel Exploitation | [ ] | | |
+| Phase 4: Specialized Tracks (primary) | [ ] | | |
+| Phase 4: Specialized Tracks (secondary) | [ ] | | |
+| Phase 4 Mastery Gate | [ ] | | |
+| Phase 5: GREATEST | [ ] | | |
+| Phase 6: Special Operations | [ ] | | |
 
 ---
 
@@ -23,6 +41,11 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] Set up secure PGP communications and hardware sterilization protocol
 - [ ] **Phase -1 Capstone**: Build fully compartmentalized research bastion host without personal attribution
 
+**Parallel Learning Companions:**
+- [ ] Read [Long-Term Survival Tactics](../black-bag/BlackHat_Long-Term_Survival_Tactics.md) alongside this phase
+- [ ] Read [Philosophy: The BlackHat Mindset](../field-guides/Philosophy_The_BlackHat_Mindset.md) alongside this phase
+- [ ] Read [FAQ](../field-guides/FAQ.md) for pacing guidance and common questions
+
 ---
 
 ## Phase 0: Low-Level Foundations
@@ -35,6 +58,9 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] Understand PE/ELF binary structures: DOS header, NT headers, Section headers, Import/Export tables
 - [ ] Trace Windows Native API and syscall dispatching (`ntdll.dll` -> kernel dispatch)
 - [ ] **Phase 0 Capstone**: Write a custom PE parser in C that dumps sections and exported functions from disk and memory
+
+**Parallel Learning Companion:**
+- [ ] Build your research environment using the [Lab Setup Guide](../field-guides/Lab_Setup_Guide.md)
 
 ---
 
@@ -71,20 +97,89 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] Analyze Driver attack surfaces: Arbitrary Read/Write primitives via vulnerable signed drivers (BYOVD)
 - [ ] **Phase 3 Capstone**: Write a functional local privilege escalation exploit bypassing DEP and ASLR
 
+**Parallel Learning Companions:**
+- [ ] Cross-reference techniques against the [MITRE ATT&CK Quick Reference](../field-guides/MITRE_ATT%26CK_Quick_Reference.md)
+- [ ] Identify tooling requirements from the [Tools Inventory (300+)](../field-guides/Tools_Inventory.md)
+- [ ] Supplement with papers and labs from [Resources Aggregated](../field-guides/Resources_Aggregated.md)
+
 ---
 
-## Phase 4: Advanced Operator Tradecraft
-*Implant engineering, evasive C2 architecture, modern EDR evasion, and cloud pivoting.*
+## Phase 4: Specialized Operator Tracks
 
-- [ ] Build custom reflective DLL loaders and shellcode injection primitives
-- [ ] Implement sleep obfuscation using asynchronous timers and memory protection flips (Ekko / Foliage)
-- [ ] Implement synthetic call stack spoofing to defeat EDR call stack unwinding
-- [ ] Resolve syscall numbers dynamically and execute indirect syscalls to bypass user-mode hooks
-- [ ] Build custom C2 infrastructure using named pipes, HTTP/3, and domain fronting
-- [ ] Develop native loaders in Offensive Rust with dynamic API hashing
-- [ ] Exploit hybrid cloud architectures: Entra ID Primary Refresh Token (PRT) theft and Azure Arc abuse
-- [ ] Understand Linux eBPF rootkit architecture and kernel tracepoint hooking
-- [ ] **Phase 4 Capstone**: Build an evasion-capable implant loader that executes shellcode while passing memory scanners and stack inspection
+**Select your primary and secondary tracks below.** Mastery in at least 2 tracks is required before proceeding to Phase 5.
+
+### Phase 4A: Implant Development
+- [ ] Build custom shellcode loaders and reflective DLL injection primitives
+- [ ] Implement process injection techniques (process hollowing, APC injection, early bird)
+- [ ] Design and implement C2 protocol communication channels
+- [ ] **4A Milestone**: Build a functional custom implant loader
+
+### Phase 4B: C2 Operations
+- [ ] Achieve operator depth in Sliver and Havoc C2 frameworks
+- [ ] Study Cobalt Strike tradecraft at CRTO level
+- [ ] Design multi-layered C2 infrastructure with redirectors
+- [ ] Implement domain fronting and CDN-based C2 channels
+- [ ] **4B Milestone**: Deploy production-grade evasive C2 infrastructure
+
+### Phase 4C: EDR and AV Evasion
+- [ ] Implement direct and indirect syscalls to bypass user-mode hooks
+- [ ] Build sleep obfuscation using asynchronous timers (SilentMoonwalk, Cronos, Ekko)
+- [ ] Execute synthetic call stack spoofing to defeat EDR stack unwinding
+- [ ] Weaponize BYOVD attacks against kernel-level EDR components
+- [ ] Implement AMSI and ETW bypass techniques
+- [ ] **4C Milestone**: Execute shellcode that passes memory scanners and stack inspection
+
+### Phase 4D: Vulnerability Research
+- [ ] Construct custom fuzzing harnesses using AFL++, LibFuzzer, or custom QEMU hooks
+- [ ] Develop a code auditing methodology for closed-source targets
+- [ ] Understand the 0-day discovery and CVE disclosure process
+- [ ] Perform closed-source reverse engineering and targeted fuzzing
+- [ ] **4D Milestone**: Discover and document a novel vulnerability in open-source software
+
+### Phase 4E: Persistence and Rootkits
+- [ ] Develop Windows kernel drivers for offensive operations
+- [ ] Implement Direct Kernel Object Manipulation (DKOM) techniques
+- [ ] Study UEFI bootkit persistence mechanisms
+- [ ] Implement macOS persistence (LaunchAgent, TCC bypass)
+- [ ] Build Linux LKM rootkits and understand eBPF tracepoint hooking
+- [ ] **4E Milestone**: Build a proof-of-concept kernel-mode persistence mechanism
+
+### Phase 4F: Cloud and AI Attacks
+- [ ] Execute cloud provider attack chains (AWS, Azure, GCP)
+- [ ] Exploit Entra ID and M365 attack surfaces (PRT theft, Azure Arc abuse)
+- [ ] Study AI agent exploitation techniques
+- [ ] Implement indirect prompt injection and RAG poisoning attacks
+- [ ] **4F Milestone**: Complete an end-to-end cloud or AI-targeted attack chain in a lab
+
+### Phase 4G: Hardware and Embedded
+- [ ] Perform JTAG extraction and hardware debugging
+- [ ] Reverse engineer firmware from embedded devices
+- [ ] Execute CAN bus and automotive protocol attacks
+- [ ] Conduct SDR attacks (GPS spoofing, Bluetooth/BLE interception)
+- [ ] **4G Milestone**: Extract and analyze firmware from a real embedded device
+
+### Phase 4H: Supply Chain Attacks
+- [ ] Map and exploit CI/CD pipeline attack surfaces
+- [ ] Execute dependency confusion attacks in a lab environment
+- [ ] Compromise build systems and package repository infrastructure
+- [ ] Exploit GitHub Actions and similar automation platforms
+- [ ] **4H Milestone**: Demonstrate a full supply chain attack chain in a controlled environment
+
+### Phase 4I: Active Directory Depth
+- [ ] Master ADCS ESC1 through ESC15 exploitation
+- [ ] Exploit Kerberos delegation abuse (constrained, unconstrained, RBCD)
+- [ ] Execute forest and domain trust attacks
+- [ ] Perform Azure/Entra ID lateral movement from on-prem AD
+- [ ] Implement domain persistence techniques (Golden Ticket, Diamond Ticket, AdminSDHolder)
+- [ ] **4I Milestone**: Compromise a multi-forest environment through certificate and delegation abuse
+
+### Phase 4 Mastery Gate
+
+> Completion checkpoint: you must have completed at least **1 primary track** and **1 secondary track** from Phase 4 before advancing.
+
+- [ ] Primary track completed: ______
+- [ ] Secondary track completed: ______
+- [ ] **Gate Passed**: Ready for Phase 5 and/or Phase 6
 
 ---
 
@@ -97,10 +192,15 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] Publish original security research or responsible disclosure advisories
 - [ ] **Phase 5 Milestone**: Discover, engineer, and responsibly disclose an original vulnerability in commercial or enterprise software
 
+**Parallel Learning Companion:**
+- [ ] Read [Final Word](../field-guides/Final_Word.md) for curriculum statistics, researcher attributions, and horizon research directions
+
 ---
 
 ## Phase 6: Special Operations
 *Physical red teaming, covert entry, advanced social engineering, drone reconnaissance, and quantum transition threat modeling.*
+
+> **Note:** Phase 6 runs parallel to Phase 5, not sequentially after it.
 
 - [ ] Master non-destructive entry: pin tumbler lockpicking, bypass tools, impressioning, and bump keys
 - [ ] Audit Electronic Access Control (EAC) systems: Wiegand protocol interception, OSDP flaws, and badge cloning (125 kHz / 13.56 MHz RFID/NFC)
@@ -110,3 +210,6 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] Audit Store Now, Decrypt Later (SNDL) and Post-Quantum Cryptography (PQC) hybrid negotiation fallback vulnerabilities
 - [ ] Plan and execute simulated red team operations under TIBER-EU / CBEST frameworks with full post-engagement digital footprint sanitization
 - [ ] **Phase 6 Milestone**: Execute an end-to-end full-scope adversary simulation linking physical bypass, hardware implant drop, internal domain compromise, and forensic cleanup
+
+**Parallel Learning Companion:**
+- [ ] Read [Final Word](../field-guides/Final_Word.md) for horizon research and 2027-2028 threat landscape
