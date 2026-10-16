@@ -1,6 +1,8 @@
 # Resources Aggregated
 
-**Author:** Sagar Biswas<br/>
+**Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))<br/>
+**Canonical Repository:** [The BlackHAT Roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)<br/>
+**License:** [CC BY-SA 4.0](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/blob/main/LICENSE-DOCS)<br/>
 **Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
@@ -43,6 +45,7 @@
 This is the canonical resource reference for the full roadmap. Every entry was verified against its 2026-2027 operational status.
 
 >**Companion Roadmap Documents:**
+> * **[The BlackHAT Roadmap (Canonical Repo)](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)**: Master curriculum, issue discussions, and live roadmap updates.
 > * **[Master Curriculum (Phases -1 to 6)](../phases/PHASE_-1.md)**: Zero-to-elite offensive engineering syllabus from foundational metal to apex operations.
 > * **[BlackHat Long-Term Survival Tactics](../black-bag/BlackHat_Long-Term_Survival_Tactics.md)**: The authoritative operational security and digital identity manual.
 > * **[Philosophy: The BlackHat Mindset](Philosophy_The_BlackHat_Mindset.md)**: Cognitive doctrine, adversarial assumption hunting, and primitive thinking mental models.
@@ -51,6 +54,11 @@ This is the canonical resource reference for the full roadmap. Every entry was v
 > * **[MITRE ATT&CK Quick Reference](MITRE_ATT&CK_Quick_Reference.md)**: Dedicated tactical mapping across all adversary tactics and roadmap phases.
 > * **[FAQ](FAQ.md)**: Comprehensive operational and career transitions FAQ.
 > * **[Final Word](Final_Word.md)**: Document verification statistics, researcher attributions, and horizon research roadmap.
+
+> **Recommended Curated Roadmap Resources:**
+> * **[Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths)**: Curated pathways for penetration testers, red teamers, blue teamers, and security researchers.
+> * **[Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap)**: Practical assessment workflows, tooling matrices, and engagement methodologies.
+> * **[Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)**: Curated offensive security and low-level systems literature.
 
 Rules for using this section:
 
@@ -150,6 +158,8 @@ All channels verified active as of 2026-2027. Phase column indicates when to sta
 ## 5. ESSENTIAL BOOKS - PHASE ORDERED
 
 Every book listed here was verified as of 2026. Entries marked *Classic* are older but contain foundational knowledge not replaced by any current alternative. Prices and editions are current as of 2026.
+
+> For an extensive, dedicated compendium of offensive security and low-level engineering literature across all specialties, refer to [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books).
 
 ### Phase 0: Foundation
 
@@ -889,6 +899,9 @@ Quick reference showing which resource categories are most important at each pha
 <div align="right">
 
 *Resources Aggregated -- The BlackHAT Roadmap v1.2.0* <br/>
+*Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
+*Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>
+*Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*<br/>
 *2027 Edition -- All entries verified. All deprecated tools removed. All gaps filled.*
 
 </div>

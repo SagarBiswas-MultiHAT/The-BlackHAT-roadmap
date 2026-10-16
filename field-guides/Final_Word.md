@@ -1,6 +1,8 @@
 # FINAL WORD
 
-**Author:** Sagar Biswas<br/>
+**Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))<br/>
+**Canonical Repository:** [The BlackHAT Roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)<br/>
+**License:** [CC BY-SA 4.0](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/blob/main/LICENSE-DOCS)<br/>
 **Version:** v1.0.0 · 2027 Edition<br/>
 **Status:** The GREATEST. No ceiling. No apology. No inaccurate statistics.<br/>
 
@@ -60,6 +62,14 @@ The BlackHAT Roadmap operates as an integrated offensive engineering ecosystem. 
 | **[Resources Aggregated](Resources_Aggregated.md)** | Canonical Literature and Archives | Curated books, research whitepapers, conference archives, labs |
 | **[Lab Setup Guide](Lab_Setup_Guide.md)** | Hardware Specifications and Topology | Multi-tier virtualization, enterprise AD (GOAD), malware detonation |
 | **[FAQ](FAQ.md)** | Operational Inquiries and Transitions | Phase pacing, career realities, mindset calibration, pitfall avoidance |
+
+### Recommended Curated Roadmap Resources
+
+| Roadmap / Repository | Target Scope | Core Operational Utility |
+|---|---|---|
+| **[Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths)** | Cross-Domain Curated Specializations | Curated pathways for penetration testers, red teamers, blue teamers, and security researchers |
+| **[Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap)** | Offensive Engagement Methodologies | Practical workflows, active assessments, and operator checklists |
+| **[Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)** | Foundational and Advanced Literature | Exhaustive security engineering, kernel, and systems library |
 
 ---
 
@@ -223,6 +233,9 @@ These are not speculative futures. They are active research areas in 2026-2027 w
 ---
 
 *The BlackHAT Roadmap v1.2.0 · Final Word*<br/>
+*Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
+*Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>
+*Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*<br/>
 *44,900+ lines. 150+ diagrams. 1,080+ code blocks. 440+ sections. 1,120+ subsections. 300+ tools. 200+ MITRE techniques.*<br/>
 *Every number verified. Every technique sourced. Every researcher named.*<br/>
 

@@ -7,6 +7,7 @@
 **Companion to:** The BlackHAT Roadmap (0 to GREATEST)
 
 > 📚 **Companion Roadmap Documents:**
+> * **[The BlackHAT Roadmap (Canonical Repo)](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)**: Master curriculum, issue discussions, and live roadmap updates.
 > * **[Master Curriculum (Phases -1 to 6)](../phases/PHASE_-1.md)**: Zero-to-elite offensive engineering syllabus from foundational metal to apex operations.
 > * **[Philosophy: The BlackHat Mindset](../field-guides/Philosophy_The_BlackHat_Mindset.md)**: Cognitive doctrine, adversarial assumption hunting, and primitive thinking mental models.
 > * **[MITRE ATT&CK Quick Reference](../field-guides/MITRE_ATT&CK_Quick_Reference.md)**: Enterprise, ICS, and ATLAS technique mapping, detection signals, and attack chain blueprints.
@@ -15,6 +16,11 @@
 > * **[Lab Setup Guide](../field-guides/Lab_Setup_Guide.md)**: Multi-tier hardware specifications and isolated enterprise/kernel lab blueprints.
 > * **[FAQ](../field-guides/FAQ.md)**: Comprehensive operational and career transitions FAQ.
 > * **[Final Word](../field-guides/Final_Word.md)**: Document verification statistics, researcher attributions, and horizon research roadmap.
+
+> **Recommended Curated Roadmap Resources:**
+> * **[Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths)**: Curated pathways for penetration testers, red teamers, blue teamers, and security researchers.
+> * **[Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap)**: Practical assessment workflows, tooling matrices, and engagement methodologies.
+> * **[Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)**: Curated offensive security and low-level systems literature.
 
 ---
 
@@ -2991,8 +2997,11 @@ Because it does.
 
 ---
 
-**Author:** Sagar Biswas  
-**Version:** v1.0.0 - 2027 Edition  
+**Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))  
+**Repository:** [https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)  
+**Curated Ecosystem:** [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)  
+**Version:** v1.1.0 - 2027 Edition  
+**License:** [CC BY-SA 4.0](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/blob/main/LICENSE-DOCS)  
 **Status:** 10/10. No ceiling. No apology.
 
 > *"The invisible operator survives. Be nobody. Everywhere. Always."*

@@ -1,8 +1,12 @@
+// Author: Sagar Biswas (@SagarBiswas-MultiHAT)
+// Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap
+// SPDX-License-Identifier: MIT
+
 /**
  * Lab 01: Dynamic API Resolution via PEB Traversal and Export Hashing
  * 
  * Target: Phase 0 & Phase 4A Foundations
- * Author: Sagar Biswas
+ * Author: Sagar Biswas (@SagarBiswas-MultiHAT)
  * Concept: Avoid static Import Address Table (IAT) artifacts by dynamically
  * locating loaded modules via the Process Environment Block (PEB) and resolving
  * exported functions via compile-time/runtime hashing (DJB2).

@@ -17,7 +17,8 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href="#"><img src="https://img.shields.io/badge/MITRE%20ATT%26CK-Enterprise%20v15%20%7C%20ICS%20%7C%20ATLAS-yellow.svg?style=for-the-badge&logo=matrix" alt="MITRE ATT&CK" /></a>
   <a href="payloads/"><img src="https://img.shields.io/badge/Payloads-C%20%7C%20Rust-purple.svg?style=for-the-badge&logo=rust" alt="Offensive Payloads" /></a>
   <a href=".github/CONTRIBUTING.md"><img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=for-the-badge&logo=git" alt="PRs Welcome" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-purple.svg?style=for-the-badge" alt="License" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Code%20License-MIT-purple.svg?style=for-the-badge&logo=opensourceinitiative" alt="Code License: MIT" /></a>
+  <a href="LICENSE-DOCS"><img src="https://img.shields.io/badge/Docs%20License-CC%20BY--SA%204.0-blue.svg?style=for-the-badge&logo=creative-commons" alt="Docs License: CC BY-SA 4.0" /></a>
 </p>
 
 <p align="center">
@@ -35,7 +36,8 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href="#2025-2027-operator-modules">Bleeding-Edge Modules</a> •
   <a href=".github/TRACKER.md">Journey Tracker</a> •
   <a href="#citation--academic-attribution">Citation</a> •
-  <a href="#legal-disclaimer">Legal Notice</a>
+  <a href="#legal-disclaimer">Legal Notice</a> •
+  <a href="#license--attribution">License</a>
 </p>
 
 </div>
@@ -743,6 +745,7 @@ Most educational resources teach how software is *supposed* to work. Real offens
 The-BlackHAT-roadmap/
 ├── .github/                      <- Project metadata, issue templates, PR template & tracker
 ├── assets/
+│   ├── README.md                 <- Visual asset inventory & CC BY-SA 4.0 notice
 │   ├── banner.svg                <- Cybernetic HUD SVG banner (v1.2.0)
 │   └── diagrams/                 <- Modularized Mermaid diagrams & high-res renders
 ├── black-bag/                    <- Covert operational tradecraft & survival payload
@@ -770,7 +773,8 @@ The-BlackHAT-roadmap/
 │   └── PHASE_6.md                <- Special Operations & Adversary Simulation
 ├── CHANGELOG.md                  <- Version history and public release notes
 ├── CITATION.cff                  <- Native GitHub Citation metadata
-├── LICENSE                       <- MIT License
+├── LICENSE                       <- MIT License (source code & payloads)
+├── LICENSE-DOCS                  <- CC BY-SA 4.0 License (curriculum & diagrams)
 └── README.md                     <- Master curriculum hub & navigation launchpad
 ```
 
@@ -904,6 +908,21 @@ Or reference the native [CITATION.cff](CITATION.cff) file via GitHub's "Cite thi
 > Unauthorized testing, access, or exploitation against networks, servers, or endpoints without explicit permission is illegal under local, national, and international laws (including the US Computer Fraud and Abuse Act, UK Computer Misuse Act, and equivalent statutes).
 > 
 > The author assumes no liability and is not responsible for any misuse, damage, or legal consequences resulting from the application of the information contained herein. Learn responsibly. Refer to [SECURITY.md](.github/SECURITY.md) for scope and reporting.
+
+---
+
+## License & Attribution
+
+This repository is dual-licensed to protect both the written curriculum and the executable lab code:
+
+1. **Curriculum, Documentation & Architectural Diagrams (`*.md`, Volume I, Volume II, Trackers):**
+   Licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) (see [`LICENSE-DOCS`](LICENSE-DOCS)).
+   You are free to share and adapt this material for any purpose, provided that you give appropriate credit to **Sagar Biswas (@SagarBiswas-MultiHAT)**, include a direct link back to this original repository, and distribute any derivative works under the same CC BY-SA 4.0 license.
+
+2. **Source Code, Labs & Payloads (`payloads/` directory, C, C++, Rust, Assembly, Python scripts):**
+   Licensed under the [MIT License](LICENSE).
+
+Removing author attribution, stripping license files, or re-uploading this repository as your own work is a direct violation of copyright law and will result in a formal GitHub DMCA Takedown request.
 
 ---
 

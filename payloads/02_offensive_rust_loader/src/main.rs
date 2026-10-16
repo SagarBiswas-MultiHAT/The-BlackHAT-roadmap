@@ -1,3 +1,7 @@
+// Author: Sagar Biswas (@SagarBiswas-MultiHAT)
+// Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap
+// SPDX-License-Identifier: MIT
+
 //! Lab 02: Offensive Rust In-Memory Loader
 //!
 //! Demonstrates memory staging and execution using Windows Native APIs wrapped

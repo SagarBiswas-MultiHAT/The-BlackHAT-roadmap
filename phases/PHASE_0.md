@@ -1,6 +1,8 @@
 # PHASE 0: FOUNDATION
 
-**Author:** Sagar Biswas<br/>
+**Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))<br/>
+**Canonical Repository:** [The BlackHAT Roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)<br/>
+**License:** [CC BY-SA 4.0](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/blob/main/LICENSE-DOCS)<br/>
 **Version:** v1.0.0 · 2027 Edition<br/>
 
 <div align="right">
@@ -3769,7 +3771,10 @@ Your Phase 0 foundation enables this because you understand: TCP (why HTTP conne
 
 <div align="right">
 
-*Phase 0 complete. The foundation is solid. Phase 1 begins.*
+*Phase 0 complete. The foundation is solid. Phase 1 begins.*<br/>
+*The BlackHAT Roadmap | Maintained by Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))*<br/>
+*Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>
+*Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*
 
 </div>
 

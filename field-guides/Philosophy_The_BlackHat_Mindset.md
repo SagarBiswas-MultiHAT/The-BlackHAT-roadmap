@@ -1,6 +1,8 @@
 # Philosophy: The BlackHat Mindset
 
-**Author:** Sagar Biswas<br/>
+**Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))<br/>
+**Canonical Repository:** [The BlackHAT Roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)<br/>
+**License:** [CC BY-SA 4.0](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/blob/main/LICENSE-DOCS)<br/>
 **Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
@@ -576,7 +578,9 @@ What you build with it is yours.
 <div align="right">
 
 *Philosophy: The BlackHat Mindset | The BlackHAT Roadmap v1.2.0 -- 2027 Edition*<br/>
-*Author: Sagar Biswas*
+*Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
+*Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>
+*Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*
 
 </div>
 

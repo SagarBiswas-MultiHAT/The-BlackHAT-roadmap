@@ -7,7 +7,9 @@ date-released: 2026-09-25
 authors:
   - family-names: "Biswas"
     given-names: "Sagar"
-license: "MIT"
+license:
+  - "MIT"
+  - "CC-BY-SA-4.0"
 repository-code: "https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap"
 url: "https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap"
 keywords:

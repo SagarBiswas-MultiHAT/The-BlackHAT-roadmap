@@ -36,3 +36,12 @@ Rather than relying on public automated tools that trigger static signatures, th
 ## Legal & Safety Notice
 
 All payload code is strictly for authorized educational research and explicit penetration testing engagements. Test only inside isolated virtualized sandboxes.
+
+---
+
+## License
+
+All executable source code, loaders, harnesses, and build manifests within this directory are licensed under the [MIT License](../LICENSE).
+
+- **Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))
+- **Repository:** [https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)

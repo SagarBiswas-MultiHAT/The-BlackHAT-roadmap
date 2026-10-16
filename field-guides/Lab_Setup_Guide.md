@@ -1,6 +1,8 @@
 # BlackHAT Lab Setup Guide
 
-**Author:** Sagar Biswas<br/>
+**Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))<br/>
+**Canonical Repository:** [The BlackHAT Roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)<br/>
+**License:** [CC BY-SA 4.0](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/blob/main/LICENSE-DOCS)<br/>
 **Version:** 1.0.0 · 2027 Edition<br/>
 
 <div align="right">
@@ -12,6 +14,7 @@
 **Part of:** The BlackHAT Roadmap v0.0.0 (0 to GREATEST) | **Status:** Living document. Update as tools evolve.
 
 >**Companion Roadmap Documents:**
+> * **[The BlackHAT Roadmap (Canonical Repo)](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)**: Master curriculum, issue discussions, and live roadmap updates.
 > * **[Master Curriculum (Phases -1 to 6)](../phases/PHASE_-1.md)**: Zero-to-elite offensive engineering syllabus from foundational metal to apex operations.
 > * **[BlackHat Long-Term Survival Tactics](../black-bag/BlackHat_Long-Term_Survival_Tactics.md)**: The authoritative operational security, physical tradecraft, and digital persona architecture manual.
 > * **[Philosophy: The BlackHat Mindset](Philosophy_The_BlackHat_Mindset.md)**: Cognitive doctrine, adversarial assumption hunting, and primitive thinking mental models.
@@ -20,6 +23,11 @@
 > * **[Resources Aggregated](Resources_Aggregated.md)**: Curated books, research whitepapers, conference talk archives, and hands-on platforms.
 > * **[FAQ](FAQ.md)**: Comprehensive operational and career transitions FAQ.
 > * **[Final Word](Final_Word.md)**: Document verification statistics, researcher attributions, and horizon research roadmap.
+
+> **Recommended Curated Roadmap Resources:**
+> * **[Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths)**: Curated pathways for penetration testers, red teamers, blue teamers, and security researchers.
+> * **[Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap)**: Practical assessment workflows, tooling matrices, and engagement methodologies.
+> * **[Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)**: Curated offensive security and low-level systems literature.
 
 ---
 
@@ -2289,7 +2297,10 @@ Response:
 
 <div align="right">
 
-*BlackHAT Lab Setup Guide - Part of The BlackHAT Roadmap v1.2.0 (0 to GREATEST)*
+*BlackHAT Lab Setup Guide - Part of The BlackHAT Roadmap v1.2.0 (0 to GREATEST)*<br/>
+*Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
+*Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>
+*Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*<br/>
 *Status: Living document. The lab grows as you grow.*
 
 </div>

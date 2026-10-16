@@ -4,6 +4,15 @@ All notable changes to The BlackHAT Roadmap will be documented in this file.
 
 The format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.1] - 2026-10-16
+
+### Added
+- **Dual-License Framework**: Formal dual-licensing architecture separating curriculum documentation and executable engineering codebases:
+  - `CC BY-SA 4.0` in `LICENSE-DOCS` covering all 45,000+ lines of written curriculum across Volume I, Volume II, field guides, trackers, and 150+ architectural diagrams.
+  - Pure `MIT` in root `LICENSE` covering source code, lab harnesses, C/Rust payloads, and build automation.
+- **SPDX Source Headers**: Standardized 3-line author and `SPDX-License-Identifier: MIT` metadata across weaponized payloads (`main.c`, `main.rs`, `Makefile`, and `Cargo.toml`).
+- **Attribution & Anti-Theft Anchors**: Embedded canonical repository references and cross-links to the curated offensive security ecosystem across master companion guides.
+
 ---
 
 ## [1.2.0] - 2026-09-26

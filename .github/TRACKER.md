@@ -2,6 +2,11 @@
 
 Fork this repository to track your progress through the curriculum. Check off milestones as you master theoretical concepts, construct operational labs, and implement working code.
 
+**Author:** Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT))  
+**Canonical Repository:** [The BlackHAT Roadmap](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)  
+**Curated Ecosystem:** [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)  
+**License:** [CC BY-SA 4.0](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap/blob/main/LICENSE-DOCS)
+
 ---
 
 ## Profile & Target Operator Track
@@ -213,3 +218,13 @@ Fork this repository to track your progress through the curriculum. Check off mi
 
 **Parallel Learning Companion:**
 - [ ] Read [Final Word](../field-guides/Final_Word.md) for horizon research and 2027-2028 threat landscape
+
+---
+
+<div align="right">
+
+*The BlackHAT Roadmap: Operator Journey Tracker*<br/>
+*Maintained by Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
+*Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*
+
+</div>
