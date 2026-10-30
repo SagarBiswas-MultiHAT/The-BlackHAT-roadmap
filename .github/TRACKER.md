@@ -47,6 +47,7 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] **Phase -1 Capstone**: Build fully compartmentalized research bastion host without personal attribution
 
 **Parallel Learning Companions:**
+- [ ] Read [Maximum Anonymity Workflow](../black-bag/Max_Anonymity_Workflow.md) for the end-to-end traffic chain blueprint
 - [ ] Read [Long-Term Survival Tactics](../black-bag/BlackHat_Long-Term_Survival_Tactics.md) alongside this phase
 - [ ] Read [Philosophy: The BlackHat Mindset](../field-guides/Philosophy_The_BlackHat_Mindset.md) alongside this phase
 - [ ] Read [FAQ](../field-guides/FAQ.md) for pacing guidance and common questions

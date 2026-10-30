@@ -71,7 +71,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 
 | Your Background | Recommended Entry Point | Modules | Estimated Time | Parallel Learning |
 | :--- | :--- | :---: | :---: | :--- |
-| Everyone starts here | [Phase -1: OPSEC & Infrastructure](phases/PHASE_-1.md) | 24 | 4-6 weeks | [Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md) · [Mindset](field-guides/Philosophy_The_BlackHat_Mindset.md) · [FAQ](field-guides/FAQ.md) |
+| Everyone starts here | [Phase -1: OPSEC & Infrastructure](phases/PHASE_-1.md) | 24 | 4-6 weeks | [Max Anonymity Workflow](black-bag/Max_Anonymity_Workflow.md) · [Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md) · [Mindset](field-guides/Philosophy_The_BlackHat_Mindset.md) · [FAQ](field-guides/FAQ.md) |
 | Complete beginner | [Phase 0: Foundation](phases/PHASE_0.md) | 23 | 12-16 weeks | [Lab Setup Guide](field-guides/Lab_Setup_Guide.md) |
 | Web developer / bug bounty | [Phase 1: Web Security](phases/PHASE_1.md) | 39 | 8-12 weeks | - |
 | Sysadmin / network engineer | [Phase 2: Network & Infrastructure](phases/PHASE_2.md) | 23 | 10-14 weeks | - |
@@ -190,7 +190,7 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 ---
 
 <details>
-<summary><strong>Parallel Learning Alongside Phase 0: Operational OPSEC, Mindset & FAQ (3 Master Guides)</strong></summary>
+<summary><strong>Parallel Learning Alongside Phase 0: Operational OPSEC, Mindset & FAQ (4 Master Guides)</strong></summary>
 
 <br/>
 
@@ -221,6 +221,24 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 22. [Section 20: In-Memory Forensics and Cold Boot Defense](black-bag/BlackHat_Long-Term_Survival_Tactics.md#section-20-in-memory-forensics-and-cold-boot-defense)
 23. [Section 21: Server-Side Detection and eBPF Awareness](black-bag/BlackHat_Long-Term_Survival_Tactics.md#section-21-server-side-detection-and-ebpf-awareness)
 24. [Quick Reference Operational Checklist](black-bag/BlackHat_Long-Term_Survival_Tactics.md#quick-reference-operational-checklist)
+
+<div align="right"><a href="#table-of-contents">↑ Return to TOC</a></div>
+
+---
+
+<a id="maximum-anonymity-workflow"></a>
+#### [Maximum Anonymity Workflow](black-bag/Max_Anonymity_Workflow.md)
+
+1. [The Core Chain: Local Machine to Target](black-bag/Max_Anonymity_Workflow.md#1-the-core-chain-local-machine-to-target)
+2. [What Each Adversary Sees](black-bag/Max_Anonymity_Workflow.md#2-what-each-adversary-sees)
+3. [The OPSEC Failure Pyramid: Why the Chain Is Not Enough](black-bag/Max_Anonymity_Workflow.md#3-the-opsec-failure-pyramid-why-the-chain-is-not-enough)
+4. [The Seven Layers of Maximum Anonymity](black-bag/Max_Anonymity_Workflow.md#4-the-seven-layers-of-maximum-anonymity)
+5. [The Three-Identity Model](black-bag/Max_Anonymity_Workflow.md#5-the-three-identity-model)
+6. [Whonix: The Architectural Leak-Proof Guarantee](black-bag/Max_Anonymity_Workflow.md#6-whonix-the-architectural-leak-proof-guarantee)
+7. [Threat Model Tiers: Calibrate Your Stack](black-bag/Max_Anonymity_Workflow.md#7-threat-model-tiers-calibrate-your-stack)
+8. [Stack Verification Checklist](black-bag/Max_Anonymity_Workflow.md#8-stack-verification-checklist)
+9. [Common Mistakes That Break the Chain](black-bag/Max_Anonymity_Workflow.md#9-common-mistakes-that-break-the-chain)
+10. [Where to Go Next](black-bag/Max_Anonymity_Workflow.md#10-where-to-go-next)
 
 <div align="right"><a href="#table-of-contents">↑ Return to TOC</a></div>
 
@@ -700,14 +718,14 @@ The cybersecurity industry is saturated with surface-level certification guides,
 
 **The BlackHAT Roadmap v1.2.0 · GREATEST Edition** is engineered on a fundamentally different principle: **understanding systems completely from the metal up.**
 
-This repository contains over **44,900 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 15 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
+This repository contains over **44,900 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 16 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
 
 ```
 +-----------------------------------------------------------------------------+
 | REPOSITORY AT A GLANCE (v1.2.0 · 2027 EDITION)                              |
 +-----------------------------------------------------------------------------+
 | Total Content Volume : 44,900+ lines of dense offensive engineering         |
-| Total Documentation  : ~1.80 MB source markdown across 15 master modules    |
+| Total Documentation  : ~1.80 MB source markdown across 16 master modules    |
 | Progression Depth    : 8 Core Phases (Phase -1 through Phase 6)             |
 | Section Count        : 440+ Major Sections (H2), 1,120+ Subsections (H3)    |
 | Code Implementation  : 1,080+ Verified Code Blocks across 13+ Languages     |
@@ -749,7 +767,8 @@ The-BlackHAT-roadmap/
 │   ├── banner.svg                <- Cybernetic HUD SVG banner (v1.2.0)
 │   └── diagrams/                 <- Modularized Mermaid diagrams & high-res renders
 ├── black-bag/                    <- Covert operational tradecraft & survival payload
-│   └── BlackHat_Long-Term_Survival_Tactics.md <- 3,000+ line master OPSEC & counter-surveillance manual
+│   ├── BlackHat_Long-Term_Survival_Tactics.md <- 3,000+ line master OPSEC & counter-surveillance manual
+│   └── Max_Anonymity_Workflow.md <- Quick-reference anonymity architecture & 7-layer verification blueprint
 ├── field-guides/                 <- Operational manuals, tactical matrices & infrastructure
 │   ├── FAQ.md                    <- Career realities & operational transitions FAQ
 │   ├── Final_Word.md             <- Verification statistics, attributions & 2027-2028 roadmap

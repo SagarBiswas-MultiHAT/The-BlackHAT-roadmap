@@ -9,6 +9,7 @@
 > 📚 **Companion Roadmap Documents:**
 > * **[The BlackHAT Roadmap (Canonical Repo)](https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap)**: Master curriculum, issue discussions, and live roadmap updates.
 > * **[Master Curriculum (Phases -1 to 6)](../phases/PHASE_-1.md)**: Zero-to-elite offensive engineering syllabus from foundational metal to apex operations.
+> * **[Maximum Anonymity Workflow](Max_Anonymity_Workflow.md)**: Architectural blueprint for the complete anonymity stack -- 7 layers, Whonix, and pre-op verification.
 > * **[Philosophy: The BlackHat Mindset](../field-guides/Philosophy_The_BlackHat_Mindset.md)**: Cognitive doctrine, adversarial assumption hunting, and primitive thinking mental models.
 > * **[MITRE ATT&CK Quick Reference](../field-guides/MITRE_ATT&CK_Quick_Reference.md)**: Enterprise, ICS, and ATLAS technique mapping, detection signals, and attack chain blueprints.
 > * **[Tools Inventory](../field-guides/Tools_Inventory.md)**: Canonical, phase-aligned 300+ tool directory covering primitive-to-tool realization.
