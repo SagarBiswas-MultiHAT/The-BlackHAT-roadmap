@@ -791,7 +791,7 @@ Every public offensive tool (mimikatz, BloodHound, PetitPotam, SilentMoonwalk) w
 
 <div align="right">
 
-*FAQ -- The BlackHAT Roadmap v1.2.0*<br/>
+*FAQ -- The BlackHAT Roadmap v1.2.2*<br/>
 *2027 Edition -- Comprehensive. No gaps. No outdated answers. No hedging.*<br/>
 *Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
 *Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>

@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <img src="assets/banner.svg" alt="The BlackHAT Roadmap v1.2.0" width="850" />
+  <img src="assets/banner.svg" alt="The BlackHAT Roadmap v1.2.2" width="850" />
 </p>
 
 ### From Nothing to Operator. No Ceilings, No Apologies.
@@ -10,7 +10,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 
 <p align="center">
   <a href="https://github.com/SagarBiswas-MultiHAT"><img src="https://img.shields.io/badge/Author-Sagar%20Biswas-red.svg?style=for-the-badge&logo=github" alt="Author" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/Version-v1.2.0-00ff66.svg?style=for-the-badge&logo=target" alt="Version" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Version-v1.2.2-00ff66.svg?style=for-the-badge&logo=target" alt="Version" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Curriculum-44%2C900%2B%20Lines-blue.svg?style=for-the-badge&logo=gitbook" alt="Curriculum Volume" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Phases-8%20Phases%20(--1%20to%206)-orange.svg?style=for-the-badge&logo=target" alt="Phases" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Offensive%20Tools-300%2B%20Cataloged-red.svg?style=for-the-badge&logo=gnubash" alt="Tools" /></a>
@@ -75,7 +75,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 | Complete beginner | [Phase 0: Foundation](phases/PHASE_0.md) | 23 | 12-16 weeks | [Lab Setup Guide](field-guides/Lab_Setup_Guide.md) |
 | Web developer / bug bounty | [Phase 1: Web Security](phases/PHASE_1.md) | 39 | 8-12 weeks | - |
 | Sysadmin / network engineer | [Phase 2: Network & Infrastructure](phases/PHASE_2.md) | 23 | 10-14 weeks | - |
-| Reverse engineer / CTF player | [Phase 3: Binary Exploitation & RE](phases/PHASE_3.md) | 21 | 12-16 weeks | [MITRE Reference](field-guides/MITRE_ATT%26CK_Quick_Reference.md) · [Tools (300+)](field-guides/Tools_Inventory.md) · [Resources](field-guides/Resources_Aggregated.md) |
+| Reverse engineer / CTF player | [Phase 3: Binary Exploitation & RE](phases/PHASE_3.md) | 21 | 12-16 weeks | [MITRE Reference](field-guides/MITRE_ATT&CK_Quick_Reference.md) · [Tools (300+)](field-guides/Tools_Inventory.md) · [Resources](field-guides/Resources_Aggregated.md) |
 | Experienced pentester | [Phase 4: Specialized Tracks (4A-4I)](phases/PHASE_4.md) | 16 | Choose your track | Pick 1 primary + 1 secondary |
 | Researcher / exploit dev | [Phase 5: GREATEST](phases/PHASE_5.md) | 22 | Ongoing | [Final Word](field-guides/Final_Word.md) |
 | Special operator | [Phase 6: Special Operations](phases/PHASE_6.md) | 39 | Ongoing | Parallel with Phase 5 · [Final Word](field-guides/Final_Word.md) |
@@ -716,13 +716,13 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 
 The cybersecurity industry is saturated with surface-level certification guides, multiple-choice cheat sheets, and automated tool tutorials that fail the moment modern defensive telemetry is encountered.
 
-**The BlackHAT Roadmap v1.2.0 · GREATEST Edition** is engineered on a fundamentally different principle: **understanding systems completely from the metal up.**
+**The BlackHAT Roadmap v1.2.2 · GREATEST Edition** is engineered on a fundamentally different principle: **understanding systems completely from the metal up.**
 
 This repository contains over **44,900 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 16 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
 
 ```
 +-----------------------------------------------------------------------------+
-| REPOSITORY AT A GLANCE (v1.2.0 · 2027 EDITION)                              |
+| REPOSITORY AT A GLANCE (v1.2.2 · 2027 EDITION)                              |
 +-----------------------------------------------------------------------------+
 | Total Content Volume : 44,900+ lines of dense offensive engineering         |
 | Total Documentation  : ~1.80 MB source markdown across 16 master modules    |
@@ -744,7 +744,7 @@ Most educational resources teach how software is *supposed* to work. Real offens
 
 ### The Contrast
 
-| Category | Standard InfoSec Curriculums | The BlackHAT Roadmap v1.2.0 |
+| Category | Standard InfoSec Curriculums | The BlackHAT Roadmap v1.2.2 |
 | :--- | :--- | :--- |
 | **Core Objective** | Passing multiple-choice exams (CEH, PenTest+) | Engineering original capabilities from scratch |
 | **Tooling Approach** | Running public scanners (Nmap, Metasploit, Nikto) | Writing custom implants, loaders, and C2 agents |
@@ -764,7 +764,7 @@ The-BlackHAT-roadmap/
 ├── .github/                      <- Project metadata, issue templates, PR template & tracker
 ├── assets/
 │   ├── README.md                 <- Visual asset inventory & CC BY-SA 4.0 notice
-│   ├── banner.svg                <- Cybernetic HUD SVG banner (v1.2.0)
+│   ├── banner.svg                <- Cybernetic HUD SVG banner (v1.2.2)
 │   └── diagrams/                 <- Modularized Mermaid diagrams & high-res renders
 ├── black-bag/                    <- Covert operational tradecraft & survival payload
 │   ├── BlackHat_Long-Term_Survival_Tactics.md <- 3,000+ line master OPSEC & counter-surveillance manual
@@ -905,7 +905,7 @@ If you utilize this curriculum, offensive engineering architectures, or lab impl
 ```bibtex
 @misc{biswas2026blackhat,
   author       = {Sagar Biswas},
-  title        = {The BlackHAT Roadmap: From 0 to GREATEST (v1.2.0)},
+  title        = {The BlackHAT Roadmap: From 0 to GREATEST (v1.2.2)},
   year         = {2026},
   publisher    = {GitHub},
   journal      = {GitHub repository},

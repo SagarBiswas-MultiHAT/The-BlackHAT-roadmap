@@ -571,6 +571,7 @@ This document provides the architectural overview. The full implementation detai
 | What You Need | Where To Find It |
 |---|---|
 | Complete OPSEC foundation (all 24 sections) | [Phase -1: OPSEC and Infrastructure](../phases/PHASE_-1.md) |
+| Advanced tradecraft and long-term survival | [BlackHat Long-Term Survival Tactics](BlackHat_Long-Term_Survival_Tactics.md) |
 | VPN setup, Tor configuration, chaining details | [Phase -1, Sections 8-9](../phases/PHASE_-1.md) |
 | Browser fingerprinting defense | [Phase -1, Section 10](../phases/PHASE_-1.md) |
 | Cryptocurrency and Monero workflows | [Phase -1, Section 11](../phases/PHASE_-1.md) |
@@ -580,14 +581,13 @@ This document provides the architectural overview. The full implementation detai
 | Forensic artifacts on your own machine | [Phase -1, Section 19](../phases/PHASE_-1.md) |
 | Cold boot attacks and hardware defense | [Phase -1, Section 20](../phases/PHASE_-1.md) |
 | Burn protocol (when things go wrong) | [Phase -1, Section 21](../phases/PHASE_-1.md) |
-| Advanced tradecraft and long-term survival | [BlackHat Long-Term Survival Tactics](BlackHat_Long-Term_Survival_Tactics.md) |
 | Persona architecture and aging | [Survival Tactics, Section 1](BlackHat_Long-Term_Survival_Tactics.md) |
 | Emergency exfil and exit strategy | [Survival Tactics, Sections 13-14](BlackHat_Long-Term_Survival_Tactics.md) |
 | Lab setup for practice | [Lab Setup Guide](../field-guides/Lab_Setup_Guide.md) |
 
 ---
 
-**Read this document for the blueprint. Read Phase -1 for the specifications. Build the stack. Verify the stack. Then verify it again.**
+**Read this document for the blueprint. Read Phase -1 and Survival Tactics for the full specifications. Build the stack. Verify the stack. Then verify it again.**
 
 The operators who get caught are not caught because they lacked knowledge. They are caught because they skipped a layer, got comfortable, or let one identity bleed into another. The chain works when every layer holds. Build every layer.
 
@@ -595,7 +595,7 @@ The operators who get caught are not caught because they lacked knowledge. They 
 
 <div align="right">
 
-*Maximum Anonymity Workflow -- The BlackHAT Roadmap v1.0.0*<br/>
+*Maximum Anonymity Workflow -- The BlackHAT Roadmap v1.2.2*<br/>
 *2027 Edition -- Architectural blueprint for the complete anonymity stack.*<br/>
 *Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
 *Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>

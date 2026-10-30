@@ -1417,7 +1417,7 @@ You do not need to install everything at once. Install tools when you reach thei
 
 <div align="right">
 
-*Tools Inventory - The BlackHAT Roadmap v1.2.0 · Authoritative 2027 Edition*<br/>
+*Tools Inventory - The BlackHAT Roadmap v1.2.2 · Authoritative 2027 Edition*<br/>
 *Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
 *Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>
 *Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*<br/>

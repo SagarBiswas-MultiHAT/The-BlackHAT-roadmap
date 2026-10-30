@@ -2297,7 +2297,7 @@ Response:
 
 <div align="right">
 
-*BlackHAT Lab Setup Guide - Part of The BlackHAT Roadmap v1.2.0 (0 to GREATEST)*<br/>
+*BlackHAT Lab Setup Guide - Part of The BlackHAT Roadmap v1.2.2 (0 to GREATEST)*<br/>
 *Author: Sagar Biswas ([@SagarBiswas-MultiHAT](https://github.com/SagarBiswas-MultiHAT)) · Canonical Repository: https://github.com/SagarBiswas-MultiHAT/The-BlackHAT-roadmap*<br/>
 *Curated Ecosystem: [Awesome Cybersecurity Paths](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-paths) · [Penetration Testing Roadmap](https://github.com/SagarBiswas-MultiHAT/penetration-testing-roadmap) · [Awesome Cybersecurity Books](https://github.com/SagarBiswas-MultiHAT/awesome-cybersecurity-books)*<br/>
 *Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)*<br/>
