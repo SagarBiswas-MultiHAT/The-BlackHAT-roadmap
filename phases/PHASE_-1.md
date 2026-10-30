@@ -1127,6 +1127,10 @@ Rule 6: Monitor warrant canaries for your VPS providers.
 
 ---
 
+> 📚 **Architectural Blueprint:** For the unified quick-reference guide and 7-layer verification checklist synthesizing this stack, see **[Maximum Anonymity Workflow](../black-bag/Max_Anonymity_Workflow.md)**.
+
+---
+
 ### 9.2 VPN Selection (2027)
 
 **What a VPN does:** Hides your traffic from your ISP and replaces your IP with the VPN server's IP in logs. Shifts trust from your ISP to your VPN provider.

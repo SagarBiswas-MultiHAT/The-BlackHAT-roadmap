@@ -71,7 +71,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 
 | Your Background | Recommended Entry Point | Modules | Estimated Time | Parallel Learning |
 | :--- | :--- | :---: | :---: | :--- |
-| Everyone starts here | [Phase -1: OPSEC & Infrastructure](phases/PHASE_-1.md) | 24 | 4-6 weeks | [Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md) · [Mindset](field-guides/Philosophy_The_BlackHat_Mindset.md) · [FAQ](field-guides/FAQ.md) |
+| Everyone starts here | [Phase -1: OPSEC & Infrastructure](phases/PHASE_-1.md) | 24 | 4-6 weeks | [Max Anonymity Workflow](black-bag/Max_Anonymity_Workflow.md) · [Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md) · [Mindset](field-guides/Philosophy_The_BlackHat_Mindset.md) · [FAQ](field-guides/FAQ.md) |
 | Complete beginner | [Phase 0: Foundation](phases/PHASE_0.md) | 23 | 12-16 weeks | [Lab Setup Guide](field-guides/Lab_Setup_Guide.md) |
 | Web developer / bug bounty | [Phase 1: Web Security](phases/PHASE_1.md) | 39 | 8-12 weeks | - |
 | Sysadmin / network engineer | [Phase 2: Network & Infrastructure](phases/PHASE_2.md) | 23 | 10-14 weeks | - |
@@ -100,13 +100,131 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 <a id="curricular-progression-map"></a>
 ## Visual Learning Path & Progression Map
 
-<div align="center">
+<!-- <div align="center">
 <table><tr><td>
 
 <img src="assets/diagrams/Final_Word/1._THE_ROADMAP_AT_A_GLANCE.png" alt="THE ROADMAP AT A GLANCE" width="1600"/>
 
 </td></tr></table>
-</div>
+</div> -->
+
+```mermaid
+%%{init: {
+  'flowchart': {
+    'rankSpacing': 35
+  }
+}}%%
+flowchart TD
+    PM1["<div style='min-width: 240px;'><b>Phase -1: OPSEC and Infrastructure</b>\nAnonymous identity construction\nTor, Mullvad, GrapheneOS\nHaveno, secure comms\nSeparated research persona"]
+
+    P0["<b>Phase 0: Foundation</b>\nC programming (K&R)\nLinux internals, OS theory\nx86-64 architecture\nTCP/IP networking\nPython scripting basics"]
+
+    P1["<div style='min-width: 220px;'><b>Phase 1: Web Security</b>\nOWASP Top 10 (all categories)\nSQLi, XSS, SSRF, IDOR, SSTI\nBurp Suite mastery\nAPI security (OWASP API Top 10)\nBug bounty entry level"]
+
+    P2["<div style='min-width: 250px;'><b>Phase 2: Network and Infrastructure</b>\nActive Directory fundamentals\nKerberos, NTLM, SMB protocols\nLateral movement techniques\nC2 basics (Sliver, Havoc)\nAD enumeration (BloodHound CE)\nOSCP-level skill ceiling"]
+
+    P3["<div style='min-width: 250px;'><b>Phase 3: Binary Exploitation and RE</b>\nStack and heap exploitation\nFormat string vulnerabilities\nShellcode development\nGhidra and IDA Pro\npwntools and pwndbg\nCTF-competitive binary level"]
+
+    P4A["<div style='min-width: 210px;'><b>Phase 4A: Implant Development</b>\nCustom shellcode loaders\nReflective DLL injection\nProcess injection techniques\nC2 protocol design"]
+
+    P4B["<div style='min-width: 210px;'><b>Phase 4B: C2 Operations</b>\nSliver and Havoc operator depth\nCobalt Strike tradecraft (CRTO)\nC2 infrastructure design\nDomain fronting"]
+
+    P4C["<div style='min-width: 280px;'><b>Phase 4C: EDR and AV Evasion</b>\nDirect and indirect syscalls\nSleep obfuscation (SilentMoonwalk, Cronos)\nCall stack spoofing\nBYOVD attacks\nAMSI and ETW bypass\nPayload obfuscation"]
+
+    P4D["<div style='min-width: 230px;'><b>Phase 4D: Vulnerability Research</b>\nFuzzing (AFL++, LibFuzzer)\nCode auditing methodology\n0-day discovery process\nCVE research and disclosure\nClosed-source RE and fuzzing"]
+
+    P4E["<div style='min-width: 240px;'><b>Phase 4E: Persistence and Rootkits</b>\nKernel driver development\nDirect Kernel Object Manipulation\nUEFI bootkit techniques\nmacOS persistence (LaunchAgent, TCC bypass)\nLinux LKM rootkits\nTimestomp and log evasion"]
+
+    P4F["<div style='min-width: 270px;'><b>Phase 4F: Cloud and AI Attacks</b>\nCloud provider attacks (AWS, Azure, GCP)\nEntra ID and M365 attack chains\nAI agent exploitation\nIndirect prompt injection\nRAG poisoning, model theft"]
+
+    P4G["<div style='min-width: 250px;'><b>Phase 4G: Hardware and Embedded</b>\nJTAG extraction and debugging\nFirmware reverse engineering\nCAN bus and automotive attacks\nSDR attacks (GPS, Bluetooth, BLE)\nSide-channel analysis basics"]
+
+    P4H["<b>Phase 4H: Supply Chain</b>\nCI/CD pipeline attacks\nDependency confusion\nBuild system compromise\nPackage repository attacks\nGitHub Actions exploitation"]
+
+    P4I["<div style='min-width: 220px;'><b>Phase 4I: Active Directory Depth</b>\nADCS ESC1 through ESC15\nKerberos delegation abuse\nForest and domain trust attacks\nAzure/Entra ID lateral movement\nDomain persistence techniques"]
+
+    P5["<div style='min-width: 300px;'><b>Phase 5: GREATEST</b>\nOriginal CVE discovery\nPublished tools the community uses\nConference research (DEF CON, OffensiveCon)\nIndependent vulnerability research\nTechnique development ahead of defenses\nTop 0.0001% -- no ceiling above this"]
+
+    P6["<div style='min-width: 300px;'><b>Phase 6: Special Operations</b>\nPhysical red team (lockpicking, RFID, implants)\nSocial engineering (vishing, phishing, pretext)\nDrone recon (optical + thermal)\nQuantum attacks (SNDL, PQC migration downgrade)\nFull-scope adversary simulation and cleanup\nRuns parallel to Phase 5"]
+
+    SURV["<div style='min-width: 260px;'><b>Long-Term Survival Tactics</b>\nDigital identity and persona architecture\nDevice, network, and comms OPSEC\nCryptocurrency and financial security\nPhysical counter-surveillance\nOperational lifecycle management"]
+
+    MAX_ANON["<div style='min-width: 260px;'><b>Maximum Anonymity Workflow</b>\nFull local-to-target traffic chain\nSeven layers of maximum anonymity\nWhonix leak-proof guarantee\nAdversary threat model tiers\nPre-op verification checklist"]
+
+    PHIL["<div style='min-width: 230px;'><b>Philosophy: The BlackHat Mindset</b>\nAdversarial assumption hunting\nPrimitive thinking over tool thinking\nPatience and operational silence\nCognitive progression model"]
+
+    MITRE["<div style='min-width: 220px;'><b>MITRE ATT&CK Quick Reference</b>\nTactic-to-technique mapping\nT-number cross-references\nDefense evasion matrix\nPhase-aligned technique index"]
+
+    TOOLS["<div style='min-width: 200px;'><b>Tools Inventory</b>\n300+ offensive tools cataloged\nPhase-specific tool mapping\nInstallation and usage notes\nAlternative tool comparisons"]
+
+    RES["<div style='min-width: 200px;'><b>Resources Aggregated</b>\nBooks, courses, and labs\nConference talk archives\nBlog and research sources\nCertification pathways"]
+
+    LAB["<div style='min-width: 200px;'><b>Lab Setup Guide</b>\nVM hypervisor configuration\nPhased lab build progression\nAD lab and GOAD setup\nMalware analysis environment"]
+
+    FAQ_NODE["<div style='min-width: 200px;'><b>FAQ</b>\nGetting started guidance\nPhase transition criteria\nTool and resource questions\nCommon misconceptions addressed"]
+
+    FINAL["<div style='min-width: 240px;'><b>Final Word</b>\nDocument statistics and verification\nResearcher attribution index\nRoadmap-at-a-glance visual map\nThe work does not end here"]
+
+    P4_GATE["<b>Phase 4 Complete</b>\nMastery in 2+ tracks required\nPick 1 primary + 1 secondary"]
+
+    %% Core linear progression
+    PM1 --> P0
+    P0 --> P1
+    P1 --> P2
+    P2 --> P3
+
+    %% All Phase 4 tracks branch from Phase 3 (prerequisite: Phase 3 complete)
+    P3 --> P4A & P4B & P4C & P4D & P4E & P4F & P4G & P4H & P4I
+
+    %% All Phase 4 tracks converge to the mastery gate
+    P4A & P4B & P4C & P4D & P4E & P4F & P4G & P4H & P4I --> P4_GATE
+
+    %% Phase 5 and Phase 6 branch from the gate as independent peer tracks
+    P4_GATE --> P5
+    P4_GATE -.-> P6
+
+    %% Companion documents (dashed lines, no prerequisite)
+    PM1 -.- SURV
+    PM1 -.- MAX_ANON
+    PM1 -.- PHIL
+    PM1 -.- FAQ_NODE
+    P0 -.- LAB
+    P3 -.- MITRE
+    P3 -.- TOOLS
+    P3 -.- RES
+    P5 -.- FINAL
+    P6 -.- FINAL
+
+    %% Core phase styles
+    style PM1 fill:#1a1a2e,color:#e0e0e0
+    style P0 fill:#16213e,color:#e0e0e0
+    style P1 fill:#0f3460,color:#e0e0e0
+    style P2 fill:#0f3460,color:#e0e0e0
+    style P3 fill:#533483,color:#e0e0e0
+    style P4A fill:#2d2d5e,color:#e0e0e0
+    style P4B fill:#2d2d5e,color:#e0e0e0
+    style P4C fill:#2d2d5e,color:#e0e0e0
+    style P4D fill:#1a472a,color:#e0e0e0
+    style P4E fill:#1a472a,color:#e0e0e0
+    style P4F fill:#1a472a,color:#e0e0e0
+    style P4G fill:#1a472a,color:#e0e0e0
+    style P4H fill:#1a472a,color:#e0e0e0
+    style P4I fill:#2d2d5e,color:#e0e0e0
+    style P4_GATE fill:#3d1a00,color:#ffa657,stroke:#d29922,stroke-width:2px
+    style P5 fill:#7b0000,color:#ffffff
+    style P6 fill:#4a1942,color:#e0e0e0
+
+    %% Companion document styles (dashed borders, colored to match anchor phase)
+    style SURV fill:#1a1a2e,color:#e0e0e0,stroke-dasharray: 5 5
+    style MAX_ANON fill:#1a1a2e,color:#e0e0e0,stroke-dasharray: 5 5
+    style PHIL fill:#1a1a2e,color:#e0e0e0,stroke-dasharray: 5 5
+    style FAQ_NODE fill:#1a1a2e,color:#e0e0e0,stroke-dasharray: 5 5
+    style LAB fill:#16213e,color:#e0e0e0,stroke-dasharray: 5 5
+    style MITRE fill:#533483,color:#e0e0e0,stroke-dasharray: 5 5
+    style TOOLS fill:#533483,color:#e0e0e0,stroke-dasharray: 5 5
+    style RES fill:#533483,color:#e0e0e0,stroke-dasharray: 5 5
+    style FINAL fill:#7b0000,color:#ffffff,stroke-dasharray: 5 5
+```
 
 ---
 
@@ -190,7 +308,7 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 ---
 
 <details>
-<summary><strong>Parallel Learning Alongside Phase 0: Operational OPSEC, Mindset & FAQ (3 Master Guides)</strong></summary>
+<summary><strong>Parallel Learning Alongside Phase 0: Operational OPSEC, Mindset & FAQ (4 Master Guides)</strong></summary>
 
 <br/>
 
@@ -221,6 +339,24 @@ Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across p
 22. [Section 20: In-Memory Forensics and Cold Boot Defense](black-bag/BlackHat_Long-Term_Survival_Tactics.md#section-20-in-memory-forensics-and-cold-boot-defense)
 23. [Section 21: Server-Side Detection and eBPF Awareness](black-bag/BlackHat_Long-Term_Survival_Tactics.md#section-21-server-side-detection-and-ebpf-awareness)
 24. [Quick Reference Operational Checklist](black-bag/BlackHat_Long-Term_Survival_Tactics.md#quick-reference-operational-checklist)
+
+<div align="right"><a href="#table-of-contents">↑ Return to TOC</a></div>
+
+---
+
+<a id="maximum-anonymity-workflow"></a>
+#### [Maximum Anonymity Workflow](black-bag/Max_Anonymity_Workflow.md)
+
+1. [The Core Chain: Local Machine to Target](black-bag/Max_Anonymity_Workflow.md#1-the-core-chain-local-machine-to-target)
+2. [What Each Adversary Sees](black-bag/Max_Anonymity_Workflow.md#2-what-each-adversary-sees)
+3. [The OPSEC Failure Pyramid: Why the Chain Is Not Enough](black-bag/Max_Anonymity_Workflow.md#3-the-opsec-failure-pyramid-why-the-chain-is-not-enough)
+4. [The Seven Layers of Maximum Anonymity](black-bag/Max_Anonymity_Workflow.md#4-the-seven-layers-of-maximum-anonymity)
+5. [The Three-Identity Model](black-bag/Max_Anonymity_Workflow.md#5-the-three-identity-model)
+6. [Whonix: The Architectural Leak-Proof Guarantee](black-bag/Max_Anonymity_Workflow.md#6-whonix-the-architectural-leak-proof-guarantee)
+7. [Threat Model Tiers: Calibrate Your Stack](black-bag/Max_Anonymity_Workflow.md#7-threat-model-tiers-calibrate-your-stack)
+8. [Stack Verification Checklist](black-bag/Max_Anonymity_Workflow.md#8-stack-verification-checklist)
+9. [Common Mistakes That Break the Chain](black-bag/Max_Anonymity_Workflow.md#9-common-mistakes-that-break-the-chain)
+10. [Where to Go Next](black-bag/Max_Anonymity_Workflow.md#10-where-to-go-next)
 
 <div align="right"><a href="#table-of-contents">↑ Return to TOC</a></div>
 
@@ -700,14 +836,14 @@ The cybersecurity industry is saturated with surface-level certification guides,
 
 **The BlackHAT Roadmap v1.2.0 · GREATEST Edition** is engineered on a fundamentally different principle: **understanding systems completely from the metal up.**
 
-This repository contains over **44,900 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 15 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
+This repository contains over **44,900 lines** of battle-tested technical documentation, weaponized code architectures, evasion mechanics, and operational security doctrines across 16 master modules. It bridges the gap between running automated point-and-click tools and operating as a tier-one security researcher, red team engineer, or exploit developer.
 
 ```
 +-----------------------------------------------------------------------------+
 | REPOSITORY AT A GLANCE (v1.2.0 · 2027 EDITION)                              |
 +-----------------------------------------------------------------------------+
 | Total Content Volume : 44,900+ lines of dense offensive engineering         |
-| Total Documentation  : ~1.80 MB source markdown across 15 master modules    |
+| Total Documentation  : ~1.80 MB source markdown across 16 master modules    |
 | Progression Depth    : 8 Core Phases (Phase -1 through Phase 6)             |
 | Section Count        : 440+ Major Sections (H2), 1,120+ Subsections (H3)    |
 | Code Implementation  : 1,080+ Verified Code Blocks across 13+ Languages     |
@@ -749,7 +885,8 @@ The-BlackHAT-roadmap/
 │   ├── banner.svg                <- Cybernetic HUD SVG banner (v1.2.0)
 │   └── diagrams/                 <- Modularized Mermaid diagrams & high-res renders
 ├── black-bag/                    <- Covert operational tradecraft & survival payload
-│   └── BlackHat_Long-Term_Survival_Tactics.md <- 3,000+ line master OPSEC & counter-surveillance manual
+│   ├── BlackHat_Long-Term_Survival_Tactics.md <- 3,000+ line master OPSEC & counter-surveillance manual
+│   └── Max_Anonymity_Workflow.md <- Quick-reference anonymity architecture & 7-layer verification blueprint
 ├── field-guides/                 <- Operational manuals, tactical matrices & infrastructure
 │   ├── FAQ.md                    <- Career realities & operational transitions FAQ
 │   ├── Final_Word.md             <- Verification statistics, attributions & 2027-2028 roadmap

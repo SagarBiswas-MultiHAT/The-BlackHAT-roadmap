@@ -4,6 +4,27 @@ All notable changes to The BlackHAT Roadmap will be documented in this file.
 
 The format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.2] - 2026-10-30
+
+### Added
+- **Maximum Anonymity Workflow (`black-bag/Max_Anonymity_Workflow.md`)**: The quick-reference architectural blueprint for the complete anonymity stack. Synthesizes Phase -1 and the Survival Tactics manual into a clear, end-to-end guide:
+  - Complete traffic chain (Local Machine -> WireGuard on XMR-paid VPS -> Tor network -> Target).
+  - Multi-adversary exposure analysis (what your ISP, VPN provider, Tor nodes, and destination see).
+  - The OPSEC Failure Pyramid (Human, Network, Physical, and Forensic layers).
+  - The Seven Layers of Maximum Anonymity (Layers 0 through 7).
+  - Three-Identity compartmentalization doctrine (Real, Research, and Operational).
+  - Whonix architectural leak-proof isolation mechanics.
+  - Threat model tier calibration (Tiers 1 through 4).
+  - 7-step pre-operational verification checklist.
+  - Forensic failure post-mortem matrix detailing single points of failure.
+- **Architectural Diagrams (`assets/diagrams/Max_Anonymity_Workflow/`)**:
+  - `1._The_Complete_Anonymity_Chain.png`: 9-node execution flowchart from physical location through Tor exit.
+  - `2._The_Seven_Layers_of_Maximum_Anonymity.png`: Comprehensive defense-in-depth layer stack.
+  - `3._Verification_Flow.png`: Pre-operational go/no-go verification decision tree.
+- **Curriculum Integration**: Synchronized companion references across `README.md`, `PHASE_-1.md`, `BlackHat_Long-Term_Survival_Tactics.md`, `FAQ.md`, `Final_Word.md`, `assets/README.md`, and `.github/TRACKER.md`.
+
+---
+
 ## [1.2.1] - 2026-10-16
 
 ### Added

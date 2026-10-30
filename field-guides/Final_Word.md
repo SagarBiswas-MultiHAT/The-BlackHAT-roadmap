@@ -20,7 +20,7 @@ All figures measured across the modular curriculum structure and master volumes.
 
 | Category | Count | How Measured |
 |----------|-------|-------------|
-| Total lines | 44,900+ | Line count across all 15 phase documents and survival guides |
+| Total lines | 44,900+ | Line count across all 16 phase documents and survival guides |
 | Major sections (H2) | 440+ | Header count (`^## `) across all curriculum volumes |
 | Subsections (H3) | 1,120+ | Header count (`^### `) across all curriculum volumes |
 | Code blocks | 1,080+ | Triple-backtick code block pairs |
@@ -56,6 +56,7 @@ The BlackHAT Roadmap operates as an integrated offensive engineering ecosystem. 
 | Field Guide | Target Scope | Core Operational Utility |
 |---|---|---|
 | **[BlackHat Long-Term Survival Tactics](../black-bag/BlackHat_Long-Term_Survival_Tactics.md)** | Counter-Surveillance and Lifecycle OPSEC | Hardware sanitization, financial loop insulation, burn protocols |
+| **[Maximum Anonymity Workflow](../black-bag/Max_Anonymity_Workflow.md)** | End-to-End Anonymity Stack Architecture | Full local-to-target traffic chain, seven-layer posture, pre-op verification |
 | **[Philosophy: The BlackHat Mindset](Philosophy_The_BlackHat_Mindset.md)** | Cognitive Doctrine and Mental Models | Assumption hunting, primitive thinking, silence, research posture |
 | **[MITRE ATT&CK Quick Reference](MITRE_ATT&CK_Quick_Reference.md)** | Tactical Matrix and Detection Signals | 14 Enterprise tactics, ICS ATT&CK, ATLAS AI matrix, attack chain diagrams |
 | **[Tools Inventory](Tools_Inventory.md)** | Canonical Offensive Tool Directory | 300+ cataloged offensive utilities, installation, usage, and alternatives |

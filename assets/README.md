@@ -7,7 +7,7 @@ This directory contains the visual design system, cybernetic HUD banner, and ove
 ## Directory Structure
 
 - `banner.svg`: Main cybernetic HUD repository banner.
-- `diagrams/`: Phase-aligned architectural diagrams, memory layout models, network topologies, attack kill chains, and decision trees covering Phase -1 through Phase 6.
+- `diagrams/`: Phase-aligned architectural diagrams, memory layout models, network topologies, attack kill chains, and decision trees covering Phase -1 through Phase 6, as well as master companion volumes.
 
 ## License & Attribution
 
