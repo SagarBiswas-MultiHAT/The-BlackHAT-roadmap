@@ -21,7 +21,7 @@ The format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.
   - `1._The_Complete_Anonymity_Chain.png`: 9-node execution flowchart from physical location through Tor exit.
   - `2._The_Seven_Layers_of_Maximum_Anonymity.png`: Comprehensive defense-in-depth layer stack.
   - `3._Verification_Flow.png`: Pre-operational go/no-go verification decision tree.
-- **Curriculum Integration**: Synchronized companion references across `README.md`, `PHASE_-1.md`, `BlackHat_Long-Term_Survival_Tactics.md`, `FAQ.md`, `Final_Word.md`, `assets/README.md`, and `.github/TRACKER.md`.
+- **Curriculum Integration**: Synchronized companion references across `README.md`, `PHASE_-1.md`, `BlackHat_Long-Term_Survival_Tactics.md`, `FAQ.md`, `Final_Word.md`, `assets/README.md`, and `TRACKER.md`.
 
 ---
 
@@ -74,6 +74,6 @@ The complete zero-to-elite offensive security engineering curriculum.
 - Contributing guidelines with quality thresholds
 - Issue templates (curriculum fix, resource suggestion)
 - Pull request template with technical validation checklist
-- Operator Journey Tracker (`.github/TRACKER.md`): comprehensive progress dashboard with date tracking, parallel learning companions, 9 specialized Phase 4 tracks, and mastery gate checkpoints
+- Operator Journey Tracker (`TRACKER.md`): comprehensive progress dashboard with date tracking, parallel learning companions, 9 specialized Phase 4 tracks, and mastery gate checkpoints
 - Security policy and responsible disclosure process
 - CITATION.cff for academic attribution

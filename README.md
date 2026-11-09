@@ -19,6 +19,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href=".github/CONTRIBUTING.md"><img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=for-the-badge&logo=git" alt="PRs Welcome" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/Code%20License-MIT-purple.svg?style=for-the-badge&logo=opensourceinitiative" alt="Code License: MIT" /></a>
   <a href="LICENSE-DOCS"><img src="https://img.shields.io/badge/Docs%20License-CC%20BY--SA%204.0-blue.svg?style=for-the-badge&logo=creative-commons" alt="Docs License: CC BY-SA 4.0" /></a>
+  <a href="https://buy.polar.sh/polar_cl_I7DT5UQNUs1Qjb4VrFYOiRA2nkb3RVVUJCnjr3o5SGK"><img src="https://img.shields.io/badge/Sponsor-Polar.sh-0062FF?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor SagarBiswas-MultiHAT on Polar.sh" /></a>
 </p>
 
 <p align="center">
@@ -34,9 +35,10 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
   <a href="#visual-learning-path--progression-map">Visual Learning Path</a> •
   <a href="#compilable-offensive-engineering-payloads">Weaponized Payloads</a> •
   <a href="#2025-2027-operator-modules">Bleeding-Edge Modules</a> •
-  <a href=".github/TRACKER.md">Journey Tracker</a> •
+  <a href="TRACKER.md">Journey Tracker</a> •
   <a href="#citation--academic-attribution">Citation</a> •
   <a href="#legal-disclaimer">Legal Notice</a> •
+  <a href="#support-multihat-open-source">Support</a> •
   <a href="#license--attribution">License</a>
 </p>
 
@@ -80,7 +82,7 @@ The definitive, zero-to-elite offensive security engineering curriculum, low-lev
 | Researcher / exploit dev | [Phase 5: GREATEST](phases/PHASE_5.md) | 22 | Ongoing | [Final Word](field-guides/Final_Word.md) |
 | Special operator | [Phase 6: Special Operations](phases/PHASE_6.md) | 39 | Ongoing | Parallel with Phase 5 · [Final Word](field-guides/Final_Word.md) |
 
-Fork the [Journey Tracker](.github/TRACKER.md) to monitor your progress across phases.
+Fork the [Journey Tracker](TRACKER.md) to monitor your progress across phases.
 
 <details>
 <summary><strong>Reading Guide</strong></summary>
@@ -761,7 +763,7 @@ Most educational resources teach how software is *supposed* to work. Real offens
 
 ```text
 The-BlackHAT-roadmap/
-├── .github/                      <- Project metadata, issue templates, PR template & tracker
+├── .github/                      <- Project metadata, issue templates & PR template
 ├── assets/
 │   ├── README.md                 <- Visual asset inventory & CC BY-SA 4.0 notice
 │   ├── banner.svg                <- Cybernetic HUD SVG banner (v1.2.2)
@@ -794,7 +796,8 @@ The-BlackHAT-roadmap/
 ├── CITATION.cff                  <- Native GitHub Citation metadata
 ├── LICENSE                       <- MIT License (source code & payloads)
 ├── LICENSE-DOCS                  <- CC BY-SA 4.0 License (curriculum & diagrams)
-└── README.md                     <- Master curriculum hub & navigation launchpad
+├── README.md                     <- Master curriculum hub & navigation launchpad
+└── TRACKER.md                    <- Operator journey progress tracker & milestone dashboard
 ```
 
 ---
@@ -884,6 +887,16 @@ If this curriculum provides value to your research or career, consider starring 
 </a>
 
 </div>
+
+---
+
+## Support MultiHAT Open-Source
+
+If you find this project useful in your workflow, development, or security research, consider supporting **SagarBiswas-MultiHAT** in its ongoing maintenance and future updates (supports both One-Time and Monthly backing):
+
+[![Support on Polar.sh](https://img.shields.io/badge/Support%20on-Polar.sh-0062FF?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://buy.polar.sh/polar_cl_I7DT5UQNUs1Qjb4VrFYOiRA2nkb3RVVUJCnjr3o5SGK)
+[![Portfolio](https://img.shields.io/badge/Portfolio-sagarbiswas.multihat.dev-2563EB?style=for-the-badge&logo=todoist&logoColor=white)](https://sagarbiswas.multihat.dev/)
+[![Agency](https://img.shields.io/badge/Agency-multihat.dev-111827?style=for-the-badge&logo=vercel&logoColor=white)](https://multihat.dev)
 
 ---
 

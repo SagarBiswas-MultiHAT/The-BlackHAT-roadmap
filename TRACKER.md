@@ -47,10 +47,10 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] **Phase -1 Capstone**: Build fully compartmentalized research bastion host without personal attribution
 
 **Parallel Learning Companions:**
-- [ ] Read [Maximum Anonymity Workflow](../black-bag/Max_Anonymity_Workflow.md) for the end-to-end traffic chain blueprint
-- [ ] Read [Long-Term Survival Tactics](../black-bag/BlackHat_Long-Term_Survival_Tactics.md) alongside this phase
-- [ ] Read [Philosophy: The BlackHat Mindset](../field-guides/Philosophy_The_BlackHat_Mindset.md) alongside this phase
-- [ ] Read [FAQ](../field-guides/FAQ.md) for pacing guidance and common questions
+- [ ] Read [Maximum Anonymity Workflow](black-bag/Max_Anonymity_Workflow.md) for the end-to-end traffic chain blueprint
+- [ ] Read [Long-Term Survival Tactics](black-bag/BlackHat_Long-Term_Survival_Tactics.md) alongside this phase
+- [ ] Read [Philosophy: The BlackHat Mindset](field-guides/Philosophy_The_BlackHat_Mindset.md) alongside this phase
+- [ ] Read [FAQ](field-guides/FAQ.md) for pacing guidance and common questions
 
 ---
 
@@ -66,7 +66,7 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] **Phase 0 Capstone**: Write a custom PE parser in C that dumps sections and exported functions from disk and memory
 
 **Parallel Learning Companion:**
-- [ ] Build your research environment using the [Lab Setup Guide](../field-guides/Lab_Setup_Guide.md)
+- [ ] Build your research environment using the [Lab Setup Guide](field-guides/Lab_Setup_Guide.md)
 
 ---
 
@@ -104,9 +104,9 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] **Phase 3 Capstone**: Write a functional local privilege escalation exploit bypassing DEP and ASLR
 
 **Parallel Learning Companions:**
-- [ ] Cross-reference techniques against the [MITRE ATT&CK Quick Reference](../field-guides/MITRE_ATT%26CK_Quick_Reference.md)
-- [ ] Identify tooling requirements from the [Tools Inventory (300+)](../field-guides/Tools_Inventory.md)
-- [ ] Supplement with papers and labs from [Resources Aggregated](../field-guides/Resources_Aggregated.md)
+- [ ] Cross-reference techniques against the [MITRE ATT&CK Quick Reference](field-guides/MITRE_ATT%26CK_Quick_Reference.md)
+- [ ] Identify tooling requirements from the [Tools Inventory (300+)](field-guides/Tools_Inventory.md)
+- [ ] Supplement with papers and labs from [Resources Aggregated](field-guides/Resources_Aggregated.md)
 
 ---
 
@@ -199,7 +199,7 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] **Phase 5 Milestone**: Discover, engineer, and responsibly disclose an original vulnerability in commercial or enterprise software
 
 **Parallel Learning Companion:**
-- [ ] Read [Final Word](../field-guides/Final_Word.md) for curriculum statistics, researcher attributions, and horizon research directions
+- [ ] Read [Final Word](field-guides/Final_Word.md) for curriculum statistics, researcher attributions, and horizon research directions
 
 ---
 
@@ -218,7 +218,7 @@ Fork this repository to track your progress through the curriculum. Check off mi
 - [ ] **Phase 6 Milestone**: Execute an end-to-end full-scope adversary simulation linking physical bypass, hardware implant drop, internal domain compromise, and forensic cleanup
 
 **Parallel Learning Companion:**
-- [ ] Read [Final Word](../field-guides/Final_Word.md) for horizon research and 2027-2028 threat landscape
+- [ ] Read [Final Word](field-guides/Final_Word.md) for horizon research and 2027-2028 threat landscape
 
 ---
 

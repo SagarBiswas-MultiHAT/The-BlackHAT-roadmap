@@ -8,7 +8,7 @@ The BlackHAT Roadmap repository, including:
 - Master Field Guides: Volume II (BlackHat Long-Term Survival Tactics)
 - Operational Field Guides: FAQ, Lab Setup Guide, Philosophy, MITRE ATT&CK Quick Reference,
   Resources Aggregated, and Tools Inventory
-- Repository Progress Trackers: .github/TRACKER.md
+- Repository Progress Trackers: TRACKER.md
 - Visual Assets & Architecture Maps: assets/diagrams/* and all roadmap technical schematics
 
 Author & Copyright Holder:
