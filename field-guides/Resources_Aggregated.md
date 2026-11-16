@@ -275,6 +275,7 @@ Organized from beginner to elite. Do not skip phases -- each platform is appropr
 | PicoCTF | https://picoctf.org | All beginner categories | 0 | Carnegie Mellon backed. Structured beginner CTF. Best first CTF platform. |
 | TryHackMe | https://tryhackme.com | Guided paths across all categories | 0-2 | Best guided learning for Phase 0-2. ~$14/month. Do the "Jr Penetration Tester" path. |
 | PortSwigger Web Academy | https://portswigger.net/web-security | Web exploitation | 1 | Free. Complete every lab in every category. No substitutes for web Phase 1. |
+| WebVerse Labs | https://webverselabs-pro.com | Web app security (challenges, labs, ranges) | 1 | Freemium, web-only. Single-vulnerability challenges, multi-service labs that chain exploits, and multi-site ranges. |
 | HackTheBox (Starting Point) | https://hackthebox.com | Guided beginner machines | 1-2 | Free tier. Work through Starting Point before moving to ranked machines. |
 | VulnHub | https://vulnhub.com | Local downloadable VMs | 1-3 | Free, offline. Download and build your lab. Good for controlled practice. |
 | pwn.college | https://pwn.college | Binary exploitation (structured) | 3 | ASU-backed. Best structured binary exploitation curriculum. Dojo format. |
