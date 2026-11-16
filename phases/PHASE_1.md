@@ -5139,6 +5139,7 @@ This framework is your structured approach to any web application. Follow it eve
 | WebGoat | github.com/WebGoat | Guided exploitation |
 | HackTheBox (Web challenges) | hackthebox.com | Real-world difficulty, competitive |
 | TryHackMe Web Paths | tryhackme.com | Guided paths for beginners |
+| WebVerse Labs | webverselabs-pro.com | Web challenges, multi-service labs, and multi-site ranges |
 
 ### Bug Bounty Platforms
 
